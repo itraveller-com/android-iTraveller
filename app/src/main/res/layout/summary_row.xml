@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/day_hotel_act">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Day 1 (Wayyanad , 19-08-2015)"
+        android:id="@+id/place_name"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Hotel"
+        android:id="@+id/date_day"
+        android:layout_below="@+id/place_name"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignStart="@+id/thumbnail"
+        android:layout_marginLeft="10dp" />
+
+    <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:layout_weight="2"
+            android:scaleType="centerCrop"
+        android:layout_below="@+id/date_day"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayout3"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignStart="@+id/thumbnail"
+        android:layout_alignRight="@+id/thumbnail"
+        android:layout_alignEnd="@+id/thumbnail"
+        android:alpha=".6"
+        android:background="@android:color/black"
+        android:layout_alignTop="@+id/hotel_name"></RelativeLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hotel Name"
+            android:id="@+id/hotel_name"
+        android:layout_alignBottom="@+id/thumbnail"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignStart="@+id/thumbnail"
+        android:layout_margin="5dp"
+        android:textColor="#ffffffff" />
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thumbnail"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignStart="@+id/thumbnail"
+        android:layout_alignRight="@+id/thumbnail"
+        android:layout_alignEnd="@+id/thumbnail"
+        android:id="@+id/relativeLayout3">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Description"
+                android:id="@+id/hotel_des"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="gone" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Activities"
+                android:id="@+id/textView17"
+            android:layout_below="@+id/hotel_des"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Activities List"
+                android:id="@+id/activities"
+            android:layout_below="@+id/textView17"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimary"></LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,51 @@
+<resources>
+    <string name="search">Search your destination</string>
+    <string name="app_name">iTraveller</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">How it Works?</string>
+    <string name="nav_item_friends">About Us</string>
+    <string name="nav_item_notifications">Contact Us</string>
+    <string name="nav_item_login">Login</string>
+    <string name="nav_item_logout">Logout</string>
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_login</item>
+        <item>@string/nav_item_logout</item>
+    </string-array>
+
+    <string name="title_messages">Contact Us</string>
+    <string name="title_friends">About Us</string>
+    <string name="title_home">Choose Destination</string>
+    <string name="title_login">Login</string>
+
+
+    <!--Facebook code-->
+    <string name="app_id">1636017390018337</string>
+    <string name="hello_user">Hello %1$s!</string>
+
+    <string name="facebook_app_name">HelloFBSample</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="ok">OK</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Post ID: %1$s</string>
+    <string name="error">Error</string>
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="you_picked">You picked:</string>
+    <string name="no_friends_selected">&lt;No friends selected&gt;</string>
+    <string name="no_place_selected">&lt;No place selected&gt;</string>
+    <string name="pick_seattle_place">Pick a Seattle Place</string>
+    <string name="exception">Exception: %1$s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

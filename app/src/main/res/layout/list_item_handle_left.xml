@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/item_height"
+    android:layout_marginBottom="10dp"
+  android:orientation="horizontal"
+    android:background="@drawable/background_destination">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="35dp"
+        android:layout_height="@dimen/item_height"
+
+        android:id="@+id/linearLayout4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+
+          android:id="@+id/drag_handle"
+          android:background="@color/filterbtn"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/item_height"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu_black_24dp"
+                android:id="@+id/destination_imageText"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+      </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+    android:id="@+id/destination_name"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/item_height"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:gravity="center_vertical"
+    android:paddingLeft="8dp"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/linearLayout4"
+        android:layout_toLeftOf="@+id/linearLayout5"
+        android:layout_toStartOf="@+id/linearLayout5"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height"
+        android:id="@+id/linearLayout5"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:id="@+id/minus_btn"
+
+            android:background="#fffefffd"
+            android:textStyle="bold"
+            android:textSize="25dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="2"
+            android:id="@+id/days"
+            android:gravity="center"
+            android:layout_margin="0dp"
+            android:padding="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="N"
+            android:id="@+id/textView9" />
+
+        <Button
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:id="@+id/plus_btn"
+  android:background="#fffefffd"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+</RelativeLayout>

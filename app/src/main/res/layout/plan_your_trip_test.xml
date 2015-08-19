@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/filterButtonBG">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/filterButtonBG"
+    android:orientation="vertical"
+    android:layout_above="@+id/addbtnfilter"
+        android:layout_below="@+id/linearLayout">
+
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:weightSum="5">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_weight="2"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/duration_rp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/title_rp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DADADA"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DADADA" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Select Travel Date"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAllCaps="false"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_shadow"
+                    android:id="@+id/travel_date"
+                    android:elevation="2dp"
+                    android:translationZ="2dp"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:textColor="@color/textColorDisabled"
+                android:text="Above 12 years"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="7dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="7dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:elevation="2dp"
+                android:layout_weight="1"
+                android:weightSum="5"
+                android:background="@drawable/round_edittext_day_night"
+                android:gravity="center"
+                android:id="@+id/linearLayout11"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+
+                android:showDividers="end">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove_black_24dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/adultminus"
+                    android:elevation="2dp"
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAllCaps="false"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_shadow"
+                    android:id="@+id/adultbtn"
+                    android:elevation="2dp"
+                    android:translationZ="2dp"
+                    android:textSize="13sp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/adultplus"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:textColor="@color/textColorDisabled"
+                android:text="below 12 years - 5 years"
+                android:textSize="12sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:elevation="2dp"
+                android:layout_weight="1"
+                android:weightSum="5"
+                android:background="@drawable/round_edittext_day_night"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+
+                android:showDividers="end">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove_black_24dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/childrenminus"
+                    android:elevation="2dp"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAllCaps="false"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_shadow"
+                    android:id="@+id/childrenbtn"
+                    android:elevation="2dp"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/childremplus"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:textColor="@color/textColorDisabled"
+                android:text="below 5 years - 2 years"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="7dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="7dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:elevation="2dp"
+                android:layout_weight="1"
+                android:weightSum="5"
+                android:background="@drawable/round_edittext_day_night"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+
+                android:showDividers="end">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove_black_24dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/childminus"
+                    android:elevation="2dp"
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAllCaps="false"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_shadow"
+                    android:id="@+id/childbtn"
+                    android:elevation="2dp"
+                    android:translationZ="2dp"
+                    android:textSize="13sp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/childplus"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:textColor="@color/textColorDisabled"
+                android:text="below 2 years"
+                android:textSize="12sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:elevation="2dp"
+                android:layout_weight="1"
+                android:weightSum="5"
+                android:background="@drawable/round_edittext_day_night"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+
+                android:showDividers="end">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove_black_24dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/babyminus"
+                    android:elevation="2dp"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAllCaps="false"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_shadow"
+                    android:id="@+id/babybtn"
+                    android:elevation="2dp"
+                    android:translationZ="2dp" />
+
+                <include layout="@layout/divider_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_edittext"
+                    android:id="@+id/babyplus"
+
+                    android:adjustViewBounds="true"
+                    android:translationZ="2dp" />
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Add Destinations"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/style_filterbutton"
+        android:id="@+id/addbtnfilter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
