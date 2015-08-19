@@ -70,6 +70,14 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         TextView tohome = (TextView) findViewById(R.id.to_home);
         TextView transportationname = (TextView) findViewById(R.id.transportation);
 
+        Button confirm = (Button) findViewById(R.id.to_payment);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
+                startActivity(in);
+            }
+        });
 
 
         int TotalCountDays = 0;
@@ -167,8 +175,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     // Assigning value to  imageview and textview here
                     hotel_name.setText(hotels_Data[0]);
                     hotel_des.setText(hotels_Data[1]);
-                    place_name.setText("Day " + (count + 1) + " (" + destination_name[i] +", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
-                    day_date.setText("Hotel");
+                    day_date.setText("Day " + (count + 1) );
+                    place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
                     activities_title_txt.setText(activities_val[count]);
 
                     count++;

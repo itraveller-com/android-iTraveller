@@ -411,8 +411,8 @@ public class DragAndSort extends ActionBarActivity
                 else if(check_bit_new == 5){
 
                  RearrangePlaceModel m = new RearrangePlaceModel();
-                 m.setPlace(portandLocList.get(position).getValue());
-                 m.setPlaceID(portandLocList.get(position).getKey());
+                 m.setPlace(PortAndLocAdapter.PortandLocItems.get(position).getValue());
+                 m.setPlaceID(PortAndLocAdapter.PortandLocItems.get(position).getKey());
                  m.setNights("1");
                  rearrangeList.add(m);
                  adapter_rearrange.notifyDataSetChanged();

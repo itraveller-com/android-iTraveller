@@ -131,7 +131,7 @@ public class TransportationActivity extends ActionBarActivity {
                 String F_bit = ""+prefsData.getString("FlightBit",null);
                 int flightBit = Integer.parseInt(""+F_bit);
                 if(prefsData.getString("TravelFrom", null).equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
-                    Intent intent = new Intent(TransportationActivity.this, SummaryActivity.class);
+                    Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
                     startActivity(intent);
                 }
                 else

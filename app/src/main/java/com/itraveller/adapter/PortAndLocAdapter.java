@@ -24,6 +24,7 @@ public class PortAndLocAdapter extends BaseAdapter implements Filterable {
     private Activity activity;
     private LayoutInflater inflater;
     public static List<PortAndLocModel> PortandLocItems;
+    public List<PortAndLocModel> portandLocList;
     private List<PortAndLocModel> FilterPortandLocItems;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
@@ -104,7 +105,7 @@ public class PortAndLocAdapter extends BaseAdapter implements Filterable {
                 FilterResults results = new FilterResults();
 
                 if (constraint != null && constraint.length() > 0) {
-                    List<PortAndLocModel> portandLocList = new ArrayList<PortAndLocModel>();
+                    portandLocList = new ArrayList<PortAndLocModel>();
 
                     for (int i = 0; i < FilterPortandLocItems.size(); i++) {
                         if ((FilterPortandLocItems.get(i).getValue().toUpperCase())
@@ -112,8 +113,7 @@ public class PortAndLocAdapter extends BaseAdapter implements Filterable {
 
                             PortAndLocModel am = new PortAndLocModel();
                             am.setValue(FilterPortandLocItems.get(i).getValue());
-
-
+                            am.setKey(FilterPortandLocItems.get(i).getKey());
                             portandLocList.add(am);
                         }
                     }

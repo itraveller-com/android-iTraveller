@@ -24,7 +24,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import com.itraveller.R;
-import com.itraveller.activity.SummaryActivity;
+import com.itraveller.activity.ItinerarySummaryActivity;
 import com.itraveller.model.FlightModel;
 import com.itraveller.volley.AppController;
 
@@ -250,7 +250,7 @@ public class FlightAdapter extends BaseAdapter {
                     int ActualPrice = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) * 2;
                     editor.putString("FlightPrice", "" + ActualPrice);
                     editor.commit();
-                    Intent intent = new Intent(activity, SummaryActivity.class);
+                    Intent intent = new Intent(activity, ItinerarySummaryActivity.class);
                     activity.startActivity(intent);
 
 
