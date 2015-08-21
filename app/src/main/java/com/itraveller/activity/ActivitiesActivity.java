@@ -89,7 +89,7 @@ public class ActivitiesActivity extends ActionBarActivity {
                                     Datas = "" + modelRow.get(j).getId() + "," + modelRow.get(j).getCost() + "," + modelRow.get(j).getTitle();
                                     x = 1;
                                 } else {
-                                    Datas = Datas + "-" + modelRow.get(j).getId() + "," + modelRow.get(j).getCost() + "," + modelRow.get(j).getTitle();
+                                    Datas = Datas + ":" + modelRow.get(j).getId() + "," + modelRow.get(j).getCost() + "," + modelRow.get(j).getTitle();
                                 }
                                 //Log.i("DataValue ", i + " Clicked " + j + " Check " + modelRow.get(j).isChecked());
                             }
@@ -99,7 +99,7 @@ public class ActivitiesActivity extends ActionBarActivity {
                         if(!Datas.toString().equalsIgnoreCase(""))
                         ActivityData[i] = "" + Datas;
                         else
-                            ActivityData[i] = "No Activities on " + (i+1) + " Day";
+                            ActivityData[i] = ",,No Activities on " + (i+1) + " Day";
                         if(i == 0){
                            activity_string =  ActivityData[i];
                         }

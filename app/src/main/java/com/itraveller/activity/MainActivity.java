@@ -1,5 +1,6 @@
 package com.itraveller.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +27,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
@@ -34,12 +43,17 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginFragment;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
+import com.itraveller.R;
+import com.itraveller.volley.AppController;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 
-import com.itraveller.R;
 
 
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -59,6 +73,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     Context context;
     public static String  att,str1,str2,str3;
     TextView txt;
+    Fragment fragment;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +101,10 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         //ImageView used for displaying image in navigation bar
         img1=(ImageView) findViewById(R.id.image);
         // img2=(ImageView) findViewById(R.id.imageView1);
-        Log.d("IFTHEN",""+(!str1.equals("x") && !str2.equals("x") && !str3.equals("x")));
+        //Log.d("IFTHEN",""+(!str1.equals("x") && !str2.equals("x") && !str3.equals("x")));
 
         //if user is logged in using facebook
-        if(!str1.equals("x") && !str2.equals("x") && !str3.equals("x")) {
-
-            //code for fetching image from facebook and convering it into circular form
+        if(!str1.equals("unregistered") && !str2.equals("unregistered") && !str3.equals("unregistered") && !str1.equals("sign_up") && !att.equals("sign_up") && !str1.equals("login_from_server") && !str2.equals("login_from_server")){
             try {
                 URL imgUrl = new URL("https://graph.facebook.com/" + str2 + "/picture");
                 InputStream in = (InputStream) imgUrl.getContent();
@@ -116,7 +130,25 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 }
             };
         }
+     /*   else if(str1.equals("sign_up") && att.equals("sign_up"))
+        {
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+            //display defult image and greetin to unregistered user
+            Log.d("Signup user","hi");
+            img1.setImageBitmap(getCroppedBitmap(icon));
+            greeting.setText("Hello "+str3 );
+        } */
         //if user is not logged in using facebook
+        else if(str1.equals("login_from_server") && str2.equals("login_from_server"))
+        {
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+            //display defult image and greetin to unregistered user
+            Log.d("Login through server","hi");
+            Log.d("AcesToken", "" + att);
+            img1.setImageBitmap(getCroppedBitmap(icon));
+            greeting.setText("Hello " + str3);
+
+        }
         else
         {
 
@@ -304,6 +336,88 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         return super.onOptionsItemSelected(item);
     }
+    public void logout_from_server(int test)
+    {
+        String tag_json_obj = "json_obj_req";
+        String u_id = null,at = null;
+
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Signing out...");
+        pDialog.show();
+
+        switch(test) {
+            case 1:
+                u_id = LoginActivity.user_id;
+                at = LoginActivity.access_token;
+                Log.d("Accesstoken",""+at);
+                break;
+            case 2:
+                u_id = LoginFragmentA.user_id;
+                at = LoginFragmentA.access_token;
+                break;
+            default:
+                break;
+        }
+        String url="http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at;
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+                    Log.d("You are in try","HIII");
+                    JSONObject jobj=new JSONObject(response.toString());
+                    String success=jobj.getString("success");
+                    Log.d("Success string",""+success.equals("true"));
+                    if(success.equals("true"))
+                    {
+//                                Intent i=new Intent(getApplicationContext(),LoginActivity.class);
+                        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                        LoginActivity.access_token=null;
+                        att=null;
+                        LoginFragmentA fragment1 = new LoginFragmentA();
+                        fragment1.setContextValue(context);
+                        title = getString(R.string.title_login);
+                        fragment = fragment1;
+//                                 startActivity(i);
+                        //display defult image and greetin to unregistered user
+                        img1.setImageBitmap(getCroppedBitmap(icon));
+                        greeting.setText("Hello user");
+                        finish();
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Logout failed !!",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                pDialog.hide();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                // hide the progress dialog
+                pDialog.hide();
+            }
+        });
+
+// Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+
+
+
+    }
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
@@ -311,8 +425,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     }
 
     private void displayView(int position) {
-        Fragment fragment = null;
-        String title = getString(R.string.app_name);
+        fragment = null;
+        title = getString(R.string.app_name);
         switch (position) {
             case 0:
                 fragment = new LandingActivity();
@@ -329,7 +443,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 break;
             case 3:
                 Log.d("AccessToken before if",""+att);
-                if(att.equals("y")) {
+                if(att.equals("unregistered")) {
                     Log.d("Inside at","accesstoken is null");
                     LoginFragmentA fragment1 = new LoginFragmentA();
                     fragment1.setContextValue(context);
@@ -343,7 +457,17 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 }
                 break;
             case 4:
-                LoginManager.getInstance().logOut();
+                if(att.equals("login_from_server") )
+                {
+                    if(LoginActivity.count==1)
+                        logout_from_server(1);
+                    else
+                        logout_from_server(2);
+                }
+                else
+                {
+                    LoginManager.getInstance().logOut();
+                }
                 break;
             default:
                 break;

@@ -9,7 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.itraveller.R;
-import com.itraveller.activity.SummaryActivity;
+import com.itraveller.activity.ItinerarySummaryActivity;
 
 public class CustomLoading {
 	static Dialog dialog;
@@ -32,7 +32,7 @@ public class CustomLoading {
 			@Override
 			public void onClick(View view) {
 				dialog.dismiss();
-				Intent intent = new Intent(finalContext.getApplicationContext(), SummaryActivity.class);
+				Intent intent = new Intent(finalContext.getApplicationContext(), ItinerarySummaryActivity.class);
 				finalContext.startActivity(intent);
 				//finish();
 			}

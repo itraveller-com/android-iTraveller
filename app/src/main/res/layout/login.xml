@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:gravity="center">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
@@ -32,19 +33,24 @@
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/round_edittext"
-            android:hint="Username"
+            android:id="@+id/email_id"
+	        android:hint="Email"
+            android:inputType="textEmailAddress"
             android:paddingLeft="8dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="16sp"
-            android:textIsSelectable="true" />
+            android:textSize="16sp"/>
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/round_edittext"
-            android:hint="Password"
+            android:hint="Mobile Number"
+	        android:inputType="number"
+	        android:singleLine="true"
+	        android:maxLength="10"
+	        android:id="@+id/mobile"
             android:paddingLeft="8dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
@@ -57,6 +63,17 @@
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
+
+
+	    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="|"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/link_to_register"
@@ -77,16 +94,6 @@
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password?"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="normal"
-
-                />
 
         </LinearLayout>
 
@@ -96,14 +103,15 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:background="@color/filterbtn"
-            android:text="Submit"
+	        android:id="@+id/submit"
+            android:text="Login"
             android:textColor="#fff"
             android:textSize="13dp" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"

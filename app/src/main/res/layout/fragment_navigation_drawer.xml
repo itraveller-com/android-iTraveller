@@ -10,35 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_alignParentTop="true"
-        android:background="@color/topHeader">
+        android:background="@color/colorPrimary">
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/drawerList"
+        <TextView
+            android:id="@+id/greeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image"
+            android:layout_gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="73dp" />
-
-
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            facebook:com_facebook_confirm_logout="false"
-            facebook:com_facebook_tooltip_mode="never_display"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone" />
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Hello" />
 
         <ImageView
             android:id="@+id/image"
@@ -46,30 +32,23 @@
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
-            android:layout_alignParentTop="true"
+            android:layout_above="@+id/greeting"
             android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/imageView1"
-            android:layout_above="@+id/drawerList"
-            android:layout_alignLeft="@+id/image"
-            android:layout_alignStart="@+id/image" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/nav_header_container" />
 
-        <TextView
-            android:id="@+id/greeting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#333"
-            android:textSize="18sp"
-            android:layout_below="@+id/image"
-            android:layout_alignRight="@+id/login_button"
-            android:layout_alignEnd="@+id/login_button"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@+id/image"
-            android:layout_alignStart="@+id/image" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/nav_header_container">
 
 
     </RelativeLayout>

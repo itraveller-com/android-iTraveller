@@ -374,7 +374,7 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="364dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Book Hotels"
             android:background="@drawable/style_filterbutton"
@@ -383,7 +383,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffffff"
+            android:capitalize="none" />
 
         <LinearLayout
             android:id="@+id/airport_listview"

@@ -8,7 +8,7 @@ android {
         applicationId "com.itraveller"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 2
+        versionCode 3
         versionName "1.1"
     }
     buildTypes {
@@ -28,5 +28,6 @@ dependencies {
     compile project(':rangeseekbar')
     compile project(':dragsortlistview')
     compile project(':facebook')
+    compile files('C:/android-iTraveller/libs/GoogleAnalyticsServices.jar')
 }
 

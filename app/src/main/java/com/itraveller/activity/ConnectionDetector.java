@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 public class ConnectionDetector {
 
-    private Context _context;
+    private static Context _context;
 
     public ConnectionDetector(Context context){
         this._context = context;
     }
 
-    public boolean isNetworkConnection() {
+    public static boolean isNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
 

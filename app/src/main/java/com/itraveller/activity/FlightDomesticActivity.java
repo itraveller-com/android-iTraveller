@@ -95,7 +95,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(FlightDomesticActivity.this, SummaryActivity.class);
+                Intent in = new Intent(FlightDomesticActivity.this, ItinerarySummaryActivity.class);
                 startActivity(in);
                 finish();
                 //FlightReturnDomestic.adapter.

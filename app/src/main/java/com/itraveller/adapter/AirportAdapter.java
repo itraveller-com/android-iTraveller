@@ -91,6 +91,7 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
 
                             AirportModel am = new AirportModel();
                             am.setValue(FilterAirportItems.get(i).getValue());
+                            am.setKey(FilterAirportItems.get(i).getKey());
                             airportList.add(am);
                         }
                     }

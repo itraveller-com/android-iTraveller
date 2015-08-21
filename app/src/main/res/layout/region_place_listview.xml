@@ -107,35 +107,99 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Price Range"
+            android:textSize="20dp"
             android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:paddingTop="50dp"
             android:id="@+id/textView" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12000"
-                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:paddingLeft="25dp"
+                android:id="@+id/minvalue"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:id="@+id/minvalue" />
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\u20B9"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/textView12"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/minvalue"
+                android:layout_alignStart="@+id/minvalue" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="110000"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:id="@+id/maxvalue" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\u20B9"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/maxvalue"
+                android:layout_toStartOf="@+id/maxvalue" />
         </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/seekbar_placeholder"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:id="@+id/textView11" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max"
+                android:layout_marginRight="23dp"
+                android:layout_marginEnd="23dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
