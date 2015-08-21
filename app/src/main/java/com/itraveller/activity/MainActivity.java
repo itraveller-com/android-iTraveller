@@ -60,6 +60,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
     private static String TAG = MainActivity.class.getSimpleName();
 
+    SharedPreferences preferences;
+
+
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private DrawerLayout mDrawerlayout;
@@ -87,6 +90,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         context= this;
 
+        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
         //code for receiving data from other activities
         Bundle bu=getIntent().getExtras();
         str1= "" +bu.getString("profile");
@@ -130,7 +134,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 }
             };
         }
-     /*   else if(str1.equals("sign_up") && att.equals("sign_up"))
+       /* else if(str1.equals("sign_up") && att.equals("sign_up"))
         {
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             //display defult image and greetin to unregistered user
@@ -141,6 +145,17 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         //if user is not logged in using facebook
         else if(str1.equals("login_from_server") && str2.equals("login_from_server"))
         {
+
+
+            SharedPreferences.Editor editor=preferences.edit();
+            //    editor.putString("user_id_string",preferences.getString("user_id_string",null));
+            Log.d("Users id",""+preferences.getString("user_id_string",null));
+            //    editor.putString("access_token",preferences.getString("access_token_string",null));
+            editor.putString("u_name", str3);
+            editor.putInt("flag", 1);
+
+            editor.commit();
+
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             //display defult image and greetin to unregistered user
             Log.d("Login through server","hi");
@@ -151,6 +166,12 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         }
         else
         {
+
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putString("u_id",null);
+            editor.putString("access_token",null);
+            editor.putString("u_name", "user");
+            editor.commit();
 
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             //display defult image and greetin to unregistered user
@@ -344,11 +365,12 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         final ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setMessage("Signing out...");
         pDialog.show();
-
+        Log.d("Test variable",""+test);
         switch(test) {
             case 1:
-                u_id = LoginActivity.user_id;
-                at = LoginActivity.access_token;
+                u_id = preferences.getString("user_id_string",null);
+                Log.d("User is",""+u_id);
+                at = preferences.getString("access_token_string",null);
                 Log.d("Accesstoken",""+at);
                 break;
             case 2:
@@ -358,6 +380,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             default:
                 break;
         }
+        Log.d("URL main",""+"http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at);
         String url="http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at;
 
 
@@ -374,18 +397,25 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     Log.d("Success string",""+success.equals("true"));
                     if(success.equals("true"))
                     {
-//                                Intent i=new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent i=new Intent(getApplicationContext(),LoginActivity.class);
                         Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
-                        LoginActivity.access_token=null;
+//                        LoginActivity.access_token=null;
                         att=null;
-                        LoginFragmentA fragment1 = new LoginFragmentA();
+/*                        LoginFragmentA fragment1 = new LoginFragmentA();
                         fragment1.setContextValue(context);
                         title = getString(R.string.title_login);
                         fragment = fragment1;
-//                                 startActivity(i);
+*/
+                        SharedPreferences.Editor editor=preferences.edit();
+                        editor.clear();
+                        editor.commit();
+//
+//
+
                         //display defult image and greetin to unregistered user
                         img1.setImageBitmap(getCroppedBitmap(icon));
                         greeting.setText("Hello user");
+                        startActivity(i);
                         finish();
 
                     }
@@ -459,7 +489,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             case 4:
                 if(att.equals("login_from_server") )
                 {
-                    if(LoginActivity.count==1)
+                    Log.d("Count",""+preferences.getInt("count",0));
+                    if(preferences.getInt("count",0)==1)
                         logout_from_server(1);
                     else
                         logout_from_server(2);

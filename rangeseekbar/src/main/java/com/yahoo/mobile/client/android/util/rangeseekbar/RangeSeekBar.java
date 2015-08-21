@@ -47,18 +47,18 @@ import java.math.BigDecimal;
  */
 public class RangeSeekBar<T extends Number> extends ImageView {
 
-    public static final Integer DEFAULT_MINIMUM = 0;
-    public static final Integer DEFAULT_MAXIMUM = 100;
+    public static final Integer DEFAULT_MINIMUM = 0; //modified by rohan
+    public static final Integer DEFAULT_MAXIMUM = 100; //modified by rohan
     public static final int HEIGHT_IN_DP = 30;
     public static final int TEXT_LATERAL_PADDING_IN_DP = 3;
-    private static final int INITIAL_PADDING_IN_DP = 8;
+    private static final int INITIAL_PADDING_IN_DP = -15;
     private final int LINE_HEIGHT_IN_DP = 1;
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_normal);
     private final Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(),
-                                                                          R.drawable.seek_thumb_pressed);
+            R.drawable.seek_thumb_pressed);
     private final Bitmap thumbDisabledImage = BitmapFactory.decodeResource(getResources(),
-                                                                           R.drawable.seek_thumb_disabled);
+            R.drawable.seek_thumb_disabled);
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
     private final float thumbHalfHeight = 0.5f * thumbImage.getHeight();
@@ -151,13 +151,13 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         mTextSize = PixelUtil.dpToPx(context, DEFAULT_TEXT_SIZE_IN_DP);
         mDistanceToTop = PixelUtil.dpToPx(context, DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP);
         mTextOffset = this.mTextSize + PixelUtil.dpToPx(context,
-                                                        DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP) + this.mDistanceToTop;
+                DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP) + this.mDistanceToTop;
 
         float lineHeight = PixelUtil.dpToPx(context, LINE_HEIGHT_IN_DP);
         mRect = new RectF(padding,
-                          mTextOffset + thumbHalfHeight - lineHeight / 2,
-                          getWidth() - padding,
-                          mTextOffset + thumbHalfHeight + lineHeight / 2);
+                mTextOffset + thumbHalfHeight - lineHeight / 2,
+                getWidth() - padding,
+                mTextOffset + thumbHalfHeight + lineHeight / 2);
 
         // make RangeSeekBar focusable. This solves focus handling issues in case EditText widgets are being used along with the RangeSeekBar within ScollViews.
         setFocusable(true);
@@ -459,8 +459,8 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         String maxLabel = getContext().getString(R.string.demo_max_label);
         float minMaxLabelSize = Math.max(paint.measureText(minLabel), paint.measureText(maxLabel));
         float minMaxHeight = mTextOffset + thumbHalfHeight + mTextSize / 3;
-//        canvas.drawText(minLabel, 0, minMaxHeight, paint);
-//        canvas.drawText(maxLabel, getWidth() - minMaxLabelSize, minMaxHeight, paint);
+        //    canvas.drawText(minLabel, 0, minMaxHeight, paint);
+        //    canvas.drawText(maxLabel, getWidth() - minMaxLabelSize, minMaxHeight, paint);
         padding = INITIAL_PADDING + minMaxLabelSize + thumbHalfWidth;
 
         // draw seek bar background line
@@ -485,12 +485,12 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         // draw minimum thumb if not a single thumb control
         if (!mSingleThumb) {
             drawThumb(normalizedToScreen(normalizedMinValue), Thumb.MIN.equals(pressedThumb), canvas,
-                      selectedValuesAreDefault);
+                    selectedValuesAreDefault);
         }
 
         // draw maximum thumb
         drawThumb(normalizedToScreen(normalizedMaxValue), Thumb.MAX.equals(pressedThumb), canvas,
-                  selectedValuesAreDefault);
+                selectedValuesAreDefault);
 
         // draw the text if sliders have moved from default edges
         if (!selectedValuesAreDefault) {
@@ -506,16 +506,16 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 
             if (!mSingleThumb) {
                 canvas.drawText(minText,
-                                normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
-                                mDistanceToTop + mTextSize,
-                                paint);
+                        normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
+                        mDistanceToTop + mTextSize,
+                        paint);
 
             }
 
             canvas.drawText(maxText,
-                            normalizedToScreen(normalizedMaxValue) - maxTextWidth * 0.5f,
-                            mDistanceToTop + mTextSize,
-                            paint);
+                    normalizedToScreen(normalizedMaxValue) - maxTextWidth * 0.5f,
+                    mDistanceToTop + mTextSize,
+                    paint);
         }
 
     }
@@ -559,8 +559,8 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         }
 
         canvas.drawBitmap(buttonToDraw, screenCoord - thumbHalfWidth,
-                          mTextOffset,
-                          paint);
+                mTextOffset,
+                paint);
     }
 
     /**
