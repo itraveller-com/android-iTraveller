@@ -347,6 +347,12 @@ public class LandingActivity extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        //EasyTracker.getInstance(this).activityStop(this);
+    }
+
 
 
 }

@@ -130,31 +130,25 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         LinearLayout main_lay = (LinearLayout) findViewById(R.id.main_layout);
 
         String[] HotelsArray = Hotels.trim().split("-");
-        String[] ActivitiesDataArray = ActivitiesData.trim().split("/");
+        String[] ActivitiesDay = ActivitiesData.trim().split("/");
 
-        String[] activities_val = new String[ActivitiesDataArray.length];
-        for(int index=0;index <ActivitiesDataArray.length; index++){
+        String[] activities_val = new String[ActivitiesDay.length];
+        for(int index=0;index <ActivitiesDay.length; index++){
             String activities_title = "";
-                int count_bit = 0;
-                String[] activities_Data = ActivitiesDataArray[index].trim().split("-");
-                for (int j = 0; j < activities_Data.length; j++) {
-                    String[] activites_data_value = activities_Data[j].trim().split(",");
-                    //if(!activites_data_value.toString().equalsIgnoreCase("null")) {
-                    if(!activites_data_value[0].startsWith("No Activities")){
-                        if (count_bit == 0) {
-                            activities_title = activites_data_value[2];
-                            count_bit++;
-                        } else {
-                            activities_title = activities_title + ", " + activites_data_value[2];
-                        }
-                    }
-                    else
-                    {
-                        activities_title = activites_data_value[0];
+            int count_bit = 0;
+            String[] different_activities = ActivitiesDay[index].trim().split(":");
+            for(int i = 0; i< different_activities.length ;i++){
+                if(!different_activities[i].equalsIgnoreCase("")) {
+                    String[] activities_ = different_activities[i].trim().split(",");
+                    if (count_bit == 0) {
+                        activities_title = activities_[2];
+                        count_bit++;
+                    } else {
+                        activities_title = activities_title + ", " + activities_[2];
                     }
                 }
-                activities_val[index] = ""+activities_title;
-                Log.i("Actvities_Titles",activities_title);
+            }
+            activities_val[index] = ""+activities_title;
         }
 
         int count = 0;

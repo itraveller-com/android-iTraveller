@@ -129,7 +129,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
         holder.fl_arr.setText( dep_date[0]+"\n"+dep_date[1]);
         holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
-        holder.fl_dep.setText( "\n" + arr_date[0]+"\n"+arr_date[1]);
+        holder.fl_dep.setText(""+arr_date[0]+"\n"+arr_date[1]);
         holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
 

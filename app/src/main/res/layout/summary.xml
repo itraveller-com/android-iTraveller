@@ -75,8 +75,7 @@
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:id="@+id/from_home"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:capitalize="words" />
+                            android:layout_marginBottom="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,14 +104,15 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_below="@+id/relativeLayout3"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#ffcac7ca"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"></LinearLayout>
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"></LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,13 +158,15 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_below="@+id/relativeLayout3"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#ffcac7ca"
-                android:layout_gravity="center_horizontal"></LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"></LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -235,14 +237,15 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_below="@+id/relativeLayout3"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#ffcac7ca"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"></LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"></LinearLayout>
 
         </LinearLayout>
     </ScrollView>

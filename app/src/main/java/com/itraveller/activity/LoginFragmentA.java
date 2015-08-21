@@ -16,8 +16,17 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -34,13 +43,16 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
 import com.facebook.share.Sharer;
 import com.facebook.share.widget.ShareDialog;
+import com.itraveller.R;
+import com.itraveller.activity.ConnectionDetector;
+import com.itraveller.volley.AppController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
-import com.itraveller.R;
 
 
 public class LoginFragmentA extends Fragment {
@@ -54,18 +66,24 @@ public class LoginFragmentA extends Fragment {
     /*login form
         end
      */
+    public static String access_token,user_id;
 
+
+    String email_id,mobile_number,login_url;
+
+    EditText _email_id,mobile;
     private CallbackManager callbackManager;
     String emailid, gender, bday, firstname;
     private LoginButton loginButton;
 
     ProfilePictureView profilePictureView;
     private TextView greeting;
-    Button btnunreg;
+    Button btnunreg,login;
     TextView info;
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
     private ProgressDialog pDialog;
+    public static Profile profile;
 
     private ShareDialog shareDialog;
     Context context;
@@ -136,6 +154,10 @@ public class LoginFragmentA extends Fragment {
         //object of ConnectionDetector class used to check internet connection
         cd = new ConnectionDetector(context);
 
+
+        _email_id=(EditText) view.findViewById(R.id.email_id);
+        mobile=(EditText) view.findViewById(R.id.mobile);
+        login=(Button) view.findViewById(R.id.submit);
         //TextView used as a link to registration form
         registerScreen=(TextView) view.findViewById(R.id.link_to_register);
 
@@ -180,13 +202,13 @@ public class LoginFragmentA extends Fragment {
                     // Internet Connection is Present
                     // make HTTP requests
                     Intent i = new Intent(context, MainActivity.class);
-                    String str1 = "x";
-                    String str2 = "x";
-                    String str3 = "x";
+                    String str1 = "unregistered";
+                    String str2 = "unregistered";
+                    String str3 = "unregistered";
                     i.putExtra("id", str1);
                     i.putExtra("fname", str2);
                     i.putExtra("profile", str3);
-                    i.putExtra("AccessToken","y");
+                    i.putExtra("AccessToken","unregistered");
                     startActivity(i);
 
                     getActivity().finish();
@@ -200,6 +222,27 @@ public class LoginFragmentA extends Fragment {
 
             }
         });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                email_id=_email_id.getText().toString();
+                mobile_number=mobile.getText().toString();
+
+                if(isValidEmail(email_id) && email_id.trim().length()>0 && mobile_number.trim().length()>0)
+                {
+                    JSONParsing();
+                }
+                else
+                {
+                    Toast.makeText(context, "Please enter valid data!!", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
         //code for handling event when user clicks login button provided by facebook
         loginButton.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -251,6 +294,170 @@ public class LoginFragmentA extends Fragment {
         return view;
 
     }
+
+    public void JSONParsing()
+    {
+        LoginActivity.count=2;
+        String tag_json_obj = "json_obj_req";
+
+        final ProgressDialog pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Signing in...");
+        pDialog.show();
+
+        login_url="http://stage.itraveller.com/backend/api/v1/users/auth?email=" +
+                email_id + "&password=" + mobile_number  ;
+
+        final HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("email", email_id);
+        Log.d("Email server is:", "" + email_id);
+        postParams.put("phone", mobile_number);
+        email_id=email_id.substring(0,email_id.indexOf("@"));
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                login_url, new JSONObject(postParams),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("TAG signin", response.toString());
+                        JSONObject jobj= null;
+                        try {
+                            jobj = new JSONObject(response.toString());
+
+                            String success=jobj.getString("success");
+                            //  phone_number=user_object.getString("phone");
+                            // Log.d("Phone number",""+phone_number);
+
+                            //    name=user_object.getString("name");
+
+
+                            Log.d("Boolean",""+success.equals("true"));
+                            if(success.equals("true")) {
+
+                                if (jobj.getString("payload").equalsIgnoreCase("User is not registered.")) {
+
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+                                    // Setting Dialog Title
+                                    alertDialog.setTitle("Confirm Delete...");
+
+                                    // Setting Dialog Message
+                                    alertDialog.setMessage("You are not a registered user !!!");
+
+                                    // Setting Icon to Dialog
+                                    alertDialog.setIcon(R.drawable.fail);
+
+                                    // Setting Positive "Yes" Button
+                                    alertDialog.setPositiveButton("Sign up", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int which) {
+                                            Intent i=new Intent(context,SignupActivity.class);
+                                            startActivity(i);
+                                            getActivity().finish();
+                                            // Write your code here to invoke YES event
+                                            Toast.makeText(context, "You clicked on YES", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                    // Setting Negative "NO" Button
+                                    alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to invoke NO event
+                                            Toast.makeText(context, "You clicked on NO", Toast.LENGTH_SHORT).show();
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                                    // Showing Alert Message
+                                    alertDialog.show();
+
+
+                                } else {
+
+                                    JSONObject payload_object= jobj.getJSONObject("payload");
+                                    user_id=payload_object.getString("user_id");
+                                    access_token=payload_object.getString("key");
+
+                                    JSONObject user_object=payload_object.getJSONObject("user");
+
+
+                                    Intent i = new Intent(context, MainActivity.class);
+                                    i.putExtra("id", "login_from_server");
+                                    i.putExtra("profile", "login_from_server");
+                                    i.putExtra("fname", ""+email_id);
+                                    i.putExtra("AccessToken", "login_from_server");
+                                    startActivity(i);
+
+                                }
+                            }
+                            else
+                            {
+                                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                                // Setting Dialog Title
+                                alertDialog.setTitle("Alert Dialog");
+
+                                // Setting Dialog Message
+                                alertDialog.setMessage("You entered wrong password");
+
+                                // Setting Icon to Dialog
+                                alertDialog.setIcon(R.drawable.fail);
+
+                                // Setting OK Button
+                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Write your code here to execute after dialog closed
+                                        mobile.setText("");
+                                        Toast.makeText(context, "You clicked on OK", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                // Showing Alert Message
+                                alertDialog.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        pDialog.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //VolleyLog.d("TAG", "Error: " + error.getMessage());
+                pDialog.dismiss();
+                if (ConnectionDetector.isNetworkConnection()) {
+                    Toast.makeText(context, "Internet Problem", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+
+        };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(8000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
@@ -380,12 +587,13 @@ public class LoginFragmentA extends Fragment {
     public void updateUI() {
         boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
 
-        LoginActivity.profile = Profile.getCurrentProfile();
+        profile = Profile.getCurrentProfile();
+        Log.d("Profile in fragment is",""+profile);
 
-        if (enableButtons && LoginActivity.profile != null) {
+        if (enableButtons && profile != null) {
 
-            String id=LoginActivity.profile.getId();
-            String fname=LoginActivity.profile.getFirstName();
+            String id=profile.getId();
+            String fname=profile.getFirstName();
             AccessToken at=AccessToken.getCurrentAccessToken();
 
             Log.d("LoginFragmentAT",""+at);
@@ -393,7 +601,7 @@ public class LoginFragmentA extends Fragment {
 
             i.putExtra("id",id);
             i.putExtra("fname", fname);
-            i.putExtra("profile",LoginActivity.profile);
+            i.putExtra("profile",profile);
             i.putExtra("AccessToken",at);
             startActivity(i);
             getActivity().finish();

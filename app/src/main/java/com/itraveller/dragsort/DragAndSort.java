@@ -280,28 +280,32 @@ public class DragAndSort extends ActionBarActivity
                     Log.v("TestDataDate","Date :"+Destination_Date);
                 }
 
-                SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+                if(adapter_rearrange.getCount() != 0) {
+                    SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                editor.putString("DestinationID", Destination_Value);
-                editor.putString("DestinationCount", Destination_Count);
-                editor.putString("DestinationName", Destination_Name);
-                editor.putString("DestinationDate", Destination_Date);
-                editor.putString("EndDate", Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount , "yyyy-MM-dd", "yyyy-MM-dd"));
-                Log.i("EndDate", "" + Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount , "yyyy-MM-dd", "yyyy-MM-dd"));
-                editor.putString("ArrivalAirport",""+travelfrom);
-                editor.putString("DepartureAirport",""+travelto);
-                editor.putString("ArrivalPort",""+arrival_id);
-                editor.putString("DeparturePort",""+departure_id);
-                //For Itinerary Summaray
-                editor.putString("ArrivalAirportString",""+from_home.getText());
-                editor.putString("DepartureAirportString",""+to_home.getText());
-                editor.putString("ArrivalPortString",""+from_travel.getText());
-                editor.putString("DeparturePortString",""+to_travel.getText());
-                editor.commit();
-                Intent intent = new Intent(DragAndSort.this, HotelActivity.class);
-                intent.putExtra("DestinationsIDs", Destination_Value);
-                startActivity(intent);
+                    editor.putString("DestinationID", Destination_Value);
+                    editor.putString("DestinationCount", Destination_Count);
+                    editor.putString("DestinationName", Destination_Name);
+                    editor.putString("DestinationDate", Destination_Date);
+                    editor.putString("EndDate", Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount, "yyyy-MM-dd", "yyyy-MM-dd"));
+                    Log.i("EndDate", "" + Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount, "yyyy-MM-dd", "yyyy-MM-dd"));
+                    editor.putString("ArrivalAirport", "" + travelfrom);
+                    editor.putString("DepartureAirport", "" + travelto);
+                    editor.putString("ArrivalPort", "" + arrival_id);
+                    editor.putString("DeparturePort", "" + departure_id);
+                    //For Itinerary Summaray
+                    editor.putString("ArrivalAirportString", "" + from_home.getText());
+                    editor.putString("DepartureAirportString", "" + to_home.getText());
+                    editor.putString("ArrivalPortString", "" + from_travel.getText());
+                    editor.putString("DeparturePortString", "" + to_travel.getText());
+                    editor.commit();
+                    Intent intent = new Intent(DragAndSort.this, HotelActivity.class);
+                    intent.putExtra("DestinationsIDs", Destination_Value);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please Add Destination", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

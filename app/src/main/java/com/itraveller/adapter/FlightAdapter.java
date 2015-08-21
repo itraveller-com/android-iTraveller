@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import com.itraveller.R;
-import com.itraveller.activity.ItinerarySummaryActivity;
+import com.itraveller.activity.SummaryActivity;
 import com.itraveller.model.FlightModel;
 import com.itraveller.volley.AppController;
 
@@ -62,6 +64,24 @@ public class FlightAdapter extends BaseAdapter {
         return str;
     }
 
+    public String getConvertedTime(String str)
+    {
+        String str_time[]=str.split(":");
+        int hours=Integer.parseInt(str_time[0]);
+        String converted_hours;
+        if(hours>12)
+        {
+            hours=hours%12;
+            converted_hours=String.valueOf(hours);
+            str=converted_hours+":"+str_time[1]+"PM";
+        }
+        else
+        {
+            str=str_time[0]+":"+str_time[1]+"AM";
+        }
+
+        return str;
+    }
 
     @Override
     public int getCount() {
@@ -101,13 +121,13 @@ public class FlightAdapter extends BaseAdapter {
 
         TextView option_txt = (TextView) convertView.findViewById(R.id.option_txt);
         TextView flight_txt = (TextView) convertView.findViewById(R.id.flight_price);
-        option_txt.setText("Option " + (position + 1));
+        option_txt.setText("\tOption " + (position + 1));
         int Total_price = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) + Integer.parseInt(Flightitems.get(position).getSCharge()) +
                 Integer.parseInt(Flightitems.get(position).getSTax()) + Integer.parseInt(Flightitems.get(position).getTCharge()) +
                 Integer.parseInt(Flightitems.get(position).getTDiscount()) + Integer.parseInt(Flightitems.get(position).getTMarkup()) +
                 Integer.parseInt(Flightitems.get(position).getTPartnerCommission()) + Integer.parseInt(Flightitems.get(position).getTSdiscount()) +
                 Integer.parseInt(Flightitems.get(position).getTax()) + Integer.parseInt(Flightitems.get(position).getOcTax());
-        flight_txt.setText("Price: " + Total_price);
+        flight_txt.setText("Price: "+"\u20B9" + Total_price+"\t");
         TextView onward_head = (TextView) convertView.findViewById(R.id.onward_header);
         TextView return_head = (TextView) convertView.findViewById(R.id.return_header);
         String onward_txt = "", onward_place_txt = "", return_txt = "", return_place_txt = "";
@@ -126,6 +146,7 @@ public class FlightAdapter extends BaseAdapter {
                 String dep_date_time = Flightitems.get(position).getOnward_model().get(i).getDepartureDateTime();
                 String dep_date[] = dep_date_time.split("T");
                 dep_date[0] = getConvertedDate(dep_date[0]);
+                dep_date[1]=getConvertedTime(dep_date[1]);
                 onward_txt = "Dep: " + dep_date[0] + " " + dep_date[1];
                 onward_place_txt = Flightitems.get(position).getOnward_model().get(i).getDepartureAirportCode();
             }
@@ -134,6 +155,7 @@ public class FlightAdapter extends BaseAdapter {
                 String arr_date_time = "" + Flightitems.get(position).getOnward_model().get(i).getArrivalDateTime();
                 String arr_date[] = arr_date_time.split("T");
                 arr_date[0] = getConvertedDate(arr_date[0]);
+                arr_date[1]=getConvertedTime(arr_date[1]);
                 onward_txt = onward_txt + " Arr: " + arr_date[0] + " " + arr_date[1];
                 onward_place_txt = onward_place_txt + " to " + Flightitems.get(position).getOnward_model().get(i).getArrivalAirportCode();
             }
@@ -146,12 +168,14 @@ public class FlightAdapter extends BaseAdapter {
             String dep_date_time = "" + Flightitems.get(position).getOnward_model().get(i).getDepartureDateTime();
             String dep_date[] = dep_date_time.split("T");
             dep_date[0] = getConvertedDate(dep_date[0]);
+            dep_date[1]=getConvertedTime(dep_date[1]);
 
             String arr_date_time = "" + Flightitems.get(position).getOnward_model().get(i).getArrivalDateTime();
             String arr_date[] = arr_date_time.split("T");
             arr_date[0] = getConvertedDate(arr_date[0]);
+            arr_date[1]=getConvertedTime(arr_date[1]);
 
-            flight.setText(spanIt("" + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineName() + "\n" + Flightitems.get(position).getOnward_model().get(i).getFlightNumber(), "" + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineName()));
+            flight.setText(spanIt("\t" + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineName() + "\n\t" + Flightitems.get(position).getOnward_model().get(i).getFlightNumber(), "" + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineName()));
             arrival.setTextAppearance(activity, R.style.font_size);
             arrival.setText(spanIt("" + Flightitems.get(position).getOnward_model().get(i).getDepartureAirportName() + "\n" + dep_date[0] + "\n" + dep_date[1], "" + Flightitems.get(position).getOnward_model().get(i).getDepartureAirportName()));
             departure.setTextAppearance(activity, R.style.font_size);
@@ -175,7 +199,7 @@ public class FlightAdapter extends BaseAdapter {
             tl.addView(row);
 
             onward_head.setTextAppearance(activity, R.style.font_size);
-            onward_head.setText(spanIt("Onward - " + onward_place_txt + " " + onward_txt, "Onward"));
+            onward_head.setText(spanIt("\tOnward - " + onward_place_txt, "Onward"));// + "\n" + onward_txt, "Onward"));
             for (int j = 0; j < Flightitems.get(position).getReturn_model().size(); j++) {
 
                 TableRow r_row = new TableRow(activity);
@@ -186,6 +210,7 @@ public class FlightAdapter extends BaseAdapter {
                     String dep_date_time2 = Flightitems.get(position).getReturn_model().get(j).getDepartureDateTime();
                     String dep_date2[] = dep_date_time2.split("T");
                     dep_date2[0] = getConvertedDate(dep_date2[0]);
+                    dep_date2[1]=getConvertedTime(dep_date2[1]);
 
                     return_txt = "Dep: " + dep_date2[0] + " " + dep_date2[1];
                     return_place_txt = Flightitems.get(position).getReturn_model().get(j).getDepartureAirportCode();
@@ -194,6 +219,7 @@ public class FlightAdapter extends BaseAdapter {
                     String arr_date_time3 = Flightitems.get(position).getReturn_model().get(j).getArrivalDateTime();
                     String arr_date3[] = arr_date_time3.split("T");
                     arr_date3[0] = getConvertedDate(arr_date3[0]);
+                    arr_date3[1]=getConvertedTime(arr_date3[1]);
                     return_txt = return_txt + " Arr: " + arr_date3[0] + " " + arr_date3[1];
                     return_place_txt = return_place_txt + " to " + Flightitems.get(position).getReturn_model().get(i).getArrivalAirportCode();
                 }
@@ -206,13 +232,15 @@ public class FlightAdapter extends BaseAdapter {
                 String dep_date_time1 = "" + Flightitems.get(position).getOnward_model().get(i).getDepartureDateTime();
                 String dep_date1[] = dep_date_time1.split("T");
                 dep_date1[0] = getConvertedDate(dep_date1[0]);
+                dep_date1[1]=getConvertedTime(dep_date1[1]);
 
                 String arr_date_time1 = "" + Flightitems.get(position).getOnward_model().get(i).getArrivalDateTime();
                 String arr_date1[] = arr_date_time1.split("T");
                 arr_date1[0] = getConvertedDate(arr_date1[0]);
+                arr_date1[1]=getConvertedTime(arr_date1[1]);
 
 
-                r_flight.setText(spanIt("" + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineName() + "\n" + Flightitems.get(position).getReturn_model().get(i).getFlightNumber(), "" + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineName()));
+                r_flight.setText(spanIt("\t" + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineName() + "\n\t" + Flightitems.get(position).getReturn_model().get(i).getFlightNumber(), "" + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineName()));
                 r_arrival.setTextAppearance(activity, R.style.font_size);
                 r_arrival.setText(spanIt("" + Flightitems.get(position).getReturn_model().get(i).getDepartureAirportName() + "\n" + dep_date[0] + "\n" + dep_date[1], "" + Flightitems.get(position).getReturn_model().get(i).getDepartureAirportName()));
                 r_departure.setTextAppearance(activity, R.style.font_size);
@@ -229,16 +257,22 @@ public class FlightAdapter extends BaseAdapter {
                 r_price.setText("");*/
 
 
+
+
+
+
+
                 r_row.addView(r_flight);
                 r_row.addView(r_arrival);
                 r_row.addView(r_departure);
+//                r_row.addView(v);
                 //r_row.addView(r_price);
                 tl_return.addView(r_row);
             }
 
 
             return_head.setTextAppearance(activity, R.style.font_size);
-            return_head.setText(spanIt("Return - " + return_place_txt + " " + return_txt, "Return"));
+            return_head.setText(spanIt("\tReturn - " + return_place_txt,"Return"));// + "\n" + return_txt, "Return"));
 
             Button select_btn = (Button) convertView.findViewById(R.id.btn_select);
             select_btn.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +284,7 @@ public class FlightAdapter extends BaseAdapter {
                     int ActualPrice = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) * 2;
                     editor.putString("FlightPrice", "" + ActualPrice);
                     editor.commit();
-                    Intent intent = new Intent(activity, ItinerarySummaryActivity.class);
+                    Intent intent = new Intent(activity, SummaryActivity.class);
                     activity.startActivity(intent);
 
 
