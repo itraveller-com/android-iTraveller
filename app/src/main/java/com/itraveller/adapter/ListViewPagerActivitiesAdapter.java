@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     ViewPager[] vp;
   // ViewPagerAdapter[] mViewPagerAdapter;
 
+    ImageView left_arrow,right_arrow;
     int refresh_val = 0;
     private Context context;
     private ArrayList<String> navigationItems;
@@ -124,6 +126,10 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         vp[position].setAdapter(mViewPagerAdapter);
         TextView txtview = (TextView) convertView.findViewById(R.id.hotel_place_name);
         txtview.setText("Day" + (position+1));
+
+
+        left_arrow=(ImageView) convertView.findViewById(R.id.left_arrow);
+        right_arrow=(ImageView) convertView.findViewById(R.id.right_arrow);
         //vp[position].setTag(position);
         vp[position].setOnClickListener(new ViewPagerClickListner(position));
         vp[position].setOnPageChangeListener(new ViewPageChangeListner(position));
@@ -150,6 +156,22 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
             }
         });*/
+
+        left_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Left arrow","hi");
+                vp[position].setCurrentItem(vp[position].getCurrentItem() - 1);
+            }
+        });
+
+        right_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Right arrow","bye");
+                vp[position].setCurrentItem(vp[position].getCurrentItem() + 1);
+            }
+        });
 
      if(mActivitiesModel.get(""+position).size()<1){
          Log.i("TestingRound","Testing123");
