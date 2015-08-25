@@ -152,26 +152,18 @@ public class LoginActivity extends ActionBarActivity {
         {
             SharedPreferences.Editor editor=prefs.edit();
             editor.putInt("flag",0);
+            editor.putInt("temp",0);
             editor.commit();
         }
         SharedPreferences.Editor editor=prefs.edit();
         editor.putInt("count",1);
         editor.commit();
 
-/*        if(flag1==0)
-        {
-            Log.d("Entered into loginxx","hi");
-
-            SharedPreferences.Editor editor=prefs.edit();
-            editor.putInt("flag",0);
-            editor.commit();
-        }
-*/
 
 
         if(prefs.getInt("flag",0)==1) {
             if (!(prefs.getString("u_name", null).equals("user"))) {
-                Log.d("Entered into login2", "hi");
+
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 i.putExtra("id", "login_from_server");
                 i.putExtra("profile", "login_from_server");
@@ -386,7 +378,7 @@ public class LoginActivity extends ActionBarActivity {
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
 
                                     // Setting Dialog Title
-                                    alertDialog.setTitle("Confirm Delete...");
+                                    alertDialog.setTitle("Login failed...!!");
 
                                     // Setting Dialog Message
                                     alertDialog.setMessage("You are not a registered user !!!");
@@ -401,7 +393,6 @@ public class LoginActivity extends ActionBarActivity {
                                             startActivity(i);
                                             finish();
                                             // Write your code here to invoke YES event
-                                            Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -409,7 +400,6 @@ public class LoginActivity extends ActionBarActivity {
                                     alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Write your code here to invoke NO event
-                                            Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
                                             dialog.cancel();
                                         }
                                     });
@@ -425,10 +415,13 @@ public class LoginActivity extends ActionBarActivity {
                                     user_id=payload_object.getString("user_id");
                                     access_token=payload_object.getString("key");
 
-                                    Log.d("User id is login",""+user_id);
+                                    Log.d("User id is login", "" + user_id);
                                     SharedPreferences.Editor editor=prefs.edit();
                                     editor.putString("user_id_string",""+user_id);
                                     editor.putString("access_token_string",""+access_token);
+                                    editor.putString("f_name",""+email_id);
+                                    editor.putInt("temp", 1);
+                                    editor.putInt("flag",1);
                                     editor.commit();
 
 
@@ -450,7 +443,7 @@ public class LoginActivity extends ActionBarActivity {
                                         LoginActivity.this).create();
 
                                 // Setting Dialog Title
-                                alertDialog.setTitle("Alert Dialog");
+                                alertDialog.setTitle("Login Failed...!!");
 
                                 // Setting Dialog Message
                                 alertDialog.setMessage("You entered wrong password");
@@ -463,7 +456,6 @@ public class LoginActivity extends ActionBarActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Write your code here to execute after dialog closed
                                         mobile.setText("");
-                                        Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -619,11 +611,12 @@ public class LoginActivity extends ActionBarActivity {
                                 firstname = object.getString("first_name");
 
                                 emailid = object.getString("email");
-                                Log.d("Email",""+emailid);
+                                Log.d("Email", "" + emailid);
 
                                 gender = object.getString("gender");
 
                                 bday = object.getString("birthday");
+
 
                             } catch (JSONException e) {
                                 // TODO Auto-generated catch
@@ -659,6 +652,13 @@ public class LoginActivity extends ActionBarActivity {
             Log.d("id", "" + id);
             String fname=profile.getFirstName();
             Log.d("Fname", "" + fname);
+
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.putString("f_name",""+fname);
+         //   editor.putString("email_id", "" + emailid);
+            editor.putInt("temp", 1);
+            editor.commit();
+
 
             Intent i=new Intent(getApplicationContext(),MainActivity.class);
 

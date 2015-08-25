@@ -93,6 +93,15 @@
 
         </TableLayout>
 
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#989898" />
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -139,9 +148,9 @@
 
             </TableRow>
 
-            <View
-
-                android:layout_height="2dip"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
                 android:background="#FF909090" />
 
             <TableRow android:weightSum="100">
@@ -203,10 +212,12 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/style_filterbutton"
             android:text="Select"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
 
 
     </LinearLayout>

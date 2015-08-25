@@ -2,6 +2,7 @@ package com.itraveller.activity;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -9,18 +10,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.itraveller.R;
 import com.itraveller.adapter.NavigationDrawerAdapter;
 import com.itraveller.model.NavDrawerItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class FragmentDrawer extends Fragment {
@@ -43,8 +46,18 @@ public class FragmentDrawer extends Fragment {
         this.drawerListener = listener;
     }
 
-    public static List<NavDrawerItem> getData() {
+    public List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
+
+        SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences",0);
+        Log.d("After spp", String.valueOf(prefs.getInt("temp", 0)));
+
+    //    if(LoginActivity.access_token.equals("hi"))
+        if(prefs.getInt("temp",0)==1)
+        {
+            titles[3]=titles[3].replace(""+titles[3],"Logout");
+        }
+
 
 
         // preparing navigation drawer items

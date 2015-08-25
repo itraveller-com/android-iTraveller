@@ -72,6 +72,8 @@ public class LoginFragmentA extends Fragment {
 
 
     String email_id,mobile_number,login_url;
+    Fragment fragment;
+    String title;
 
     EditText _email_id,mobile;
     private CallbackManager callbackManager;
@@ -170,13 +172,16 @@ public class LoginFragmentA extends Fragment {
 
         if(prefs.getInt("flag",0)==1) {
             if (!(prefs.getString("u_name", null).equals("user"))) {
-                Log.d("Entered into login2", "hi");
+/*                Log.d("Entered into login2", "hi");
                 Intent i = new Intent(context, MainActivity.class);
                 i.putExtra("id", "login_from_server");
                 i.putExtra("profile", "login_from_server");
                 i.putExtra("fname", "" + prefs.getString("u_name", null));
                 i.putExtra("AccessToken", "login_from_server");
-                startActivity(i);
+                startActivity(i); */
+                fragment = new LandingActivity();
+                title = getString(R.string.title_home);
+
             }
         }
         else {
@@ -235,17 +240,25 @@ public class LoginFragmentA extends Fragment {
                     if (isInternetPresent) {
                         // Internet Connection is Present
                         // make HTTP requests
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("f_name","user");
+                        editor.commit();
+
+                    /*    LandingActivity fragment1 = new LandingActivity();
+                        title = getString(R.string.title_home);
+                        fragment=fragment1;
+*/
+
                         Intent i = new Intent(context, MainActivity.class);
-                        String str1 = "unregistered";
-                        String str2 = "unregistered";
-                        String str3 = "unregistered";
-                        i.putExtra("id", str1);
-                        i.putExtra("fname", str2);
-                        i.putExtra("profile", str3);
+                        i.putExtra("id", "unregistered");
+                        i.putExtra("fname", "unregistered");
+                        i.putExtra("profile", "unregistered");
                         i.putExtra("AccessToken", "unregistered");
                         startActivity(i);
 
                         getActivity().finish();
+
+
 
                     } else {
                         // Internet connection is not present
@@ -261,15 +274,57 @@ public class LoginFragmentA extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    email_id = _email_id.getText().toString();
-                    mobile_number = mobile.getText().toString();
+                    isInternetPresent = cd.isNetworkConnection();
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        email_id = _email_id.getText().toString();
+                        mobile_number = mobile.getText().toString();
 
-                    if (isValidEmail(email_id) && email_id.trim().length() > 0 && mobile_number.trim().length() > 0) {
-                        JSONParsing();
-                    } else {
-                        Toast.makeText(context, "Please enter valid data!!", Toast.LENGTH_LONG).show();
+                        if (isValidEmail(email_id) && email_id.trim().length() > 0 && mobile_number.trim().length() > 0) {
+                            JSONParsing();
+                        }
+                        else
+                        {
+                            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                            // Setting Dialog Title
+                            alertDialog.setTitle("Login Failed   !!");
+
+                            // Setting Dialog Message
+                            alertDialog.setMessage("Plese enter valid data ");
+
+                            // Setting Icon to Dialog
+                            alertDialog.setIcon(R.drawable.fail);
+
+                            // Setting OK Button
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Write your code here to execute after dialog closed
+                                    mobile.setText("");
+                                }
+                            });
+
+                            // Showing Alert Message
+                            alertDialog.show();
+
+                        }
+
+
 
                     }
+                    else
+                    {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        showAlertDialog(getActivity(), "No Internet Connection",
+                                "You don't have internet connection.", false);
+                    }
+
+
+
+
+
                 }
             });
 
@@ -281,7 +336,7 @@ public class LoginFragmentA extends Fragment {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
                             //if user successfully redirected to facebook page
-                            getActivity().finish();
+//                            getActivity().finish();
                             new fblogin().execute(loginResult.getAccessToken());
                         }
 
@@ -372,7 +427,7 @@ public class LoginFragmentA extends Fragment {
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
                                     // Setting Dialog Title
-                                    alertDialog.setTitle("Confirm Delete...");
+                                    alertDialog.setTitle("Login Failed   !!");
 
                                     // Setting Dialog Message
                                     alertDialog.setMessage("You are not a registered user !!!");
@@ -387,7 +442,6 @@ public class LoginFragmentA extends Fragment {
                                             startActivity(i);
                                             getActivity().finish();
                                             // Write your code here to invoke YES event
-                                            Toast.makeText(context, "You clicked on YES", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -395,7 +449,6 @@ public class LoginFragmentA extends Fragment {
                                     alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Write your code here to invoke NO event
-                                            Toast.makeText(context, "You clicked on NO", Toast.LENGTH_SHORT).show();
                                             dialog.cancel();
                                         }
                                     });
@@ -411,10 +464,14 @@ public class LoginFragmentA extends Fragment {
                                     user_id=payload_object.getString("user_id");
                                     access_token=payload_object.getString("key");
 
-                                    Log.d("User id is login",""+user_id);
+                                    Log.d("User id is login", "" + user_id);
                                     SharedPreferences.Editor editor=prefs.edit();
                                     editor.putString("user_id_string",""+user_id);
                                     editor.putString("access_token_string",""+access_token);
+                                    editor.putString("f_name",""+email_id);
+                                    editor.putString("f_name",""+email_id);
+                                    editor.putInt("temp", 1);
+                                    editor.putInt("flag",1);
                                     editor.commit();
 
 
@@ -435,7 +492,7 @@ public class LoginFragmentA extends Fragment {
                                 AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
                                 // Setting Dialog Title
-                                alertDialog.setTitle("Alert Dialog");
+                                alertDialog.setTitle("Login Failed   !!");
 
                                 // Setting Dialog Message
                                 alertDialog.setMessage("You entered wrong password");
@@ -448,7 +505,6 @@ public class LoginFragmentA extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Write your code here to execute after dialog closed
                                         mobile.setText("");
-                                        Toast.makeText(context, "You clicked on OK", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -587,7 +643,7 @@ public class LoginFragmentA extends Fragment {
                         public void onCompleted(JSONObject object,
                                                 GraphResponse response) {
 
-                            Log.v("LoginActivity111", response.toString());
+                            Log.v("Resonse", response.toString());
 
                             try {
 
@@ -598,7 +654,8 @@ public class LoginFragmentA extends Fragment {
 
                                 gender = object.getString("gender");
 
-                                bday = object.getString("birthday");
+//                                bday = object.getString("birthday");
+
 
                             } catch (JSONException e) {
                                 // TODO Auto-generated catch
@@ -637,11 +694,19 @@ public class LoginFragmentA extends Fragment {
             String fname=profile.getFirstName();
             AccessToken at=AccessToken.getCurrentAccessToken();
 
-            Log.d("LoginFragmentAT",""+at);
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.putString("f_name", "" + fname);
+            editor.putString("fb_id", "" + id);
+            //   editor.putString("email_id", "" + emailid);
+            editor.putString("var", "y");
+            editor.putInt("temp", 1);
+            editor.commit();
+
+            Log.d("LoginFragmentAT", "" + at);
             Intent i=new Intent(context,MainActivity.class);
 
             i.putExtra("id",id);
-            i.putExtra("fname", fname);
+            i.putExtra("fname", "y");
             i.putExtra("profile",profile);
             i.putExtra("AccessToken",at);
             startActivity(i);

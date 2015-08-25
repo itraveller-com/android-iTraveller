@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,10 +22,47 @@
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+        <android.support.v4.view.ViewPager
         android:id="@+id/list_pager"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:paddingTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/left_arrow"
+            android:layout_width="35dp"
+            android:src="@drawable/left_arrow_image"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_alignTop="@id/list_pager"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/list_pager"
+            android:background="@color/arrow_color"/>
+
+
+        <ImageView
+            android:id="@+id/right_arrow"
+            android:layout_width="35dp"
+            android:src="@drawable/right_arrow_image"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_alignTop="@id/list_pager"
+            android:layout_alignBottom="@+id/list_pager"
+            android:background="@color/arrow_color"/>
+    </RelativeLayout>
+
+
+
+
 
 </LinearLayout>
