@@ -95,11 +95,12 @@
 
 
 
-        <View
+        <LinearLayout
             android:id="@+id/view"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:background="#989898" />
+            android:background="#989898"
+            android:orientation="horizontal" />
 
 
         <TextView

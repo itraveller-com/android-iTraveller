@@ -29,6 +29,7 @@ public class ViewPagerActivitiesAdapter extends PagerAdapter {
 ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     int check_bit=0;
+    static int temp;
     ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
 
     @SuppressLint("NewApi")
@@ -85,13 +86,19 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         try {
 
+
+
             image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getTitle());
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");
             else
-            cost.setText("" + arrayModelClasses.get(position).getCost());
+            cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getCost());
             time.setText("" + arrayModelClasses.get(position).getDuration() + "HRS");
+
+            //code modified by rohan
+            if(arrayModelClasses.get(position).getDuration().isEmpty() && arrayModelClasses.get(position).getCost()==0)
+                temp=0;
 
             if(arrayModelClasses.get(position).isChecked()){
                 if(check_bit == 0) {
@@ -130,6 +137,7 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         } catch (Exception e1) {
             // TODO Auto-generated catch block
+            Log.d("Not a vlid data","hi");
             e1.printStackTrace();
         }
         ((ViewPager) collection).addView(view, 0);

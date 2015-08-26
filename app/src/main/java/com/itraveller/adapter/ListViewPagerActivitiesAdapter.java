@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,6 +128,8 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         TextView txtview = (TextView) convertView.findViewById(R.id.hotel_place_name);
         txtview.setText("Day" + (position+1));
 
+        RelativeLayout rel_left_arrow=(RelativeLayout) convertView.findViewById(R.id.rel_left_arrow);
+        RelativeLayout rel_right_arrow=(RelativeLayout) convertView.findViewById(R.id.rel_right_arrow);
 
         left_arrow=(ImageView) convertView.findViewById(R.id.left_arrow);
         right_arrow=(ImageView) convertView.findViewById(R.id.right_arrow);
@@ -331,7 +334,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                 }
                 else {
                     //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
-
                 }
             }
         }, new Response.ErrorListener() {

@@ -36,6 +36,7 @@
         android:paddingTop="10dp"/>
 
         <RelativeLayout
+            android:id="@+id/rel_left_arrow"
             android:layout_width="35dp"
             android:layout_marginTop="10dp"
             android:layout_height="190dp">
@@ -57,6 +58,7 @@
             android:layout_width="35dp"
             android:layout_height="190dp"
             android:layout_marginTop="10dp"
+            android:id="@+id/rel_right_arrow"
             android:layout_alignParentRight="true">
 
             <ImageView
