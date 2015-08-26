@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -57,6 +58,7 @@ import java.util.HashMap;
 
 public class LoginFragmentA extends Fragment {
 
+    SharedPreferences prefs;
     TextView registerScreen;
 
     Boolean isInternetPresent = false;
@@ -70,6 +72,8 @@ public class LoginFragmentA extends Fragment {
 
 
     String email_id,mobile_number,login_url;
+    Fragment fragment;
+    String title;
 
     EditText _email_id,mobile;
     private CallbackManager callbackManager;
@@ -151,153 +155,235 @@ public class LoginFragmentA extends Fragment {
 
         callbackManager = CallbackManager.Factory.create();
 
+        prefs = context.getSharedPreferences("Preferences",context.MODE_PRIVATE);
+
         //object of ConnectionDetector class used to check internet connection
-        cd = new ConnectionDetector(context);
+
+        if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
+        {
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.putInt("flag",0);
+            editor.commit();
+        }
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.putInt("count",2);
+        editor.commit();
 
 
-        _email_id=(EditText) view.findViewById(R.id.email_id);
-        mobile=(EditText) view.findViewById(R.id.mobile);
-        login=(Button) view.findViewById(R.id.submit);
-        //TextView used as a link to registration form
-        registerScreen=(TextView) view.findViewById(R.id.link_to_register);
-
-        //LoginButton provided by Facebook
-        loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setFragment(LoginFragmentA.this);
-
-        //Button used for allowing user to continue without logging in or unregistered
-        btnunreg=(Button) view.findViewById(R.id.btnunreg);
-
-
-        Log.d("isp", "" + isInternetPresent);
-
-        //Setting permissions for accessing data from facebook
-        loginButton.setReadPermissions(Arrays
-                .asList("public_profile, email, user_birthday, user_friends"));
-
-        //profileTracker is used to keep track of user profile
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                Log.d("ProfileTrack11","Profile");
-                //update UI if there is some change in user profile
-                updateUI();
+        if(prefs.getInt("flag",0)==1) {
+            if (!(prefs.getString("u_name", null).equals("user"))) {
+/*                Log.d("Entered into login2", "hi");
+                Intent i = new Intent(context, MainActivity.class);
+                i.putExtra("id", "login_from_server");
+                i.putExtra("profile", "login_from_server");
+                i.putExtra("fname", "" + prefs.getString("u_name", null));
+                i.putExtra("AccessToken", "login_from_server");
+                startActivity(i); */
+                fragment = new LandingActivity();
+                title = getString(R.string.title_home);
 
             }
-        };
+        }
+        else {
+
+            editor = prefs.edit();
+            editor.putInt("flag", 0);
+            editor.commit();
 
 
-        shareDialog = new ShareDialog(getActivity());
-        shareDialog.registerCallback(callbackManager, shareCallback);
+            cd = new ConnectionDetector(context);
 
 
-        //user redirected to Homepage of our app without registration or login
-        btnunreg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            _email_id = (EditText) view.findViewById(R.id.email_id);
+            mobile = (EditText) view.findViewById(R.id.mobile);
+            login = (Button) view.findViewById(R.id.submit);
+            //TextView used as a link to registration form
+            registerScreen = (TextView) view.findViewById(R.id.link_to_register);
 
-                //checking if internet is present or not
-                isInternetPresent = cd.isNetworkConnection();
-                if (isInternetPresent) {
-                    // Internet Connection is Present
-                    // make HTTP requests
-                    Intent i = new Intent(context, MainActivity.class);
-                    String str1 = "unregistered";
-                    String str2 = "unregistered";
-                    String str3 = "unregistered";
-                    i.putExtra("id", str1);
-                    i.putExtra("fname", str2);
-                    i.putExtra("profile", str3);
-                    i.putExtra("AccessToken","unregistered");
-                    startActivity(i);
+            //LoginButton provided by Facebook
+            loginButton = (LoginButton) view.findViewById(R.id.login_button);
+            loginButton.setFragment(LoginFragmentA.this);
 
-                    getActivity().finish();
+            //Button used for allowing user to continue without logging in or unregistered
+            btnunreg = (Button) view.findViewById(R.id.btnunreg);
 
-                } else {
-                    // Internet connection is not present
-                    // Ask user to connect to Internet
-                    showAlertDialog(context, "No Internet Connection",
-                            "You don't have internet connection.", false);
-                }
 
-            }
-        });
+            Log.d("isp", "" + isInternetPresent);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            //Setting permissions for accessing data from facebook
+            loginButton.setReadPermissions(Arrays
+                    .asList("public_profile, email, user_birthday, user_friends"));
 
-                email_id=_email_id.getText().toString();
-                mobile_number=mobile.getText().toString();
-
-                if(isValidEmail(email_id) && email_id.trim().length()>0 && mobile_number.trim().length()>0)
-                {
-                    JSONParsing();
-                }
-                else
-                {
-                    Toast.makeText(context, "Please enter valid data!!", Toast.LENGTH_LONG).show();
+            //profileTracker is used to keep track of user profile
+            profileTracker = new ProfileTracker() {
+                @Override
+                protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                    Log.d("ProfileTrack11", "Profile");
+                    //update UI if there is some change in user profile
+                    updateUI();
 
                 }
-            }
-        });
+            };
 
 
-        //code for handling event when user clicks login button provided by facebook
-        loginButton.registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
+            shareDialog = new ShareDialog(getActivity());
+            shareDialog.registerCallback(callbackManager, shareCallback);
 
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        //if user successfully redirected to facebook page
+
+            //user redirected to Homepage of our app without registration or login
+            btnunreg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //checking if internet is present or not
+                    isInternetPresent = cd.isNetworkConnection();
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("f_name","user");
+                        editor.commit();
+
+                    /*    LandingActivity fragment1 = new LandingActivity();
+                        title = getString(R.string.title_home);
+                        fragment=fragment1;
+*/
+
+                        Intent i = new Intent(context, MainActivity.class);
+                        i.putExtra("id", "unregistered");
+                        i.putExtra("fname", "unregistered");
+                        i.putExtra("profile", "unregistered");
+                        i.putExtra("AccessToken", "unregistered");
+                        startActivity(i);
+
                         getActivity().finish();
-                        new fblogin().execute(loginResult.getAccessToken());
+
+
+
+                    } else {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        showAlertDialog(context, "No Internet Connection",
+                                "You don't have internet connection.", false);
                     }
 
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException e) {
-
-                    }
-
-
-                });
-
-        //code for link to registration form
-        registerScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                isInternetPresent = cd.isNetworkConnection();
-                if (isInternetPresent) {
-                    // Internet Connection is Present
-                    // make HTTP requests
-                    Intent i = new Intent(getActivity(), SignupActivity.class);
-                    startActivity(i);
-                    getActivity().finish();
-
-                } else {
-                    // Internet connection is not present
-                    // Ask user to connect to Internet
-                    showAlertDialog(getActivity(), "No Internet Connection",
-                            "You don't have internet connection.", false);
                 }
+            });
+
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    isInternetPresent = cd.isNetworkConnection();
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        email_id = _email_id.getText().toString();
+                        mobile_number = mobile.getText().toString();
+
+                        if (isValidEmail(email_id) && email_id.trim().length() > 0 && mobile_number.trim().length() > 0) {
+                            JSONParsing();
+                        }
+                        else
+                        {
+                            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                            // Setting Dialog Title
+                            alertDialog.setTitle("Login Failed   !!");
+
+                            // Setting Dialog Message
+                            alertDialog.setMessage("Plese enter valid data ");
+
+                            // Setting Icon to Dialog
+                            alertDialog.setIcon(R.drawable.fail);
+
+                            // Setting OK Button
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Write your code here to execute after dialog closed
+                                    mobile.setText("");
+                                }
+                            });
+
+                            // Showing Alert Message
+                            alertDialog.show();
+
+                        }
 
 
-            }
-        });
 
+                    }
+                    else
+                    {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        showAlertDialog(getActivity(), "No Internet Connection",
+                                "You don't have internet connection.", false);
+                    }
+
+
+
+
+
+                }
+            });
+
+
+            //code for handling event when user clicks login button provided by facebook
+            loginButton.registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            //if user successfully redirected to facebook page
+//                            getActivity().finish();
+                            new fblogin().execute(loginResult.getAccessToken());
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+
+                        @Override
+                        public void onError(FacebookException e) {
+
+                        }
+
+
+                    });
+
+            //code for link to registration form
+            registerScreen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    isInternetPresent = cd.isNetworkConnection();
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        Intent i = new Intent(getActivity(), SignupActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+
+                    } else {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        showAlertDialog(getActivity(), "No Internet Connection",
+                                "You don't have internet connection.", false);
+                    }
+
+
+                }
+            });
+        }
         return view;
 
     }
 
     public void JSONParsing()
     {
-        LoginActivity.count=2;
+
         String tag_json_obj = "json_obj_req";
 
         final ProgressDialog pDialog = new ProgressDialog(context);
@@ -314,9 +400,10 @@ public class LoginFragmentA extends Fragment {
         email_id=email_id.substring(0,email_id.indexOf("@"));
 
 
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 login_url, new JSONObject(postParams),
-                new Response.Listener<JSONObject>() {
+                new com.android.volley.Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
@@ -340,7 +427,7 @@ public class LoginFragmentA extends Fragment {
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
                                     // Setting Dialog Title
-                                    alertDialog.setTitle("Confirm Delete...");
+                                    alertDialog.setTitle("Login Failed   !!");
 
                                     // Setting Dialog Message
                                     alertDialog.setMessage("You are not a registered user !!!");
@@ -355,7 +442,6 @@ public class LoginFragmentA extends Fragment {
                                             startActivity(i);
                                             getActivity().finish();
                                             // Write your code here to invoke YES event
-                                            Toast.makeText(context, "You clicked on YES", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -363,7 +449,6 @@ public class LoginFragmentA extends Fragment {
                                     alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Write your code here to invoke NO event
-                                            Toast.makeText(context, "You clicked on NO", Toast.LENGTH_SHORT).show();
                                             dialog.cancel();
                                         }
                                     });
@@ -374,9 +459,21 @@ public class LoginFragmentA extends Fragment {
 
                                 } else {
 
+
                                     JSONObject payload_object= jobj.getJSONObject("payload");
                                     user_id=payload_object.getString("user_id");
                                     access_token=payload_object.getString("key");
+
+                                    Log.d("User id is login", "" + user_id);
+                                    SharedPreferences.Editor editor=prefs.edit();
+                                    editor.putString("user_id_string",""+user_id);
+                                    editor.putString("access_token_string",""+access_token);
+                                    editor.putString("f_name",""+email_id);
+                                    editor.putString("f_name",""+email_id);
+                                    editor.putInt("temp", 1);
+                                    editor.putInt("flag",1);
+                                    editor.commit();
+
 
                                     JSONObject user_object=payload_object.getJSONObject("user");
 
@@ -384,10 +481,10 @@ public class LoginFragmentA extends Fragment {
                                     Intent i = new Intent(context, MainActivity.class);
                                     i.putExtra("id", "login_from_server");
                                     i.putExtra("profile", "login_from_server");
-                                    i.putExtra("fname", ""+email_id);
+                                    i.putExtra("fname", "" + email_id);
                                     i.putExtra("AccessToken", "login_from_server");
                                     startActivity(i);
-
+                                    getActivity().finish();
                                 }
                             }
                             else
@@ -395,7 +492,7 @@ public class LoginFragmentA extends Fragment {
                                 AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
                                 // Setting Dialog Title
-                                alertDialog.setTitle("Alert Dialog");
+                                alertDialog.setTitle("Login Failed   !!");
 
                                 // Setting Dialog Message
                                 alertDialog.setMessage("You entered wrong password");
@@ -408,7 +505,6 @@ public class LoginFragmentA extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Write your code here to execute after dialog closed
                                         mobile.setText("");
-                                        Toast.makeText(context, "You clicked on OK", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -421,7 +517,7 @@ public class LoginFragmentA extends Fragment {
 
                         pDialog.dismiss();
                     }
-                }, new Response.ErrorListener() {
+                }, new com.android.volley.Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -445,6 +541,7 @@ public class LoginFragmentA extends Fragment {
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(8000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
 
     }
 
@@ -546,7 +643,7 @@ public class LoginFragmentA extends Fragment {
                         public void onCompleted(JSONObject object,
                                                 GraphResponse response) {
 
-                            Log.v("LoginActivity111", response.toString());
+                            Log.v("Resonse", response.toString());
 
                             try {
 
@@ -557,7 +654,8 @@ public class LoginFragmentA extends Fragment {
 
                                 gender = object.getString("gender");
 
-                                bday = object.getString("birthday");
+//                                bday = object.getString("birthday");
+
 
                             } catch (JSONException e) {
                                 // TODO Auto-generated catch
@@ -596,11 +694,19 @@ public class LoginFragmentA extends Fragment {
             String fname=profile.getFirstName();
             AccessToken at=AccessToken.getCurrentAccessToken();
 
-            Log.d("LoginFragmentAT",""+at);
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.putString("f_name", "" + fname);
+            editor.putString("fb_id", "" + id);
+            //   editor.putString("email_id", "" + emailid);
+            editor.putString("var", "y");
+            editor.putInt("temp", 1);
+            editor.commit();
+
+            Log.d("LoginFragmentAT", "" + at);
             Intent i=new Intent(context,MainActivity.class);
 
             i.putExtra("id",id);
-            i.putExtra("fname", fname);
+            i.putExtra("fname", "y");
             i.putExtra("profile",profile);
             i.putExtra("AccessToken",at);
             startActivity(i);
