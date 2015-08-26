@@ -42,6 +42,7 @@ public class FragmentDrawer extends Fragment {
 
     }
 
+
     public void setDrawerListener(FragmentDrawerListener listener) {
         this.drawerListener = listener;
     }

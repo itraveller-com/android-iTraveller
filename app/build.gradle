@@ -28,6 +28,6 @@ dependencies {
     compile project(':rangeseekbar')
     compile project(':dragsortlistview')
     compile project(':facebook')
-    compile files('D:/Android Projects/android-iTraveller/libs/GoogleAnalyticsServices.jar')
+    compile files('C://android-iTraveller/libs/GoogleAnalyticsServices.jar')
 }
 
