@@ -283,6 +283,31 @@ public class FlightAdapter extends BaseAdapter {
                     final SharedPreferences.Editor editor = sharedpreferences.edit();
                     int ActualPrice = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) * 2;
                     editor.putString("FlightPrice", "" + ActualPrice);
+                    //JSON Value.
+                    String flight_price = Flightitems.get(position).getActualBaseFare() + "," + Flightitems.get(position).getTax() + "," + Flightitems.get(position).getSTax() + "," + Flightitems.get(position).getTCharge() + "," + Flightitems.get(position).getSCharge() + "," + Flightitems.get(position).getTDiscount() + "," + Flightitems.get(position).getTMarkup() + "," + Flightitems.get(position).getTPartnerCommission() + "," + Flightitems.get(position).getTSdiscount() + "," + Flightitems.get(position).getOcTax() + "," + Flightitems.get(position).getId() + "," + Flightitems.get(position).getKey();
+                    editor.putString("InternationalFlightPrice", "" + flight_price);
+                    String flight_onward_data= "";
+                    for(int i = 0; i< Flightitems.get(position).getOnward_model().size(); i++ ){
+                        String flight_onward = Flightitems.get(position).getOnward_model().get(i).getAirEquipType() + "," + Flightitems.get(position).getOnward_model().get(i).getArrivalAirportCode() + "," + Flightitems.get(position).getOnward_model().get(i).getArrivalAirportName() + "," + Flightitems.get(position).getOnward_model().get(i).getArrivalDateTime() + "," + Flightitems.get(position).getOnward_model().get(i).getDepartureAirportCode() + "," + Flightitems.get(position).getOnward_model().get(i).getDepartureAirportName() + "," + Flightitems.get(position).getOnward_model().get(i).getDepartureDateTime() + "," + Flightitems.get(position).getOnward_model().get(i).getFlightNumber() + "," + Flightitems.get(position).getOnward_model().get(i).getMarketingAirlineCode() + "," + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineCode() + "," + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineName() + "," + Flightitems.get(position).getOnward_model().get(i).getOperatingAirlineFlightNumber() + "," + Flightitems.get(position).getOnward_model().get(i).getNumStops() + "," + Flightitems.get(position).getOnward_model().get(i).getLinkSellAgrmnt() + "," + Flightitems.get(position).getOnward_model().get(i).getConx() + "," + Flightitems.get(position).getOnward_model().get(i).getAirpChg() + "," + Flightitems.get(position).getOnward_model().get(i).getInsideAvailOption() + "," + Flightitems.get(position).getOnward_model().get(i).getGenTrafRestriction() + "," + Flightitems.get(position).getOnward_model().get(i).getDaysOperates() + "," + Flightitems.get(position).getOnward_model().get(i).getJrnyTm() + "," + Flightitems.get(position).getOnward_model().get(i).getEndDt() + "," + Flightitems.get(position).getOnward_model().get(i).getStartTerminal() + "," + Flightitems.get(position).getOnward_model().get(i).getEndTerminal();
+                        if(i == 0){
+                           flight_onward_data = flight_onward;
+                        }else{
+                           flight_onward_data = flight_onward_data + "-" +flight_onward;
+                        }
+
+                    }
+                    editor.putString("InternationalFlightOnwardDetails", "" + flight_price);
+                    String flight_return_data= "";
+                    for(int i = 0; i< Flightitems.get(position).getReturn_model().size(); i++ ){
+                        String flight_return = Flightitems.get(position).getReturn_model().get(i).getAirEquipType() + "," + Flightitems.get(position).getReturn_model().get(i).getArrivalAirportCode() + "," + Flightitems.get(position).getReturn_model().get(i).getArrivalAirportName() + "," + Flightitems.get(position).getReturn_model().get(i).getArrivalDateTime() + "," + Flightitems.get(position).getReturn_model().get(i).getDepartureAirportCode() + "," + Flightitems.get(position).getReturn_model().get(i).getDepartureAirportName() + "," + Flightitems.get(position).getReturn_model().get(i).getDepartureDateTime() + "," + Flightitems.get(position).getReturn_model().get(i).getFlightNumber() + "," + Flightitems.get(position).getReturn_model().get(i).getMarketingAirlineCode() + "," + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineCode() + "," + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineName() + "," + Flightitems.get(position).getReturn_model().get(i).getOperatingAirlineFlightNumber() + "," + Flightitems.get(position).getReturn_model().get(i).getNumStops() + "," + Flightitems.get(position).getReturn_model().get(i).getLinkSellAgrmnt() + "," + Flightitems.get(position).getReturn_model().get(i).getConx() + "," + Flightitems.get(position).getReturn_model().get(i).getAirpChg() + "," + Flightitems.get(position).getReturn_model().get(i).getInsideAvailOption() + "," + Flightitems.get(position).getReturn_model().get(i).getGenTrafRestriction() + "," + Flightitems.get(position).getReturn_model().get(i).getDaysOperates() + "," + Flightitems.get(position).getReturn_model().get(i).getJrnyTm() + "," + Flightitems.get(position).getReturn_model().get(i).getEndDt() + "," + Flightitems.get(position).getReturn_model().get(i).getStartTerminal() + "," + Flightitems.get(position).getReturn_model().get(i).getEndTerminal();
+                        if(i == 0){
+                            flight_return_data = flight_return;
+                        }else{
+                            flight_return_data = flight_return_data + "-" +flight_return;
+                        }
+
+                    }
+                    editor.putString("InternationalFlightReturnDetails", "" + flight_price);
                     editor.commit();
                     Intent intent = new Intent(activity, SummaryActivity.class);
                     activity.startActivity(intent);
