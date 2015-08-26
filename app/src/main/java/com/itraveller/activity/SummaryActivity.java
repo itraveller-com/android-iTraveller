@@ -62,6 +62,7 @@ public class SummaryActivity extends ActionBarActivity {
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
+
             Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
             Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
             String transportation_rate = prefs.getString("TransportationCost", null);
