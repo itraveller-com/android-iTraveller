@@ -16,10 +16,12 @@
             android:adjustViewBounds="true"
             android:scaleType="fitXY" />
 
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="75dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="35dp"
             android:layout_gravity="bottom">
 
             <LinearLayout
@@ -37,7 +39,8 @@
                     android:id="@+id/checkBox"
                     android:checked="false"
                     android:clickable="false"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"/>
             </LinearLayout>
 
             <LinearLayout

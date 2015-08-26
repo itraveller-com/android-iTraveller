@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -40,6 +41,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     ViewPager[] vp;
     public static ViewPagerAdapter mViewPagerAdapter;
     int swap_value = 0;
+    ImageView left_arrow,right_arrow;
    //ViewPagerAdapter viewpageradapter;
 
   HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
@@ -113,7 +115,13 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         txtview.setText("" + hotel_destination[position]);
         vp[position] = (ViewPager) convertView.findViewById(R.id.list_pager);
         mViewPagerAdapter = new ViewPagerAdapter(mHotelModels.get(""+position),new PagerCheckedChangeListnerCustom(position));
+
         vp[position].setAdapter(mViewPagerAdapter);
+
+
+        left_arrow=(ImageView) convertView.findViewById(R.id.left_arrow);   //code added by rohan
+        right_arrow=(ImageView) convertView.findViewById(R.id.right_arrow);
+
         //vp[position].setTag(position);
         vp[position].setOnClickListener(new ViewPagerClickListner(position));
         vp[position].setOnPageChangeListener(new ViewPageChangeListner(position));
@@ -139,7 +147,24 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             }
         });*/
 
-     if(mHotelModels.get(""+position).size()<1){
+        left_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Log.d("Left arrow","hi");
+                vp[position].setCurrentItem(vp[position].getCurrentItem() - 1);
+            }
+        });
+
+        right_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Right arrow","bye");
+                vp[position].setCurrentItem(vp[position].getCurrentItem() + 1);
+            }
+        });
+
+
+        if(mHotelModels.get(""+position).size()<1){
 
          airportJSONForText(navigationItems.get(position), position);
 
