@@ -16,4 +16,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <orderEntry type="library" name="android-support-v4" level="application" />
+    <orderEntry type="library" name="com.squareup:android-times-square:1.5.0.aar" level="project" />
 </module>

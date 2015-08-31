@@ -94,7 +94,7 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
                 cost.setText("Free");
             else
             cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getCost());
-            time.setText("" + arrayModelClasses.get(position).getDuration() + "HRS");
+            time.setText("" + arrayModelClasses.get(position).getDuration() + " HRS");
 
             //code modified by rohan
             if(arrayModelClasses.get(position).getDuration().isEmpty() && arrayModelClasses.get(position).getCost()==0)
