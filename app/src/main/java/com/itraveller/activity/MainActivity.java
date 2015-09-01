@@ -2,7 +2,6 @@ package com.itraveller.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -30,20 +29,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginFragment;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.itraveller.R;
@@ -52,11 +47,11 @@ import com.itraveller.volley.AppController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
 
+
+import com.google.analytics.tracking.android.EasyTracker;
 
 
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -152,7 +147,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
 
                     //calling logout1 method if user clicks logout button
-            //        logout1();
+                    //        logout1();
 
                 }
             };
@@ -167,7 +162,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             Log.d("Users id", "" + preferences.getString("user_id_string", null));
             //    editor.putString("access_token",preferences.getString("access_token_string",null));
             editor.putString("u_name", str3);
-         //   editor.putInt("flag", 1);
+            //   editor.putInt("flag", 1);
 
             editor.commit();
 
@@ -232,11 +227,13 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
 
         // display the first navigation drawer view on app launch
-     //   if((att.equals("unregistered") || att.equals("login_from_server") || !str1.equals("unregistered") || !str1.equals("login_from_server") || preferences.getInt("flag",0)==1 || preferences.getInt("temp",0)==1)  && !str1.equals("x") )
-            if((str1.equals("x") && preferences.getInt("flag",0)==1) || att.equals("unregistered") || att.equals("login_from_server") || str3.equals("y"))
+        //   if((att.equals("unregistered") || att.equals("login_from_server") || !str1.equals("unregistered") || !str1.equals("login_from_server") || preferences.getInt("flag",0)==1 || preferences.getInt("temp",0)==1)  && !str1.equals("x") )
+        if((str1.equals("x") && preferences.getInt("flag",0)==1) || att.equals("unregistered") || att.equals("login_from_server") || str3.equals("y"))
             displayView(0);
         else
             displayView(4);
+
+
     }
 
 
@@ -270,6 +267,18 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
 
@@ -292,12 +301,12 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
     }
     //this method is called if user clicks logot button
-    public void logout1()
+/*    public void logout1()
     {
         //set AccessToken as null
         //    AccessToken.setCurrentAccessToken(null);
 
-        LoginFragmentA fragment1 = new LoginFragmentA();
+        LoginFragment fragment1 = new LoginFragment();
         fragment1.setContextValue(context);
         title = getString(R.string.title_login);
         fragment = fragment1;
@@ -305,7 +314,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         finish();
 
     }
-
+*/
 
 
     public int getStatusBarHeight() {
@@ -379,7 +388,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         return super.onOptionsItemSelected(item);
     }
-    public void logout_from_server(int test)
+    public void logout_from_server()
     {
         String tag_json_obj = "json_obj_req";
         String u_id = null,at = null;
@@ -387,23 +396,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         final ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setMessage("Signing out...");
         pDialog.show();
-        Log.d("Test variable",""+test);
-        switch(test) {
-            case 1:
-                u_id = preferences.getString("user_id_string",null);
-                Log.d("User is",""+u_id);
-                at = preferences.getString("access_token_string",null);
-                Log.d("Accesstoken",""+at);
-                break;
-            case 2:
-                u_id = preferences.getString("user_id_string",null);
-                Log.d("User is",""+u_id);
-                at = preferences.getString("access_token_string",null);
-                Log.d("Accesstoken",""+at);
-                break;
-            default:
-                break;
-        }
+
+        u_id = preferences.getString("user_id_string",null);
+        Log.d("User is",""+u_id);
+        at = preferences.getString("access_token_string",null);
+        Log.d("Accesstoken",""+at);
         Log.d("URL main",""+"http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at);
         String url="http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at;
 
@@ -421,7 +418,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     Log.d("Success string",""+success.equals("true"));
                     if(success.equals("true"))
                     {
-                    //    Intent i=new Intent(getApplicationContext(),LoginActivity.class);
+                        //    Intent i=new Intent(getApplicationContext(),LoginActivity.class);
                         Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
 //                        LoginActivity.access_token=null;
                         att=null;
@@ -435,9 +432,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                         //display defult image and greetin to unregistered user
                         img1.setImageBitmap(getCroppedBitmap(icon));
                         greeting.setText("Hello user");
-                    //    startActivity(i);
+                        //    startActivity(i);
 
-                        LoginFragmentA fragment1 = new LoginFragmentA();
+                        LoginFragment fragment1 = new LoginFragment();
                         fragment1.setContextValue(context);
                         title = getString(R.string.title_login);
                         fragment = fragment1;
@@ -481,6 +478,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     }
 
     private void displayView(int position) {
+
+
         fragment = null;
         title = getString(R.string.app_name);
         switch (position) {
@@ -510,7 +509,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 Log.d("AccessToken before if",""+att);
                 if(att.equals("unregistered")) {
                     Log.d("Inside at", "accesstoken is null");
-                    LoginFragmentA fragment1 = new LoginFragmentA();
+                    LoginFragment fragment1 = new LoginFragment();
                     fragment1.setContextValue(context);
                     title = getString(R.string.title_login);
                     fragment = fragment1;
@@ -519,10 +518,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 {
                     Log.d("Count",""+preferences.getInt("count",0));
 
-                    if(preferences.getInt("count",0)==1)
-                        logout_from_server(1);
-                    else
-                        logout_from_server(2);
+                    logout_from_server();
                 }
                 else
                 {
@@ -540,7 +536,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 }
                 break;
             case 4:
-                LoginFragmentA fragment1 = new LoginFragmentA();
+                LoginFragment fragment1 = new LoginFragment();
                 fragment1.setContextValue(context);
                 title = getString(R.string.title_login);
                 fragment = fragment1;
