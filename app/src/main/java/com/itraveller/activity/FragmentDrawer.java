@@ -35,7 +35,7 @@ public class FragmentDrawer extends Fragment {
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
-    private static String[] titles = null;
+    public static String[] titles = null;
     private FragmentDrawerListener drawerListener;
 
     public FragmentDrawer() {
@@ -58,7 +58,6 @@ public class FragmentDrawer extends Fragment {
         {
             titles[3]=titles[3].replace(""+titles[3],"Logout");
         }
-
 
 
         // preparing navigation drawer items

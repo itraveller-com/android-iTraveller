@@ -113,17 +113,15 @@
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textSize="16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
-            android:background="@color/orange"
-            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
             facebook:com_facebook_confirm_logout="false"
-            android:textSize="16dp"
-            facebook:com_facebook_tooltip_mode="never_display" />
-
+            facebook:com_facebook_tooltip_mode="never_display"
+            />
 
         <Button
             android:id="@+id/btnunreg"

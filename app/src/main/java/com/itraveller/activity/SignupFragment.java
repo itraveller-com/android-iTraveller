@@ -1,13 +1,12 @@
 package com.itraveller.activity;
 
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -36,12 +34,17 @@ import java.util.HashMap;
  */
 public class SignupFragment extends Fragment {
 
-    EditText email_id_,mobile;
+    //textbox for taking user input
+    public static EditText email_id_,mobile;
+    //button for sign up user
     Button submit;
+    //used for storing user details
     String user_name,emailid,pass,mobile_number;
     Context context;
+    //API
     String url;
     Fragment fragment;
+    SharedPreferences prefs;
 
     public void setContextValue(Context context)
     {
@@ -61,6 +64,9 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.sign_up,container,false);
 
+        prefs=getActivity().getSharedPreferences("Preferences",Context.MODE_PRIVATE);
+
+        //initialise the components of signup form
         email_id_=(EditText) view.findViewById(R.id.email_id);
         mobile=(EditText) view.findViewById(R.id.mobile);
 
@@ -77,14 +83,16 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                //reading data from textbox on submitting form
                 emailid=email_id_.getText().toString();
                 Log.d("Email check", "hi" + emailid);
                 mobile_number=mobile.getText().toString();
                 Log.d("Mobile check","hi"+mobile_number);
 
+                //check if user entered valid details or not
                 if(( mobile_number.trim().length()>0 && emailid.trim().length()>0 && isValidEmail(emailid)) && mobile_number.trim().length()==10)
                 {
-                    postUsingVolley();
+                    sign_up_user();
 
                 }
                 else
@@ -111,7 +119,6 @@ public class SignupFragment extends Fragment {
                     // Showing Alert Message
                     alertDialog.show();
 
-
                     //Toast.makeText(getActivity(), "Please fill all the details !!", Toast.LENGTH_LONG).show();
 //                        Log.d("Failure","failde");
                 }
@@ -119,27 +126,16 @@ public class SignupFragment extends Fragment {
         });
 
         loginScreen.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View arg0) {
                 // Switching to Login Screen/closing register screen
-/*                Intent i=new Intent(context,MainActivity.class);
-                i.putExtra("profile","signup");
-                i.putExtra("id","signup");
-                i.putExtra("fname","signup");
-                i.putExtra("AccessToken","signup");
-                startActivity(i);
-                getActivity().finish();
-*/
-
                 getActivity().onBackPressed();
 
             }
         });
-
-
         return view;
     }
 
+    //function to check if user entered valid email or not
     public final static boolean isValidEmail(CharSequence target) {
         if (target == null) {
             return false;
@@ -148,14 +144,16 @@ public class SignupFragment extends Fragment {
         }
     }
 
-    private void postUsingVolley() {
+    //function to sign up user
+    private void sign_up_user() {
         String tag_json_obj = "json_obj_req";
 
-        LoginActivity.count=1;
+        //message to be displayed to user while signing up user
         final ProgressDialog pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Creating new account...");
         pDialog.show();
 
+        //sign up API
         url="http://stage.itraveller.com/backend/api/v1/users/ -d  email=" +
                 emailid + "&name= " + user_name +"&phone=" + mobile_number + "&password="+pass  ;
 
@@ -176,29 +174,22 @@ public class SignupFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("TAG signup", response.toString());
-                        try {
+                        try
+                        {
 
                             JSONObject obj=new JSONObject(response.toString());
                             String success=obj.getString("success");
                             if(success.equals("true"))
                             {
 
+                                    Log.d("Email received",""+prefs.getString("email_id1", null));
+                                    LoginFragment._email_id.setText(""+prefs.getString("email_id1", null));
+                                    LoginFragment.mobile.setText(""+prefs.getString("mobile_number1", null));
 
-/*                                Intent i = new Intent(getActivity(), MainActivity.class);
-                                i.putExtra("profile", "sign_up");
-                                i.putExtra("id", "signup");
-                                i.putExtra("fname", "signup");
-                                i.putExtra("AccessToken", "sign_up");
-                                startActivity(i);
-                                getActivity().finish();
-*/                                // Toast.makeText(mContext, response.getString("message"), Toast.LENGTH_LONG).show();
-
-                                getActivity().onBackPressed();
-//                                getFragmentManager().popBackStack();
+                                  getActivity().onBackPressed();
                             }
                             else
                             {
-
                                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
 
                                 // Setting Dialog Title
@@ -213,16 +204,6 @@ public class SignupFragment extends Fragment {
                                 // Setting OK Button
                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // Write your code here to execute after dialog closed
-/*                                        Intent i=new Intent(getActivity(),MainActivity.class);
-                                        i.putExtra("profile","signup");
-                                        i.putExtra("id","signup");
-                                        i.putExtra("fname","signup");
-                                        i.putExtra("AccessToken", "signup");
-                                        startActivity(i);
-                                        getActivity().finish();
-*/
-//                                        getFragmentManager().popBackStack();
                                         getActivity().onBackPressed();
                                     }
                                 });
@@ -232,11 +213,10 @@ public class SignupFragment extends Fragment {
 
 
                             }
-                            //if (response.getBoolean("status")) {
                             pDialog.dismiss();
-                            //     finish();
-                            // }
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException e)
+                        {
                             Log.e("TAG", e.toString());
                         }
                         pDialog.dismiss();

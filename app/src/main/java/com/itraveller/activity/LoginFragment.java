@@ -1,10 +1,7 @@
 package com.itraveller.activity;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,7 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -40,8 +36,6 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.facebook.login.widget.ProfilePictureView;
-import com.facebook.share.Sharer;
 import com.facebook.share.widget.ShareDialog;
 import com.itraveller.R;
 import com.itraveller.volley.AppController;
@@ -57,31 +51,42 @@ import java.util.HashMap;
 public class LoginFragment extends Fragment {
 
     SharedPreferences prefs;
+    //Textview for going to signup screen
     TextView registerScreen;
+
+    //variable for detecting internet status
     Boolean isInternetPresent = false;
 
     // Connection detector class
     ConnectionDetector cd;
-    /*login form
-        end
-     */
+
+    //access-token and user id receeived from facebook
     public static String access_token,user_id;
 
+    //storing values for login from our server
+    String email_id,mobile_number,login_url,email_id1;
 
-    String email_id,mobile_number,login_url;
+    //fragment class object for using fragment
     Fragment fragment;
+
+    //title of the fragment
     String title;
 
-    EditText _email_id,mobile;
+    //edittext for taking user email and mobile number in login form
+    public static EditText _email_id,mobile;
+
     private CallbackManager callbackManager;
-    String emailid, gender, bday, firstname;
+
+    //variables for storing data received from facebook
+    String emailid, gender,  firstname;
+
+    //LoginButton provided by facebook
     private LoginButton loginButton;
 
-    ProfilePictureView profilePictureView;
-    private TextView greeting;
+    //Buttons for login user and for continuing without login
     Button btnunreg,login;
-    TextView info;
-    private AccessTokenTracker accessTokenTracker;
+
+    //profiletracker for keeping track of user profile on facebook
     private ProfileTracker profileTracker;
     private ProgressDialog pDialog;
     public static Profile profile;
@@ -95,45 +100,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-    public FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
-        @Override
-        public void onCancel() {
-            Log.d("HelloFacebook", "Canceled");
-        }
-
-        @Override
-        public void onError(FacebookException error) {
-            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
-            String title = getString(R.string.error);
-            String alertMessage = error.getMessage();
-            showResult(title, alertMessage);
-        }
-
-
-
-        @Override
-        public void onSuccess(Sharer.Result result) {
-            Log.d("HelloFacebook", "Success!");
-            if (result.getPostId() != null) {
-                String title = getString(R.string.success);
-                String id = result.getPostId();
-                String alertMessage = getString(R.string.successfully_posted_post, id);
-                showResult(title, alertMessage);
-            }
-        }
-
-        private void showResult(String title, String alertMessage) {
-
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(title)
-                    .setMessage(alertMessage)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-        }
-    };
-
-
-
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -142,58 +108,57 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        //setting layout of screen to login.xml file
         View view=inflater.inflate(R.layout.login, container, false);
 
+        //creating threads for facebook login
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         //Initialise facebook SDK
         FacebookSdk.sdkInitialize(context);
 
         callbackManager = CallbackManager.Factory.create();
 
+        //shared preferences object for storing data in "Preferences"
         prefs = context.getSharedPreferences("Preferences",context.MODE_PRIVATE);
 
-        //object of ConnectionDetector class used to check internet connection
-
+        //check if user is already logged in or not viz. if flag=0 then user is not logged in and 1 for logged in
         if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
         {
             SharedPreferences.Editor editor=prefs.edit();
             editor.putInt("flag",0);
             editor.commit();
         }
-        SharedPreferences.Editor editor=prefs.edit();
-        editor.putInt("count",2);
-        editor.commit();
 
 
-        if(prefs.getInt("flag",0)==1) {
-            if (!(prefs.getString("u_name", null).equals("user"))) {
-/*                Log.d("Entered into login2", "hi");
-                Intent i = new Intent(context, MainActivity.class);
-                i.putExtra("id", "login_from_server");
-                i.putExtra("profile", "login_from_server");
-                i.putExtra("fname", "" + prefs.getString("u_name", null));
-                i.putExtra("AccessToken", "login_from_server");
-                startActivity(i); */
+        //if user is already logged in then redirect user to homepage of our app
+        if(prefs.getInt("flag",0)==1)
+        {
+            if (!(prefs.getString("u_name", null).equals("user")))
+            {
                 fragment = new LandingActivity();
                 title = getString(R.string.title_home);
-
             }
         }
-        else {
+        else
+        {
 
+            SharedPreferences.Editor editor=prefs.edit();
             editor = prefs.edit();
             editor.putInt("flag", 0);
             editor.commit();
 
-
             cd = new ConnectionDetector(context);
 
-
+            //initialise components of login form
             _email_id = (EditText) view.findViewById(R.id.email_id);
             mobile = (EditText) view.findViewById(R.id.mobile);
             login = (Button) view.findViewById(R.id.submit);
+
             //TextView used as a link to registration form
             registerScreen = (TextView) view.findViewById(R.id.link_to_register);
 
@@ -203,9 +168,6 @@ public class LoginFragment extends Fragment {
 
             //Button used for allowing user to continue without logging in or unregistered
             btnunreg = (Button) view.findViewById(R.id.btnunreg);
-
-
-            Log.d("isp", "" + isInternetPresent);
 
             //Setting permissions for accessing data from facebook
             loginButton.setReadPermissions(Arrays
@@ -222,11 +184,6 @@ public class LoginFragment extends Fragment {
                 }
             };
 
-
-            shareDialog = new ShareDialog(getActivity());
-            shareDialog.registerCallback(callbackManager, shareCallback);
-
-
             //user redirected to Homepage of our app without registration or login
             btnunreg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -235,8 +192,8 @@ public class LoginFragment extends Fragment {
                     //checking if internet is present or not
                     isInternetPresent = cd.isNetworkConnection();
                     if (isInternetPresent) {
-                        // Internet Connection is Present
-                        // make HTTP requests
+
+
                         SharedPreferences.Editor editor=prefs.edit();
                         editor.putString("f_name","user");
                         editor.commit();
@@ -245,19 +202,19 @@ public class LoginFragment extends Fragment {
                         title = getString(R.string.title_home);
                         fragment=fragment1;
 */
-
+                        //redirect user to our apps homepage
                         Intent i = new Intent(context, MainActivity.class);
-                        i.putExtra("id", "unregistered");
-                        i.putExtra("fname", "unregistered");
                         i.putExtra("profile", "unregistered");
-                        i.putExtra("AccessToken", "unregistered");
+                        i.putExtra("id", "unregistered");
                         startActivity(i);
 
                         getActivity().finish();
 
 
 
-                    } else {
+                    }
+                    else
+                    {
                         // Internet connection is not present
                         // Ask user to connect to Internet
                         showAlertDialog(context, "No Internet Connection",
@@ -267,19 +224,22 @@ public class LoginFragment extends Fragment {
                 }
             });
 
+            //listener after clicking login button
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     isInternetPresent = cd.isNetworkConnection();
                     if (isInternetPresent) {
-                        // Internet Connection is Present
-                        // make HTTP requests
+
+                        //getting data from login form
                         email_id = _email_id.getText().toString();
+                        email_id1 =_email_id.getText().toString();
                         mobile_number = mobile.getText().toString();
 
+                        //checking if user entered valid data
                         if (isValidEmail(email_id) && email_id.trim().length() > 0 && mobile_number.trim().length() > 0) {
-                            JSONParsing();
+                            login_from_server();
                         }
                         else
                         {
@@ -306,9 +266,6 @@ public class LoginFragment extends Fragment {
                             alertDialog.show();
 
                         }
-
-
-
                     }
                     else
                     {
@@ -317,11 +274,6 @@ public class LoginFragment extends Fragment {
                         showAlertDialog(getActivity(), "No Internet Connection",
                                 "You don't have internet connection.", false);
                     }
-
-
-
-
-
                 }
             });
 
@@ -357,21 +309,21 @@ public class LoginFragment extends Fragment {
 
                     isInternetPresent = cd.isNetworkConnection();
                     if (isInternetPresent) {
-                        // Internet Connection is Present
-                        // make HTTP requests
+
 /*                        Intent i = new Intent(getActivity(), SignupActivity.class);
                         startActivity(i);
                         getActivity().finish();
 */
+                        //call signup fragment on clicking link
                         SignupFragment fragment2=new SignupFragment();
                         android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack
                         transaction.replace(android.R.id.content, fragment2);
                         transaction.addToBackStack(null);
 
-// Commit the transaction
+                        // Commit the transaction
                         transaction.commit();
 
                     }
@@ -391,15 +343,18 @@ public class LoginFragment extends Fragment {
 
     }
 
-    public void JSONParsing()
+    //function for logging in user from our server
+    public void login_from_server()
     {
 
         String tag_json_obj = "json_obj_req";
 
+        //this message will be displayed to user while logging in user
         final ProgressDialog pDialog = new ProgressDialog(context);
         pDialog.setMessage("Signing in...");
         pDialog.show();
 
+        //login API
         login_url="http://stage.itraveller.com/backend/api/v1/users/auth?email=" +
                 email_id + "&password=" + mobile_number  ;
 
@@ -417,9 +372,10 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("TAG signin", response.toString());
+                        Log.d("Response signin", response.toString());
                         JSONObject jobj= null;
-                        try {
+                        try
+                        {
                             jobj = new JSONObject(response.toString());
 
                             String success=jobj.getString("success");
@@ -430,10 +386,12 @@ public class LoginFragment extends Fragment {
 
 
                             Log.d("Boolean",""+success.equals("true"));
-                            if(success.equals("true")) {
-
-                                if (jobj.getString("payload").equalsIgnoreCase("User is not registered.")) {
-
+                            //if user enters valid details
+                            if(success.equals("true"))
+                            {
+                                //if user is not a registered user
+                                if (jobj.getString("payload").equalsIgnoreCase("User is not registered."))
+                                {
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
                                     // Setting Dialog Title
@@ -448,16 +406,24 @@ public class LoginFragment extends Fragment {
                                     // Setting Positive "Yes" Button
                                     alertDialog.setPositiveButton("Sign up", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int which) {
+
+                                            //storing email and mobile number of user for fuethur use
+                                            SharedPreferences.Editor editor=prefs.edit();
+                                            editor.putString("email_id1", "" + email_id1);
+                                            editor.putString("mobile_number1", "" + mobile_number);
+                                            editor.commit();
+
+                                            //then call signup fragment
                                             SignupFragment fragment2=new SignupFragment();
                                             android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
+                                            // Replace whatever is in the fragment_container view with this fragment,
+                                            // and add the transaction to the back stack
                                             transaction.replace(android.R.id.content, fragment2);
                                             transaction.addToBackStack(null);
 
-// Commit the transaction
+                                            // Commit the transaction
                                             transaction.commit();
+
                                         /*    Intent i=new Intent(context,SignupActivity.class);
                                             startActivity(i);
                                             getActivity().finish();
@@ -476,11 +442,14 @@ public class LoginFragment extends Fragment {
                                     // Showing Alert Message
                                     alertDialog.show();
 
-
-                                } else {
+                                }
+                                //if user is registered user
+                                else
+                                {
 
 
                                     JSONObject payload_object= jobj.getJSONObject("payload");
+                                    //store user_id and access_token received from our server
                                     user_id=payload_object.getString("user_id");
                                     access_token=payload_object.getString("key");
 
@@ -488,7 +457,6 @@ public class LoginFragment extends Fragment {
                                     SharedPreferences.Editor editor=prefs.edit();
                                     editor.putString("user_id_string",""+user_id);
                                     editor.putString("access_token_string",""+access_token);
-                                    editor.putString("f_name",""+email_id);
                                     editor.putString("f_name",""+email_id);
                                     editor.putInt("temp", 1);
                                     editor.putInt("flag",1);
@@ -499,14 +467,13 @@ public class LoginFragment extends Fragment {
 
 
                                     Intent i = new Intent(context, MainActivity.class);
-                                    i.putExtra("id", "login_from_server");
                                     i.putExtra("profile", "login_from_server");
-                                    i.putExtra("fname", "" + email_id);
-                                    i.putExtra("AccessToken", "login_from_server");
+                                    i.putExtra("id", "login_from_server");
                                     startActivity(i);
                                     getActivity().finish();
                                 }
                             }
+                            //if user entered invalid details
                             else
                             {
                                 AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -532,7 +499,9 @@ public class LoginFragment extends Fragment {
                                 // Showing Alert Message
                                 alertDialog.show();
                             }
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
 
@@ -566,7 +535,7 @@ public class LoginFragment extends Fragment {
 
     }
 
-
+    //function to check if entered email is valid or not
     public final static boolean isValidEmail(CharSequence target) {
         if (target == null) {
             return false;
@@ -575,7 +544,7 @@ public class LoginFragment extends Fragment {
         }
     }
 
-
+    //display dialog box for internet connection
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
@@ -639,6 +608,7 @@ public class LoginFragment extends Fragment {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    //for facebook login
     class fblogin extends AsyncTask<AccessToken, String, String> {
 
         //Before fetching data from facebook "Please wait" mesasge is shown to user
@@ -646,6 +616,7 @@ public class LoginFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //mesage will be displayed to the user while logging in user
             pDialog = new ProgressDialog(context);
             pDialog.setMessage("Please wait.....");
             pDialog.setIndeterminate(false);
@@ -703,13 +674,15 @@ public class LoginFragment extends Fragment {
     }
 
     //for updating UI  if there is some change detected
-    public void updateUI() {
+    public void updateUI()
+    {
         boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
 
         profile = Profile.getCurrentProfile();
         Log.d("Profile in fragment is",""+profile);
 
-        if (enableButtons && profile != null) {
+        if (enableButtons && profile != null)
+        {
 
             String id=profile.getId();
             String fname=profile.getFirstName();
@@ -717,27 +690,20 @@ public class LoginFragment extends Fragment {
 
             SharedPreferences.Editor editor=prefs.edit();
             editor.putString("f_name", "" + fname);
-            editor.putString("fb_id", "" + id);
-            //   editor.putString("email_id", "" + emailid);
+            editor.putString("user_id_string", "" + id);
+            editor.putString("access_token_string", "" + at);
             editor.putString("var", "y");
             editor.putInt("temp", 1);
             editor.commit();
 
             Log.d("LoginFragmentAT", "" + at);
-            Intent i=new Intent(context,MainActivity.class);
 
-            i.putExtra("id",id);
-            i.putExtra("fname", "y");
+            Intent i=new Intent(context,MainActivity.class);
             i.putExtra("profile",profile);
-            i.putExtra("AccessToken",at);
+            i.putExtra("id",id);
+
             startActivity(i);
             getActivity().finish();
-
-
         }
     }
-
-
-
-
 }
