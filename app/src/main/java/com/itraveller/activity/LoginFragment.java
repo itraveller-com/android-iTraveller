@@ -448,10 +448,20 @@ public class LoginFragment extends Fragment {
                                     // Setting Positive "Yes" Button
                                     alertDialog.setPositiveButton("Sign up", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int which) {
-                                            Intent i=new Intent(context,SignupActivity.class);
+                                            SignupFragment fragment2=new SignupFragment();
+                                            android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+                                            transaction.replace(android.R.id.content, fragment2);
+                                            transaction.addToBackStack(null);
+
+// Commit the transaction
+                                            transaction.commit();
+                                        /*    Intent i=new Intent(context,SignupActivity.class);
                                             startActivity(i);
                                             getActivity().finish();
-                                            // Write your code here to invoke YES event
+                                         */   // Write your code here to invoke YES event
                                         }
                                     });
 
