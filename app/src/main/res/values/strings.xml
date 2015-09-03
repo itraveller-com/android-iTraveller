@@ -47,4 +47,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_payment_success">MainActivity</string>
+    <string name="hostname">EBS</string>
+    <string name="paymnet_success">Thanks for your shopping!</string>
+    <string name="paymnet_product_id">Your Product id is:</string>
+
 </resources>

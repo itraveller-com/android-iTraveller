@@ -352,10 +352,10 @@ public class  HotelActivity extends ActionBarActivity {
                         roomList.add(hrm);
                         flag_bit =0;
                     }
-                    if(index == (totalcount-1)){
-                    adapter.notifyDataSetChanged();
-                    com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
-
+                    if(index == (totalcount-1)) {
+                        adapter.notifyDataSetChanged();
+                        //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
+                    }
 
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());

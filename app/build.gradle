@@ -8,8 +8,10 @@ android {
         applicationId "com.itraveller"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 3
+        versionCode 4
         versionName "1.1"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,6 +27,7 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile project(':app1')
+    compile project(':EBS')
     compile project(':rangeseekbar')
     compile project(':dragsortlistview')
     compile project(':facebook')

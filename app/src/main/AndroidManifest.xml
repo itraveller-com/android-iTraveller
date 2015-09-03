@@ -41,6 +41,10 @@
             android:name="com.itraveller.activity.TestActionBar"
             android:screenOrientation="portrait"></activity>
         <activity
+
+            android:name="com.itraveller.payment.BuyProduct"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name="com.itraveller.activity.ItinerarySummaryActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -89,6 +93,15 @@
                 <action android:name="com.facebook.platform.AppCallResultBroadcast" />
             </intent-filter>
         </receiver>
+
+        <activity android:label="@string/title_activity_payment_success" android:screenOrientation="portrait" android:name="com.itraveller.payment.PaymentSuccessActivity">
+            <intent-filter>
+        <data android:scheme="com.itraveller" android:host="@string/hostname"/>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+    </intent-filter>
+    </activity>
     </application>
 
 </manifest>
