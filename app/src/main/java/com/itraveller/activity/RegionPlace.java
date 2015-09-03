@@ -30,6 +30,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.itraveller.constant.Constants;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import org.json.JSONException;
@@ -48,7 +49,8 @@ import com.itraveller.volley.AppController;
  */
 public class RegionPlace extends ActionBarActivity {
 
-    private String url = "http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
+
+    private String url = Constants.API_RegionPlace_URL;   //"http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
     private List<RegionPlaceModel> regionList = new ArrayList<RegionPlaceModel>();
     private RegionPlaceAdapter adapter;
     private ListView listView;
@@ -162,8 +164,8 @@ public class RegionPlace extends ActionBarActivity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         // Update UI elements
-                        minval.setText(""+minValue);
-                        maxval.setText(""+maxValue);
+                        minval.setText("" + minValue);
+                        maxval.setText("" + maxValue);
                     }
                 });
 
@@ -174,6 +176,7 @@ public class RegionPlace extends ActionBarActivity {
         bundle = getIntent().getExtras();
         //Print
         System.out.println("RegionID: " + bundle.getInt("RegionID"));
+        Log.d("regionId in regionplace",url + bundle.getInt("RegionID"));
         url= url + bundle.getInt("RegionID");
         getSupportActionBar().setTitle(bundle.getString("RegionName") + " Packages");
 
@@ -219,8 +222,11 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setTitle(jsonobj.getJSONObject("Master").getString("Title"));
                            region_adp.setLink(jsonobj.getJSONObject("Master").getString("Link"));
                            //region_adp.setImage(jsonobj.getJSONObject("Master").getString("Image"));
-                           region_adp.setImage("http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
-                           Log.d("Images:", "http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+
+
+                           region_adp.setImage(Constants.API_RegionPlace_ImageURL + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                       //    region_adp.setImage(Constants.API_RegionPlace_ImageURL);
+                           Log.d("Images:", Constants.API_RegionPlace_ImageURL);
                            region_adp.setArrival_Port_Id(jsonobj.getJSONObject("Master").getInt("Arrival_Port_Id"));
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                            region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));

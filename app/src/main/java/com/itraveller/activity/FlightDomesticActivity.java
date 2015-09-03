@@ -46,6 +46,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightViewPagerAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.CustomLoading;
 import com.itraveller.model.FlightModel;
 import com.itraveller.model.OnwardDomesticFlightModel;
@@ -66,6 +67,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
     ArrayList<OnwardDomesticFlightModel> onward_domestic_model = new ArrayList<OnwardDomesticFlightModel>();
     ArrayList<ReturnDomesticFlightModel> return_domestic_model = new ArrayList<ReturnDomesticFlightModel>();
     Button next;
+
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,10 @@ public class FlightDomesticActivity extends ActionBarActivity{
             }
         });
 
-        String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?" +
+
+
+
+        String url =Constants.API_Domestic_Flights +
                 "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                 "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                 "&departDate=" + prefs.getString("TravelDate", null) +
@@ -135,7 +140,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
-        xmlparseflight(url);
+        xmlparseflight(Constants.API_Domestic_Flights);
 
         }
 

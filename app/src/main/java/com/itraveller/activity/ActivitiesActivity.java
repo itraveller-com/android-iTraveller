@@ -21,6 +21,7 @@ import java.util.Set;
 
 import com.itraveller.R;
 import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.model.ActivitiesModel;
 
@@ -44,6 +45,15 @@ public class ActivitiesActivity extends ActionBarActivity {
     String[] ActivityData;
     private Toolbar mToolbar;
     Button proceed_activity;
+
+    ArrayList<String> Mat_Destination_ID = new ArrayList<String>();
+    ArrayList<String> Mat_Destination_Count = new ArrayList<String>();
+    ArrayList<String> Mat_Destination_Hotel = new ArrayList<String>();
+
+    ArrayList<String> Mat2_Destination = new ArrayList<String>();
+    ArrayList<String> Mat2_DayCount = new ArrayList<String>();
+    ArrayList<String> Mat2_HotelID = new ArrayList<String>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,8 @@ public class ActivitiesActivity extends ActionBarActivity {
 
         proceed_activity = (Button) findViewById(R.id.to_activities);
         proceed_activity.setText("Proceed");
+
+
         //proceed_activity.setEnabled(false);
         proceed_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,13 +163,7 @@ public class ActivitiesActivity extends ActionBarActivity {
             hotel_id_data[index] = hotel_room_Data[index];
         }
 
-        ArrayList<String> Mat_Destination_ID = new ArrayList<String>();
-        ArrayList<String> Mat_Destination_Count = new ArrayList<String>();
-        ArrayList<String> Mat_Destination_Hotel = new ArrayList<String>();
 
-        ArrayList<String> Mat2_Destination = new ArrayList<String>();
-        ArrayList<String> Mat2_DayCount = new ArrayList<String>();
-        ArrayList<String> Mat2_HotelID = new ArrayList<String>();
         int Mat_count = 0;
         for (int index = 0; index < (destination_id.length + 2); index++) {
             //Log.i("DestinationMat",deatination_day_count[index]);
@@ -178,7 +184,6 @@ public class ActivitiesActivity extends ActionBarActivity {
             }
             Log.i("DestinationMatcount", Mat_Destination_Hotel.get(index));
         }
-
         for (int index = 0; index < Mat_Destination_ID.size(); index++) {
             int night = Integer.parseInt("" + Mat_Destination_Count.get(index));
             //Log.i("DestinationMatNight",""+ night);
@@ -187,10 +192,14 @@ public class ActivitiesActivity extends ActionBarActivity {
                 if (x == 0) {
                     night--;
                 }
+
+
                 Mat2_Destination.add(Mat_Destination_ID.get(index));
                 Log.i("DestinationMat", Mat_Destination_ID.get(index));
             }
         }
+
+
 
         int Mat2_count = 1;
         int x = 0;
@@ -225,8 +234,11 @@ public class ActivitiesActivity extends ActionBarActivity {
         activitiesList = new ArrayList<>();
         for(int i = 0 ; i< TotalCountDays +1;i++)
         {
-            Log.v("Activities URL",""+"http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
-            activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+
+
+            Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+//            activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+            activitiesList.add(Constants.API_ActivitiesActivity_URL+ Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             /*Log.i("FinaL", "" + Mat2_Destination.get(i));
             Log.i("FinaLValue", "" + Mat2_HotelID.get(i));
             Log.i("FinaL", "" + Mat2_DayCount.get(i));*/

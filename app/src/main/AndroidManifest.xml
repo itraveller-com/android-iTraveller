@@ -24,11 +24,7 @@
         </activity>
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
-            </activity>
-        <activity android:name=".activity.SignupActivity"
-            android:screenOrientation="portrait">
-            </activity>
-
+        </activity>
         <activity
             android:name="com.itraveller.activity.RegionPlace"
             android:screenOrientation="portrait">
@@ -37,7 +33,6 @@
                 android:value="com.itraveller.activity.MainActivity" />
         </activity>
         <activity
-
             android:name="com.itraveller.activity.TestActionBar"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -84,11 +79,6 @@
         <provider android:authorities="com.facebook.app.FacebookContentProvider1636017390018337"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
-        <receiver android:name=".activity.HelloFacebookBroadcastReceiver">
-            <intent-filter>
-                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
