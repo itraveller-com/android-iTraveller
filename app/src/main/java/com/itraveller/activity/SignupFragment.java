@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.volley.AppController;
 
 import org.json.JSONException;
@@ -34,8 +35,10 @@ import java.util.HashMap;
  */
 public class SignupFragment extends Fragment {
 
+
+
     //textbox for taking user input
-    public static EditText email_id_,mobile;
+    public static EditText email_id_Edittext_,mobile_Edittext_;
     //button for sign up user
     Button submit;
     //used for storing user details
@@ -67,8 +70,8 @@ public class SignupFragment extends Fragment {
         prefs=getActivity().getSharedPreferences("Preferences",Context.MODE_PRIVATE);
 
         //initialise the components of signup form
-        email_id_=(EditText) view.findViewById(R.id.email_id);
-        mobile=(EditText) view.findViewById(R.id.mobile);
+        email_id_Edittext_=(EditText) view.findViewById(R.id.email_id);
+        mobile_Edittext_=(EditText) view.findViewById(R.id.mobile);
 
 
         submit=(Button) view.findViewById(R.id.submit);
@@ -84,14 +87,21 @@ public class SignupFragment extends Fragment {
             public void onClick(View view) {
 
                 //reading data from textbox on submitting form
-                emailid=email_id_.getText().toString();
+                emailid=email_id_Edittext_.getText().toString();
                 Log.d("Email check", "hi" + emailid);
-                mobile_number=mobile.getText().toString();
+                user_name=emailid.substring(0,emailid.indexOf("@"));
+                mobile_number=mobile_Edittext_.getText().toString();
                 Log.d("Mobile check","hi"+mobile_number);
 
                 //check if user entered valid details or not
                 if(( mobile_number.trim().length()>0 && emailid.trim().length()>0 && isValidEmail(emailid)) && mobile_number.trim().length()==10)
                 {
+                    SharedPreferences.Editor editor=prefs.edit();
+                    editor.putString("email",""+emailid);
+                    editor.putString("user_name",""+user_name);
+                    editor.putString("mobile",""+mobile_number);
+                    editor.commit();
+
                     sign_up_user();
 
                 }
@@ -111,8 +121,8 @@ public class SignupFragment extends Fragment {
                     // Setting OK Button
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            email_id_.setText("");
-                            mobile.setText("");
+                            email_id_Edittext_.setText("");
+                            mobile_Edittext_.setText("");
                         }
                     });
 
@@ -153,11 +163,13 @@ public class SignupFragment extends Fragment {
         pDialog.setMessage("Creating new account...");
         pDialog.show();
 
+
+
         //sign up API
-        url="http://stage.itraveller.com/backend/api/v1/users/ -d  email=" +
-                emailid + "&name= " + user_name +"&phone=" + mobile_number + "&password="+pass  ;
+        url=Constants.API_signup + emailid + "&name= " + user_name +"&phone=" + mobile_number + "&password="+pass  ;
 
-
+        Log.d("Signup URL","http://stage.itraveller.com/backend/api/v1/users/ -d  email=" +
+                emailid + "&name= " + user_name +"&phone=" + mobile_number + "&password="+pass );
 
         final HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("email", emailid);
@@ -165,10 +177,10 @@ public class SignupFragment extends Fragment {
         postParams.put("name",user_name);
         postParams.put("phone", mobile_number);
         postParams.put("password",pass);
-        emailid=emailid.substring(0,emailid.indexOf("@"));
+        user_name=emailid.substring(0,emailid.indexOf("@"));
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                url, new JSONObject(postParams),
+                Constants.API_signup, new JSONObject(postParams),
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -182,9 +194,14 @@ public class SignupFragment extends Fragment {
                             if(success.equals("true"))
                             {
 
-                                    Log.d("Email received",""+prefs.getString("email_id1", null));
-                                    LoginFragment._email_id.setText(""+prefs.getString("email_id1", null));
-                                    LoginFragment.mobile.setText(""+prefs.getString("mobile_number1", null));
+                                SharedPreferences.Editor editor=prefs.edit();
+                                editor.putString("email_id1", "" + emailid);
+                                editor.putString("mobile_number1", "" + mobile_number);
+                                editor.commit();
+
+                                Log.d("Email received",""+prefs.getString("email_id1", null));
+                                    LoginFragment.email_id_Edittext.setText(""+prefs.getString("email_id1", null));
+                                    LoginFragment.mobile_Edittext.setText(""+prefs.getString("mobile_number1", null));
 
                                   getActivity().onBackPressed();
                             }

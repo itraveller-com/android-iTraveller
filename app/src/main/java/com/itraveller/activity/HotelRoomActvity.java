@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.adapter.HotelRoomAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.volley.AppController;
 
@@ -43,11 +44,12 @@ public class HotelRoomActvity extends Activity {
     private HotelRoomAdapter adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hotelrooms_listview);
-        String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom/hotelId/[19]";
+        String url = Constants.API_HotelRoomActivity_URL;    // //"http://stage.itraveller.com/backend/api/v1/hotelRoom/hotelId/[19]";
         //String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region=7&room=52&checkInDate=2015-07-26";
         //url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
         hotelRooms(url);
@@ -98,9 +100,9 @@ public class HotelRoomActvity extends Activity {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
-                                String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region=7&room="+ value[inc] +"&checkInDate=2015-07-26";
+//                                String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region=7&room="+ value[inc] +"&checkInDate=2015-07-26";
                                 //url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
-                                hotelRoomsCheck(url_checkroom);
+                                hotelRoomsCheck(Constants.API_HotelRoomActivity_CheckRoom+ value[inc] +"&checkInDate=2015-07-26");
                             }
                         }
 

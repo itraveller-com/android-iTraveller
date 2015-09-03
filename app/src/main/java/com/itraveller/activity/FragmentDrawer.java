@@ -53,7 +53,6 @@ public class FragmentDrawer extends Fragment {
         SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences",0);
         Log.d("After spp", String.valueOf(prefs.getInt("temp", 0)));
 
-    //    if(LoginActivity.access_token.equals("hi"))
         if(prefs.getInt("temp",0)==1)
         {
             titles[3]=titles[3].replace(""+titles[3],"Logout");

@@ -50,6 +50,7 @@ import com.itraveller.adapter.HotelRoomAdapter;
 import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
 import com.itraveller.adapter.ListViewPagerAdapter;
 import com.itraveller.adapter.ViewPagerAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
@@ -75,11 +76,13 @@ public class  HotelActivity extends ActionBarActivity {
     int check_bit=0;
     String[] HotelRoomData;
     int cposition, gposition;
-    String lowest_hotel_url = "http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=";
+    String lowest_hotel_url = Constants.API_HotelActivity_Lowest_Hotel; //"http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=";
     String Region_ID;
     Button activites;
     ProgressDialog pDialog;
     CheckBox chk_breakfast,chk_lunch,chk_dinner;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -222,7 +225,8 @@ public class  HotelActivity extends ActionBarActivity {
         hotelList = new ArrayList<>();
         lowesthotelList = new ArrayList<>();
         for (int index = 0; index < hotel_destination.length; index++) {
-            hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
+
+            hotelList.add(Constants.API_HotelActivity_HotelList+hotel_destination[index]);
             //Default Hotel Set Value
             DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate="+ destination_date[index] +"&regionId=" + Region_ID, index);
             Log.i("HotelURL", "" + "http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
@@ -257,8 +261,8 @@ public class  HotelActivity extends ActionBarActivity {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
-                                String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
-                                hotelRoomsCheck(url_checkroom,RoomObj.length(), inc);
+                            //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
+                                hotelRoomsCheck(Constants.API_HotelActivity_Checkin+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate,RoomObj.length(), inc);
                             }
                         }
 
@@ -477,9 +481,10 @@ public class  HotelActivity extends ActionBarActivity {
                                 //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 //modelRow.get(childpostion).
                                 Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
-                                String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
-                                Log.i("URLForRooms", "" + groupPosition + " Url :" +url);
-                                hotelRooms(url,destination_date[groupPosition] );
+
+                            //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                                Log.i("URLForRooms", "" + groupPosition + " Url :" +Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition]);
+                                hotelRooms(Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition],destination_date[groupPosition] );
                                 check_bit=1;
                             }
                         });

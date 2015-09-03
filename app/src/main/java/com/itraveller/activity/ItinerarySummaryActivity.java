@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.volley.AppController;
 
@@ -49,6 +50,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
     String return_flight_rate="";
     int flight_rate = 0;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,8 +167,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
                     View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
 
+
+
                     NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
-                    imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
+                    imageView.setImageUrl(Constants.API_ItinerarySummaryActivity_ImageURL+hotels_Data[2]+ ".jpg", imageLoader);
                     TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
                     TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
                     TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);

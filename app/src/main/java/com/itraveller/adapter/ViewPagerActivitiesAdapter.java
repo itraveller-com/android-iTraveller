@@ -18,6 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.volley.AppController;
 
@@ -30,6 +31,7 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
     int check_bit=0;
     static int temp;
+    public static int temp_id;
     ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
 
     @SuppressLint("NewApi")
@@ -87,8 +89,8 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
         try {
 
 
-
-            image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
+            temp_id=arrayModelClasses.get(position).getId();
+            image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getTitle());
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");

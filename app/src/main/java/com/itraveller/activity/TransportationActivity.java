@@ -37,6 +37,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.adapter.TransportationAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -47,7 +48,7 @@ import com.itraveller.volley.AppController;
 
 public class TransportationActivity extends ActionBarActivity {
 
-    private String url = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
+    private String url;// = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
     private List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
     private TransportationAdapter adapter;
     private ListView transportation_list;
@@ -88,14 +89,14 @@ public class TransportationActivity extends ActionBarActivity {
 
         SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
         String Region_id = prefsData.getString("RegionID", null);
-        url = url + Region_id;
+        url = Constants.API_TransportationActivity_URL + Region_id;
         Log.i("Transportation_URL", "" + url);
         Log.i("ArrivalAirport",""+prefsData.getString("ArrivalAirport", null));
         Log.i("DepartureAirport",""+prefsData.getString("DepartureAirport", null));
         Log.i("ArrivalPort",""+prefsData.getString("ArrivalPort", null));
-        Log.i("DeparturePort",""+prefsData.getString("DeparturePort", null));
+        Log.i("DeparturePort", "" + prefsData.getString("DeparturePort", null));
 
-        String NewURL = "http://stage.itraveller.com/backend/api/v1/destination/destinationId/";
+        String NewURL =Constants.API_TransportationActivity_New_URL; //"http://stage.itraveller.com/backend/api/v1/destination/destinationId/";
         ShortName(NewURL + prefsData.getString("ArrivalPort", null),"Arrival");
         ShortName(NewURL + prefsData.getString("DeparturePort", null),"Departure");
         //mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -182,7 +183,7 @@ public class TransportationActivity extends ActionBarActivity {
                     for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-                        String Tra_url = "http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
+                        String Tra_url =Constants.API_TransportationActivity_Tra_URL;    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
                         TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i);
                     }
                     pDialog.dismiss();

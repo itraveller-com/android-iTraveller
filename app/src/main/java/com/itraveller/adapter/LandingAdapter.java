@@ -17,6 +17,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.LandingModel;
 import com.itraveller.volley.AppController;
 
@@ -26,6 +27,8 @@ public class LandingAdapter extends BaseAdapter {
     private List<LandingModel> LandingItems;
     public static final String MY_PREFS = "ScreenHeight";
     private  int _screen_height;
+
+
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
  
     public LandingAdapter(Activity activity, List<LandingModel> LandingItems) {
@@ -78,7 +81,8 @@ public class LandingAdapter extends BaseAdapter {
         LandingModel m = LandingItems.get(position);
         //Log.i("model_length", );
         // thumbnail image
-        thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Id() + ".jpg" , imageLoader);
+
+        thumbNail.setImageUrl(Constants.API_LandingAdapter_ImageURL+m.getRegion_Id()+".jpg", imageLoader);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         // title
         title.setText(m.getRegion_Name());

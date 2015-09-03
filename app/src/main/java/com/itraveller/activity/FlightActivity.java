@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.CustomLoading;
 import com.itraveller.model.FlightModel;
 import com.itraveller.model.OnwardFlightModel;
@@ -79,9 +80,8 @@ public class FlightActivity extends ActionBarActivity {
             listview.setAdapter(adapter);
 
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
-
             //String url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
-            String url ="http://stage.itraveller.com/backend/api/v1/internationalflight?" +
+           String url =Constants.API_International_Flights +
                     "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                     "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                     "&departDate=" + prefs.getString("TravelDate", null) +
@@ -92,7 +92,7 @@ public class FlightActivity extends ActionBarActivity {
                     "&departurePort=" + prefs.getString("TravelTo", null) +
                     "&travelTo=" + prefs.getString("DepartureAirport", null);
 
-            Log.i("Flight URL","" + url);
+            Log.i("Flight URL","" + Constants.API_International_Flights);
 
             Log.i("Transportation_Cost","" + prefs.getString("TransportationCost", null));
 

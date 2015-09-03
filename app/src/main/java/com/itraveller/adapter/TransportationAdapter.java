@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.TransportationActivity;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -32,6 +33,7 @@ public class TransportationAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
+    public static String temp_image_id;
 
     public TransportationAdapter(Activity activity, List<TransportationModel> TransportationItems) {
         this.activity = activity;
@@ -97,7 +99,8 @@ public class TransportationAdapter extends BaseAdapter {
         final TransportationModel m = TransportationItems.get(position);
 
         // thumbnail image
-        thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+        temp_image_id=m.getImage();
+        thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+m.getImage(), imageLoader);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         // title
         holder.title.setText(m.getTitle());

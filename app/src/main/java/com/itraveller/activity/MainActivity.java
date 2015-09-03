@@ -42,6 +42,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.volley.AppController;
 
 import org.json.JSONException;
@@ -61,6 +62,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     SharedPreferences preferences;
 
 
+    public static String u_id,at;
+
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private DrawerLayout mDrawerlayout;
@@ -72,7 +75,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     public ImageView img1;
     Context context;
     public static String  att,str1,str2,str3,str4;
-    TextView txt;
     Fragment fragment;
     String title;
     private CallbackManager callbackManager;
@@ -344,7 +346,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     public void logout_from_server()
     {
         String tag_json_obj = "json_obj_req";
-        String u_id = null,at = null;
 
         final ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setMessage("Signing out...");
@@ -357,9 +358,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         Log.d("Accesstoken",""+at);
 
         Log.d("URL main",""+"http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at);
-        String url="http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at;
+        String url=Constants.API_logout+u_id+"/logout?token="+at;
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url , new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
