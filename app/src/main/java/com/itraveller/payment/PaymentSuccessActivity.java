@@ -62,7 +62,7 @@ public class PaymentSuccessActivity extends Activity {
 
 		payment_id = intent.getStringExtra("payment_id");
 		System.out.println("payment_id" + " " + payment_id);
-		getJsonReport();
+		//getJsonReport();
 
 		Button btn_payment_success = (Button) findViewById(R.id.btn_payment_success);
 		btn_payment_success.setOnClickListener(new OnClickListener() {

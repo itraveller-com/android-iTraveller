@@ -52,7 +52,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_payment_success">MainActivity</string>
     <string name="hostname">EBS</string>
-    <string name="paymnet_success">Thanks for your shopping!</string>
+    <string name="paymnet_success">Thankyou!</string>
     <string name="paymnet_product_id">Your Product id is:</string>
 
     <!--GCM Values-->

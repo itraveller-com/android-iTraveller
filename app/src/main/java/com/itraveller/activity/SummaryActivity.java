@@ -10,22 +10,29 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
+import com.ebs.android.sdk.Config;
+import com.ebs.android.sdk.EBSPayment;
+import com.ebs.android.sdk.PaymentRequest;
 import com.itraveller.R;
 import com.itraveller.payment.BuyProduct;
 
 import static com.itraveller.R.id.btn_confirm_payment;
 
 
-public class SummaryActivity extends ActionBarActivity {
+public class SummaryActivity extends ActionBarActivity{
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
 
@@ -34,7 +41,28 @@ public class SummaryActivity extends ActionBarActivity {
     String return_flight_rate="";
     int flight_rate = 0;
 
-        @Override
+    //Button btn_buy;
+    Double amount;
+    //EditText ed_quantity, ed_totalamount;
+
+    private static String HOST_NAME = "";
+
+	/*For Live*/
+    //private static final int ACC_ID = 5128; // Provided by EBS
+    //private static final String SECRET_KEY = "ebskey2";
+
+    //private static final int ACC_ID = 5087; // Provided by EBS
+    //private static final String SECRET_KEY = "fcfdfb899ccf83461ffffcc7ab8fa3bd";
+
+    /*For Demo*/
+    private static final int ACC_ID = 13872; // Provided by EBS
+    private static final String SECRET_KEY = "601615509525046666e247f18b8ceb51";
+
+    private static final int PER_UNIT_PRICE = 1;
+    double totalamount;
+
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.payment_billing);
@@ -45,6 +73,8 @@ public class SummaryActivity extends ActionBarActivity {
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        HOST_NAME = getResources().getString(R.string.hostname);
+
 
             //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -58,8 +88,9 @@ public class SummaryActivity extends ActionBarActivity {
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
-                    startActivity(in);
+                    //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
+                    //startActivity(in);
+                    callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
@@ -73,8 +104,8 @@ public class SummaryActivity extends ActionBarActivity {
             int flightBit = Integer.parseInt("" + F_bit);
             if(flightBit == 0)
             {
-                String flight_dom = prefs.getString("FlightPrice", null);
-                if(!flight_dom.equalsIgnoreCase(""))
+                String flight_dom = prefs.getString("FlightPrice", "0");
+                if(!flight_dom.equals("0"))
                 flight_rate = Integer.parseInt(flight_dom);
             }
             else{
@@ -180,5 +211,24 @@ public class SummaryActivity extends ActionBarActivity {
 
             return super.onOptionsItemSelected(item);
         }
+
+
+    private void callEbsKit() {
+
+        /** Payment Amount Details */
+
+        /** Mandatory */
+        // Total Amount
+        totalamount =1;
+        PaymentRequest.getInstance().setTransactionAmount(totalamount);
+
+        /** Mandatory */
+        // Reference No
+        PaymentRequest.getInstance().setReferenceNo("223");
+        //PaymentRequest.getInstance().
+
+        /** Initializing the EBS Gateway */
+        EBSPayment.getInstance().init(SummaryActivity.this, ACC_ID, SECRET_KEY, Config.Mode.ENV_LIVE, Config.Encryption.ALGORITHM_MD5, HOST_NAME);
+    }
     }
 
