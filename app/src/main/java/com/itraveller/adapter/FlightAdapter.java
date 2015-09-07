@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import com.itraveller.R;
+import com.itraveller.activity.ItinerarySummaryActivity;
 import com.itraveller.activity.SummaryActivity;
 import com.itraveller.model.FlightModel;
 import com.itraveller.volley.AppController;
@@ -121,14 +122,14 @@ public class FlightAdapter extends BaseAdapter {
             imageLoader = AppController.getInstance().getImageLoader();
 
         TextView option_txt = (TextView) convertView.findViewById(R.id.option_txt);
-        TextView flight_txt = (TextView) convertView.findViewById(R.id.flight_price);
+        final TextView flight_txt = (TextView) convertView.findViewById(R.id.flight_price);
         option_txt.setText("\tOption " + (position + 1));
         int Total_price = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) + Integer.parseInt(Flightitems.get(position).getSCharge()) +
                 Integer.parseInt(Flightitems.get(position).getSTax()) + Integer.parseInt(Flightitems.get(position).getTCharge()) +
                 Integer.parseInt(Flightitems.get(position).getTDiscount()) + Integer.parseInt(Flightitems.get(position).getTMarkup()) +
                 Integer.parseInt(Flightitems.get(position).getTPartnerCommission()) + Integer.parseInt(Flightitems.get(position).getTSdiscount()) +
                 Integer.parseInt(Flightitems.get(position).getTax()) + Integer.parseInt(Flightitems.get(position).getOcTax());
-        flight_txt.setText("Price: "+"\u20B9" + Total_price+"\t");
+        flight_txt.setText( ""+Total_price);
         TextView onward_head = (TextView) convertView.findViewById(R.id.onward_header);
         TextView return_head = (TextView) convertView.findViewById(R.id.return_header);
         String onward_txt = "", onward_place_txt = "", return_txt = "", return_place_txt = "";
@@ -287,7 +288,7 @@ public class FlightAdapter extends BaseAdapter {
                     Log.i("ButtonClicked", "" + position);
                     SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
                     final SharedPreferences.Editor editor = sharedpreferences.edit();
-                    int ActualPrice = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) * 2;
+                    int ActualPrice = Integer.parseInt(flight_txt.getText().toString()) * 2;
                     editor.putString("FlightPrice", "" + ActualPrice);
                     //JSON Value.
                     String flight_price = Flightitems.get(position).getActualBaseFare() + "," + Flightitems.get(position).getTax() + "," + Flightitems.get(position).getSTax() + "," + Flightitems.get(position).getTCharge() + "," + Flightitems.get(position).getSCharge() + "," + Flightitems.get(position).getTDiscount() + "," + Flightitems.get(position).getTMarkup() + "," + Flightitems.get(position).getTPartnerCommission() + "," + Flightitems.get(position).getTSdiscount() + "," + Flightitems.get(position).getOcTax() + "," + Flightitems.get(position).getId() + "," + Flightitems.get(position).getKey();
@@ -315,7 +316,7 @@ public class FlightAdapter extends BaseAdapter {
                     }
                     editor.putString("InternationalFlightReturnDetails", "" + flight_price);
                     editor.commit();
-                    Intent intent = new Intent(activity, SummaryActivity.class);
+                    Intent intent = new Intent(activity, ItinerarySummaryActivity.class);
                     activity.startActivity(intent);
 
 
