@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -77,9 +76,10 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         View view = inflater.inflate(R.layout.hotel_viewpager_row, null);
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-     //   final ViewPager view_pager=(ViewPager) view.findViewById(R.id.list_pager);
+
         TextView itemText = (TextView) view.findViewById(R.id.title);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.thumbnail);
+
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
 
 
@@ -101,10 +101,6 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
                 Log.i("CheckedORNot", "Notchecked" + position);
             }
 
-            //code addes by rohan
-
-
-            //code end
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -10,7 +10,7 @@
     <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:minHeight="60dp">
 
         <RadioButton
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/radiobtn"
             android:checked="false"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="421"
             android:id="@+id/name"
-            android:gravity="center_horizontal" />
+            android:gravity="left|center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             android:text="14:54"
             android:id="@+id/dep"
             android:textSize="16dp"
-            android:gravity="center_horizontal" />
+            android:gravity="left|center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:text="15:54"
             android:id="@+id/arr"
             android:textSize="16dp"
-            android:gravity="center_horizontal" />
+            android:gravity="left|center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Rs 10,000"
             android:id="@+id/price"
-            android:gravity="center_horizontal" />
+            android:gravity="center" />
 
 
     </TableRow>

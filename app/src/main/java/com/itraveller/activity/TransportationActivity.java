@@ -130,7 +130,7 @@ public class TransportationActivity extends ActionBarActivity {
                 prefsData.edit().putString("ReturnFlightPrice", "0").commit();
                 String F_bit = ""+prefsData.getString("FlightBit",null);
                 int flightBit = Integer.parseInt(""+F_bit);
-                if(prefsData.getString("TravelFrom", "5").equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
+                if(prefsData.getString("TravelFrom", null).equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
                     Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
                     startActivity(intent);
                 }

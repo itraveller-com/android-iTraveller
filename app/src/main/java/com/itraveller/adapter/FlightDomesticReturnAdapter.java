@@ -146,12 +146,6 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
                         Integer.parseInt(m.getTMarkup()) + Integer.parseInt(m.getTPartnerCommission()) + Integer.parseInt(m.getTSdiscount());
 
 
-
-                editor.putString("DomesticReturnFlightDetails", m.getActualBaseFare()+ "," + m.getTax()+ "," + m.getSTax()+ "," + m.getTCharge()+ "," +
-                        m.getSCharge()+ "," + m.getTDiscount()+ "," + m.getTMarkup()+ "," + m.getTPartnerCommission()+ "," + m.getTSdiscount()+ "," +
-                        m.getOcTax()+ "," + m.getId()+ "," + m.getKey()+ "," + m.getAirEquipType()+ "," + m.getArrivalAirportCode()+ "," +
-                        m.getArrivalDateTime()+ "," + m.getDepartureAirportCode()+ "," + m.getDepartureDateTime()+ "," + m.getFlightNumber()+ "," +
-                        m.getOperatingAirlineName());
                 editor.putString("ReturnFlightPrice",""+ flightcharge);
                 editor.commit();
 

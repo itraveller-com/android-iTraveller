@@ -17,17 +17,24 @@
             />
 
     </LinearLayout>
+    <ListView
+        android:id="@+id/campaignListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_above="@+id/to_activities"
+        android:layout_below="@+id/container_toolbar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </ListView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView3"
         android:orientation="vertical"
-        android:visibility="visible"
-        android:layout_below="@+id/campaignListView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/to_activities">
+        android:layout_below="@+id/container_toolbar"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/room_type_full"
@@ -60,9 +67,9 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/room_type"
-                android:visibility="visible" />
+                android:layout_gravity="center_horizontal" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -96,16 +103,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BreakFast"
-                    android:id="@+id/breakfast"
+                    android:id="@+id/checkBox5"
                     android:layout_weight="0.3"
-                    android:checked="true" />
+                    android:checked="false" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lunch"
                     android:layout_weight="0.3"
-                    android:id="@+id/lunch"
+                    android:id="@+id/checkBox6"
                     android:checked="false" />
 
                 <CheckBox
@@ -113,22 +120,11 @@
                     android:layout_height="wrap_content"
                     android:text="Dinner"
                     android:layout_weight="0.3"
-                    android:id="@+id/dinner"
+                    android:id="@+id/checkBox7"
                     android:checked="false" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/campaignListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_above="@+id/to_activities"
-        android:layout_below="@+id/container_toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-    </ListView>
 
     <Button
         android:layout_width="match_parent"
