@@ -140,7 +140,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         String[] activities_val = new String[ActivitiesDay.length];
         for(int index=0;index <ActivitiesDay.length; index++){
-            String activities_title = "";
+            String activities_title = "0";
             int count_bit = 0;
             String[] different_activities = ActivitiesDay[index].trim().split(":");
             for(int i = 0; i< different_activities.length ;i++){
