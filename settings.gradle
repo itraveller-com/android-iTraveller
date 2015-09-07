@@ -1,1 +1,1 @@
-include ':facebook', ':rangeseekbar', ':app', ':app1', ':dragsortlistview', ':EBS'
+include ':facebook', ':rangeseekbar', ':app', ':app1', ':dragsortlistview'
