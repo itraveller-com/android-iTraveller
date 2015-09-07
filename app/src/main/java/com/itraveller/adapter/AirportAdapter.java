@@ -26,7 +26,7 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
     public static List<AirportModel> AirportItems;
     public  List<AirportModel> FilterAirportItems;
     public List<AirportModel> airportList;
-    private  int _screen_height;
+
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
     public AirportAdapter(Activity activity, List<AirportModel> AirportItems) {
@@ -34,17 +34,20 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
         this.AirportItems = AirportItems;
         FilterAirportItems = AirportItems;
     }
- 
+
+    //getting count of total numnbet of AirportItems
     @Override
     public int getCount() {
         return AirportItems.size();
     }
- 
+
+    //getting item from given location
     @Override
     public Object getItem(int location) {
         return AirportItems.get(location);
     }
- 
+
+    //getting itemID
     @Override
     public long getItemId(int position) {
         return position;

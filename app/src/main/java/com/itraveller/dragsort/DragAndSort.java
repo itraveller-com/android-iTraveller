@@ -88,13 +88,6 @@ public class DragAndSort extends ActionBarActivity
 
     private LinearLayout destination_page;
     private LinearLayout airportlist_page;
-   /* public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        Log.i("Dp to px",""+px);
-        return px;
-    }
-*/
 
    private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
     {
@@ -133,16 +126,15 @@ public class DragAndSort extends ActionBarActivity
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setTitle("Travel Destinations");
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
         //Main Layout
         destination_page = (LinearLayout) findViewById(R.id.destination_page);
         airportlist_page = (LinearLayout) findViewById(R.id.airport_listview);
@@ -193,7 +185,6 @@ public class DragAndSort extends ActionBarActivity
 
         adapter_rearrange = new RearrangePlaceAdapter(this,rearrangeList);
         listView.setAdapter(adapter_rearrange);
-        //listView.setAdapter(adapter);
         SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -255,8 +246,8 @@ public class DragAndSort extends ActionBarActivity
                 String CheckDate = null;
                 int TotalCount = 0;
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
-
-                for(int i = 0; i< rearrangeList.size();i++) {
+                int rearrangeList_size=rearrangeList.size();
+                for(int i = 0; i< rearrangeList_size;i++) {
                    /* Log.v("TestData","Data :"+rearrangeList.get(i).getPlace());
                     Log.v("TestData","Data :"+rearrangeList.get(i).getPlaceID());*/
                     if(i==0) {
@@ -456,7 +447,8 @@ public class DragAndSort extends ActionBarActivity
                     portandLocList.clear();
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_JSON_arr_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_JSON_arr_length; i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         if(airport == true) {
 
@@ -517,13 +509,9 @@ public class DragAndSort extends ActionBarActivity
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-                //pDialog.hide();
-                //region_adapter.notifyDataSetChanged();
                 adapter_airport.notifyDataSetChanged();
                 adapter_portandLoc.notifyDataSetChanged();
 
-                //searchText.startAnimation(animFadein);
-                //searchText.setFocusableInTouchMode(true);
 
             }
         },  new Response.ErrorListener() {
@@ -535,18 +523,6 @@ public class DragAndSort extends ActionBarActivity
         });
         AppController.getInstance().addToRequestQueue(strReq);
     }
-
-    /*public void onBackPressed() {
-        *//*if(filter_btn.getText().toString().equalsIgnoreCase("Apply Filter"))
-        {
-            filter_details.setVisibility(View.GONE);
-            filter_btn.setText("Filter");
-        }
-        else
-        {
-            finish();
-        }*//*
-    }*/
 
 
 
@@ -571,7 +547,8 @@ public class DragAndSort extends ActionBarActivity
                     Log.d("KeyValueKey", "Arr"+arrival);
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_JSON_arr_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_JSON_arr_length; i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         Log.d("KeyValueKey", ""+jsonarr.getInt("key"));
                          if(jsonarr.getInt("key") == arrival)

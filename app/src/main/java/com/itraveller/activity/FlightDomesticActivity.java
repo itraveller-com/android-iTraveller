@@ -56,8 +56,6 @@ import com.itraveller.volley.AppController;
 
 
 public class FlightDomesticActivity extends ActionBarActivity{
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
     private ViewPager pager;
@@ -78,11 +76,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Flight");
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +95,6 @@ public class FlightDomesticActivity extends ActionBarActivity{
                 Intent in = new Intent(FlightDomesticActivity.this, ItinerarySummaryActivity.class);
                 startActivity(in);
                 finish();
-                //FlightReturnDomestic.adapter.
             }
         });
 
@@ -147,23 +141,11 @@ public class FlightDomesticActivity extends ActionBarActivity{
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            //getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-           /* if (id == R.id.action_settings) {
-                return true;
-            }*/
-
             return super.onOptionsItemSelected(item);
         }
 
@@ -187,7 +169,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
                         Document doc = db.parse(is);
                         NodeList nodes = doc.getElementsByTagName("OriginDestinationOption");
 
-                        for (int i = 0; i < nodes.getLength(); i++) {
+                        int nodes_length=nodes.getLength();
+                        for (int i = 0; i < nodes_length; i++) {
                             Element element = (Element) nodes.item(i);
                             OnwardDomesticFlightModel monward = new OnwardDomesticFlightModel();
 
@@ -209,12 +192,6 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setTPartnerCommission("" + getCharacterDataFromElement((Element) name_fl_8.item(0)));
                             NodeList name_fl_9 = element.getElementsByTagName("TSdiscount");
                             monward.setTSdiscount("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
-                            //NodeList name_fl_10 = element.getElementsByTagName("ocTax");
-                            //mflight.setOcTax("" + getCharacterDataFromElement((Element) name_fl_10.item(0)));
-
-                                /*Document doc1 = db.parse(is);
-                                NodeList nodes1 = doc1.getElementsByTagName("FlightSegment");
-                                Element element1 = (Element) nodes1.item(i);*/
 
                             NodeList name = element.getElementsByTagName("AirEquipType");
                             monward.setAirEquipType(""+getCharacterDataFromElement((Element) name.item(0)));
@@ -226,24 +203,10 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setArrivalDateTime(""+getCharacterDataFromElement((Element) name3.item(0)));
                             NodeList name4 = element.getElementsByTagName("DepartureAirportCode");
                             monward.setDepartureAirportCode(""+getCharacterDataFromElement((Element) name4.item(0)));
-                                /*NodeList name5 = element.getElementsByTagName("DepartureAirportName");
-                                monward.setDepartureAirportName(""+getCharacterDataFromElement((Element) name5.item(0)));*/
                             NodeList name6 = element.getElementsByTagName("DepartureDateTime");
                             monward.setDepartureDateTime(""+getCharacterDataFromElement((Element) name6.item(0)));
                             NodeList name7 = element.getElementsByTagName("FlightNumber");
                             monward.setFlightNumber(""+getCharacterDataFromElement((Element) name7.item(0)));
-                                /*NodeList name8 = element.getElementsByTagName("MarketingAirlineCode");
-                                monward.setMarketingAirlineCode(""+getCharacterDataFromElement((Element) name8.item(0)));
-                                NodeList name9 = element.getElementsByTagName("OperatingAirlineCode");
-                                monward.setOperatingAirlineCode(""+getCharacterDataFromElement((Element) name9.item(0)));
-                                NodeList name10 = element.getElementsByTagName("OperatingAirlineName");
-                                monward.setOperatingAirlineName(""+getCharacterDataFromElement((Element) name10.item(0)));
-                                NodeList name11 = element.getElementsByTagName("OperatingAirlineFlightNumber");
-                                monward.setOperatingAirlineFlightNumber(""+getCharacterDataFromElement((Element) name11.item(0)));
-                                NodeList name12 = element.getElementsByTagName("NumStops");
-                                monward.setNumStops(""+getCharacterDataFromElement((Element) name12.item(0)));
-                                NodeList name13 = element.getElementsByTagName("LinkSellAgrmnt");
-                                monward.setLinkSellAgrmnt(""+getCharacterDataFromElement((Element) name13.item(0)));*/
 
                             onward_domestic_model.add(monward);
                         }
@@ -256,7 +219,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
                         Document doc1 = db1.parse(is1);
                         NodeList nodes1 = doc1.getElementsByTagName("OriginDestinationOption");
 
-                        for (int i = 0; i < nodes1.getLength(); i++) {
+                        int nodes1_length=nodes1.getLength();
+                        for (int i = 0; i < nodes1_length; i++) {
                             Element element = (Element) nodes1.item(i);
                             ReturnDomesticFlightModel monward = new ReturnDomesticFlightModel();
 
@@ -278,12 +242,6 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setTPartnerCommission("" + getCharacterDataFromElement((Element) name_fl_8.item(0)));
                             NodeList name_fl_9 = element.getElementsByTagName("TSdiscount");
                             monward.setTSdiscount("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
-                            //NodeList name_fl_10 = element.getElementsByTagName("ocTax");
-                            //mflight.setOcTax("" + getCharacterDataFromElement((Element) name_fl_10.item(0)));
-
-                                /*Document doc1 = db.parse(is);
-                                NodeList nodes1 = doc1.getElementsByTagName("FlightSegment");
-                                Element element1 = (Element) nodes1.item(i);*/
 
                             NodeList name = element.getElementsByTagName("AirEquipType");
                             monward.setAirEquipType("" + getCharacterDataFromElement((Element) name.item(0)));
@@ -295,24 +253,10 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setArrivalDateTime("" + getCharacterDataFromElement((Element) name3.item(0)));
                             NodeList name4 = element.getElementsByTagName("DepartureAirportCode");
                             monward.setDepartureAirportCode("" + getCharacterDataFromElement((Element) name4.item(0)));
-                               /* NodeList name5 = element.getElementsByTagName("DepartureAirportName");
-                                monward.setDepartureAirportName(""+getCharacterDataFromElement((Element) name5.item(0)));*/
                             NodeList name6 = element.getElementsByTagName("DepartureDateTime");
                             monward.setDepartureDateTime("" + getCharacterDataFromElement((Element) name6.item(0)));
                             NodeList name7 = element.getElementsByTagName("FlightNumber");
                             monward.setFlightNumber("" + getCharacterDataFromElement((Element) name7.item(0)));
-                               /* NodeList name8 = element.getElementsByTagName("MarketingAirlineCode");
-                                monward.setMarketingAirlineCode(""+getCharacterDataFromElement((Element) name8.item(0)));
-                                NodeList name9 = element.getElementsByTagName("OperatingAirlineCode");
-                                monward.setOperatingAirlineCode(""+getCharacterDataFromElement((Element) name9.item(0)));
-                                NodeList name10 = element.getElementsByTagName("OperatingAirlineName");
-                                monward.setOperatingAirlineName(""+getCharacterDataFromElement((Element) name10.item(0)));
-                                NodeList name11 = element.getElementsByTagName("OperatingAirlineFlightNumber");
-                                monward.setOperatingAirlineFlightNumber(""+getCharacterDataFromElement((Element) name11.item(0)));
-                                NodeList name12 = element.getElementsByTagName("NumStops");
-                                monward.setNumStops(""+getCharacterDataFromElement((Element) name12.item(0)));
-                                NodeList name13 = element.getElementsByTagName("LinkSellAgrmnt");
-                                monward.setLinkSellAgrmnt(""+getCharacterDataFromElement((Element) name13.item(0)));*/
 
                             return_domestic_model.add(monward);
                         }

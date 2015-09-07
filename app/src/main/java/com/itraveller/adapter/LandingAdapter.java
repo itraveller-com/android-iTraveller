@@ -35,17 +35,20 @@ public class LandingAdapter extends BaseAdapter {
         this.activity = activity;
         this.LandingItems = LandingItems;
     }
- 
+
+    //getting count of total number of Landingitems
     @Override
     public int getCount() {
         return LandingItems.size();
     }
- 
+
+    //getting item from given location
     @Override
     public Object getItem(int location) {
         return LandingItems.get(location);
     }
- 
+
+    //getting itemID
     @Override
     public long getItemId(int position) {
         return position;

@@ -34,8 +34,6 @@ import com.itraveller.volley.AppController;
 
 
 public class HotelRoomActvity extends Activity {
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar toolbar; // Declaring the Toolbar Object
     int[] value = new int[10];
@@ -87,16 +85,17 @@ public class HotelRoomActvity extends Activity {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").getJSONObject()
                     // Parsing json
-                    for (int i = 0; i < response.getJSONObject("payload").length(); i++) {
+                    int response_JSON_length=response.getJSONObject("payload").length();
+                    for (int i = 0; i < response_JSON_length; i++) {
                         Iterator<?> destinationKeys = response.getJSONObject("payload").keys();
 
                         while(destinationKeys.hasNext())
                         {
                             String destinationKey = (String) destinationKeys.next();
                             JSONArray RoomObj = response.getJSONObject("payload").getJSONArray(destinationKey);
-                           // destinationValue = destobj.getString("name");
                             Log.d("Room_Type",""+RoomObj.length());
-                            for(int inc = 0; inc < RoomObj.length();inc++) {
+                            int room_Obj_length=RoomObj.length();
+                            for(int inc = 0; inc < room_Obj_length;inc++) {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
@@ -106,8 +105,6 @@ public class HotelRoomActvity extends Activity {
                             }
                         }
 
-                        //JSONObject jsonarr1 =
-                        //Log.d("Room_Type", "" + jsonarr.);
                     }
 
                 } catch (JSONException e) {
@@ -142,8 +139,8 @@ public class HotelRoomActvity extends Activity {
                     Log.d("Boolean", "" + response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload_RoomRate", ""+response.getJSONArray("payload"));
-
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_JSON__array_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_JSON__array_length; i++) {
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         HotelRoomModel hrm = new HotelRoomModel();

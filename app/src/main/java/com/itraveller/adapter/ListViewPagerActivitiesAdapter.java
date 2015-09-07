@@ -82,22 +82,21 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
        vp=new ViewPager[navigationItems.size()];
     }
 
+    //getting count of total number of navagationItems
     @Override
     public int getCount() {
         return navigationItems.size();
     }
 
-//    public void setSelectedIndex(int position) {
-//        selectedIndex = position;
-//       // notifyDataSetChanged();
-//    }
 
+    //getting item from given position
     @Override
     public String getItem(int position) {
 
         return navigationItems.get(position);
     }
 
+    //getting itemID
     @Override
     public long getItemId(int position) {
 
@@ -115,7 +114,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hotel_pageviewer, null);
 
-           // mPagerPositions.put(position,0);
 
         }else{
 
@@ -128,9 +126,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         TextView txtview = (TextView) convertView.findViewById(R.id.hotel_place_name);
         txtview.setText("Day" + (position+1));
 
-        RelativeLayout rel_left_arrow=(RelativeLayout) convertView.findViewById(R.id.rel_left_arrow);
-        RelativeLayout rel_right_arrow=(RelativeLayout) convertView.findViewById(R.id.rel_right_arrow);
-
         left_arrow=(ImageView) convertView.findViewById(R.id.left_arrow);
         right_arrow=(ImageView) convertView.findViewById(R.id.right_arrow);
         //vp[position].setTag(position);
@@ -141,24 +136,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
              vp[position].setCurrentItem(mPagerPositions.get(position));
         }
 
-
-     /*   vp[position].setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int childposition) {
-                      Log.d("PAGER ", "PAGER SCROLL PARENT POSITION " + childposition + "parent position " + position);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
 
         left_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,75 +167,14 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
 
 
-//         vp[position].setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//             @Override
-//             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//             }
-//
-//             @Override
-//             public void onPageSelected(int positionChild) {
-//                // mPagerPositions.put(position, positionChild);
-//             }
-//
-//             @Override
-//             public void onPageScrollStateChanged(int state) {
-//
-//             }
-//         });
-
-     }else{
-        // mViewPagerAdapter[position] = new ViewPagerAdapter(mActivitiesModel.get(""+position));
-        // vp[position].setAdapter(mViewPagerAdapter[position]);
-        // for(int index=0;index<navigationItems.size();index++) {
-          //   if(mViewPagerAdapter[index]!=null) {
-                //mViewPagerAdapter[position].notifyDataSetChanged();
-                // vp[position].setAdapter(mViewPagerAdapter[position]);
-            // }
-//             if (mPagerPositions.get(position) != null)
-//                 vp[position].setCurrentItem(mPagerPositions.get(position));
-         //}
      }
+     else
+     {
 
-        //Log.i("PageSelection" , "PageSelection" + position);
-
-       // vp[position].setTag(position);
-
-
-       // if(mViewPagerAdapter[position]==null)
-
-//        Integer pagerPosition = mPagerPositions.get(position);
-//        if (pagerPosition != null) {
-//            vp.setCurrentItem(pagerPosition);
-//        }
-//        Log.i("PagerPosition",""+pagerPosition);
-        /*//Integer pagerPosition = selectedIndex;
-
-        if (pagerPosition != null) {
-            vp.setCurrentItem(pagerPosition);
-        }*/
-        //convertView.setTag(position);
+     }
         return convertView;
     }
 
-//    private class MyPageChangeListener extends
-//            ViewPager.SimpleOnPageChangeListener {
-//
-//        private int currentPage;
-//
-//        @Override
-//        public void onPageSelected(int position) {
-//            //currentPage = position;
-//            if (vp.isShown()) {
-//               // Log.i("PageSelection", "CurrentPage" + position + "Index" + selectedIndex);
-//                mPagerPositions.put(selectedIndex, position);
-//            }
-//        }
-
-//        public final int getCurrentPage() {
-//            return currentPage;
-//        }
-//    }
 
     public int airportJSONForText (String url, final int position )
     {
@@ -278,7 +194,8 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
                     ArrayList activitiesList=new ArrayList();
-                        for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                        int response_JSON_arr_length=response.getJSONArray("payload").length();
+                        for (int i = 0; i < response_JSON_arr_length; i++) {
                             JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
 
                             ActivitiesModel activities_model = new ActivitiesModel();
@@ -305,7 +222,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                            if (response.getJSONArray("payload").length() != 0)
                             activitiesList.add(activities_model);
                         }
-                   // if(refresh_val != 0)
                    mActivitiesModel.put(position+"",activitiesList);
                     ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
                     if(modelRow.size() == 0){
@@ -314,14 +230,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     else{
                         vp[position].setVisibility(View.VISIBLE);
                     }
-                    //// else {
-                        //vp[position].setVisibility(View.GONE);
-                        //listvw will crash below code used here
-                        //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
-                        //activitiesList.remove(position);
-                        //listViewPagerAdapter.remove(""+0);
-                        //listViewPagerAdapter.notifyDataSetChanged();
-                   // }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -333,7 +241,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     listViewPagerAdapter.notifyDataSetChanged();
                 }
                 else {
-                    //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
                 }
             }
         }, new Response.ErrorListener() {
@@ -361,9 +268,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
             }
         }) {
         };
-        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
-                5,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
         AppController.getInstance().addToRequestQueue(strReq);
         return refresh_val;
     }
@@ -429,24 +333,12 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         @Override
         public void OnCheckedChangeListenerCustomPager(int childPosition,boolean isChecked) {
             ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get(""+groupPosition);
-            /*for(int index =0 ; index<modelRow.size();index++) {
-                if(childPosition==index) {
-                    modelRow.get(index).setChecked(isChecked);
-                    mActivitiesModel.put("" + groupPosition, modelRow);
-                }
-                else
-                    modelRow.get(index).setChecked(false);
-
-            }*/
             modelRow.get(childPosition).setChecked(isChecked);
 
         }
 
         @Override
         public void OnImageClickListenerCustomPager(int childpostion) {
-            ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get(""+groupPosition);
-           // listViewPagerAdapter.notifyDataSetChanged();
-            //Log.i("PagerView Clicked",groupPosition+"Clicked"+childpostion+ " Check "+  modelRow.get(childpostion).getHotel_Name());
         }
     }
 }

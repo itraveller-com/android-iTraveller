@@ -104,10 +104,6 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
                 Log.i("CheckedORNot", "Notchecked" + position);
             }
 
-            //code addes by rohan
-
-
-            //code end
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

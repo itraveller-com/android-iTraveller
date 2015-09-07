@@ -98,7 +98,9 @@ public class LandingActivity extends Fragment {
         searchText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int postion, long l) {
-                for(int i=0;i<Filterregion_.size();i++)
+
+                int Filterregion__size=Filterregion_.size();
+                for(int i=0;i<Filterregion__size;i++)
                 {
                     if(Filterregion_.get(i).getValue().equalsIgnoreCase(searchText.getText().toString()))
                     {
@@ -110,7 +112,8 @@ public class LandingActivity extends Fragment {
                         in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
                         in.putExtra("RegionName", Filterregion_.get(i).getValue());
                         String flightBit="";
-                        for(int index = 0; index < landingList.size() ; index ++)
+                        int landingList_size=landingList.size();
+                        for(int index = 0; index < landingList_size ; index ++)
                         {
                             if(Integer.parseInt(Region_id[length-1]) == landingList.get(index).getRegion_Id()){
                                 flightBit = ""+landingList.get(index).getHome_Page();
@@ -173,34 +176,6 @@ public class LandingActivity extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
 
-               /* Log.i("iTraveller","First Visible item: "+firstVisibleItem + " Visible item Count: " +visibleItemCount + " Total :" +totalItemCount);
-                int position = firstVisibleItem+visibleItemCount;
-                int limit = totalItemCount;
-
-                //Check if top has been reached
-                if(firstVisibleItem == 0)
-                {
-                    if(preLast == 0) {
-                        preLast=1;
-                        Log.i("123", "First123");
-                        searchText.startAnimation(animSlidedown);
-                        searchText.setVisibility(View.VISIBLE);
-                    }
-                }
-                else
-                {
-                    if(preLast == 1) {
-                        searchText.startAnimation(animSlideup);
-                        searchText.setVisibility(View.GONE);
-                        preLast = 0;
-                    }
-                }*/
-                // Check if bottom has been reached
-               /* if (position >= limit && totalItemCount > 0) {
-                    //scroll end reached
-                    //Write your code here
-                }*/
-
             }
         });
 
@@ -220,7 +195,8 @@ public class LandingActivity extends Fragment {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int json_response_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < json_response_length; i++) {
 
                         //Log.i("i value", "" + i);
 
@@ -305,7 +281,7 @@ public class LandingActivity extends Fragment {
                     Log.d("Boolean", ""+response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONArray("payload"));
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
+
                     // Parsing json
                     for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
 

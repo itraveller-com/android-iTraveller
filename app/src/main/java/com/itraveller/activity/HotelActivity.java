@@ -60,8 +60,6 @@ public class  HotelActivity extends ActionBarActivity {
 
     // Declare Variable
     public static ListViewPagerAdapter listViewPagerAdapter;
-    int ListItemPostion;
-    int heightHotelList = 5;
     Toolbar mToolbar;
     private ArrayList<String> hotelList;
     private ArrayList<String> lowesthotelList;
@@ -89,6 +87,8 @@ public class  HotelActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // Get the view from viewpager_main.xml
         setContentView(R.layout.view_pager_list_view);
+
+        //toolbar for displaying title "Hotels"
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -97,7 +97,6 @@ public class  HotelActivity extends ActionBarActivity {
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +116,6 @@ public class  HotelActivity extends ActionBarActivity {
         String Date_value = prfs.getString("DestinationDate", "");
         Region_ID= prfs.getString("RegionID", "");
 
-        //Destination Count
 
 
 
@@ -126,8 +124,7 @@ public class  HotelActivity extends ActionBarActivity {
         HotelRoomData = new String[hotel_destination.length];
         second = (LinearLayout) findViewById(R.id.room_type_full);
         lv1 = (ListView) findViewById(R.id.campaignListView);
-        // lv1.setAdapter(new ArrayAdapter<String>(getActivity(),
-        // android.R.layout.simple_list_item_1,aList));
+
         SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         setData();
@@ -146,36 +143,30 @@ public class  HotelActivity extends ActionBarActivity {
                 Set<String> set = new HashSet<String>();
                 String hotel_string_main = "";
                 String itinerary_hotel = "";
-              /*  for(int i =0; i< HotelRoomData.length;i++)
-                {
-                    Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
-                    set.add("" + HotelRoomData[i]);
-                }*/
+
                 HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
 
+                int lowesthotelList_size=lowesthotelList.size();
 
-                for(int i =0; i< lowesthotelList.size();i++)
+                for(int i =0; i< lowesthotelList_size;i++)
                 {
                     String hotel_string = "";
-                    String datas = ""+ HotelRoomData[i];
                     Log.i("lowestHotelData1 " + i, "" + lowesthotelList.get(i));
                     Log.i("HotelData1 " + i, "" + HotelRoomData[i]);
                     String[] hotel_room_Data = lowesthotelList.get(i).trim().split(",");
 
-                    for(int j = 0 ;j < lowesthotelList.size(); j++) {
+                    for(int j = 0 ;j < lowesthotelList_size; j++) {
                         ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
-                        for(int k = 0;k< modelRow.size();k++) {
+
+                        int modelRow_size=modelRow.size();
+                        for(int k = 0;k< modelRow_size;k++) {
                             if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
-                               //if(k == 0)
                                  hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();
-                               /* else
-                                   hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                             }
                         }
                     }
 
-                    //if(datas.equalsIgnoreCase("null")) {
                     set.add("" + lowesthotelList.get(i));
                     if(i == 0) {
                         hotel_string_main = "" + hotel_string;
@@ -188,10 +179,6 @@ public class  HotelActivity extends ActionBarActivity {
 
                 }
 
-                    /*}
-                    else{
-                    set.add("" + HotelRoomData[i]);}*/
-                    //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
                 editor.putStringSet("HotelRooms", set);
                 editor.putString("ItineraryHotelRooms", itinerary_hotel);
@@ -202,12 +189,6 @@ public class  HotelActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
-        //String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region=7&room=52&checkInDate=2015-07-26";
-        //url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
-        //hotelRoomsCheck(url_checkroom);
-
-
 
     }
 
@@ -224,7 +205,8 @@ public class  HotelActivity extends ActionBarActivity {
     private void setData() {
         hotelList = new ArrayList<>();
         lowesthotelList = new ArrayList<>();
-        for (int index = 0; index < hotel_destination.length; index++) {
+        int hotel_destination_length=hotel_destination.length;
+        for (int index = 0; index < hotel_destination_length; index++) {
 
             hotelList.add(Constants.API_HotelActivity_HotelList+hotel_destination[index]);
             //Default Hotel Set Value
@@ -249,7 +231,8 @@ public class  HotelActivity extends ActionBarActivity {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").getJSONObject()
                     // Parsing json
-                    for (int i = 0; i < response.getJSONObject("payload").length(); i++) {
+                    int json_response_length=response.getJSONObject("payload").length();
+                    for (int i = 0; i < json_response_length; i++) {
                         Iterator<?> destinationKeys = response.getJSONObject("payload").keys();
 
                         while (destinationKeys.hasNext()) {
@@ -257,7 +240,8 @@ public class  HotelActivity extends ActionBarActivity {
                             JSONArray RoomObj = response.getJSONObject("payload").getJSONArray(destinationKey);
                             // destinationValue = destobj.getString("name");
                             Log.d("Room_Type", "" + RoomObj.length());
-                            for (int inc = 0; inc < RoomObj.length(); inc++) {
+                            int RoomObj_length=RoomObj.length();
+                            for (int inc = 0; inc < RoomObj_length; inc++) {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
@@ -266,8 +250,6 @@ public class  HotelActivity extends ActionBarActivity {
                             }
                         }
 
-                        /// /JSONObject jsonarr1 =
-                        //Log.d("Room_Type", "" + jsonarr.);
                     }
 
                 } catch (JSONException e) {
@@ -320,11 +302,14 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.d("Error", "" + response.getJSONObject("error"));
                     Log.d("Payload_RoomRate", "" + response.getJSONArray("payload"));
                     int flag_bit = 0;
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_json_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_json_length; i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         HotelRoomModel hrm = new HotelRoomModel();
                         if(flag_bit == 0){
-                        for(int index = 0;index < lowesthotelList.size();index++) {
+
+                        int lowesthotelList_size=lowesthotelList.size();
+                        for(int index = 0;index < lowesthotelList_size;index++) {
                             hrm.setHotel_Room_Id(jsonarr.getInt("Hotel_Room_Id"));
                             hrm.setHotel_Id(jsonarr.getInt("Hotel_Id"));
                             hrm.setRoom_Status(jsonarr.getInt("Room_Status"));
@@ -348,7 +333,7 @@ public class  HotelActivity extends ActionBarActivity {
                                     flag_bit = 1;
                                 }
                                 else{
-                                    //hrm.setCheck(false);
+
                                 }
                             }
                         }
@@ -405,8 +390,7 @@ public class  HotelActivity extends ActionBarActivity {
                         Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
                     //here no of rooms add defaul
                     lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1" );
-                        //roomList.add();
-                    //}
+
                     if(depth==(hotel_destination.length-1)){
                         listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
                             @Override
@@ -472,7 +456,6 @@ public class  HotelActivity extends ActionBarActivity {
                                         }
                                         ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
                                         listViewPagerAdapter.notifyDataSetChanged();
-                                        //notifyAll();
                                     }
 
 
@@ -491,7 +474,6 @@ public class  HotelActivity extends ActionBarActivity {
 
                         pDialog.hide();
                         activites.setEnabled(true);
-                        // listViewPagerAdapter.add(null);
                         lv1.setAdapter(listViewPagerAdapter);
 
                     }
@@ -525,9 +507,7 @@ public class  HotelActivity extends ActionBarActivity {
             }
         }) {
         };
-        strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
-                5,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        strReq.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);

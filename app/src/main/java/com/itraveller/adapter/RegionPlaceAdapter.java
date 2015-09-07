@@ -108,8 +108,7 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
             destination.setText(m.getDestination());
             discountRs.setText("Rs: "+m.getDiscount());
             final Bundle bundle = activity.getIntent().getExtras();
-            //Print
-            //System.out.println("RegionID: " + bundle.getInt("RegionID"));
+
             // Listen for ListView Item Click
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,8 +145,8 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
                 List<RegionPlaceModel> i = new ArrayList<RegionPlaceModel>();
 
                 if (prefix!= null && prefix.toString().length() > 0) {
-
-                    for (int index = 0; index < PlacesFilter.size(); index++) {
+                    int places_filter_size=PlacesFilter.size();
+                    for (int index = 0; index < places_filter_size; index++) {
                         RegionPlaceModel si = PlacesFilter.get(index);
                         Log.i("Price","."+si.getPrice());
                         //String number
@@ -166,12 +165,6 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
                     results.values = i;
                     results.count = i.size();
                 }
-                //  else{
-                //synchronized (mylstcont){
-                //  results.values = mycontnamesetget;
-                //results.count = mycontnamesetget.size();
-                //  }
-                // }
                 return results;
             }
 
@@ -184,28 +177,10 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
                 Places = (ArrayList<RegionPlaceModel>) results.values;
                 RegionPlaceAdapter.this.notifyDataSetChanged();
                 custom_data_handler.DataHandler(results.count);
-               // Places = PlacesFilter;
             }
         };
     }
 
- /*   // Filter Class
-    public void filter(int minValue, int maxValue) {
-        Log.i("6Test" , ""+arraylist.size());
-      //  Places.clear();
-        //if (min.length() == 0) {
-       ///     worldpopulationlist.addAll(arraylist);
-       // } else {
-        for (RegionPlaceModel Rpm : arraylist)
-        {
-                if (Rpm.getPrice() >= minValue || Rpm.getPrice()<=maxValue) {
-                    Log.i("6Test" , "qqq"+minValue);
-                    Places.add(Rpm);
-                }
-            }
-      //  }
-        notifyDataSetChanged();
-    }*/
 
 }
 

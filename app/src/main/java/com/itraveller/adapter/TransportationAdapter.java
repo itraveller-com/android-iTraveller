@@ -125,14 +125,7 @@ public class TransportationAdapter extends BaseAdapter {
             }
         });
 
-        /*if(mSelectedPosition != position){
-            holder.radioButton.setChecked(false);
-        }else{
-            holder.radioButton.setChecked(true);
-            if(mSelectedRB != null && holder.radioButton != mSelectedRB){
-                mSelectedRB = holder.radioButton;
-            }
-        }*/
+
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{

@@ -42,14 +42,12 @@ public class FlightViewPagerAdapter extends FragmentStatePagerAdapter {
         {
             flight_onward = new FlightOnwardDomestic();
             flight_onward.setOnwardModel(onward_domestic_model);
-            //fm.beginTransaction().remove(flight_return).commit();
             return flight_onward;
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
             flight_return = new FlightReturnDomestic();
             flight_return.setOnwardModel(return_domestic_model);
-            //afm.beginTransaction().remove(flight_onward).commit();
             return flight_return;
         }
 
