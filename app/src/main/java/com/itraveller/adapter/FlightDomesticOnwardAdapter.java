@@ -67,16 +67,50 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
         return str;
     }
 
+    public String getConvertedTime(String str)
+    {
+        String str_time[]=str.split(":");
+        int hours=Integer.parseInt(str_time[0]);
+        String converted_hours;
+        if(hours>=12) {
+            if (hours == 12)
+            {
+                str=str_time[0]+":"+str_time[1]+" PM";
+
+            }
+            else
+            {
+                hours = hours % 12;
+                converted_hours = String.valueOf(hours);
+                str = converted_hours + ":" + str_time[1] + " PM";
+            }
+        }
+        else
+        {
+            if (hours == 0)
+            {
+                str = "12" + ":" + str_time[1] + " AM";
+            }
+            else
+            {
+                str = str_time[0] + ":" + str_time[1] + " AM";
+            }
+        }
+
+        return str;
+    }
+
+
     @Override
     public int getCount() {
         return Flightitems.size();
     }
- 
+
     @Override
     public Object getItem(int location) {
         return Flightitems.get(location);
     }
- 
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -85,7 +119,7 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
     public List<OnwardDomesticFlightModel> getList(){
         return Flightitems;
     }
- 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -109,7 +143,7 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
- 
+
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
@@ -124,18 +158,20 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
         String dep_date_time=""+ m.getDepartureDateTime();
         String dep_date[]=dep_date_time.split("T");
         dep_date[0]=getConvertedDate(dep_date[0]);
+        dep_date[1]=getConvertedTime(dep_date[1]);
 
         String arr_date_time=""+m.getArrivalDateTime();
         String arr_date[]=arr_date_time.split("T");
         arr_date[0]=getConvertedDate(arr_date[0]);
+        arr_date[1]=getConvertedTime(arr_date[1]);
 
 
-            holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
-            holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
-            holder.fl_arr.setText( dep_date[0]+"\n"+dep_date[1]);
-            holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
-            holder.fl_dep.setText( arr_date[0]+"\n"+arr_date[1]);
-            holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
+        holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
+        holder.fl_arr.setTextAppearance(activity, R.style.font_size_1);
+        holder.fl_arr.setText(arr_date[0] + "\n" + arr_date[1]);
+        holder.fl_dep.setTextAppearance(activity, R.style.font_size_1);
+        holder.fl_dep.setText( dep_date[0]+"\n"+dep_date[1]);
+        holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         Log.v("DepatureTime", ""+m.getDepartureDateTime());
         /*String originalString = m.getDepartureDateTime();
         Date date = null;
@@ -162,6 +198,11 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
                         Integer.parseInt(m.getTMarkup()) + Integer.parseInt(m.getTPartnerCommission()) + Integer.parseInt(m.getTSdiscount());
 
 
+                editor.putString("DomesticOnwardFlightDetails", m.getActualBaseFare()+ "," + m.getTax()+ "," + m.getSTax()+ "," + m.getTCharge()+ "," +
+                        m.getSCharge()+ "," + m.getTDiscount()+ "," + m.getTMarkup()+ "," + m.getTPartnerCommission()+ "," + m.getTSdiscount()+ "," +
+                        m.getOcTax()+ "," + m.getId()+ "," + m.getKey()+ "," + m.getAirEquipType()+ "," + m.getArrivalAirportCode()+ "," +
+                        m.getArrivalDateTime()+ "," + m.getDepartureAirportCode()+ "," + m.getDepartureDateTime()+ "," + m.getFlightNumber()+ "," +
+                        m.getOperatingAirlineName());
                 editor.putString("OnwardFlightPrice",""+ flightcharge);
                 editor.commit();
 

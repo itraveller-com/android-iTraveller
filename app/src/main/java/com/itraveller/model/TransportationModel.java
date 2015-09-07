@@ -37,23 +37,6 @@ public class TransportationModel {
         Id = id;
     }
 
-    public int getRegion_Id() {
-        return Region_Id;
-    }
-
-    public void setRegion_Id(int region_Id) {
-        Region_Id = region_Id;
-    }
-
-    public int getCost1() {
-        return Cost1;
-    }
-
-    public int getTransportation_Id() {
-
-        return Transportation_Id;
-    }
-
     public int getCost() {
        return Cost;
     }
@@ -62,17 +45,11 @@ public class TransportationModel {
         Cost1 = cost1;
     }
 
-    public int getKM_Limit() {
-        return KM_Limit;
-    }
 
     public void setKM_Limit(int KM_Limit) {
         this.KM_Limit = KM_Limit;
     }
 
-    public int getPrice_Per_KM() {
-        return Price_Per_KM;
-    }
 
     public void setPrice_Per_KM(int price_Per_KM) {
         Price_Per_KM = price_Per_KM;

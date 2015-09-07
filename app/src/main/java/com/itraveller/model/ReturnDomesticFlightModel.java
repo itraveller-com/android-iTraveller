@@ -121,9 +121,6 @@ public class ReturnDomesticFlightModel {
         return ocTax;
     }
 
-    public void setOcTax(String ocTax) {
-        this.ocTax = ocTax;
-    }
 
     public String getId() {
         return id;
@@ -157,13 +154,6 @@ public class ReturnDomesticFlightModel {
         ArrivalAirportCode = arrivalAirportCode;
     }
 
-    public String getArrivalAirportName() {
-        return ArrivalAirportName;
-    }
-
-    public void setArrivalAirportName(String arrivalAirportName) {
-        ArrivalAirportName = arrivalAirportName;
-    }
 
     public String getArrivalDateTime() {
         return ArrivalDateTime;
@@ -181,13 +171,6 @@ public class ReturnDomesticFlightModel {
         DepartureAirportCode = departureAirportCode;
     }
 
-    public String getDepartureAirportName() {
-        return DepartureAirportName;
-    }
-
-    public void setDepartureAirportName(String departureAirportName) {
-        DepartureAirportName = departureAirportName;
-    }
 
     public String getDepartureDateTime() {
         return DepartureDateTime;
@@ -205,21 +188,7 @@ public class ReturnDomesticFlightModel {
         FlightNumber = flightNumber;
     }
 
-    public String getMarketingAirlineCode() {
-        return MarketingAirlineCode;
-    }
 
-    public void setMarketingAirlineCode(String marketingAirlineCode) {
-        MarketingAirlineCode = marketingAirlineCode;
-    }
-
-    public String getOperatingAirlineCode() {
-        return OperatingAirlineCode;
-    }
-
-    public void setOperatingAirlineCode(String operatingAirlineCode) {
-        OperatingAirlineCode = operatingAirlineCode;
-    }
 
     public String getOperatingAirlineName() {
         return OperatingAirlineName;
@@ -229,99 +198,5 @@ public class ReturnDomesticFlightModel {
         OperatingAirlineName = operatingAirlineName;
     }
 
-    public String getOperatingAirlineFlightNumber() {
-        return OperatingAirlineFlightNumber;
-    }
 
-    public void setOperatingAirlineFlightNumber(String operatingAirlineFlightNumber) {
-        OperatingAirlineFlightNumber = operatingAirlineFlightNumber;
-    }
-
-    public String getNumStops() {
-        return NumStops;
-    }
-
-    public void setNumStops(String numStops) {
-        NumStops = numStops;
-    }
-
-    public String getLinkSellAgrmnt() {
-        return LinkSellAgrmnt;
-    }
-
-    public void setLinkSellAgrmnt(String linkSellAgrmnt) {
-        LinkSellAgrmnt = linkSellAgrmnt;
-    }
-
-    public String getConx() {
-        return Conx;
-    }
-
-    public void setConx(String conx) {
-        Conx = conx;
-    }
-
-    public String getAirpChg() {
-        return AirpChg;
-    }
-
-    public void setAirpChg(String airpChg) {
-        AirpChg = airpChg;
-    }
-
-    public String getInsideAvailOption() {
-        return InsideAvailOption;
-    }
-
-    public void setInsideAvailOption(String insideAvailOption) {
-        InsideAvailOption = insideAvailOption;
-    }
-
-    public String getGenTrafRestriction() {
-        return GenTrafRestriction;
-    }
-
-    public void setGenTrafRestriction(String genTrafRestriction) {
-        GenTrafRestriction = genTrafRestriction;
-    }
-
-    public String getDaysOperates() {
-        return DaysOperates;
-    }
-
-    public void setDaysOperates(String daysOperates) {
-        DaysOperates = daysOperates;
-    }
-
-    public String getJrnyTm() {
-        return JrnyTm;
-    }
-
-    public void setJrnyTm(String jrnyTm) {
-        JrnyTm = jrnyTm;
-    }
-
-    public String getEndDt() {
-        return EndDt;
-    }
-
-    public void setEndDt(String endDt) {
-        EndDt = endDt;
-    }
-
-    public String getStartTerminal() {
-        return StartTerminal;
-    }
-
-    public void setStartTerminal(String startTerminal) {
-        StartTerminal = startTerminal;
-    }
-
-    public String getEndTerminal() {
-        return EndTerminal;
-    }
-
-    public void setEndTerminal(String endTerminal) {
-        EndTerminal = endTerminal;
-    }
 }

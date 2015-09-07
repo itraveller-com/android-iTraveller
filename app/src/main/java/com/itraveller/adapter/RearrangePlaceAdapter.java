@@ -29,27 +29,6 @@ public class RearrangePlaceAdapter extends BaseAdapter {
         this.RearrangeItems = rearrangeItems;
     }
 
-    /*public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0) {
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, AbsListView.LayoutParams.WRAP_CONTENT));
-            }
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }*/
     @Override
     public int getCount() {
         return RearrangeItems.size();
@@ -84,12 +63,8 @@ public class RearrangePlaceAdapter extends BaseAdapter {
 
         // getting data for the row
         final RearrangePlaceModel m = RearrangeItems.get(position);
-        //setListViewHeightBasedOnChildren(DragAndSort.listview);
-        // title
+
         title.setText(m.getPlace());
-        /*if(m.getNights().toString().equalsIgnoreCase("0"))
-            days.setText("1");
-        else*/
         days.setText(m.getNights());
 
         btn_plus.setOnClickListener(new View.OnClickListener() {

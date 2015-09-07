@@ -5,10 +5,12 @@ package com.itraveller.activity;
  */
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,16 +27,18 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.itraveller.R;
+import com.itraveller.constant.Utility;
+import com.itraveller.dragsort.DragAndSort;
+import com.itraveller.volley.AppController;
+import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.itraveller.R;
-import com.itraveller.constant.Utility;
-import com.itraveller.dragsort.DragAndSort;
-import com.itraveller.volley.AppController;
+
 
 
 public class PlanTrip extends ActionBarActivity implements OnClickListener {
@@ -45,9 +49,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     ImageButton adult_plus, adult_minus, children_plus, children_minus, child_plus, child_minus, bady_plus, bady_minus;
     Button adult_btn, children_btn, child_btn, baby_btn;
     int var_adult = 2, var_children = 0, var_child = 0, var_baby = 0;
-    private int myear;
-    private int mmonth;
-    private int mday;
     Date d;
     Button travelDate;
 
@@ -59,11 +60,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Travel Data");
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +93,10 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        final Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 5);
+
 
         adult_plus = (ImageButton) findViewById(R.id.adultplus);
         adult_plus.setOnClickListener(this);
@@ -144,12 +146,12 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
                 }
 
-                //Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy", "yyyy-MM-dd"));
+                Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy", "yyyy-MM-dd"));
                 Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), 0,"dd-MM-yyyy", "dd-MM-yyyy"));
 
                 editor.putString("DefaultDate", "" + Utility.addDays(travelDate.getText().toString(), 0,"dd-MM-yyyy", "dd-MM-yyyy"));
                 editor.putString("TravelDate", "" + Utility.addDays(travelDate.getText().toString(), 0, "dd-MM-yyyy","yyyy-MM-dd"));
-                //editor.putString("EndDate", Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy","yyyy-MM-dd"));
+                editor.putString("EndDate", Utility.addDays(travelDate.getText().toString(), duration - 1, "dd-MM-yyyy", "yyyy-MM-dd"));
 
                 editor.commit();
 
@@ -172,9 +174,85 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                DialogFragment picker = new DatePicker();
-                picker.show(PlanTrip.this.getFragmentManager(), "datePicker");
+
+                final Dialog dialog = new Dialog(PlanTrip.this);
+                dialog.setContentView(R.layout.time_square_calendar);
+                dialog.setTitle("Select Date...");
+
+                final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+                final Date today = new Date();
+                Log.d("Today", "" + calendar);
+                calendar.init(today, nextYear.getTime())
+                        .withSelectedDate(today);
+                //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+                cancelButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String date_=""+calendar.getSelectedDate();
+                        String date_arr[]=date_.split(" ");
+                        int day=Integer.parseInt(date_arr[2]);
+                        String day_str=String.valueOf(day);
+                        int month = 0;
+                        switch(date_arr[1])
+                        {
+                            case "Jan":
+                                month=1;
+                                break;
+                            case "Feb":
+                                month=2;
+                                break;
+                            case "Mar":
+                                month=3;
+                                break;
+                            case "Apr":
+                                month=4;
+                                break;
+                            case "May":
+                                month=5;
+                                break;
+                            case "Jun":
+                                month=6;
+                                break;
+                            case "Jul":
+                                month=7;
+                                break;
+                            case "Aug":
+                                month=8;
+                                break;
+                            case "Sep":
+                                month=9;
+                                break;
+                            case "Oct":
+                                month=10;
+                                break;
+                            case "Nov":
+                                month=11;
+                                break;
+                            case "Dec":
+                                month=12;
+                                break;
+                        }
+                        String month_str=String.valueOf(month);
+
+                        travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+
             }
         });
     }
@@ -215,92 +293,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
     }
 
-
-   /* @SuppressLint("ValidFragment")
-    public class DatePickerFrom extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            final Calendar c = Calendar.getInstance();
-            myear = c.get(Calendar.YEAR);
-            mmonth = c.get(Calendar.MONTH);
-            mday = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog _date = new DatePickerDialog(getActivity(), this,
-                    myear, mmonth, mday) {
-                public void onDateChanged(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                    if (year < myear)
-                        view.updateDate(myear, mmonth, mday);
-
-                    if (monthOfYear < mmonth && year == myear)
-                        view.updateDate(myear, mmonth, mday);
-
-                    if (dayOfMonth < mday && year == myear
-                            && monthOfYear == mmonth)
-                        view.updateDate(myear, mmonth, mday);
-                }
-            };
-            return _date;
-        }
-
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            myear = yy;
-            mmonth = mm;
-            mday = dd;
-            travelDate.setText(dd + "-" + (mm + 1) + "-" + yy);
-        }
-
-    }*/
-
-    // ***************************************************************************************************//
-    // *********************************************DATE PICKER*******************************************//
-    // ***************************************************************************************************//
-
-    @SuppressLint("ValidFragment")
-    public class DatePicker extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            final Calendar c = Calendar.getInstance();
-            myear = c.get(Calendar.YEAR);
-            mmonth = c.get(Calendar.MONTH);
-            mday = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog _date = new DatePickerDialog(getActivity(), this,
-                    myear, mmonth, mday) {
-                public void onDateChanged(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                    if (year < myear)
-                        updateDate(myear, mmonth, mday);
-
-                    if (monthOfYear < mmonth && year == myear)
-                        updateDate(myear, mmonth, mday);
-
-                    if (dayOfMonth < mday && year == myear
-                            && monthOfYear == mmonth)
-                        updateDate(myear, mmonth, mday);
-                }
-            };
-            final Calendar cc = Calendar.getInstance();
-            cc.get(Calendar.YEAR);
-            cc.get(Calendar.MONTH);
-            cc.get(Calendar.DAY_OF_MONTH);
-            return _date;
-        }
-
-        @Override
-        public void onDateSet(android.widget.DatePicker datePicker, int yy, int mm, int dd) {
-            myear = yy;
-            mmonth = mm;
-            mday = dd;
-            travelDate.setText(dd + "-" + (mm + 1) + "-" + yy);
-        }
-    }
 
     public void onBackPressed() {
         finish();

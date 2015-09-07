@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.HotelModel;
 import com.itraveller.volley.AppController;
 
@@ -28,6 +30,7 @@ import com.itraveller.volley.AppController;
 public class ViewPagerAdapter extends PagerAdapter {
 ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
+    public static int temp_hotel_id;
 
     int check_bit=0;
     ArrayList<HotelModel> arrayModelClasses = new ArrayList<HotelModel>();
@@ -76,16 +79,16 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         View view = inflater.inflate(R.layout.hotel_viewpager_row, null);
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-
+     //   final ViewPager view_pager=(ViewPager) view.findViewById(R.id.list_pager);
         TextView itemText = (TextView) view.findViewById(R.id.title);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.thumbnail);
-
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
 
 
         try {
 
-            image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
+            temp_hotel_id=arrayModelClasses.get(position).getHotel_Id();
+            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);

@@ -34,8 +34,6 @@ import com.itraveller.volley.AppController;
 
 
 public class AirportList extends Activity {
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
 
     private List<AirportModel> airportList = new ArrayList<AirportModel>();
     private AirportAdapter adapter;
@@ -119,7 +117,8 @@ public class AirportList extends Activity {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_JSON_arr_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_JSON_arr_length; i++) {
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         AirportModel airport_model = new AirportModel();
@@ -141,13 +140,9 @@ public class AirportList extends Activity {
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-                //pDialog.hide();
-                //region_adapter.notifyDataSetChanged();
                 adapter.notifyDataSetChanged();
 
 
-                //searchText.startAnimation(animFadein);
-                //searchText.setFocusableInTouchMode(true);
 
             }
         }, new Response.ErrorListener() {

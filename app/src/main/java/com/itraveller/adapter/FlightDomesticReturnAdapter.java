@@ -26,7 +26,6 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<ReturnDomesticFlightModel> Flightitems;
-    private  int _screen_height;
     int index=0;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
@@ -41,6 +40,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         editor = sharedpreferences.edit();
     }
 
+    //funtion to convert text into BOLD text
     private SpannableString spanIt(String text, String queryText) {
         // search for query on text
         int startIndex = text.indexOf(queryText);
@@ -53,6 +53,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         return spanText;
     }
 
+    //function to convert date into our required form
     public String getConvertedDate(String str)
     {
         String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -62,25 +63,65 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         return str;
     }
 
+
+    //function to convert date into our required form
+    public String getConvertedTime(String str)
+    {
+        String str_time[]=str.split(":");
+        int hours=Integer.parseInt(str_time[0]);
+        String converted_hours;
+        if(hours>=12) {
+            if (hours == 12)
+            {
+                str=str_time[0]+":"+str_time[1]+" PM";
+
+            }
+            else
+            {
+                hours = hours % 12;
+                converted_hours = String.valueOf(hours);
+                str = converted_hours + ":" + str_time[1] + " PM";
+            }
+        }
+        else
+        {
+            if (hours == 0)
+            {
+                str = "12" + ":" + str_time[1] + " AM";
+            }
+            else
+            {
+                str = str_time[0] + ":" + str_time[1] + " AM";
+            }
+        }
+
+        return str;
+    }
+
+
+    //getting count of total number of Flightitems
     @Override
     public int getCount() {
         return Flightitems.size();
     }
- 
+
+    //getting item from given location
     @Override
     public Object getItem(int location) {
         return Flightitems.get(location);
     }
- 
+
+    //getting itemId
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    //List of Flightitems
     public List<ReturnDomesticFlightModel> getList(){
         return Flightitems;
     }
- 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -104,7 +145,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
- 
+
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
@@ -119,17 +160,27 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
 
         String dep_date_time=""+ m.getDepartureDateTime();
         String dep_date[]=dep_date_time.split("T");
+        //converting departure date
         dep_date[0]=getConvertedDate(dep_date[0]);
+        //converting departure time
+        dep_date[1]=getConvertedTime(dep_date[1]);
 
         String arr_date_time=""+m.getArrivalDateTime();
         String arr_date[]=arr_date_time.split("T");
+        //converting arrival date
         arr_date[0]=getConvertedDate(arr_date[0]);
+        //converting arrival time
+        arr_date[1]=getConvertedTime(arr_date[1]);
 
+        //displaying flight name and number
         holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
+        //displaying flight departure date and time
         holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
-        holder.fl_arr.setText( dep_date[0]+"\n"+dep_date[1]);
+        holder.fl_arr.setText(""+arr_date[0]+"\n"+arr_date[1]);
+        //displaying flight arrival date and time
         holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
-        holder.fl_dep.setText(""+arr_date[0]+"\n"+arr_date[1]);
+        holder.fl_dep.setText(""+dep_date[0]+"\n"+dep_date[1]);
+        //displaying price
         holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
 
@@ -146,6 +197,12 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
                         Integer.parseInt(m.getTMarkup()) + Integer.parseInt(m.getTPartnerCommission()) + Integer.parseInt(m.getTSdiscount());
 
 
+
+                editor.putString("DomesticReturnFlightDetails", m.getActualBaseFare()+ "," + m.getTax()+ "," + m.getSTax()+ "," + m.getTCharge()+ "," +
+                        m.getSCharge()+ "," + m.getTDiscount()+ "," + m.getTMarkup()+ "," + m.getTPartnerCommission()+ "," + m.getTSdiscount()+ "," +
+                        m.getOcTax()+ "," + m.getId()+ "," + m.getKey()+ "," + m.getAirEquipType()+ "," + m.getArrivalAirportCode()+ "," +
+                        m.getArrivalDateTime()+ "," + m.getDepartureAirportCode()+ "," + m.getDepartureDateTime()+ "," + m.getFlightNumber()+ "," +
+                        m.getOperatingAirlineName());
                 editor.putString("ReturnFlightPrice",""+ flightcharge);
                 editor.commit();
 
@@ -154,14 +211,6 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
             }
         });
 
-        /*if(mSelectedPosition != position){
-            holder.radioButton.setChecked(false);
-        }else{
-            holder.radioButton.setChecked(true);
-            if(mSelectedRB != null && holder.radioButton != mSelectedRB){
-                mSelectedRB = holder.radioButton;
-            }
-        }*/
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{

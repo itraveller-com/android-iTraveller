@@ -25,8 +25,6 @@ import static com.itraveller.R.id.btn_confirm_payment;
 
 
 public class SummaryActivity extends ActionBarActivity {
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
     String onward_flight_rate="";
@@ -41,11 +39,8 @@ public class SummaryActivity extends ActionBarActivity {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle("Price Summary");
 
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
-            //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,6 +57,7 @@ public class SummaryActivity extends ActionBarActivity {
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
+
             Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
             Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
             String transportation_rate = prefs.getString("TransportationCost", null);
@@ -97,7 +93,9 @@ public class SummaryActivity extends ActionBarActivity {
             String DayCount = prefs.getString("DestinationCount", null);
             String[] destination_day_count = DayCount.trim().split(",");
             int rate_of_rooms =0;
-            for (int index = 0; index < HotelDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+
+            int HotelDataArray_length=HotelDataArray.length;
+            for (int index = 0; index < HotelDataArray_length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
                 String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
                 //no fo rooms and price
                 int no_room_price = Integer.parseInt("" + hotel_room_Data[3]) * Integer.parseInt("" + hotel_room_Data[2]);
@@ -115,7 +113,8 @@ public class SummaryActivity extends ActionBarActivity {
 
             int activities_rate =0;
             int count_bit= 0;
-            for (int index = 0; index < ActivitiesDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+            int ActivitiesDataArray_length=ActivitiesDataArray.length;
+            for (int index = 0; index < ActivitiesDataArray_length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
 
 
                 if(!ActivitiesDataArray[index].toString().equalsIgnoreCase("null")) {
@@ -159,22 +158,11 @@ public class SummaryActivity extends ActionBarActivity {
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            //getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-           /* if (id == R.id.action_settings) {
-                return true;
-            }*/
 
             return super.onOptionsItemSelected(item);
         }
