@@ -18,6 +18,7 @@ import com.ebs.android.sdk.EBSPayment;
 import com.ebs.android.sdk.PaymentRequest;
 import com.itraveller.R;
 
+
 public class BuyProduct extends Activity implements OnClickListener {
 
 	Button btn_buy;
@@ -34,8 +35,8 @@ public class BuyProduct extends Activity implements OnClickListener {
 	//private static final String SECRET_KEY = "fcfdfb899ccf83461ffffcc7ab8fa3bd";
 	
 	/*For Demo*/
-	private static final int ACC_ID = 16473; // Provided by EBS
-	private static final String SECRET_KEY = "e42b14bac74ab94858f2343c52c5e0d6";
+	private static final int ACC_ID = 13872; // Provided by EBS
+	private static final String SECRET_KEY = "601615509525046666e247f18b8ceb51";
 	
 	private static final int PER_UNIT_PRICE = 1;
 	double totalamount;
@@ -119,9 +120,10 @@ public class BuyProduct extends Activity implements OnClickListener {
 		/** Mandatory */
 		// Reference No
 		PaymentRequest.getInstance().setReferenceNo("223");
+		//PaymentRequest.getInstance().
 		
 		/** Initializing the EBS Gateway */
-		EBSPayment.getInstance().init(BuyProduct.this, ACC_ID, SECRET_KEY, Mode.ENV_TEST, Encryption.ALGORITHM_MD5, HOST_NAME);
+		EBSPayment.getInstance().init(BuyProduct.this, ACC_ID, SECRET_KEY, Mode.ENV_LIVE, Encryption.ALGORITHM_MD5, HOST_NAME);
 	}
 
 }
