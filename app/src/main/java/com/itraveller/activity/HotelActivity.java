@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,10 +44,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.facebook.internal.Utility;
 import com.itraveller.R;
 import com.itraveller.adapter.HotelRoomAdapter;
 import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
 import com.itraveller.adapter.ListViewPagerAdapter;
+import com.itraveller.adapter.ViewPagerAdapter;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
@@ -76,6 +79,7 @@ public class  HotelActivity extends ActionBarActivity {
     String Region_ID;
     Button activites;
     ProgressDialog pDialog;
+    CheckBox chk_breakfast,chk_lunch,chk_dinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +102,9 @@ public class  HotelActivity extends ActionBarActivity {
             }
         });
 
+        chk_breakfast = (CheckBox) findViewById(R.id.breakfast);
+        chk_lunch = (CheckBox) findViewById(R.id.lunch);
+        chk_dinner = (CheckBox) findViewById(R.id.dinner);
         pDialog = new ProgressDialog(HotelActivity.this);
         pDialog.setMessage("Loading...");
 
@@ -135,6 +142,7 @@ public class  HotelActivity extends ActionBarActivity {
             public void onClick(View view) {
                 Set<String> set = new HashSet<String>();
                 String hotel_string_main = "";
+                String itinerary_hotel = "";
               /*  for(int i =0; i< HotelRoomData.length;i++)
                 {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
@@ -160,17 +168,20 @@ public class  HotelActivity extends ActionBarActivity {
                                  hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();
                                /* else
                                    hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
-
                             }
                         }
                     }
 
                     //if(datas.equalsIgnoreCase("null")) {
                     set.add("" + lowesthotelList.get(i));
-                    if(i == 0)
-                        hotel_string_main = ""+ hotel_string;
-                    else
+                    if(i == 0) {
+                        hotel_string_main = "" + hotel_string;
+                        itinerary_hotel = "" + lowesthotelList.get(i);
+                    }
+                    else{
                         hotel_string_main = hotel_string_main + "-" + hotel_string;
+                        itinerary_hotel = itinerary_hotel + "-" + lowesthotelList.get(i);
+                    }
 
                 }
 
@@ -180,6 +191,8 @@ public class  HotelActivity extends ActionBarActivity {
                     //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
                 editor.putStringSet("HotelRooms", set);
+                editor.putString("ItineraryHotelRooms", itinerary_hotel);
+
                 editor.commit();
 
                 Intent intent = new Intent(HotelActivity.this, ActivitiesActivity.class);
@@ -245,11 +258,9 @@ public class  HotelActivity extends ActionBarActivity {
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
                                 String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
-                                hotelRoomsCheck(url_checkroom);
+                                hotelRoomsCheck(url_checkroom,RoomObj.length(), inc);
                             }
                         }
-
-
 
                         /// /JSONObject jsonarr1 =
                         //Log.d("Room_Type", "" + jsonarr.);
@@ -294,7 +305,7 @@ public class  HotelActivity extends ActionBarActivity {
     }
 
 
-    public void hotelRoomsCheck(String url) {
+    public void hotelRoomsCheck(String url, final int totalcount, final int index) {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
 
@@ -341,7 +352,10 @@ public class  HotelActivity extends ActionBarActivity {
                         roomList.add(hrm);
                         flag_bit =0;
                     }
-                    adapter.notifyDataSetChanged();
+                    if(index == (totalcount-1)) {
+                        adapter.notifyDataSetChanged();
+                        //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
+                    }
 
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
@@ -396,7 +410,7 @@ public class  HotelActivity extends ActionBarActivity {
                             }
 
                             @Override
-                            public void OnImageClickListenerCustomPager(int childpostion, final int groupPosition) {
+                            public void OnImageClickListenerCustomPager(final int childpostion, final int groupPosition) {
                                 cposition = childpostion;
                                 gposition = groupPosition;
                                 second.setVisibility(View.VISIBLE);
@@ -405,6 +419,35 @@ public class  HotelActivity extends ActionBarActivity {
                                 listView = (ListView) findViewById(R.id.room_type);
                                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+                                /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
+                                String[] meal_plan_data = meal_plan.split(",");
+                                if()
+                                            if(modelRow.get(childpostion).getLunch()!=0)
+                                    {
+                                        chk_lunch.setChecked(true);
+                                    }
+                                    if(modelRow.get(childpostion).getDinner()!=0)
+                                    {
+                                        chk_dinner.setChecked(true);
+                                    }
+                                    chk_lunch.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(chk_lunch.isChecked())
+                                                modelRow.get(childpostion).setLunch(1);
+                                            else
+                                                modelRow.get(childpostion).setLunch(0);
+                                        }
+                                });
+                                chk_dinner.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if(chk_dinner.isChecked())
+                                            modelRow.get(childpostion).setDinner(1);
+                                        else
+                                            modelRow.get(childpostion).setDinner(0);
+                                    }
+                                });*/
                                 adapter = new HotelRoomAdapter(HotelActivity.this, roomList, new RadiobuttonListener() {
                                     @Override
                                     public void RadioChangeListenerCustom(String Value) {
@@ -424,7 +467,10 @@ public class  HotelActivity extends ActionBarActivity {
                                             }
                                         }
                                         ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                        listViewPagerAdapter.notifyDataSetChanged();
+                                        //notifyAll();
                                     }
+
 
                                 });
                                 listView.setAdapter(adapter);
