@@ -119,6 +119,8 @@ public class TransportationAdapter extends BaseAdapter {
 
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton) v;
+
+
             }
         });
 

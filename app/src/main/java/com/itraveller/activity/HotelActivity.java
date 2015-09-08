@@ -403,7 +403,8 @@ public class  HotelActivity extends ActionBarActivity {
                     lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1" );
                         //roomList.add();
                     //}
-                    if(depth==(hotel_destination.length-1)){
+                   // if(depth==(hotel_destination.length-1))
+                   {
                         listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
                             @Override
                             public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked) {
@@ -493,6 +494,9 @@ public class  HotelActivity extends ActionBarActivity {
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
                 }
+                catch (Exception e){
+                    Log.d("Error Catched", "" + e.getMessage());
+                }
 
             }
         },  new Response.ErrorListener() {
@@ -510,6 +514,7 @@ public class  HotelActivity extends ActionBarActivity {
                     pDialog.hide();
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if( error instanceof ServerError) {
+                    //Toast.makeText(HotelActivity.this, "Server Error", Toast.LENGTH_LONG).show();
                 } else if( error instanceof AuthFailureError) {
                 } else if( error instanceof ParseError) {
                 } else if( error instanceof NoConnectionError) {

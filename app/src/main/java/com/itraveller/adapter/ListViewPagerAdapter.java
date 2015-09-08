@@ -33,6 +33,7 @@ import java.util.Map;
 
 import com.itraveller.R;
 import com.itraveller.activity.HotelActivity;
+import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.volley.AppController;
 
@@ -42,6 +43,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     public static ViewPagerAdapter mViewPagerAdapter;
     int swap_value = 0;
     ImageView left_arrow,right_arrow;
+    int single_loop_bit =0;
    //ViewPagerAdapter viewpageradapter;
 
   HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
@@ -167,6 +169,14 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         if(mHotelModels.get(""+position).size()<1){
 
          airportJSONForText(navigationItems.get(position), position);
+            Log.i("TestingRound","Testing123");
+           /* ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
+            if(modelRow.size() == 0){
+                vp[position].setVisibility(View.GONE);
+            }
+            else{
+                vp[position].setVisibility(View.VISIBLE);
+            }*/
 
 
 
@@ -244,7 +254,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
     public void airportJSONForText (String url, final int position )
     {
-
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
 
@@ -256,6 +265,11 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONArray("payload"));
 
+                    if(response.getJSONArray("payload").length()==0){
+                        single_loop_bit =1;
+                    }else{
+                        single_loop_bit =0;
+                    }
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
                     int flag_bit = 0;
@@ -317,12 +331,13 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         hotelList.add(hotel_model);
                         flag_bit =0;
                     }
+                    if(response.getJSONArray("payload").length()!=0){
                     Collections.swap(hotelList, 0, swap_value);
 
                     //added on 12/08/2015
                     //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
                     mViewPagerAdapter.notifyDataSetChanged();
-
+                    }
                     mHotelModels.put(position + "", hotelList);
 
 
@@ -330,10 +345,10 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-
-                HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
-                mViewPagerAdapter.notifyDataSetChanged();
-
+                if(single_loop_bit!=1) {
+                    HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
+                    mViewPagerAdapter.notifyDataSetChanged();
+                }
             }
         }, new Response.ErrorListener() {
 
@@ -425,8 +440,4 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         }
     }
 
-    public void notify_fn()
-    {
-        notifyDataSetChanged();
-    }
 }
