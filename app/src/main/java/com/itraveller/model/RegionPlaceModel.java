@@ -98,11 +98,6 @@ public class RegionPlaceModel {
     public void setTitle(String title) {
         Title = title;
     }
-
-    public String getLink() {
-        return Link;
-    }
-
     public void setLink(String link) {
         Link = link;
     }

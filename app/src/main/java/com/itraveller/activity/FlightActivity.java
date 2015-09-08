@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.CustomLoading;
 import com.itraveller.model.FlightModel;
 import com.itraveller.model.OnwardFlightModel;
@@ -43,8 +44,6 @@ import com.itraveller.volley.AppController;
 
 
 public class FlightActivity extends ActionBarActivity {
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar mtoolbar; // Declaring the Toolbar Object
     private ArrayList<FlightModel> flight_model = new ArrayList<FlightModel>();
@@ -57,15 +56,13 @@ public class FlightActivity extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.flights_list);
 
+            //toolbar displaying title "Flight"
             mtoolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(mtoolbar);
             getSupportActionBar().setTitle("Flight");
 
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
-            //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            //mtoolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -79,9 +76,8 @@ public class FlightActivity extends ActionBarActivity {
             listview.setAdapter(adapter);
 
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
-
             //String url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
-            String url ="http://stage.itraveller.com/backend/api/v1/internationalflight?" +
+           String url =Constants.API_International_Flights +
                     "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                     "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                     "&departDate=" + prefs.getString("TravelDate", null) +
@@ -92,7 +88,7 @@ public class FlightActivity extends ActionBarActivity {
                     "&departurePort=" + prefs.getString("TravelTo", null) +
                     "&travelTo=" + prefs.getString("DepartureAirport", null);
 
-            Log.i("Flight URL","" + url);
+            Log.i("Flight URL","" + Constants.API_International_Flights);
 
             Log.i("Transportation_Cost","" + prefs.getString("TransportationCost", null));
 
@@ -107,7 +103,8 @@ public class FlightActivity extends ActionBarActivity {
                         //Log.d("Payload", ""+response.getJSONObject("payload"));
                         JSONObject jsonobj = response.getJSONObject("payload").getJSONObject("AvailResponse").getJSONObject("OriginDestinationOptions");
                         JSONArray jsonarr = jsonobj.getJSONArray("OriginDestinationOption");
-                        for (int i = 0; i < jsonarr.length(); i++) {
+                        int jsonarr_length=jsonarr.length();
+                        for (int i = 0; i < jsonarr_length; i++) {
                             ArrayList<OnwardFlightModel> onward_model = new ArrayList<OnwardFlightModel>();
                             ArrayList<ReturnFlightModel> return_model = new ArrayList<ReturnFlightModel>();
 
@@ -125,15 +122,10 @@ public class FlightActivity extends ActionBarActivity {
                             mflight.setOcTax(flight_fare.getString("ocTax").toString());
 
                             JSONObject flight_onward = jsonarr.getJSONObject(i).getJSONObject("onward").getJSONObject("FlightSegments");
-                            /*try {
-                                JSONArray onward_arr = flight_onward.getJSONArray("FlightSegment");
-                            } catch (JSONException e) {
-                                JSONObject onward_arr = flight_onward.getJSONObject("FlightSegment");
-                            }
-                            if()*/
                             try{
                                 JSONArray onward_arr = flight_onward.getJSONArray("FlightSegment");
-                                for (int j = 0; j < onward_arr.length(); j++) {
+                                int onward_arr_length=onward_arr.length();
+                                for (int j = 0; j < onward_arr_length; j++) {
                                     OnwardFlightModel monward = new OnwardFlightModel();
                                     monward.setAirEquipType(onward_arr.getJSONObject(j).getString("AirEquipType").toString());
                                     monward.setArrivalAirportCode(onward_arr.getJSONObject(j).getString("ArrivalAirportCode").toString());
@@ -163,7 +155,8 @@ public class FlightActivity extends ActionBarActivity {
 
                                 JSONObject flight_return = jsonarr.getJSONObject(i).getJSONObject("Return").getJSONObject("FlightSegments");
                                 JSONArray return_arr = flight_return.getJSONArray("FlightSegment");
-                                for (int j = 0; j < return_arr.length(); j++) {
+                                int return_arr_length=return_arr.length();
+                                for (int j = 0; j < return_arr_length; j++) {
                                     ReturnFlightModel mreturn = new ReturnFlightModel();
                                     mreturn.setAirEquipType(return_arr.getJSONObject(j).getString("AirEquipType").toString());
                                     mreturn.setArrivalAirportCode(return_arr.getJSONObject(j).getString("ArrivalAirportCode").toString());
@@ -298,22 +291,11 @@ public class FlightActivity extends ActionBarActivity {
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            //getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-           /* if (id == R.id.action_settings) {
-                return true;
-            }*/
 
             return super.onOptionsItemSelected(item);
         }

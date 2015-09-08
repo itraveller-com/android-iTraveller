@@ -2,6 +2,7 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
+<<<<<<< HEAD
       <config>
         <target>android-22</target>
       </config>
@@ -68,6 +69,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
+=======
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e331b132-7b5d-4f46-ada2-6e190dba6db5" name="Default" comment="" />
+>>>>>>> calendar_modification
     <ignored path="android-iTraveller.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,6 +102,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+<<<<<<< HEAD
       <file leaf-file-name="ItinerarySummaryActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -148,10 +157,19 @@
                 <marker date="1441631002827" expanded="false" signature="40:547" placeholder="..." />
                 <marker date="1441631002827" expanded="true" signature="15432:15466" placeholder="{...}" />
               </folding>
+=======
+      <file leaf-file-name="FlightDomesticOnwardAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/FlightDomesticOnwardAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+              <folding />
+>>>>>>> calendar_modification
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="summary_row.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/summary_row.xml">
           <provider selected="true" editor-type-id="android-designer">
@@ -161,6 +179,17 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="124" selection-end-column="54" />
               <folding />
+=======
+      <file leaf-file-name="ItinerarySummaryActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4199475">
+              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+              <folding>
+                <element signature="e#2112#2113#0" expanded="true" />
+                <element signature="e#2159#2160#0" expanded="true" />
+              </folding>
+>>>>>>> calendar_modification
             </state>
           </provider>
         </entry>
@@ -609,6 +638,116 @@
                 <option name="description" value="Prepare com.facebook.android:facebook:4.4.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComFacebookAndroidFacebook441Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServices700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-ads:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAds700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-analytics:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAnalytics700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-appindexing:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAppindexing700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-appstate:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAppstate700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-base:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-cast:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesCast700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-drive:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesDrive700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-fitness:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesFitness700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-games:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesGames700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-gcm:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesGcm700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-identity:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesIdentity700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-location:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-maps:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-nearby:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesNearby700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-panorama:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesPanorama700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-plus:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesPlus700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-safetynet:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesSafetynet700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-wallet:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWallet700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-wearable:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWearable700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.3.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils034Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.squareup:android-times-square:1.5.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComSquareupAndroidTimesSquare150Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1203,6 +1342,116 @@
                 <option name="description" value="Prepare com.facebook.android:facebook:4.4.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareComFacebookAndroidFacebook441Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServices700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-ads:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAds700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-analytics:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAnalytics700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-appindexing:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAppindexing700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-appstate:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesAppstate700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-base:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-cast:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesCast700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-drive:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesDrive700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-fitness:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesFitness700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-games:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesGames700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-gcm:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesGcm700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-identity:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesIdentity700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-location:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-maps:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-nearby:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesNearby700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-panorama:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesPanorama700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-plus:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesPlus700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-safetynet:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesSafetynet700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-wallet:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWallet700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.gms:play-services-wearable:7.0.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWearable700Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.3.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils034Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.squareup:android-times-square:1.5.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComSquareupAndroidTimesSquare150Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -2666,6 +2915,13 @@
                 <option name="name" value="preReleaseBuild" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+<<<<<<< HEAD
+=======
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/facebook" />
+                <option name="name" value="preReleaseUnitTestBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+>>>>>>> calendar_modification
                 <option name="description" value="Prepare com.android.support:support-v4:22.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/facebook" />
                 <option name="name" value="prepareComAndroidSupportSupportV42221Library" />
@@ -3263,7 +3519,11 @@
     </option>
     <option name="modificationStamps">
       <map>
+<<<<<<< HEAD
         <entry key="$PROJECT_DIR$" value="10089592050355" />
+=======
+        <entry key="$PROJECT_DIR$" value="10089765883209" />
+>>>>>>> calendar_modification
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -3427,13 +3687,42 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+<<<<<<< HEAD
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
+=======
+>>>>>>> calendar_modification
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/21.0.3/appcompat-v7-21.0.3.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/recyclerview-v7/21.0.3/recyclerview-v7-21.0.3.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/android-times-square/1.5.0/686c7420f48618a5f669bcac1183710c057f77a8/android-times-square-1.5.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services/7.0.0/play-services-7.0.0.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/android-maps-utils/0.3.4/9d717452833a10a6c73eecf23cea4821cb0c0cdb/android-maps-utils-0.3.4.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-ads/7.0.0/play-services-ads-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-analytics/7.0.0/play-services-analytics-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-appindexing/7.0.0/play-services-appindexing-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-appstate/7.0.0/play-services-appstate-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-base/7.0.0/play-services-base-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-cast/7.0.0/play-services-cast-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-drive/7.0.0/play-services-drive-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-fitness/7.0.0/play-services-fitness-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-games/7.0.0/play-services-games-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-gcm/7.0.0/play-services-gcm-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-identity/7.0.0/play-services-identity-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-location/7.0.0/play-services-location-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-maps/7.0.0/play-services-maps-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-nearby/7.0.0/play-services-nearby-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-panorama/7.0.0/play-services-panorama-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-plus/7.0.0/play-services-plus-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-safetynet/7.0.0/play-services-safetynet-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-wallet/7.0.0/play-services-wallet-7.0.0.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-wearable/7.0.0/play-services-wearable-7.0.0.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar" />
+<<<<<<< HEAD
                             <option value="C:/android-iTraveller/libs/GoogleAnalyticsServices.jar" />
+=======
+                            <option value="$PROJECT_DIR$/libs/GoogleAnalyticsServices.jar" />
+>>>>>>> calendar_modification
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/app" />
@@ -3594,8 +3883,11 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+<<<<<<< HEAD
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
+=======
+>>>>>>> calendar_modification
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/21.0.3/appcompat-v7-21.0.3.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar" />
@@ -3678,8 +3970,11 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+<<<<<<< HEAD
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
+=======
+>>>>>>> calendar_modification
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar" />
@@ -3762,6 +4057,7 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+<<<<<<< HEAD
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/21.0.3/appcompat-v7-21.0.3.aar" />
@@ -3799,6 +4095,11 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/dvlib/24.1.0/dvlib-24.1.0.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/layoutlib/layoutlib-api/24.1.0/layoutlib-api-24.1.0-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/layoutlib/layoutlib-api/24.1.0/layoutlib-api-24.1.0.jar" />
+=======
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/21.0.3/appcompat-v7-21.0.3.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3.aar" />
+                            <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar" />
+>>>>>>> calendar_modification
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/rangeseekbar" />
@@ -3928,6 +4229,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/round_textview.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/FlightDomesticActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/TransportationActivity.java" />
@@ -3958,6 +4260,15 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+=======
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/PlanTrip.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/ListViewPagerAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ActivitiesActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/FlightOnwardDomestic.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/FlightDomesticOnwardAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java" />
+>>>>>>> calendar_modification
       </list>
     </option>
   </component>
@@ -4000,13 +4311,18 @@
       <sortByType />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="PackagesPane" />
+=======
+      <pane id="ProjectPane" />
+>>>>>>> calendar_modification
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+<<<<<<< HEAD
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Gradle Scripts" />
@@ -4017,50 +4333,126 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-iTraveller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+=======
+>>>>>>> calendar_modification
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
+<<<<<<< HEAD
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+=======
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="itraveller" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+>>>>>>> calendar_modification
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android-iTraveller" />
+<<<<<<< HEAD
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+=======
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="itraveller" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adapter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+>>>>>>> calendar_modification
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="android-iTraveller" />
+<<<<<<< HEAD
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+=======
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="itraveller" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android-iTraveller" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+>>>>>>> calendar_modification
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+<<<<<<< HEAD
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4085,6 +4477,19 @@
       <recent name="C:\android-iTraveller\libs" />
       <recent name="C:\android-iTraveller\app\src\main\res\drawable-xhdpi" />
     </key>
+=======
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="com.genymobile.genymotion.ide.idea.GdmSettings" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="CLVD1CDA8A8" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_4_API_8" />
+    <property name="last_opened_file_path" value="D:/Android Projects/android-iTraveller" />
+>>>>>>> calendar_modification
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -4199,7 +4604,6 @@
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="JAR_PATH" value="$PROJECT_DIR$/libs/GoogleAnalyticsServices.jar" />
       <envs />
       <method />
     </configuration>
@@ -4280,15 +4684,19 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="f04a36eb-e2bd-4a4d-a0d1-689d4cd12f85" name="Default" comment="" />
       <created>1439978719898</created>
       <option name="number" value="Default" />
       <updated>1439978719898</updated>
+=======
+      <changelist id="e331b132-7b5d-4f46-ada2-6e190dba6db5" name="Default" comment="" />
+      <created>1441613694528</created>
+      <option name="number" value="Default" />
+      <updated>1441613694528</updated>
+>>>>>>> calendar_modification
     </task>
     <servers />
   </component>
@@ -4296,6 +4704,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="false" />
     <layout>
+<<<<<<< HEAD
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283082" sideWeight="0.4969743" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -4361,11 +4770,35 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+=======
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+    </layout>
+>>>>>>> calendar_modification
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
+<<<<<<< HEAD
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
@@ -4418,10 +4851,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+=======
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/FlightOnwardDomestic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+>>>>>>> calendar_modification
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/FlightAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4451,10 +4895,20 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="124" selection-end-column="54" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/flights_domestic_list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+>>>>>>> calendar_modification
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4482,10 +4936,39 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/FlightDomesticOnwardAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#2112#2113#0" expanded="true" />
+            <element signature="e#2159#2160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ActivitiesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="244" column="49" selection-start-line="244" selection-start-column="49" selection-end-line="244" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+>>>>>>> calendar_modification
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/ListViewPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -4512,10 +4995,34 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+          <caret line="319" column="3" selection-start-line="319" selection-start-column="3" selection-end-line="319" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app1/src/main/java/com/android/volley/toolbox/JsonRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="e#2420#2421#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.044619422">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+>>>>>>> calendar_modification
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/transportation_list.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -4523,10 +5030,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.620689">
           <caret line="36" column="49" selection-start-line="26" selection-start-column="4" selection-end-line="36" selection-end-column="49" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/LandingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9107612">
+          <caret line="334" column="1" selection-start-line="334" selection-start-column="1" selection-end-line="334" selection-end-column="1" />
+>>>>>>> calendar_modification
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/constant/CustomLoading.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7903226">
@@ -4541,10 +5055,27 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/ListViewPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5800525">
+          <caret line="319" column="3" selection-start-line="319" selection-start-column="3" selection-end-line="319" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ActivitiesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.048295453">
+          <caret line="184" column="7" selection-start-line="184" selection-start-column="7" selection-end-line="184" selection-end-column="7" />
+>>>>>>> calendar_modification
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/SummaryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27768013">
@@ -4566,10 +5097,48 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/PlanTrip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.048295453">
+          <caret line="218" column="20" selection-start-line="218" selection-start-column="20" selection-end-line="218" selection-end-column="20" />
+          <folding>
+            <element signature="e#11301#11302#0" expanded="false" />
+            <element signature="e#12058#12206#0" expanded="false" />
+            <element signature="e#12205#12206#0" expanded="false" />
+            <element signature="e#12306#14060#0" expanded="false" />
+            <element signature="e#14059#14060#0" expanded="false" />
+            <element signature="e#15334#15482#0" expanded="false" />
+            <element signature="e#15481#15482#0" expanded="false" />
+            <element signature="e#15582#17336#0" expanded="false" />
+            <element signature="e#17335#17336#0" expanded="false" />
+            <element signature="e#18577#18578#0" expanded="false" />
+            <element signature="e#18601#18602#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/flights_domestic_list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/ListViewPagerActivitiesAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.044619422">
+          <caret line="214" column="13" selection-start-line="214" selection-start-column="13" selection-end-line="214" selection-end-column="13" />
+>>>>>>> calendar_modification
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/analytics.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.085141905">
@@ -4589,11 +5158,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6928214">
           <caret line="131" column="63" selection-start-line="131" selection-start-column="63" selection-end-line="131" selection-end-column="63" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/FlightOnwardDomestic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+>>>>>>> calendar_modification
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/FlightDomesticOnwardAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.11352254">
           <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
         </state>
@@ -4763,10 +5340,26 @@
             <element signature="e#17091#17092#0" expanded="false" />
             <element signature="e#17479#19963#0" expanded="false" />
             <element signature="e#19962#19963#0" expanded="false" />
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4199475">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding>
+            <element signature="e#2112#2113#0" expanded="true" />
+            <element signature="e#2159#2160#0" expanded="true" />
+>>>>>>> calendar_modification
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ActivitiesActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6731107">
@@ -4833,5 +5426,7 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> calendar_modification
   </component>
 </project>

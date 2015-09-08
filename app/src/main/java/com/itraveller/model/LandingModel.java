@@ -44,10 +44,6 @@ public class LandingModel {
         Region_Id = region_Id;
     }
 
-    public int getSlider() {
-        return Slider;
-    }
-
     public void setSlider(int slider) {
         Slider = slider;
     }
@@ -60,24 +56,12 @@ public class LandingModel {
         Home_Page = home_Page;
     }
 
-    public int getAdvance() {
-        return Advance;
-    }
-
     public void setAdvance(int advance) {
         Advance = advance;
     }
 
-    public int getIntermediate_Payment() {
-        return Intermediate_Payment;
-    }
-
     public void setIntermediate_Payment(int intermediate_Payment) {
         Intermediate_Payment = intermediate_Payment;
-    }
-
-    public String getPopular() {
-        return Popular;
     }
 
     public void setPopular(String popular) {
@@ -92,72 +76,41 @@ public class LandingModel {
         Region_Name = region_Name;
     }
 
-    public String getEnable_Flag() {
-        return Enable_Flag;
-    }
-
     public void setEnable_Flag(String enable_Flag) {
         Enable_Flag = enable_Flag;
     }
 
-    public String getAlias() {
-        return Alias;
-    }
 
     public void setAlias(String alias) {
         Alias = alias;
-    }
-
-    public String getTourism_Story() {
-        return Tourism_Story;
     }
 
     public void setTourism_Story(String tourism_Story) {
         Tourism_Story = tourism_Story;
     }
 
-    public String getRegion_Story() {
-        return Region_Story;
-    }
-
     public void setRegion_Story(String region_Story) {
         Region_Story = region_Story;
     }
 
-    public String getLeft_Alias() {
-        return Left_Alias;
-    }
 
     public void setLeft_Alias(String left_Alias) {
         Left_Alias = left_Alias;
     }
 
-    public String getPlaces_To_Visit() {
-        return Places_To_Visit;
-    }
 
     public void setPlaces_To_Visit(String places_To_Visit) {
         Places_To_Visit = places_To_Visit;
     }
 
-    public String getPage_Title() {
-        return Page_Title;
-    }
 
     public void setPage_Title(String page_Title) {
         Page_Title = page_Title;
     }
 
-    public String getPage_Description() {
-        return Page_Description;
-    }
 
     public void setPage_Description(String page_Description) {
         Page_Description = page_Description;
-    }
-
-    public String getPage_Heading() {
-        return Page_Heading;
     }
 
     public void setPage_Heading(String page_Heading) {
@@ -172,9 +125,6 @@ public class LandingModel {
         Date = date;
     }
 
-    public String getAdmin_Id() {
-        return admin_Id;
-    }
 
     public void setAdmin_Id(String admin_Id) {
         this.admin_Id = admin_Id;

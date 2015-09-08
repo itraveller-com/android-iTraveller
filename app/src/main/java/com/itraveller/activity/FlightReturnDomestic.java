@@ -31,7 +31,6 @@ public class FlightReturnDomestic extends Fragment {
 
 
     public static FlightDomesticReturnAdapter adapter = null;
-    ListView listview;
     List<ReturnDomesticFlightModel> return_domestic_model;
 
         @Override

@@ -4,7 +4,7 @@
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/white"
     android:weightSum="1"
     android:gravity="center">
 
@@ -25,7 +25,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:background="@drawable/ic_profile" />
+            android:background="@drawable/ic_profile_pic" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -37,9 +37,9 @@
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="16sp" />
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:textSize="16dp" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -52,21 +52,21 @@
             android:maxLength="10"
             android:id="@+id/mobile"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="16sp" />
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:textSize="16dp" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@color/filterbtn"
+            android:layout_marginTop="30dp"
+            android:background="@color/orange"
             android:id="@+id/submit"
             android:text="Sign up"
-            android:textColor="#fff"
-            android:textSize="13dp" />
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,8 +74,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Already has account! Login here"
             android:id="@+id/link_to_login"
-            android:layout_marginTop="20dp"
-            android:textColor="#ffffffff" />
+            android:layout_marginTop="25dp"
+            android:textColor="@color/orange" />
 
 
     </LinearLayout>

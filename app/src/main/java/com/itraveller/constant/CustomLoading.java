@@ -13,12 +13,8 @@ import com.itraveller.activity.ItinerarySummaryActivity;
 
 public class CustomLoading {
 	static Dialog dialog;
-	Context context;
+
 	public static void LoadingScreen(Context context, Boolean check) {
-		SharedPreferences prefsData = context.getSharedPreferences("Itinerary", context.MODE_PRIVATE);
-		String F_bit = ""+prefsData.getString("FlightBit",null);
-		int flightBit = Integer.parseInt(""+F_bit);
-		context = context;
 		// create a Dialog component
 		dialog = new Dialog(context);
 		// tell the Dialog to use the dialog.xml as it's layout description

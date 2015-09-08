@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.itraveller.R;
-import com.itraveller.activity.LoginActivity;
+import com.itraveller.activity.MainActivity;
 
 public class SplashScreenActivity extends Activity {
 

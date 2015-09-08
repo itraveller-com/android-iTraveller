@@ -292,7 +292,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         hotelList.add(hotel_model);
                         flag_bit =0;
                     }
-                    Collections.swap(hotelList, 0, swap_value);
+ //                   Collections.swap(hotelList, 0, swap_value);  //error line
 
                     //added on 12/08/2015
                     //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();

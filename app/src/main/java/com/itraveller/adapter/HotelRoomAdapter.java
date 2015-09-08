@@ -24,7 +24,6 @@ public class HotelRoomAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
-    private  int _screen_height;
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
@@ -37,16 +36,19 @@ public class HotelRoomAdapter extends BaseAdapter {
         this.RadioListener = RadiobuttonListener;
     }
 
+    //getting count of total number of hotel rooms
     @Override
     public int getCount() {
         return HotelRooms.size();
     }
- 
+
+    //getting item from given location
     @Override
     public Object getItem(int location) {
         return HotelRooms.get(location);
     }
- 
+
+    //getting itemID
     @Override
     public long getItemId(int position) {
         return position;
@@ -143,16 +145,6 @@ public class HotelRoomAdapter extends BaseAdapter {
         }
 
         return convertView;
-    }
-
-    public void remove(HotelRoomModel item) {
-        HotelRooms.remove(item);
-        notifyDataSetChanged();
-    }
-
-    public void insert(HotelRoomModel item, int position) {
-        HotelRooms.add(position, item);
-        notifyDataSetChanged();
     }
 
     public List<HotelRoomModel> getList(){

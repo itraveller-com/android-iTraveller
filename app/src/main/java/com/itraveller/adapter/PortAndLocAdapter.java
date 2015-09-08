@@ -68,29 +68,6 @@ public class PortAndLocAdapter extends BaseAdapter implements Filterable {
 
         // title
         title.setText(m.getValue());
-       /* convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-
-                *//*if(check_bit == 1) {
-                    parent.from_home.setText(airportList.get(position).getName());
-                    convertView.setText(airportList.get(position).getName());
-                }
-                else if(check_bit == 2)
-                {
-                    from_travel.setText(portandLocList.get(position).getDestination_Name());
-                    to_travel.setText(portandLocList.get(position).getDestination_Name());
-                }
-                else if(check_bit == 3)
-                {
-                    to_travel.setText(portandLocList.get(position).getDestination_Name());
-                }
-                else if(check_bit == 4)
-                {
-                    to_home.setText(airportList.get(position).getName());
-                }*//*
-            }
-        });*/
 
         return convertView;
     }
@@ -107,7 +84,8 @@ public class PortAndLocAdapter extends BaseAdapter implements Filterable {
                 if (constraint != null && constraint.length() > 0) {
                     portandLocList = new ArrayList<PortAndLocModel>();
 
-                    for (int i = 0; i < FilterPortandLocItems.size(); i++) {
+                    int filter_loc_items_size=FilterPortandLocItems.size();
+                    for (int i = 0; i < filter_loc_items_size; i++) {
                         if ((FilterPortandLocItems.get(i).getValue().toUpperCase())
                                 .contains(constraint.toString().toUpperCase())) {
 

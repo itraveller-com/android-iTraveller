@@ -70,12 +70,20 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         TextView tohome = (TextView) findViewById(R.id.to_home);
         TextView transportationname = (TextView) findViewById(R.id.transportation);
 
+        SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
+
         Button confirm = (Button) findViewById(R.id.to_payment);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
-                startActivity(in);
+                if(preferencess.getInt("flag",0)==0)
+                {
+
+                }
+                else {
+                    Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
+                    startActivity(in);
+                }
             }
         });
 
@@ -93,7 +101,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String Hotels = prefs.getString("Hotels", null);
         String DayCount = prefs.getString("DestinationCount", null);
         String[] deatination_day_count = DayCount.trim().split(",");
-       // Array
+        // Array
         for (int x = 0; x < deatination_day_count.length; x++) {
             TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
         }
@@ -154,12 +162,14 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         int count = 0;
         for (int i = 0; i < HotelsArray.length; i++) {
 
-                for (int j = 0; j < Integer.parseInt(deatination_day_count[i]); j++) {
-                    String[] hotels_Data = HotelsArray[i].trim().split(",");
+            for (int j = 0; j < Integer.parseInt(deatination_day_count[i]); j++) {
+                String[] hotels_Data = HotelsArray[i].trim().split(",");
 
-                    View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
+                View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
 
-                    NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+                NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+
+                if(hotels_Data.length>2) {
                     imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
                     TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
                     TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
@@ -169,14 +179,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     // Assigning value to  imageview and textview here
                     hotel_name.setText(hotels_Data[0]);
                     hotel_des.setText(hotels_Data[1]);
-                    day_date.setText("Day " + (count + 1) );
+                    day_date.setText("Day " + (count + 1));
                     place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
                     activities_title_txt.setText(activities_val[count]);
 
                     count++;
-                    main_lay.addView(view);
-
                 }
+                main_lay.addView(view);
 
         }
 

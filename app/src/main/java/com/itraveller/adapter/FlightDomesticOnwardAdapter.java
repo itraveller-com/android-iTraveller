@@ -71,12 +71,12 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
     public int getCount() {
         return Flightitems.size();
     }
- 
+
     @Override
     public Object getItem(int location) {
         return Flightitems.get(location);
     }
- 
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -85,7 +85,7 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
     public List<OnwardDomesticFlightModel> getList(){
         return Flightitems;
     }
- 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -109,7 +109,7 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
- 
+
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
@@ -130,12 +130,12 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
         arr_date[0]=getConvertedDate(arr_date[0]);
 
 
-            holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
-            holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
-            holder.fl_arr.setText( dep_date[0]+"\n"+dep_date[1]);
-            holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
-            holder.fl_dep.setText( arr_date[0]+"\n"+arr_date[1]);
-            holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
+        holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
+        holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
+        holder.fl_arr.setText( dep_date[0]+"\n"+dep_date[1]);
+        holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
+        holder.fl_dep.setText( arr_date[0]+"\n"+arr_date[1]);
+        holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         Log.v("DepatureTime", ""+m.getDepartureDateTime());
         /*String originalString = m.getDepartureDateTime();
         Date date = null;
