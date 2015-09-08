@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +41,6 @@ public class FlightOnwardDomestic extends Fragment {
         arr.setText(""+prefs.getString("TravelFrom", null));
         ListView listview = (ListView) rootView.findViewById(R.id.flights_listview);
         adapter = new FlightDomesticOnwardAdapter(getActivity(), onward_domestic_model);
-        Log.d("List view test",""+listview);
-
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         return rootView;

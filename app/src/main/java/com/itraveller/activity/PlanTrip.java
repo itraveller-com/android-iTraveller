@@ -34,6 +34,7 @@ import com.itraveller.volley.AppController;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,6 +52,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     int var_adult = 2, var_children = 0, var_child = 0, var_baby = 0;
     Date d;
     Button travelDate;
+    Calendar nextYear;
+    int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        final Calendar nextYear = Calendar.getInstance();
+        nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 5);
 
 
@@ -168,6 +171,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 startActivity(i);
             }
         });
+
         travelDate = (Button) findViewById(R.id.travel_date);
         travelDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
         travelDate.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +179,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(PlanTrip.this);
+        /*        final Dialog dialog = new Dialog(PlanTrip.this);
                 dialog.setContentView(R.layout.time_square_calendar);
                 dialog.setTitle("Select Date...");
 
@@ -253,9 +257,199 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 dialog.show();
 
 
+         */   if(count==0) {
+                    function1();
+                    count++;
+                }else
+                    function2();
+
             }
         });
     }
+
+    public void function1()
+    {
+        final Dialog dialog = new Dialog(PlanTrip.this);
+        dialog.setContentView(R.layout.time_square_calendar);
+        dialog.setTitle("Select Date...");
+
+        final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+        final Date today = new Date();
+        Log.d("Today", "" +today);
+        calendar.init(today, nextYear.getTime())
+                .withSelectedDate(today);
+        //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date_=""+calendar.getSelectedDate();
+                String date_arr[]=date_.split(" ");
+                int day=Integer.parseInt(date_arr[2]);
+                String day_str=String.valueOf(day);
+                int month = 0;
+                switch(date_arr[1])
+                {
+                    case "Jan":
+                        month=1;
+                        break;
+                    case "Feb":
+                        month=2;
+                        break;
+                    case "Mar":
+                        month=3;
+                        break;
+                    case "Apr":
+                        month=4;
+                        break;
+                    case "May":
+                        month=5;
+                        break;
+                    case "Jun":
+                        month=6;
+                        break;
+                    case "Jul":
+                        month=7;
+                        break;
+                    case "Aug":
+                        month=8;
+                        break;
+                    case "Sep":
+                        month=9;
+                        break;
+                    case "Oct":
+                        month=10;
+                        break;
+                    case "Nov":
+                        month=11;
+                        break;
+                    case "Dec":
+                        month=12;
+                        break;
+                }
+                String month_str=String.valueOf(month);
+
+                travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+
+    public Date getDate(String str)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateInString = str;
+        Date date = null;
+        try {
+            date = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("Date is",""+date);
+        return date;
+    }
+    public void function2()
+    {
+
+
+        final Dialog dialog = new Dialog(PlanTrip.this);
+        dialog.setContentView(R.layout.time_square_calendar);
+        dialog.setTitle("Select Date...");
+
+        final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+        final Date today = new Date();
+
+        String str=travelDate.getText().toString();
+        Log.d("Today2",""+str);
+        Date temp=getDate(str);
+        Log.d("Today1", "" + calendar);
+        calendar.init(temp, nextYear.getTime())
+                .withSelectedDate(temp);
+        //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date_=""+calendar.getSelectedDate();
+                String date_arr[]=date_.split(" ");
+                int day=Integer.parseInt(date_arr[2]);
+                String day_str=String.valueOf(day);
+                int month = 0;
+                switch(date_arr[1])
+                {
+                    case "Jan":
+                        month=1;
+                        break;
+                    case "Feb":
+                        month=2;
+                        break;
+                    case "Mar":
+                        month=3;
+                        break;
+                    case "Apr":
+                        month=4;
+                        break;
+                    case "May":
+                        month=5;
+                        break;
+                    case "Jun":
+                        month=6;
+                        break;
+                    case "Jul":
+                        month=7;
+                        break;
+                    case "Aug":
+                        month=8;
+                        break;
+                    case "Sep":
+                        month=9;
+                        break;
+                    case "Oct":
+                        month=10;
+                        break;
+                    case "Nov":
+                        month=11;
+                        break;
+                    case "Dec":
+                        month=12;
+                        break;
+                }
+                String month_str=String.valueOf(month);
+
+                travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
 
     @Override
     public void onClick(View view) {
