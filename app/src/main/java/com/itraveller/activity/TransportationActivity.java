@@ -110,6 +110,8 @@ public class TransportationActivity extends ActionBarActivity {
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
                 prefsData.edit().putString("OnwardFlightPrice","0").commit();
                 prefsData.edit().putString("ReturnFlightPrice", "0").commit();
+                prefsData.edit().putString("FlightPrice","0").commit();
+
                 String F_bit = ""+prefsData.getString("FlightBit",null);
                 int flightBit = Integer.parseInt(""+F_bit);
                 if(prefsData.getString("TravelFrom", null).equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {

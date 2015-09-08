@@ -3,11 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-iTraveller.iml" filepath="$PROJECT_DIR$/android-iTraveller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app1/app1.iml" filepath="$PROJECT_DIR$/app1/app1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dragsortlistview/dragsortlistview.iml" filepath="$PROJECT_DIR$/dragsortlistview/dragsortlistview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rangeseekbar/rangeseekbar.iml" filepath="$PROJECT_DIR$/rangeseekbar/rangeseekbar.iml" />
     </modules>
   </component>
 </project>
