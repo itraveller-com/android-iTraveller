@@ -4,6 +4,7 @@ package com.itraveller.activity;
  * Created by VNK on 8/15/2015.
  */
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -187,16 +188,18 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         ///////////////////////////////////////////////////////////////////////////////////
         //////////////////////////Itinerary Email JSON ///////////////////////////////////
+
+        SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         try {
             JSONObject itinerary_obj = new JSONObject();
-            itinerary_obj.put("itineraryId", "2274");
-            itinerary_obj.put("dateOfTravel", "06-07-2015");
-            itinerary_obj.put("adult", 2);
-            itinerary_obj.put("child-above-5", 0);
-            itinerary_obj.put("child-below-5", 0);
-            itinerary_obj.put("infant", 0);
-            itinerary_obj.put("endDate", "08-07-2015");
-            itinerary_obj.put("regionId", "7,13,14");
+            itinerary_obj.put("itineraryId", "" + pref.getString("ItineraryID",null));
+            itinerary_obj.put("dateOfTravel", "" + pref.getString("TravelDate",null));
+            itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
+            itinerary_obj.put("child-above-5", "" + pref.getString("Children_12_5", "0"));
+            itinerary_obj.put("child-below-5", "" + pref.getString("Children_5_2", "0"));
+            itinerary_obj.put("infant", "" + pref.getString("Children_2_0", "0"));
+            itinerary_obj.put("endDate", "" + pref.getString("EndDate", "0"));
+            itinerary_obj.put("regionId", pref.getString("RegionID", "0"));
             itinerary_obj.put("masterTransportation", 50);
             itinerary_obj.put("selectedTransportation", 68);
             itinerary_obj.put("travellingFrom", "MUMBAI");

@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,9 +22,22 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.text.DateFormat;
@@ -35,6 +49,9 @@ import com.itraveller.R;
 import com.itraveller.constant.Utility;
 import com.itraveller.dragsort.DragAndSort;
 import com.itraveller.volley.AppController;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class PlanTrip extends ActionBarActivity implements OnClickListener {
@@ -48,6 +65,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     private int myear;
     private int mmonth;
     private int mday;
+    String region_string;
     Date d;
     Button travelDate;
 
@@ -90,6 +108,9 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         final int dep_port = bundle.getInt("DeparturePort");
         final int itinerary_id = bundle.getInt("ItineraryID");
 
+        RegionString("http://stage.itraveller.com/backend/api/v1/itinerary/itineraryId/" + itinerary_id);
+
+
         //Calander
         Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
@@ -125,8 +146,9 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
             public void onClick(View view) {
                 SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                editor.putString("RegionID", "" + region_id);
+                // old code
+                //editor.putString("RegionID", "" + region_id);
+                editor.putString("RegionID", "" + region_string);
 
                 //editor.putString("DestinationID", destination_value_id);
                 //editor.putString("DestinationCount", destination_value_count);
@@ -300,6 +322,66 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
             mday = dd;
             travelDate.setText(dd + "-" + (mm + 1) + "-" + yy);
         }
+    }
+
+    public void RegionString (String url)
+    {
+
+        final ProgressDialog pDialog = new ProgressDialog(PlanTrip.this);
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+
+
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+                url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("Boolean", "" + response.getBoolean("success"));
+                    Log.d("Error", ""+response.getJSONObject("error"));
+                    Log.d("Payload", ""+response.getJSONObject("payload"));
+
+                    // Parsing json
+                        JSONObject jsonarr = response.getJSONObject("payload");
+                        JSONObject resobj = jsonarr.getJSONObject("itinerary");
+                        region_string = ""+resobj.getString("Region_String");
+
+                    pDialog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    VolleyLog.d("Volley Error", "Error: " + e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //System.err.println(error);
+                // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
+                // For AuthFailure, you can re login with user credentials.
+                // For ClientError, 400 & 401, Errors happening on client side when sending api request.
+                // In this case you can check how client is forming the api and debug accordingly.
+                // For ServerError 5xx, you can do retry or handle accordingly.
+                if( error instanceof NetworkError) {
+
+                    pDialog.hide();
+                    Toast.makeText(PlanTrip.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if( error instanceof ServerError) {
+                } else if( error instanceof AuthFailureError) {
+                } else if( error instanceof ParseError) {
+                } else if( error instanceof NoConnectionError) {
+                    pDialog.hide();
+                    Toast.makeText(PlanTrip.this, "No Internet Connection" ,Toast.LENGTH_LONG).show();
+                } else if( error instanceof TimeoutError) {
+                }
+            }
+        }) {
+        };
+        strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
+                5,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(strReq);
     }
 
     public void onBackPressed() {

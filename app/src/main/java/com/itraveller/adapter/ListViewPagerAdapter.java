@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -42,9 +43,12 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     ViewPager[] vp;
     public static ViewPagerAdapter mViewPagerAdapter;
     int swap_value = 0;
-    ImageView left_arrow,right_arrow;
+    //ImageView left_arrow,right_arrow;
     int single_loop_bit =0;
    //ViewPagerAdapter viewpageradapter;
+
+    ImageView[] left_arrow,right_arrow;
+    RelativeLayout[] rel_left_arrow,rel_right_arrow;
 
   HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
 
@@ -70,6 +74,11 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         mPagerPositions= new HashMap<Integer, Integer>();
      //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
        vp=new ViewPager[navigationItems.size()];
+
+        left_arrow = new ImageView[navigationItems.size()];
+        right_arrow = new ImageView[navigationItems.size()];
+        rel_left_arrow = new RelativeLayout[navigationItems.size()];
+        rel_right_arrow = new RelativeLayout[navigationItems.size()];
     }
 
     @Override
@@ -121,8 +130,11 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         vp[position].setAdapter(mViewPagerAdapter);
 
 
-        left_arrow=(ImageView) convertView.findViewById(R.id.left_arrow);   //code added by rohan
-        right_arrow=(ImageView) convertView.findViewById(R.id.right_arrow);
+        rel_left_arrow[position]=(RelativeLayout) convertView.findViewById(R.id.rel_left_arrow);
+        rel_right_arrow[position]=(RelativeLayout) convertView.findViewById(R.id.rel_right_arrow);
+
+        left_arrow[position]=(ImageView) convertView.findViewById(R.id.left_arrow);
+        right_arrow[position]=(ImageView) convertView.findViewById(R.id.right_arrow);
 
         //vp[position].setTag(position);
         vp[position].setOnClickListener(new ViewPagerClickListner(position));
@@ -149,18 +161,18 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             }
         });*/
 
-        left_arrow.setOnClickListener(new View.OnClickListener() {
+        left_arrow[position].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Log.d("Left arrow","hi");
+                Log.d("Left arrow", "hi");
                 vp[position].setCurrentItem(vp[position].getCurrentItem() - 1);
             }
         });
 
-        right_arrow.setOnClickListener(new View.OnClickListener() {
+        right_arrow[position].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Right arrow","bye");
+                Log.d("Right arrow", "bye");
                 vp[position].setCurrentItem(vp[position].getCurrentItem() + 1);
             }
         });
@@ -170,13 +182,22 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
          airportJSONForText(navigationItems.get(position), position);
             Log.i("TestingRound","Testing123");
-           /* ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
-            if(modelRow.size() == 0){
+
+            ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
+           if(modelRow.size() == 0){
                 vp[position].setVisibility(View.GONE);
+                right_arrow[position].setVisibility(View.GONE);
+                left_arrow[position].setVisibility(View.GONE);
+                rel_left_arrow[position].setVisibility(View.GONE);
+                rel_right_arrow[position].setVisibility(View.GONE);
             }
             else{
                 vp[position].setVisibility(View.VISIBLE);
-            }*/
+                right_arrow[position].setVisibility(View.VISIBLE);
+                left_arrow[position].setVisibility(View.VISIBLE);
+                rel_left_arrow[position].setVisibility(View.GONE);
+                rel_right_arrow[position].setVisibility(View.GONE);
+            }
 
 
 
@@ -326,6 +347,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                                 }
                             }
                             //hotel_model.setChecked(true);
+
                         }
                       //
                         hotelList.add(hotel_model);
@@ -339,7 +361,23 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                     mViewPagerAdapter.notifyDataSetChanged();
                     }
                     mHotelModels.put(position + "", hotelList);
+                    ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
+                    if(modelRow.size() == 0){
+                        vp[position].setVisibility(View.GONE);
+                        left_arrow[position].setVisibility(View.GONE);
+                        right_arrow[position].setVisibility(View.GONE);
 
+                        rel_left_arrow[position].setVisibility(View.GONE);
+                        rel_right_arrow[position].setVisibility(View.GONE);
+                    }
+                    else{
+                        vp[position].setVisibility(View.VISIBLE);
+                        left_arrow[position].setVisibility(View.VISIBLE);
+                        right_arrow[position].setVisibility(View.VISIBLE);
+
+                        rel_left_arrow[position].setVisibility(View.VISIBLE);
+                        rel_right_arrow[position].setVisibility(View.VISIBLE);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
