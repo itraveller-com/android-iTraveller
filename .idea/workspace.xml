@@ -39,10 +39,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b402f38-d91b-4002-a4de-42b9379f918f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/HotelActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/HotelActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/HotelRoomAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/HotelRoomAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/itraveller/constant/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/itraveller/constant/Utility.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="android-iTraveller.iws" />
@@ -86,11 +82,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ItinerarySummaryActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ItinerarySummaryActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="203" column="50" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.33251834">
+              <caret line="116" column="9" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -121,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HotelActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HotelActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/HotelActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5843521">
-              <caret line="424" column="59" selection-start-line="424" selection-start-column="59" selection-end-line="424" selection-end-column="59" />
+            <state vertical-scroll-proportion="-10.0">
+              <caret line="427" column="79" selection-start-line="427" selection-start-column="79" selection-end-line="427" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -4542,10 +4538,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ActivitiesActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/SummaryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/summary_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/constant/Utility.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/adapter/HotelRoomAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/HotelActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java" />
       </list>
     </option>
   </component>
@@ -5056,7 +5052,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23146747" sideWeight="0.50680274" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5544218" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.207483" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.207483" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50510204" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -5439,14 +5435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="203" column="50" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/constant/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.68907565">
@@ -5505,8 +5493,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/HotelActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5843521">
-          <caret line="424" column="59" selection-start-line="424" selection-start-column="59" selection-end-line="424" selection-end-column="59" />
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="427" column="79" selection-start-line="427" selection-start-column="79" selection-end-line="427" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/itraveller/activity/ItinerarySummaryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33251834">
+          <caret line="116" column="9" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="9" />
           <folding />
         </state>
       </provider>
