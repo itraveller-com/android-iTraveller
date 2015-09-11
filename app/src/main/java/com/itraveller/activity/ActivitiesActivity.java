@@ -21,6 +21,7 @@ import java.util.Set;
 
 import com.itraveller.R;
 import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.model.ActivitiesModel;
 
@@ -131,10 +132,13 @@ public class ActivitiesActivity extends ActionBarActivity {
 
         String DayCount = prefs.getString("DestinationCount", null);
         deatination_day_count = DayCount.trim().split(",");
+        Log.d("Destination day 1",""+deatination_day_count);
         for (int x = 0; x < deatination_day_count.length; x++) {
             TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
         }
         Log.i("Hoteldataaaaaa", "DDC" + DayCount);
+
+        Log.d("Destination day 4",""+TotalCountDays);
 
         String Arrival_port = prefs.getString("ArrivalPort", null);
         //Log.i("Hoteldataaaaaa","AP"+ Arrival_port);
@@ -226,10 +230,16 @@ public class ActivitiesActivity extends ActionBarActivity {
 
         }
         activitiesList = new ArrayList<>();
+
+        Log.d("Destination day 5",""+Mat2_DayCount.size());
+        Log.d("Destination day 6",""+Mat2_Destination.size());
+        Log.d("Destination day 7",""+Mat2_HotelID.size());
         for(int i = 0 ; i< TotalCountDays +1;i++)
         {
-            Log.v("Activities URL",""+"http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
-            activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+
+                Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+        //        activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+            activitiesList.add(Constants.API_ActivitiesActivity_URL+ Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             /*Log.i("FinaL", "" + Mat2_Destination.get(i));
             Log.i("FinaLValue", "" + Mat2_HotelID.get(i));
             Log.i("FinaL", "" + Mat2_DayCount.get(i));*/

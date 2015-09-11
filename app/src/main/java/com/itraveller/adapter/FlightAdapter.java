@@ -24,12 +24,14 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.w3c.dom.Text;
 
+import java.util.Comparator;
 import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.ItinerarySummaryActivity;
 import com.itraveller.activity.SummaryActivity;
 import com.itraveller.model.FlightModel;
+import com.itraveller.model.OnwardFlightModel;
 import com.itraveller.volley.AppController;
 
 public class FlightAdapter extends BaseAdapter {
@@ -38,6 +40,9 @@ public class FlightAdapter extends BaseAdapter {
     private List<FlightModel> Flightitems;
     private int _screen_height;
     int index = 0;
+
+    int Total_price;
+
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
     public FlightAdapter(Activity activity, List<FlightModel> flightitems) {
@@ -85,6 +90,8 @@ public class FlightAdapter extends BaseAdapter {
         return str;
     }
 
+
+
     @Override
     public int getCount() {
         return Flightitems.size();
@@ -124,12 +131,16 @@ public class FlightAdapter extends BaseAdapter {
         TextView option_txt = (TextView) convertView.findViewById(R.id.option_txt);
         final TextView flight_txt = (TextView) convertView.findViewById(R.id.flight_price);
         option_txt.setText("\tOption " + (position + 1));
-        int Total_price = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) + Integer.parseInt(Flightitems.get(position).getSCharge()) +
+        Total_price = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) + Integer.parseInt(Flightitems.get(position).getSCharge()) +
                 Integer.parseInt(Flightitems.get(position).getSTax()) + Integer.parseInt(Flightitems.get(position).getTCharge()) +
                 Integer.parseInt(Flightitems.get(position).getTDiscount()) + Integer.parseInt(Flightitems.get(position).getTMarkup()) +
                 Integer.parseInt(Flightitems.get(position).getTPartnerCommission()) + Integer.parseInt(Flightitems.get(position).getTSdiscount()) +
                 Integer.parseInt(Flightitems.get(position).getTax()) + Integer.parseInt(Flightitems.get(position).getOcTax());
-        flight_txt.setText( ""+Total_price);
+
+
+        flight_txt.setText("Price: "+"\u20B9" + Total_price+"\t");
+
+        //    flight_txt.setText( ""+Total_price);
         TextView onward_head = (TextView) convertView.findViewById(R.id.onward_header);
         TextView return_head = (TextView) convertView.findViewById(R.id.return_header);
         String onward_txt = "", onward_place_txt = "", return_txt = "", return_place_txt = "";
@@ -197,6 +208,7 @@ public class FlightAdapter extends BaseAdapter {
             row.addView(arrival);
             row.addView(departure);
 
+
             //row.addView(price);
             tl.addView(row);
         }
@@ -216,7 +228,7 @@ public class FlightAdapter extends BaseAdapter {
                     String dep_date_time2 = Flightitems.get(position).getReturn_model().get(j).getDepartureDateTime();
                     String dep_date2[] = dep_date_time2.split("T");
                     dep_date2[0] = getConvertedDate(dep_date2[0]);
-//                    dep_date2[1]=getConvertedTime(dep_date2[1]);
+                    dep_date2[1]=getConvertedTime(dep_date2[1]);
 
                     return_txt = "Dep: " + dep_date2[0] + " " + dep_date2[1];
                     return_place_txt = Flightitems.get(position).getReturn_model().get(j).getDepartureAirportCode();
@@ -225,7 +237,7 @@ public class FlightAdapter extends BaseAdapter {
                     String arr_date_time3 = Flightitems.get(position).getReturn_model().get(j).getArrivalDateTime();
                     String arr_date3[] = arr_date_time3.split("T");
                     arr_date3[0] = getConvertedDate(arr_date3[0]);
-//                    arr_date3[1]=getConvertedTime(arr_date3[1]);
+                    arr_date3[1]=getConvertedTime(arr_date3[1]);
                     return_txt = return_txt + " Arr: " + arr_date3[0] + " " + arr_date3[1];
                     return_place_txt = return_place_txt + " to " + Flightitems.get(position).getReturn_model().get(j).getArrivalAirportCode();
                 }

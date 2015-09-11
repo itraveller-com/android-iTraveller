@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.volley.AppController;
 
@@ -77,12 +78,25 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         TextView tohome = (TextView) findViewById(R.id.to_home);
         TextView transportationname = (TextView) findViewById(R.id.transportation);
 
+
+        final SharedPreferences preferencess = getSharedPreferences("Preferences", MODE_PRIVATE);
+
         Button confirm = (Button) findViewById(R.id.to_payment);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
-                startActivity(in);
+                if(preferencess.getInt("flag",0)==1) {
+                    Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
+                    startActivity(in);
+                }
+                else
+                {
+                    LoginFragment_Before_Payment fragment=new LoginFragment_Before_Payment();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(android.R.id.content,fragment).commit();
+
+                }
+
             }
         });
 
@@ -103,7 +117,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String Hotels = prefs.getString("Hotels", null);
         String DayCount = prefs.getString("DestinationCount", null);
         String[] deatination_day_count = DayCount.trim().split(",");
-       // Array
+        // Array
         for (int x = 0; x < deatination_day_count.length; x++) {
             TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
         }
@@ -187,7 +201,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     count++;
                     main_lay.addView(view);
 
-                }
+            }
 
         }
 
@@ -233,6 +247,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             itinerary_obj.put("departurePort", "Cochin International Airport");
             itinerary_obj.put("travelTo", "MUMBAI");
             if(Integer.parseInt(pref.getString("FlightBit", "0")) == 0){
+
             itinerary_obj.put("flight", "International");}
             else{
                 itinerary_obj.put("flight", "Domestic");
@@ -372,7 +387,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 flight.put("key", "");
                 JSONArray flight_onward_arr =new JSONArray();
                 for(int i=0 ; i<2; i++){
-                 JSONObject flightonward = new JSONObject();
+                    JSONObject flightonward = new JSONObject();
                     flightonward.put("AirEquipType","");
                     flightonward.put("ArrivalAirportCode","");
                     flightonward.put("ArrivalAirportName","");
@@ -397,7 +412,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     flightonward.put("StartTerminal","");
                     flightonward.put("EndTerminal","");
                     flight_onward_arr.put(flightonward);
-                    }
+                }
                 flight.put("onward",flight_onward_arr);
                 JSONArray flight_return_arr =new JSONArray();
                 for(int j=0 ; j<2; j++){
@@ -458,6 +473,25 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed()
+    {
+        SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+        if(preferences.getInt("Skip_Flight_Bit",0)==1)
+        {
+            Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));
+            if((""+prefs.getString("FlightBit",null)).equals("1"))
+            {
+                FlightDomesticActivity.fda.finish();
+            }
+            else
+            {
+                FlightActivity.fa.finish();
+            }
+        }
+        finish();
     }
 }
 

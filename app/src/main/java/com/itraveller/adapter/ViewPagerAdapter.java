@@ -19,6 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.HotelModel;
 import com.itraveller.volley.AppController;
 
@@ -85,7 +86,8 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         try {
 
-            image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
+        //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
+            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);

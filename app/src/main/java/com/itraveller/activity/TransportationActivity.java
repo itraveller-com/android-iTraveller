@@ -38,6 +38,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.adapter.TransportationAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -48,14 +49,13 @@ import com.itraveller.volley.AppController;
 
 public class TransportationActivity extends ActionBarActivity {
 
-    private String url = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
+    private String url;// = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
     private List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
     private TransportationAdapter adapter;
     private ListView transportation_list;
     private Toolbar mToolbar;
     public static final String MY_PREFS = "ScreenHeight";
     private  int _screen_height;
-    int toggle =0;
     private Button filter_btn;
     private LinearLayout filter_details;
     private SharedPreferences sharedpreferences;
@@ -73,11 +73,8 @@ public class TransportationActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Transportations");
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,31 +87,16 @@ public class TransportationActivity extends ActionBarActivity {
 
         SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
         String Region_id = prefsData.getString("RegionID", null);
-        url = url + Region_id;
+        url = Constants.API_TransportationActivity_URL + Region_id;
         Log.i("Transportation_URL", "" + url);
         Log.i("ArrivalAirport",""+prefsData.getString("ArrivalAirport", null));
         Log.i("DepartureAirport",""+prefsData.getString("DepartureAirport", null));
         Log.i("ArrivalPort",""+prefsData.getString("ArrivalPort", null));
-        Log.i("DeparturePort",""+prefsData.getString("DeparturePort", null));
+        Log.i("DeparturePort", "" + prefsData.getString("DeparturePort", null));
 
-        String NewURL = "http://stage.itraveller.com/backend/api/v1/destination/destinationId/";
+        String NewURL =Constants.API_TransportationActivity_New_URL; //"http://stage.itraveller.com/backend/api/v1/destination/destinationId/";
         ShortName(NewURL + prefsData.getString("ArrivalPort", null),"Arrival");
         ShortName(NewURL + prefsData.getString("DeparturePort", null),"Departure");
-        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        /*setSupportActionBar(mToolbar);
-
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-*/
         SharedPreferences prefs = getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         _screen_height = prefs.getInt("Screen_Height", 0)-(prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
         Log.i("iTraveller", "Screen Height: " + _screen_height);
@@ -130,11 +112,9 @@ public class TransportationActivity extends ActionBarActivity {
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
                 prefsData.edit().putString("OnwardFlightPrice","0").commit();
                 prefsData.edit().putString("ReturnFlightPrice", "0").commit();
-                prefsData.edit().putString("FlightPrice","0").commit();
-
                 String F_bit = ""+prefsData.getString("FlightBit",null);
                 int flightBit = Integer.parseInt(""+F_bit);
-                if(prefsData.getString("TravelFrom", "5").equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
+                if(prefsData.getString("TravelFrom", null).equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
                     Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
                     startActivity(intent);
                 }
@@ -153,18 +133,6 @@ public class TransportationActivity extends ActionBarActivity {
         });
 
 
-
-        //Bundle to read value from another activity
-        /*Bundle bundle = getIntent().getExtras();
-        //Print
-        System.out.println("RegionID: " + bundle.getInt("Region_Id"));
-        url= url + bundle.getInt("RegionID");
-        getSupportActionBar().setTitle(bundle.getString("Title"));*/
-
-      // mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    //   setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         transportation_list = (ListView) findViewById(R.id.transportation_list);
         adapter = new TransportationAdapter(this, transportationList);
         transportation_list.setAdapter(adapter);
@@ -181,13 +149,16 @@ public class TransportationActivity extends ActionBarActivity {
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONArray("payload"));
 
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                    int response_JSON_arr_length=response.getJSONArray("payload").length();
+                    for (int i = 0; i < response_JSON_arr_length; i++) {
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-                        String Tra_url = "http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
+                        String Tra_url =Constants.API_TransportationActivity_Tra_URL;    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
+    //                    TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i);
+//                        String Tra_url = "http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
                         TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i,response.getJSONArray("payload").length());
+
                     }
 
                     pDialog.dismiss();
@@ -231,13 +202,6 @@ public class TransportationActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
 
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int index, final int last_index)
     {
@@ -254,10 +218,11 @@ public class TransportationActivity extends ActionBarActivity {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                        JSONObject jsonarr = response.getJSONObject("payload");
-                        TransportationModel transportation_model = new TransportationModel();
-                        if(index == 0) {
+                    JSONObject jsonarr = response.getJSONObject("payload");
+                    TransportationModel transportation_model = new TransportationModel();
+                    if(index == 0) {
                         lowest_trans = Integer.parseInt(""+jsonarr.getInt("Cost"));
+
                             swap_value = index;
                         }
                     else {
@@ -312,15 +277,6 @@ public class TransportationActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-      /*  if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if(id == R.id.action_search){
-            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-            return true;
-        }*/
 
         if(id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
@@ -329,17 +285,6 @@ public class TransportationActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*public void onBackPressed() {
-        if(filter_btn.getText().toString().equalsIgnoreCase("Apply Filter"))
-        {
-            filter_details.setVisibility(View.GONE);
-            filter_btn.setText("Filter");
-        }
-        else
-        {
-            finish();
-        }
-    }*/
 
     public void ShortName(String ShortnameURL, final String arr_dep)
     {
@@ -356,7 +301,8 @@ public class TransportationActivity extends ActionBarActivity {
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    for (int i = 0; i < response.getJSONObject("payload").length(); i++) {
+                    int response_JSON_length=response.getJSONObject("payload").length();
+                    for (int i = 0; i < response_JSON_length; i++) {
                         if(arr_dep.equalsIgnoreCase("Departure")) {
                             if (response.getJSONObject("payload").getString("Code").equalsIgnoreCase("1")) {
                                 editor.putString("TravelFrom", "1");

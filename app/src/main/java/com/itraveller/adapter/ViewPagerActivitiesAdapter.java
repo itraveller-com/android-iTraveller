@@ -18,6 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.volley.AppController;
 
@@ -88,7 +89,8 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
 
 
-            image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
+        //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
+            image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+ arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getTitle());
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");
