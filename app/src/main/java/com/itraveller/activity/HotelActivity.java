@@ -148,7 +148,7 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
                     set.add("" + HotelRoomData[i]);
                 }*/
-                HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
+                //HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
 
 
@@ -415,10 +415,14 @@ public class  HotelActivity extends ActionBarActivity {
                                 cposition = childpostion;
                                 gposition = groupPosition;
                                 second.setVisibility(View.VISIBLE);
+                                activites.setVisibility(View.GONE);
                                 lv1.setVisibility(View.GONE);
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
                                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                                chk_breakfast.setChecked(true);
+                                chk_lunch.setChecked(false);
+                                chk_dinner.setChecked(false);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -543,6 +547,7 @@ public class  HotelActivity extends ActionBarActivity {
         {
            lv1.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
+            activites.setVisibility(View.VISIBLE);
             check_bit=0;
         }
     }
