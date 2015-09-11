@@ -141,28 +141,33 @@ public class ActivitiesActivity extends ActionBarActivity {
         //Log.i("Hoteldataaaaaa","DID"+ Destinations);
 
         String DayCount = prefs.getString("DestinationCount", null);
-        destination_day_count = DayCount.trim().split(",");
-        int destination_day_count_length=destination_day_count.length;
-        for (int x = 0; x < destination_day_count_length; x++) {
-            TotalCountDays = TotalCountDays + Integer.parseInt(destination_day_count[x]);
+        deatination_day_count = DayCount.trim().split(",");
+        Log.d("Destination day 1",""+deatination_day_count);
+        for (int x = 0; x < deatination_day_count.length; x++) {
+            TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
         }
         Log.i("Hoteldataaaaaa", "DDC" + DayCount);
+
+        Log.d("Destination day 4",""+TotalCountDays);
 
         String Arrival_port = prefs.getString("ArrivalPort", null);
         //Log.i("Hoteldataaaaaa","AP"+ Arrival_port);
         String Departure_port = prefs.getString("DeparturePort", null);
         //Log.i("Hoteldataaaaaa","DP"+ Departure_port);
 
-        Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
-        String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
+        /*Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+        String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);*/
+
+        String HotelData = prefs.getString("HotelRooms",null);
+        String[] HotelDataArray = HotelData.trim().split("-");
         hotel_id_data = new String[HotelDataArray.length];
         int  HotelDataArray_length=HotelDataArray.length;
         Log.d("Hotel Data Array",""+HotelDataArray_length);
         for (int index = 0; index < HotelDataArray_length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
             String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
 
-
-            hotel_id_data[index] = hotel_room_Data[index];
+            //Changed hotel_id_data[index] = hotel_room_Data[index]; //Problem in hotel_room_Data (Length)
+            hotel_id_data[index] = hotel_room_Data[0];
         }
 
 
@@ -238,16 +243,16 @@ public class ActivitiesActivity extends ActionBarActivity {
         }
 
         activitiesList = new ArrayList<>();
-        Log.d("Total count",""+TotalCountDays);
-        Log.d("Mat2 size",""+Mat2_Destination.size());
-        Log.d("Mat2 size1",""+Mat2_DayCount.size());
-        Log.d("Mat2 size2",""+ Mat2_HotelID.size());
+
+        Log.d("Destination day 5",""+Mat2_DayCount.size());
+        Log.d("Destination day 6",""+Mat2_Destination.size());
+        Log.d("Destination day 7",""+Mat2_HotelID.size());
         for(int i = 0 ; i< TotalCountDays +1;i++)
         {
-            if(i<(Mat2_HotelID.size())) {
+
                 Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
-                activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
-            }
+        //        activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+            activitiesList.add(Constants.API_ActivitiesActivity_URL+ Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             /*Log.i("FinaL", "" + Mat2_Destination.get(i));
             Log.i("FinaLValue", "" + Mat2_HotelID.get(i));
             Log.i("FinaL", "" + Mat2_DayCount.get(i));*/

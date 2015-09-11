@@ -29,11 +29,9 @@ public class ViewPagerActivitiesAdapter extends PagerAdapter {
 ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     int check_bit=0;
-<<<<<<< HEAD
-=======
+
     static int temp;
     public static int temp_id;
->>>>>>> calendar_modification
     ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
 
     @SuppressLint("NewApi")
@@ -92,6 +90,9 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
             temp_id=arrayModelClasses.get(position).getId();
             image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
+
+        //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
+
             itemText.setText(arrayModelClasses.get(position).getTitle());
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");

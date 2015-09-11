@@ -65,11 +65,13 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
 
 
     //function to convert date into our required form
+
     public String getConvertedTime(String str)
     {
         String str_time[]=str.split(":");
         int hours=Integer.parseInt(str_time[0]);
         String converted_hours;
+
         if(hours>=12) {
             if (hours == 12)
             {
@@ -100,6 +102,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
 
 
     //getting count of total number of Flightitems
+
     @Override
     public int getCount() {
         return Flightitems.size();
@@ -162,18 +165,20 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         String dep_date[]=dep_date_time.split("T");
         //converting departure date
         dep_date[0]=getConvertedDate(dep_date[0]);
+
         //converting departure time
+
         dep_date[1]=getConvertedTime(dep_date[1]);
 
         String arr_date_time=""+m.getArrivalDateTime();
         String arr_date[]=arr_date_time.split("T");
         //converting arrival date
         arr_date[0]=getConvertedDate(arr_date[0]);
-        //converting arrival time
         arr_date[1]=getConvertedTime(arr_date[1]);
 
         //displaying flight name and number
         holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
+
         //displaying flight departure date and time
         holder.fl_arr.setTextAppearance(activity,R.style.font_size_1);
         holder.fl_arr.setText(""+arr_date[0]+"\n"+arr_date[1]);
@@ -181,6 +186,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         holder.fl_dep.setTextAppearance(activity,R.style.font_size_1);
         holder.fl_dep.setText(""+dep_date[0]+"\n"+dep_date[1]);
         //displaying price
+
         holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
 

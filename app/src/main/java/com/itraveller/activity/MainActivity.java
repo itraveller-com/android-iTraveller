@@ -33,8 +33,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
@@ -135,7 +133,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 InputStream in = (InputStream) imgUrl.getContent();
                 Bitmap bitmap = BitmapFactory.decodeStream(in);
                 img1.setImageBitmap(getCroppedBitmap(bitmap));
-                Log.d("Fname of user1",""+getString(R.string.hello_user,LoginActivity.profile.getFirstName()));
                 greeting.setText(getString(R.string.hello_user, preferences.getString("f_name",null)));
 
             }
@@ -172,7 +169,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         }
         else
         {
-
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             //display defult image and greetin to unregistered user
             img1.setImageBitmap(getCroppedBitmap(icon));
@@ -370,7 +366,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         Log.d("URL main",""+"http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at);
         String url=Constants.API_logout+u_id+"/logout?token="+at;
-
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url , new Response.Listener<JSONObject>() {
 
             @Override
@@ -386,15 +381,10 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
                     if(success.equals("true"))
                     {
-<<<<<<< HEAD
-//                                Intent i=new Intent(getApplicationContext(),LoginActivity.class);
-                        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
-                        LoginActivity.access_token=null;
-                        att=null;
-                        LoginFragmentA fragment1 = new LoginFragmentA();
-=======
+
                         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
                         att=null;
+
 
 
                         SharedPreferences.Editor editor=preferences.edit();
@@ -406,7 +396,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                         greeting.setText("Hello user");
 
                         LoginFragment fragment1 = new LoginFragment();
->>>>>>> calendar_modification
+
                         fragment1.setContextValue(context);
                         title = getString(R.string.title_login);
                         fragment = fragment1;
@@ -416,10 +406,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                         greeting.setText("Hello user");
                         finish();
 
-<<<<<<< HEAD
-=======
                         displayView(4);
->>>>>>> calendar_modification
                     }
                     else
                     {
@@ -514,8 +501,19 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     greeting.setText("Hello user");
                     displayView(4);
                 }
-
                 break;
+
+            case 4:
+                LoginFragment fragment1 = new LoginFragment();
+                fragment1.setContextValue(context);
+                title = getString(R.string.title_login);
+                fragment = fragment1;
+
+                Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                img1.setImageBitmap(getCroppedBitmap(icon2));
+                greeting.setText("Hello user");
+                break;
+
             default:
                 break;
         }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.payment.BuyProduct"/>
+      <point      
+        x = "500"      
+        y = "2860"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.facebook.FacebookActivity"/>
+      <point      
+        x = "550"      
+        y = "2910"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.PlanTrip"/>
+      <point      
+        x = "600"      
+        y = "2960"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.dragsort.AirportList"/>
+      <point      
+        x = "648"      
+        y = "3008"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.FlightDomesticActivity"/>
+      <point      
+        x = "700"      
+        y = "3060"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.ItinerarySummaryActivity"/>
+      <point      
+        x = "750"      
+        y = "3110"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.dragsort.DragAndSort"/>
+      <point      
+        x = "500"      
+        y = "100"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "com.itraveller.dragsort.DragAndSort"/>
+      <point      
+        x = "1768"      
+        y = "100"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.FlightActivity"/>
+      <point      
+        x = "800"      
+        y = "3160"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.core.SplashScreenActivity"/>
+      <point      
+        x = "850"      
+        y = "3210"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.SignupActivity"/>
+      <point      
+        x = "948"      
+        y = "3308"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.HotelActivity"/>
+      <point      
+        x = "900"      
+        y = "3260"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.TestActionBar"/>
+      <point      
+        x = "1000"      
+        y = "3360"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.TransportationActivity"/>
+      <point      
+        x = "1050"      
+        y = "3410"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.RegionPlace"/>
+      <point      
+        x = "500"      
+        y = "1480"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "com.itraveller.activity.RegionPlace"/>
+      <point      
+        x = "1768"      
+        y = "1480"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.MainActivity"/>
+      <point      
+        x = "1150"      
+        y = "3510"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.HotelRoomActvity"/>
+      <point      
+        x = "1100"      
+        y = "3460"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.ActivitiesActivity"/>
+      <point      
+        x = "1200"      
+        y = "3560"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.payment.PaymentSuccessActivity"/>
+      <point      
+        x = "1250"      
+        y = "3610"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.itraveller.activity.SummaryActivity"/>
+      <point      
+        x = "1300"      
+        y = "3660"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

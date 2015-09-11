@@ -3,57 +3,57 @@ package com.itraveller.activity;
 /**
  * Created by VNK on 6/25/2015.
  */
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
-        import android.app.ProgressDialog;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.support.v7.app.ActionBarActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.Button;
-        import android.widget.CheckBox;
-        import android.widget.LinearLayout;
-        import android.widget.ListView;
-        import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.DefaultRetryPolicy;
-        import com.android.volley.NetworkError;
-        import com.android.volley.NoConnectionError;
-        import com.android.volley.ParseError;
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.ServerError;
-        import com.android.volley.TimeoutError;
-        import com.android.volley.VolleyError;
-        import com.android.volley.VolleyLog;
-        import com.android.volley.toolbox.JsonObjectRequest;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.HashSet;
-        import java.util.Iterator;
-        import java.util.List;
-        import java.util.Set;
-
-        import com.facebook.internal.Utility;
-        import com.itraveller.R;
-        import com.itraveller.adapter.HotelRoomAdapter;
-        import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
-        import com.itraveller.adapter.ListViewPagerAdapter;
-        import com.itraveller.adapter.ViewPagerAdapter;
-        import com.itraveller.model.ActivitiesModel;
-        import com.itraveller.model.HotelModel;
-        import com.itraveller.model.HotelRoomModel;
-        import com.itraveller.volley.AppController;
+import com.facebook.internal.Utility;
+import com.itraveller.R;
+import com.itraveller.adapter.HotelRoomAdapter;
+import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
+import com.itraveller.adapter.ListViewPagerAdapter;
+import com.itraveller.adapter.ViewPagerAdapter;
+import com.itraveller.constant.Constants;
+import com.itraveller.model.ActivitiesModel;
+import com.itraveller.model.HotelModel;
+import com.itraveller.model.HotelRoomModel;
+import com.itraveller.volley.AppController;
 
 public class  HotelActivity extends ActionBarActivity {
 
@@ -75,7 +75,7 @@ public class  HotelActivity extends ActionBarActivity {
     int check_bit=0;
     String[] HotelRoomData;
     int cposition, gposition;
-    String lowest_hotel_url = "http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=";
+    String lowest_hotel_url = Constants.API_HotelActivity_Lowest_Hotel; //"http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=";
     String Region_ID;
     Button activites;
     ProgressDialog pDialog;
@@ -148,12 +148,13 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
                     set.add("" + HotelRoomData[i]);
                 }*/
-                HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
+                //HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
 
 
                 for(int i =0; i< lowesthotelList.size();i++)
                 {
+                    Log.d("Destination day 3",""+i);
                     String hotel_string = "";
                     String datas = ""+ HotelRoomData[i];
                     Log.i("lowestHotelData1 " + i, "" + lowesthotelList.get(i));
@@ -190,7 +191,7 @@ public class  HotelActivity extends ActionBarActivity {
                     set.add("" + HotelRoomData[i]);}*/
                 //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
-                editor.putStringSet("HotelRooms", set);
+                editor.putString("HotelRooms", itinerary_hotel);
                 editor.putString("ItineraryHotelRooms", itinerary_hotel);
 
                 editor.commit();
@@ -222,9 +223,10 @@ public class  HotelActivity extends ActionBarActivity {
         hotelList = new ArrayList<>();
         lowesthotelList = new ArrayList<>();
         for (int index = 0; index < hotel_destination.length; index++) {
-            hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
+        //    hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
+            hotelList.add(Constants.API_HotelActivity_HotelList + hotel_destination[index]);
             //Default Hotel Set Value
-            DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate="+ destination_date[index] +"&regionId=" + Region_ID, index);
+            DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID, index);
             Log.i("HotelURL", "" + "http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
         }
 
@@ -257,7 +259,8 @@ public class  HotelActivity extends ActionBarActivity {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
-                                String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
+                            //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
+                                String url_checkroom=Constants.API_HotelActivity_Checkroom+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
                                 hotelRoomsCheck(url_checkroom,RoomObj.length(), inc);
                             }
                         }
@@ -414,10 +417,14 @@ public class  HotelActivity extends ActionBarActivity {
                                 cposition = childpostion;
                                 gposition = groupPosition;
                                 second.setVisibility(View.VISIBLE);
+                                activites.setVisibility(View.GONE);
                                 lv1.setVisibility(View.GONE);
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
                                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                                chk_breakfast.setChecked(true);
+                                chk_lunch.setChecked(false);
+                                chk_dinner.setChecked(false);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -477,7 +484,8 @@ public class  HotelActivity extends ActionBarActivity {
                                 //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 //modelRow.get(childpostion).
                                 Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
-                                String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                            //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                                String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
                                 Log.i("URLForRooms", "" + groupPosition + " Url :" +url);
                                 hotelRooms(url,destination_date[groupPosition] );
                                 check_bit=1;
@@ -538,6 +546,7 @@ public class  HotelActivity extends ActionBarActivity {
         {
             lv1.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
+            activites.setVisibility(View.VISIBLE);
             check_bit=0;
         }
     }

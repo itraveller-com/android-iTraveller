@@ -86,6 +86,8 @@ public class LandingAdapter extends BaseAdapter {
         // thumbnail image
 
         thumbNail.setImageUrl(Constants.API_LandingAdapter_ImageURL+m.getRegion_Id()+".jpg", imageLoader);
+    //    thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Id() + ".jpg" , imageLoader);
+
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         // title
         title.setText(m.getRegion_Name());

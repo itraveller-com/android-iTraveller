@@ -78,8 +78,9 @@ public class LandingActivity extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.landing_listview, container, false);
 
-//        String url = "http://stage.itraveller.com/backend/api/v1/region";
-//        String search_url = "http://stage.itraveller.com/backend/api/v1/region/places";
+        String url = Constants.API_LandingActivity_Region; //"http://stage.itraveller.com/backend/api/v1/region";
+        String search_url = Constants.API_LandingActivity_Search_Region; //"http://stage.itraveller.com/backend/api/v1/region/places";
+
         Filterregion_ = new ArrayList<SearchBarModel>();
         region_ = new ArrayList<String>();
         listView = (ListView) rootView.findViewById(R.id.list);

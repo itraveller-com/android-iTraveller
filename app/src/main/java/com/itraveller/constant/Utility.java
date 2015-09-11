@@ -106,5 +106,19 @@ public class Utility {
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////Number of rooms selection using no of members/////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static int noRooms(int max_member, int no_of_members){
+        float rooms_float = Float.parseFloat(""+no_of_members)/Float.parseFloat(""+max_member);
+        int rooms_int = no_of_members/max_member;
+        float value = rooms_float - rooms_int;
+        if(value>0)
+        {
+            rooms_int ++;
+        }
+        return rooms_int;
+    }
+
     }
 

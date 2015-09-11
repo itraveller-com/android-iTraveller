@@ -97,14 +97,69 @@ public class SignupFragment extends Fragment {
                 if(( mobile_number.trim().length()>0 && emailid.trim().length()>0 && isValidEmail(emailid)) && mobile_number.trim().length()==10)
                 {
                     SharedPreferences.Editor editor=prefs.edit();
-                    editor.putString("email",""+emailid);
-                    editor.putString("user_name",""+user_name);
-                    editor.putString("mobile",""+mobile_number);
+                    editor.putString("email", "" + emailid);
+                    editor.putString("user_name", "" + user_name);
+                    editor.putString("mobile", "" + mobile_number);
                     editor.commit();
 
                     sign_up_user();
 
                 }
+
+                else if((mobile_number.trim().length()<10 || mobile_number.trim().length()==0) && (emailid.trim().length()>0 && isValidEmail(emailid)))
+                {
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Login Failed");
+
+                    // Setting Dialog Message
+                    alertDialog.setMessage("Please enter valid mobile number ");
+
+                    // Setting Icon to Dialog
+                    alertDialog.setIcon(R.drawable.fail);
+
+                    // Setting OK Button
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Write your code here to execute after dialog closed
+                            mobile_Edittext_.setText("");
+                        }
+                    });
+
+                    // Showing Alert Message
+                    alertDialog.show();
+
+                }
+                else if((!isValidEmail(emailid) || emailid.trim().length() == 0) && mobile_number.trim().length()==10)
+                {
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Login Failed");
+
+                    // Setting Dialog Message
+                    alertDialog.setMessage("Please enter valid email id ");
+
+                    // Setting Icon to Dialog
+                    alertDialog.setIcon(R.drawable.fail);
+
+                    // Setting OK Button
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Write your code here to execute after dialog closed
+
+                            email_id_Edittext_.setText("");
+                        }
+                    });
+
+                    // Showing Alert Message
+                    alertDialog.show();
+
+                }
+
                 else
                 {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
@@ -200,10 +255,11 @@ public class SignupFragment extends Fragment {
                                 editor.commit();
 
                                 Log.d("Email received",""+prefs.getString("email_id1", null));
-                                    LoginFragment.email_id_Edittext.setText(""+prefs.getString("email_id1", null));
-                                    LoginFragment.mobile_Edittext.setText(""+prefs.getString("mobile_number1", null));
 
-                                  getActivity().onBackPressed();
+                                LoginFragment.email_id_Edittext.setText(""+prefs.getString("email_id1", null));
+                                LoginFragment.mobile_Edittext.setText(""+prefs.getString("mobile_number1", null));
+
+                                getActivity().onBackPressed();
                             }
                             else
                             {

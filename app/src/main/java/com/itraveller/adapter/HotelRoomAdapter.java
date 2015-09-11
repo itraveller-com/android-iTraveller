@@ -2,6 +2,7 @@ package com.itraveller.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.HotelActivity;
+import com.itraveller.constant.Utility;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.volley.AppController;
 
@@ -28,6 +30,7 @@ public class HotelRoomAdapter extends BaseAdapter {
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
+    private int adults;
 
 
     public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom , HotelActivity.RadiobuttonListener RadiobuttonListener) {
@@ -72,6 +75,8 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_minus =(Button) convertView.findViewById(R.id.minus);
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
+            SharedPreferences prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            adults = Integer.parseInt(prefs.getString("Adults", "0"));
         }
         else
         {
@@ -88,7 +93,9 @@ public class HotelRoomAdapter extends BaseAdapter {
         //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
         holder.title.setText(m.getRoom_Type());
-        holder.btn_count.setText("1");
+
+        holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
+
         holder.rate.setText("" + m.getDisplay_Tariff());
 
 

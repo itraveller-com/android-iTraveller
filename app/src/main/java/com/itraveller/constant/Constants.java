@@ -35,7 +35,7 @@ public class Constants {
 
     public static String API_HotelActivity_HOTEL_ROOMS = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId=";
 
-    public static String API_HotelActivity_Checkin="http://stage.itraveller.com/backend/api/v1/roomtariff?region=";
+    public static String API_HotelActivity_Checkroom="http://stage.itraveller.com/backend/api/v1/roomtariff?region=";
 
     public static String API_HotelActivity_HotelList="http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" ;
 
@@ -66,7 +66,6 @@ public class Constants {
     public static String API_Domestic_Flights="http://stage.itraveller.com/backend/api/v1/domesticflight?" ;
 
     public static String API_International_Flights="http://stage.itraveller.com/backend/api/v1/internationalflight?" ;
-
 
     public static String API_login="http://stage.itraveller.com/backend/api/v1/users/auth?email="   ;
 

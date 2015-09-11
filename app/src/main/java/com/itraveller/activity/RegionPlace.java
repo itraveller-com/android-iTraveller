@@ -2,6 +2,7 @@ package com.itraveller.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -48,7 +49,6 @@ import com.itraveller.volley.AppController;
  * Created by VNK on 6/9/2015.
  */
 public class RegionPlace extends ActionBarActivity {
-
 
     private String url = Constants.API_RegionPlace_URL;   //"http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
     private List<RegionPlaceModel> regionList = new ArrayList<RegionPlaceModel>();
@@ -222,11 +222,9 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setTitle(jsonobj.getJSONObject("Master").getString("Title"));
                            region_adp.setLink(jsonobj.getJSONObject("Master").getString("Link"));
                            //region_adp.setImage(jsonobj.getJSONObject("Master").getString("Image"));
-
-
-                           region_adp.setImage(Constants.API_RegionPlace_ImageURL + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
-                       //    region_adp.setImage(Constants.API_RegionPlace_ImageURL);
-                           Log.d("Images:", Constants.API_RegionPlace_ImageURL);
+                       //    region_adp.setImage("http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                           region_adp.setImage(Constants.API_RegionPlace_ImageURL+ jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                           Log.d("Images:", "http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
                            region_adp.setArrival_Port_Id(jsonobj.getJSONObject("Master").getInt("Arrival_Port_Id"));
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                            region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
@@ -370,7 +368,25 @@ public class RegionPlace extends ActionBarActivity {
         }
         else
         {
-            finish();
+            SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+            Intent i=new Intent(getApplicationContext(),MainActivity.class);
+            Log.d("Var value checking ",""+prefs.getString("var",null));
+            if(prefs.getInt("flag",0)==1) {
+                if (("" + prefs.getString("var", null)).equals("y")) {
+                    i.putExtra("profile", "temp");
+                    i.putExtra("id", "temp");
+                    startActivity(i);
+
+                }
+                else
+                {
+                    i.putExtra("profile","login_from_server");
+                    i.putExtra("id","login_from_server");
+                    startActivity(i);
+                }
+            }
+            else
+                finish();
         }
     }
 

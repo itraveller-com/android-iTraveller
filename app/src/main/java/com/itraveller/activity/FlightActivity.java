@@ -4,7 +4,10 @@ package com.itraveller.activity;
  * Created by VNK on 6/11/2015.
  */
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +35,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightAdapter;
@@ -45,6 +53,10 @@ import com.itraveller.volley.AppController;
 
 public class FlightActivity extends ActionBarActivity {
 
+    int Total_Price;
+
+    public static Activity fa;
+
     private Toolbar mtoolbar; // Declaring the Toolbar Object
     private ArrayList<FlightModel> flight_model = new ArrayList<FlightModel>();
 
@@ -56,7 +68,8 @@ public class FlightActivity extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.flights_list);
 
-            //toolbar displaying title "Flight"
+            fa=this;
+
             mtoolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(mtoolbar);
             getSupportActionBar().setTitle("Flight");
@@ -77,7 +90,8 @@ public class FlightActivity extends ActionBarActivity {
 
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
             //String url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
-           String url =Constants.API_International_Flights +
+        //    String url ="http://stage.itraveller.com/backend/api/v1/internationalflight?" +
+            String url= Constants.API_International_Flights +
                     "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                     "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                     "&departDate=" + prefs.getString("TravelDate", null) +
@@ -120,6 +134,19 @@ public class FlightActivity extends ActionBarActivity {
                             mflight.setTPartnerCommission(flight_fare.getString("TPartnerCommission").toString());
                             mflight.setTSdiscount(flight_fare.getString("TSdiscount").toString());
                             mflight.setOcTax(flight_fare.getString("ocTax").toString());
+
+
+
+                            Total_Price=Integer.parseInt(flight_fare.getString("ActualBaseFare").toString())+Integer.parseInt(flight_fare.getString("Tax").toString())
+                            +Integer.parseInt(flight_fare.getString("Tax").toString())+Integer.parseInt(flight_fare.getString("STax").toString())+
+                            Integer.parseInt(flight_fare.getString("TCharge").toString())+Integer.parseInt(flight_fare.getString("SCharge").toString())+
+                            Integer.parseInt(flight_fare.getString("TDiscount").toString())+Integer.parseInt(flight_fare.getString("TMarkup").toString())+
+                            Integer.parseInt(flight_fare.getString("TPartnerCommission").toString())+Integer.parseInt(flight_fare.getString("TSdiscount").toString())+
+                            Integer.parseInt(flight_fare.getString("ocTax").toString());
+
+                            Log.d("Total price test",""+Total_Price);
+
+                            mflight.setTotal_Price(Total_Price);
 
                             JSONObject flight_onward = jsonarr.getJSONObject(i).getJSONObject("onward").getJSONObject("FlightSegments");
                             try{
@@ -239,15 +266,22 @@ public class FlightActivity extends ActionBarActivity {
                                     mreturn.setEndTerminal(return_arr.getString("EndTerminal").toString());
                                     return_model.add(mreturn);
                             }
-                            Log.i("Onward Value",""+onward_model.size());
+                            Log.i("Onward Value", "" + onward_model.size());
+
+
                             mflight.setOnward_model(onward_model);
                             mflight.setReturn_model(return_model);
+
+
 
                             String flight_id = jsonarr.getJSONObject(i).getString("id").toString();
                             String flight_key = jsonarr.getJSONObject(i).getString("key").toString();
 
                             mflight.setId(flight_id);
                             mflight.setKey(flight_key);
+
+
+
                             flight_model.add(mflight);
 
                         }
@@ -288,6 +322,18 @@ public class FlightActivity extends ActionBarActivity {
 
         }
 
+
+        public FlightModel getFlightModel( FlightModel model)
+        {
+
+            Collections.sort((List<FlightModel>) model, new Comparator<FlightModel>() {
+                @TargetApi(Build.VERSION_CODES.KITKAT)
+                @Override public int compare(FlightModel x, FlightModel y) {
+                    return Integer.compare(x.getTotal_Price(), y.getTotal_Price());
+                }
+            });
+            return model;
+        }
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {

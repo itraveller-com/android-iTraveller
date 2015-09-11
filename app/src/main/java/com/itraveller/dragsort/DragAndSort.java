@@ -76,7 +76,7 @@ public class DragAndSort extends ActionBarActivity
     private SearchView search_airport;
     private TextView from_home , from_travel , to_home ,to_travel;
     private String url;
-    private int region_id;
+    private String region_id;
     private int check_bit_new = 0;
     private ScrollView scroll;
     private Button hotelBook;
@@ -157,8 +157,6 @@ public class DragAndSort extends ActionBarActivity
 
         hotelBook = (Button) findViewById(R.id.book_hotel);
 
-        url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
-
         //Default value set
         from_home.setText("MUMBAI");
         travelfrom = "BOM";
@@ -168,10 +166,16 @@ public class DragAndSort extends ActionBarActivity
         img.setImageUrl(bundle.getString("Image"), imageLoader);
         duration_sp.setText((bundle.getInt("Duration") - 1) + " Nights / " + bundle.getInt("Duration") + " Days");
         title_sp.setText(bundle.getString("Title"));
-        region_id = bundle.getInt("RegionID");
+        //region_id = bundle.getInt("RegionID");
+
+        SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+
+        region_id = "" + sharedpreferences.getString("RegionID", null);
         String TestValue = bundle.getString("Destinations");
         final String Destination_Id = bundle.getString("DestinationsID");
         final String Destination_Count = bundle.getString("DestinationsCount");
+
+        url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
 
         Log.i("PortID",""+bundle.getInt("ArrivalPort"));
         Log.i("PortID",""+bundle.getInt("DeparturePort"));
@@ -185,8 +189,11 @@ public class DragAndSort extends ActionBarActivity
 
         adapter_rearrange = new RearrangePlaceAdapter(this,rearrangeList);
         listView.setAdapter(adapter_rearrange);
-        SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        /*SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();*/
+
+        //listView.setAdapter(adapter);
 
         for(int i = 0; i<names.length ; i++)
         {
@@ -542,7 +549,7 @@ public class DragAndSort extends ActionBarActivity
                 try {
                     Log.i("Test", "Testing" + response);
                     Log.d("Boolean", "" + response.getBoolean("success"));
-                    Log.d("Error", ""+response.getJSONObject("error"));
+                    Log.d("Error", "" + response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONArray("payload"));
                     Log.d("KeyValueKey", "Arr"+arrival);
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
