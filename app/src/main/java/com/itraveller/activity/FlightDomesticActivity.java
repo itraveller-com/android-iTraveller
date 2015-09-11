@@ -46,6 +46,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightViewPagerAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.CustomLoading;
 import com.itraveller.model.FlightModel;
 import com.itraveller.model.OnwardDomesticFlightModel;
@@ -102,7 +103,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
             }
         });
 
-        String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?" +
+
+    //    String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?" +
+        String url= Constants.API_Domestic_Flights+
                 "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                 "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                 "&departDate=" + prefs.getString("TravelDate", null) +

@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.TransportationActivity;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -97,7 +98,8 @@ public class TransportationAdapter extends BaseAdapter {
         final TransportationModel m = TransportationItems.get(position);
 
         // thumbnail image
-        thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+    //    thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+        thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , imageLoader);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         // title
         holder.title.setText(m.getTitle());

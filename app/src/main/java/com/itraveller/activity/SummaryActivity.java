@@ -187,7 +187,24 @@ public class SummaryActivity extends ActionBarActivity{
             package_v.setText("Rs " + total_price);
             total.setText("Rs " + total_price);
             total_dis.setText("Rs " + total_discount.intValue());
-        }
+
+        EditText name=(EditText) findViewById(R.id.editText);
+        Log.d("Name test",""+name);
+        EditText mobile_number=(EditText) findViewById(R.id.editText2);
+        Log.d("Name test1",""+mobile_number);
+        EditText email=(EditText) findViewById(R.id.editText3);
+        Log.d("Name test2",""+email);
+        EditText postal_code=(EditText) findViewById(R.id.editText4);
+        Log.d("Name test3",""+postal_code);
+        SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
+        Log.d("Name test4",""+preferencess);
+        name.setText("" + preferencess.getString("f_name", null));
+        mobile_number.setText("" + preferencess.getString("mobile_number1", null));
+        Log.d("email in summary", ""+preferencess.getString("email_id1", null));
+        email.setText(""+preferencess.getString("email_id1",null));
+
+
+    }
 
 
         @Override

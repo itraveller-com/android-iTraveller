@@ -32,6 +32,7 @@ dependencies {
     compile project(':rangeseekbar')
     compile project(':dragsortlistview')
     compile project(':facebook')
-    compile files('C://android-iTraveller/libs/GoogleAnalyticsServices.jar')
+    compile files('D://itrcode merge/android-iTraveller/libs/GoogleAnalyticsServices.jar')
+    compile 'com.squareup:android-times-square:1.5.0@aar'
 }
 
