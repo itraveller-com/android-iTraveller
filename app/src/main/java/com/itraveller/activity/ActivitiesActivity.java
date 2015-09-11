@@ -141,10 +141,10 @@ public class ActivitiesActivity extends ActionBarActivity {
         //Log.i("Hoteldataaaaaa","DID"+ Destinations);
 
         String DayCount = prefs.getString("DestinationCount", null);
-        deatination_day_count = DayCount.trim().split(",");
-        Log.d("Destination day 1",""+deatination_day_count);
-        for (int x = 0; x < deatination_day_count.length; x++) {
-            TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
+        destination_day_count = DayCount.trim().split(",");
+        Log.d("Destination day 1",""+destination_day_count);
+        for (int x = 0; x < destination_day_count.length; x++) {
+            TotalCountDays = TotalCountDays + Integer.parseInt(destination_day_count[x]);
         }
         Log.i("Hoteldataaaaaa", "DDC" + DayCount);
 

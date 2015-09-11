@@ -258,7 +258,7 @@ public class FlightAdapter extends BaseAdapter {
                 //converting departure time
                 dep_date1[1]=getConvertedTime(dep_date1[1]);
 
-                String arr_date_time1 = "" + Flightitems.get(position).getOnward_model().get(i).getArrivalDateTime();
+                String arr_date_time1 = "" + Flightitems.get(position).getOnward_model().get(j).getArrivalDateTime();
                 String arr_date1[] = arr_date_time1.split("T");
                 //CONVERTING arrival date
                 arr_date1[0] = getConvertedDate(arr_date1[0]);
@@ -339,8 +339,8 @@ public class FlightAdapter extends BaseAdapter {
             // getting data for the row
             final FlightModel m = Flightitems.get(position);
 
-
-        }
         return convertView;
+        }
+
     }
-}
+

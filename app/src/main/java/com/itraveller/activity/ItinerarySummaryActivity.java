@@ -32,6 +32,10 @@ import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.volley.AppController;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static com.itraveller.R.id.LinearLayout1;
 import static com.itraveller.R.id.btn_confirm_payment;
 
@@ -41,8 +45,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
    you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
-    String onward_flight_rate="";
-    String return_flight_rate="";
+    String onward_flight_rate = "";
+    String return_flight_rate = "";
     int flight_rate = 0;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
@@ -79,15 +83,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(preferencess.getInt("flag",0)==1) {
+                if (preferencess.getInt("flag", 0) == 1) {
                     Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
                     startActivity(in);
-                }
-                else
-                {
-                    LoginFragment_Before_Payment fragment=new LoginFragment_Before_Payment();
+                } else {
+                    LoginFragment_Before_Payment fragment = new LoginFragment_Before_Payment();
                     getSupportFragmentManager().beginTransaction()
-                            .add(android.R.id.content,fragment).commit();
+                            .add(android.R.id.content, fragment).commit();
 
                 }
             }
@@ -96,12 +98,12 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         int TotalCountDays = 0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
-        fromhome.setText(""+prefs.getString("ArrivalAirportString", null));
-        totravel.setText(""+prefs.getString("DeparturePortString", null));
-        fromtravel.setText(""+prefs.getString("ArrivalPortString", null));
-        tohome.setText(""+prefs.getString("DepartureAirportString", null));
-        transportationname.setText(""+prefs.getString("TransportationName", null));
-        String travel_date = ""+prefs.getString("TravelDate", null);
+        fromhome.setText("" + prefs.getString("ArrivalAirportString", null));
+        totravel.setText("" + prefs.getString("DeparturePortString", null));
+        fromtravel.setText("" + prefs.getString("ArrivalPortString", null));
+        tohome.setText("" + prefs.getString("DepartureAirportString", null));
+        transportationname.setText("" + prefs.getString("TransportationName", null));
+        String travel_date = "" + prefs.getString("TravelDate", null);
 
 
         //String HotelData = prefs.getString("HotelRooms",null);
@@ -131,13 +133,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             } else if (index == (destination_name.length + 1)) {
                 Mat_Destination.add(Departure_port);
             } else {
-                for(int j = 0; j< (Integer.parseInt(deatination_day_count[Mat_count]) + 1); j++) {
+                for (int j = 0; j < (Integer.parseInt(deatination_day_count[Mat_count]) + 1); j++) {
                     Mat_Destination.add(destination_name[Mat_count]);
                 }
                 Mat_count++;
             }
         }
-        for(int i = 0 ; i < Mat_Destination.size(); i++){
+        for (int i = 0; i < Mat_Destination.size(); i++) {
             Log.i("DestinationName_Mat", Mat_Destination.get(i));
 
         }
@@ -150,12 +152,12 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String[] ActivitiesDay = ActivitiesData.trim().split("/");
 
         String[] activities_val = new String[ActivitiesDay.length];
-        for(int index=0;index <ActivitiesDay.length; index++){
+        for (int index = 0; index < ActivitiesDay.length; index++) {
             String activities_title = "";
             int count_bit = 0;
             String[] different_activities = ActivitiesDay[index].trim().split(":");
-            for(int i = 0; i< different_activities.length ;i++){
-                if(!different_activities[i].equalsIgnoreCase("")) {
+            for (int i = 0; i < different_activities.length; i++) {
+                if (!different_activities[i].equalsIgnoreCase("")) {
                     String[] activities_ = different_activities[i].trim().split(",");
                     if (count_bit == 0) {
                         activities_title = activities_[2];
@@ -165,7 +167,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     }
                 }
             }
-            activities_val[index] = ""+activities_title;
+            activities_val[index] = "" + activities_title;
         }
 
         int count = 0;
@@ -178,47 +180,46 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
                 NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
 
-                    imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
-                    NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
-                    TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
-                    TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
-                    TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
-                    TextView place_name = (TextView) view.findViewById(R.id.place_name);
-                    TextView day_date = (TextView) view.findViewById(R.id.date_day);
-                    // Assigning value to  imageview and textview here
-                    //if(HotelsArray.length != i) {
-                        imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
-                        hotel_name.setText(hotels_Data[0]);
-                        hotel_des.setText(hotels_Data[1]);
-                    //}
-                    day_date.setText("Day " + (count + 1) );
-                    place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
-                    activities_title_txt.setText(activities_val[count]);
-                    count++;
+                imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
+                TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
+                TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
+                TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
+                TextView place_name = (TextView) view.findViewById(R.id.place_name);
+                TextView day_date = (TextView) view.findViewById(R.id.date_day);
+                // Assigning value to  imageview and textview here
+                //if(HotelsArray.length != i) {
+                imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
+                hotel_name.setText(hotels_Data[0]);
+                hotel_des.setText(hotels_Data[1]);
+                //}
+                day_date.setText("Day " + (count + 1));
+                place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
+                activities_title_txt.setText(activities_val[count]);
+                count++;
                 main_lay.addView(view);
 
             }
 
         }
 
-            View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
 
-            NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
-            TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
-            TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
-            TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
-            TextView place_name = (TextView) view.findViewById(R.id.place_name);
-            TextView day_date = (TextView) view.findViewById(R.id.date_day);
-            // Assigning value to  imageview and textview here
+        NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+        TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
+        TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
+        TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
+        TextView place_name = (TextView) view.findViewById(R.id.place_name);
+        TextView day_date = (TextView) view.findViewById(R.id.date_day);
+        // Assigning value to  imageview and textview here
 
-            imageView.getLayoutParams().height = 80;
-            hotel_name.setText("No Hotels");
+        imageView.getLayoutParams().height = 80;
+        hotel_name.setText("No Hotels");
 
-            day_date.setText("Day " + (count + 1) );
-            place_name.setText("(" + destination_name[(HotelsArray.length-1)] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
-            activities_title_txt.setText(activities_val[count]);
-            count++;
-            main_lay.addView(view);
+        day_date.setText("Day " + (count + 1));
+        place_name.setText("(" + destination_name[(HotelsArray.length - 1)] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
+        activities_title_txt.setText(activities_val[count]);
+        count++;
+        main_lay.addView(view);
 
 
         ///////////////////////////////////////////////////////////////////////////////////
@@ -294,6 +295,9 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
             pref.getStringSet("ActivitiesData", null);
             pref.getString("ActivitiesDataString", "0");
+
+            JSONArray activites_date = new JSONArray();
+            JSONObject activites_date_obj = new JSONObject();
 
         for(int k=0;k<3;k++){
                 JSONArray itinerary_activites = new JSONArray();

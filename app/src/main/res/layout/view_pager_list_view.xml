@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BreakFast"
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/breakfast"
                     android:layout_weight="0.3"
                     android:checked="false" />
 
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="Lunch"
                     android:layout_weight="0.3"
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/lunch"
                     android:checked="false" />
 
                 <CheckBox
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:text="Dinner"
                     android:layout_weight="0.3"
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/dinner"
                     android:checked="false" />
             </LinearLayout>
         </LinearLayout>

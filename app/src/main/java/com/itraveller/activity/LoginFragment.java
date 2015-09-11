@@ -737,7 +737,7 @@ public class LoginFragment extends Fragment {
             editor.putString("f_name", "" + fname);
             editor.putString("user_id_string", "" + id);
             editor.putString("access_token_string", "" + at);
-            Log.d("email check 1", "" + temp);
+            
             editor.putString("email_id1", "" + email_id_from_facebook);
             editor.putString("mobile_number1","0");
             editor.putString("var", "y");

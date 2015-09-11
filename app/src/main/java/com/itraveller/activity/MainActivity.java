@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -73,10 +74,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     private ProfileTracker profileTracker;
     public ImageView img1;
     Context context;
-    public static String  att,str1,str2,str3;
     TextView txt;
+    private CallbackManager callbackManager;
     public static String  att,str1,str2,str3,str4;
     Fragment fragment;
+
     String title;
 
     @Override
@@ -484,7 +486,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     fragment = fragment1;
                     Log.d("At is","NUll");
                 }
-                else
+                else if(att.equals("login_from_server"))
                 {
                     logout_from_server();
                 }
