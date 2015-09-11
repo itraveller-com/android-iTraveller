@@ -453,5 +453,24 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
+    public void onBackPressed()
+    {
+        SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+        if(preferences.getInt("Skip_Flight_Bit",0)==1)
+        {
+            Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));
+            if((""+prefs.getString("FlightBit",null)).equals("1"))
+            {
+                FlightDomesticActivity.fda.finish();
+            }
+            else
+            {
+                FlightActivity.fa.finish();
+            }
+        }
+        finish();
+    }
 }
 

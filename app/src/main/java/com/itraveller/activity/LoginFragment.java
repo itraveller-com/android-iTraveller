@@ -198,8 +198,8 @@ public class LoginFragment extends Fragment {
                     if (isInternetPresent) {
 
 
-                        SharedPreferences.Editor editor=prefs.edit();
-                        editor.putString("f_name","user");
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("f_name", "user");
                         editor.commit();
 
                     /*    LandingActivity fragment1 = new LandingActivity();
@@ -215,10 +215,7 @@ public class LoginFragment extends Fragment {
                         getActivity().finish();
 
 
-
-                    }
-                    else
-                    {
+                    } else {
                         // Internet connection is not present
                         // Ask user to connect to Internet
                         showAlertDialog(context, "No Internet Connection",
@@ -252,15 +249,16 @@ public class LoginFragment extends Fragment {
 
                             login_from_server();
                         }
-                        else
+                        else if((mobile_number.trim().length()<10 || mobile_number.trim().length()==0) && (email_id_from_our_server.trim().length()>0 && isValidEmail(email_id_from_our_server)))
                         {
+
                             AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
                             // Setting Dialog Title
                             alertDialog.setTitle("Login Failed");
 
                             // Setting Dialog Message
-                            alertDialog.setMessage("Please enter valid data ");
+                            alertDialog.setMessage("Please enter valid mobile number ");
 
                             // Setting Icon to Dialog
                             alertDialog.setIcon(R.drawable.fail);
@@ -269,6 +267,58 @@ public class LoginFragment extends Fragment {
                             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Write your code here to execute after dialog closed
+                                    mobile_Edittext.setText("");
+                                }
+                            });
+
+                            // Showing Alert Message
+                            alertDialog.show();
+
+                        }
+                        else if((!isValidEmail(email_id_from_our_server) || email_id_from_our_server.trim().length() == 0) && mobile_number.trim().length()==10)
+                        {
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                            // Setting Dialog Title
+                            alertDialog.setTitle("Login Failed");
+
+                            // Setting Dialog Message
+                            alertDialog.setMessage("Please enter valid email id ");
+
+                            // Setting Icon to Dialog
+                            alertDialog.setIcon(R.drawable.fail);
+
+                            // Setting OK Button
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Write your code here to execute after dialog closed
+                                    email_id_Edittext.setText("");
+                                }
+                            });
+
+                            // Showing Alert Message
+                            alertDialog.show();
+
+                        }
+                        else
+                        {
+                            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                            // Setting Dialog Title
+                            alertDialog.setTitle("Login Failed");
+
+                            // Setting Dialog Message
+                            alertDialog.setMessage("Please enter all valid details ");
+
+                            // Setting Icon to Dialog
+                            alertDialog.setIcon(R.drawable.fail);
+
+                            // Setting OK Button
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Write your code here to execute after dialog closed
+                                    email_id_Edittext.setText("");
                                     mobile_Edittext.setText("");
                                 }
                             });

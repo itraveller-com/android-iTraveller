@@ -4,6 +4,7 @@ package com.itraveller.activity;
  * Created by VNK on 6/11/2015.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,6 +59,7 @@ import com.itraveller.volley.AppController;
 public class FlightDomesticActivity extends ActionBarActivity{
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
+    public static Activity fda;
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
     private ViewPager pager;
@@ -77,6 +79,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Flight");
 
+
+        fda=this;
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
