@@ -141,14 +141,17 @@ public class ActivitiesActivity extends ActionBarActivity {
         String Departure_port = prefs.getString("DeparturePort", null);
         //Log.i("Hoteldataaaaaa","DP"+ Departure_port);
 
-        Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
-        String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
+        /*Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+        String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);*/
+
+        String HotelData = prefs.getString("HotelRooms",null);
+        String[] HotelDataArray = HotelData.trim().split("-");
         hotel_id_data = new String[HotelDataArray.length];
         for (int index = 0; index < HotelDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
             String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
 
-
-            hotel_id_data[index] = hotel_room_Data[index];
+            //Changed hotel_id_data[index] = hotel_room_Data[index]; //Problem in hotel_room_Data (Length)
+            hotel_id_data[index] = hotel_room_Data[0];
         }
 
         ArrayList<String> Mat_Destination_ID = new ArrayList<String>();

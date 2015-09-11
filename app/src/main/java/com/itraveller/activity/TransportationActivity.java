@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.itraveller.R;
@@ -61,6 +62,7 @@ public class TransportationActivity extends ActionBarActivity {
     private SharedPreferences.Editor editor;
     public static int lowest_trans = 0;
     Button next_btn;
+    int swap_value = 0;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,8 +187,9 @@ public class TransportationActivity extends ActionBarActivity {
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         String Tra_url = "http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
-                        TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i);
+                        TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i,response.getJSONArray("payload").length());
                     }
+
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -236,7 +239,7 @@ public class TransportationActivity extends ActionBarActivity {
         return true;
     }*/
 
-    public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int index)
+    public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int index, final int last_index)
     {
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
@@ -255,10 +258,12 @@ public class TransportationActivity extends ActionBarActivity {
                         TransportationModel transportation_model = new TransportationModel();
                         if(index == 0) {
                         lowest_trans = Integer.parseInt(""+jsonarr.getInt("Cost"));
+                            swap_value = index;
                         }
                     else {
                             if((lowest_trans >= Integer.parseInt(""+jsonarr.getInt("Cost"))) && (Integer.parseInt(""+jsonarr.getInt("Cost")) !=0) ){
                                 lowest_trans = Integer.parseInt(""+jsonarr.getInt("Cost"));
+                                swap_value = index;
                             }
                         }
                         transportation_model.setId(jsonarr.getInt("Id"));
@@ -270,12 +275,19 @@ public class TransportationActivity extends ActionBarActivity {
                         transportation_model.setPrice_Per_KM(jsonarr.getInt("Price_Per_KM"));
                         transportation_model.setMax_Person(max_person);
                         transportation_model.setImage(img);
+                        transportation_model.setIsCheck(false);
 
                         transportationList.add(transportation_model);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                /*if((last_index-1) == index)
+                {
+                    transportationList.get(swap_value).setIsCheck(true);
+                    Collections.swap(transportationList, 0, swap_value);
+                }*/
 
                 adapter.notifyDataSetChanged();
                 next_btn.setEnabled(true);

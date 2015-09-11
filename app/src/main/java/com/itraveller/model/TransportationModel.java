@@ -5,11 +5,13 @@ package com.itraveller.model;
  */
 public class TransportationModel {
 
+    private Boolean isCheck;
+
     private int Id, Region_Id, Cost1, KM_Limit, Price_Per_KM, Max_Person, Transportation_Id, Cost;
 
     private String Title, Image;
 
-    public TransportationModel(int id, int region_Id, int cost1, int km_Limit, int price_Per_KM,
+    public TransportationModel(boolean ischeck, int id, int region_Id, int cost1, int km_Limit, int price_Per_KM,
                                int max_Person, int popular, int transportation_Id, int cost, String title, String image) {
 
         Id = id;
@@ -22,11 +24,20 @@ public class TransportationModel {
         Image = image;
         Transportation_Id = transportation_Id;
         Cost = cost;
+        isCheck = ischeck;
 
     }
 
     public TransportationModel() {
 
+    }
+
+    public Boolean getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(Boolean isCheck) {
+        this.isCheck = isCheck;
     }
 
     public int getId() {

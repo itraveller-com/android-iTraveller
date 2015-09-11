@@ -190,7 +190,7 @@ public class  HotelActivity extends ActionBarActivity {
                     set.add("" + HotelRoomData[i]);}*/
                     //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
-                editor.putStringSet("HotelRooms", set);
+                editor.putString("HotelRooms", itinerary_hotel);
                 editor.putString("ItineraryHotelRooms", itinerary_hotel);
 
                 editor.commit();

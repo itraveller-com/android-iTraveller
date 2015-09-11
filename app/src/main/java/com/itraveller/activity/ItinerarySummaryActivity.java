@@ -96,7 +96,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         transportationname.setText(""+prefs.getString("TransportationName", null));
         String travel_date = ""+prefs.getString("TravelDate", null);
 
-        Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+
+        //String HotelData = prefs.getString("HotelRooms",null);
+        //String[] HotelDataArray = HotelData.trim().split("-");
+        //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
         String Hotels = prefs.getString("Hotels", null);
         String DayCount = prefs.getString("DestinationCount", null);
         String[] deatination_day_count = DayCount.trim().split(",");
@@ -192,7 +195,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         try {
             JSONObject itinerary_obj = new JSONObject();
-            itinerary_obj.put("itineraryId", "" + pref.getString("ItineraryID",null));
+            itinerary_obj.put("itineraryId", "" + pref.getInt("ItineraryID", 0));
             itinerary_obj.put("dateOfTravel", "" + pref.getString("TravelDate",null));
             itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
             itinerary_obj.put("child-above-5", "" + pref.getString("Children_12_5", "0"));
@@ -200,22 +203,31 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             itinerary_obj.put("infant", "" + pref.getString("Children_2_0", "0"));
             itinerary_obj.put("endDate", "" + pref.getString("EndDate", "0"));
             itinerary_obj.put("regionId", pref.getString("RegionID", "0"));
-            itinerary_obj.put("masterTransportation", 50);
-            itinerary_obj.put("selectedTransportation", 68);
+            itinerary_obj.put("masterTransportation",  pref.getString("MasterID", "0"));
+            itinerary_obj.put("selectedTransportation",  pref.getString("TransportationID", "0"));
+
             itinerary_obj.put("travellingFrom", "MUMBAI");
             itinerary_obj.put("arrivalPort", "Cochin International Airport");
             itinerary_obj.put("departurePort", "Cochin International Airport");
             itinerary_obj.put("travelTo", "MUMBAI");
-            itinerary_obj.put("flight", "International");
+            if(Integer.parseInt(pref.getString("FlightBit", "0")) == 0){
+            itinerary_obj.put("flight", "International");}
+            else{
+                itinerary_obj.put("flight", "Domestic");
+            }
 
             JSONArray destination_id = new JSONArray();
             JSONArray destination_name_arr = new JSONArray();
             JSONArray night_arr = new JSONArray();
 
-            for(int i = 0 ; i <3 ; i++){
-                destination_id.put("101");
-                destination_name_arr.put("Alleppey-Houseboats");
-                night_arr.put("2");
+            String[] des_id = pref.getString("DestinationID", "0").trim().split(",");
+            String[] des_name = pref.getString("DestinationName", "0").trim().split(",");
+            String[] des_count = pref.getString("DestinationCount", "0").trim().split(",");
+
+            for(int i = 0 ; i <des_count.length ; i++){
+                destination_id.put("" + des_id[i]);
+                destination_name_arr.put("" + des_name[i]);
+                night_arr.put("" + des_count[i]);
             }
 
             itinerary_obj.put("destination" , destination_id);
@@ -225,6 +237,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             JSONObject itinerary_hotel_obj = new JSONObject();
             JSONArray hotel_date = new JSONArray();
             JSONObject hotel_date_obj = new JSONObject();
+
+            pref.getString("Hotels", "0");
+//            pref.getStringSet("HotelRooms", null);
+            pref.getString("ItineraryHotelRooms", "0");
 
             for(int j = 0 ; j < 3 ; j++)
             {
@@ -243,6 +259,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             }
             itinerary_obj.put("hotels", hotel_date);
 
+            pref.getStringSet("ActivitiesData", null);
+            pref.getString("ActivitiesDataString", "0");
 
             JSONArray activites_date = new JSONArray();
             JSONObject activites_date_obj = new JSONObject();
