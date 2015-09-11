@@ -110,7 +110,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         transportationname.setText(""+prefs.getString("TransportationName", null));
         String travel_date = ""+prefs.getString("TravelDate", null);
 
-        Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+
+        //String HotelData = prefs.getString("HotelRooms",null);
+        //String[] HotelDataArray = HotelData.trim().split("-");
+        //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
         String Hotels = prefs.getString("Hotels", null);
         String DayCount = prefs.getString("DestinationCount", null);
         String[] deatination_day_count = DayCount.trim().split(",");
@@ -223,7 +226,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             itinerary_obj.put("departurePort", "Cochin International Airport");
             itinerary_obj.put("travelTo", "MUMBAI");
             if(Integer.parseInt(pref.getString("FlightBit", "0")) == 0){
-                itinerary_obj.put("flight", "International");}
+
+            itinerary_obj.put("flight", "International");}
             else{
                 itinerary_obj.put("flight", "Domestic");
             }
@@ -251,7 +255,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             JSONObject hotel_date_obj = new JSONObject();
 
             pref.getString("Hotels", "0");
-            pref.getStringSet("HotelRooms", null);
+//            pref.getStringSet("HotelRooms", null);
             pref.getString("ItineraryHotelRooms", "0");
 
             for(int j = 0 ; j < 3 ; j++)

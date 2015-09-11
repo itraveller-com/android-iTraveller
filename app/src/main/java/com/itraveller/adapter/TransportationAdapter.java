@@ -33,6 +33,7 @@ public class TransportationAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
+    int flag_bit =0;
 
     public TransportationAdapter(Activity activity, List<TransportationModel> TransportationItems) {
         this.activity = activity;
@@ -106,34 +107,39 @@ public class TransportationAdapter extends BaseAdapter {
         holder.textView_persons.setText("Ideal for upto " + m.getMax_Person() + "persons");
         holder.textView_Km.setText("" + m.getCost());
 
+        if(flag_bit==0) {
+            if (m.getCost() == TransportationActivity.lowest_trans) {
+                editor.putString("MasterID", "" + m.getId());
+                editor.putString("TransportationID", "" + m.getTransportation_Id());
+                editor.putString("TransportationName", "" + m.getTitle());
+                editor.putString("TransportationCost", "" + m.getCost());
+                editor.commit();
+                holder.radioButton.setChecked(true);
+                mSelectedPosition = position;
+                mSelectedRB = holder.radioButton;
+                flag_bit = 1;
+            }
+        }
+
+        final ViewHolder finalHolder = holder;
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                if (position != mSelectedPosition && mSelectedRB != null) {
+                editor.putString("MasterID", "" + m.getId());
+                editor.putString("TransportationID", "" + m.getTransportation_Id());
+                editor.putString("TransportationName", "" + m.getTitle());
+                editor.putString("TransportationCost", "" + m.getCost());
+                editor.commit();
+                if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
                 }
 
-                editor.putString("TransportationName",""+ m.getTitle());
-                editor.putString("TransportationCost",""+ m.getCost());
-                editor.commit();
-
                 mSelectedPosition = position;
-                mSelectedRB = (RadioButton) v;
-
-
+                mSelectedRB = (RadioButton)v;
             }
         });
 
-        /*if(mSelectedPosition != position){
-            holder.radioButton.setChecked(false);
-        }else{
-            holder.radioButton.setChecked(true);
-            if(mSelectedRB != null && holder.radioButton != mSelectedRB){
-                mSelectedRB = holder.radioButton;
-            }
-        }*/
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{
@@ -141,17 +147,12 @@ public class TransportationAdapter extends BaseAdapter {
             if(mSelectedRB != null && holder.radioButton != mSelectedRB){
                 mSelectedRB = holder.radioButton;
             }
+        }
 
-        }
-        if(m.getCost()== TransportationActivity.lowest_trans)
-        {
-            editor.putString("TransportationName",""+ m.getTitle());
-            editor.putString("TransportationCost",""+ m.getCost());
-            editor.commit();
-            holder.radioButton.setChecked(true);
-             mSelectedRB = holder.radioButton;
-        }
+
+        notifyDataSetChanged();
         return convertView;
+
     }
 
     private class ViewHolder {

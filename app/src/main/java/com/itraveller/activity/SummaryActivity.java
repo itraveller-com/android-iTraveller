@@ -95,7 +95,7 @@ public class SummaryActivity extends ActionBarActivity{
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
 
-            Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+            //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
             Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
             String transportation_rate = prefs.getString("TransportationCost", null);
 
@@ -124,7 +124,9 @@ public class SummaryActivity extends ActionBarActivity{
 
             }
 
-            String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
+             String HotelData = prefs.getString("HotelRooms",null);
+             String[] HotelDataArray = HotelData.trim().split("-");
+            //String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
             String[] ActivitiesDataArray = ActivitiesData.toArray(new String[ActivitiesData.size()]);
 
             String DayCount = prefs.getString("DestinationCount", null);
