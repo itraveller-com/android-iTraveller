@@ -234,7 +234,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentBottom="true">
 
+                <fragment
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    class="com.google.android.gms.maps.SupportMapFragment"
+                    />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:orientation="vertical"

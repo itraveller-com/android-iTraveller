@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +25,16 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import com.itraveller.R;
@@ -36,6 +46,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+
 import static com.itraveller.R.id.LinearLayout1;
 import static com.itraveller.R.id.btn_confirm_payment;
 
@@ -43,6 +63,10 @@ import static com.itraveller.R.id.btn_confirm_payment;
 public class ItinerarySummaryActivity extends ActionBarActivity {
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
+
+    GoogleMap map;
+    ArrayList<LatLng> markerPoints;
+
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
     String onward_flight_rate = "";
@@ -106,6 +130,78 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String travel_date = "" + prefs.getString("TravelDate", null);
 
 
+        // Initializing
+        markerPoints = new ArrayList<LatLng>();
+
+        // Getting reference to SupportMapFragment of the activity_main
+        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+
+        // Getting Map for the SupportMapFragment
+        map = fm.getMap();
+
+
+
+
+        if(map!=null){
+
+            // Enable MyLocation Button in the Map
+            map.setMyLocationEnabled(true);
+
+            String source=""+prefs.getString("DeparturePortString", null);
+            String source_arr[]=source.split(" ");
+            String destination=""+prefs.getString("DestinationName",null);
+            String destination_arr[]=destination.split(",");
+            String dest;
+
+            String dest_arr_temp[];
+            for(int i=0;i<destination_arr.length;i++)
+            {
+                if(destination_arr[i].contains(" "))
+                {
+                    dest_arr_temp=destination_arr[i].split(" ");
+                    destination_arr[i]=""+dest_arr_temp[0]+""+dest_arr_temp[1];
+
+                }
+
+            }
+            map.clear();
+
+            // Getting URL to the Google Directions API
+            String url="https://maps.googleapis.com/maps/api/directions/json?origin="+source_arr[0]+"&destination="+destination_arr[0];
+            //String url ="https://maps.googleapis.com/maps/api/directions/json?origin=Bengaluru&destination=Mumbai";
+            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
+
+            DownloadTask downloadTask = new DownloadTask();
+
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+
+            if(destination_arr.length>1) {
+                for (int var = 0; var < destination_arr.length - 1; var++) {
+                    if(destination_arr[var].equals("Katra") )
+                        destination_arr[var]=destination_arr[var].replace("Katra","KatraJammu");
+                    if(destination_arr[var+1].equals("Katra"))
+                        destination_arr[var+1]=destination_arr[var+1].replace("Katra","KatraJammu");
+                    String url1 = "https://maps.googleapis.com/maps/api/directions/json?origin=" + destination_arr[var] + "&destination=" + destination_arr[var + 1];
+
+                    Log.d("Test finally1", "https://maps.googleapis.com/maps/api/directions/json?origin=" + destination_arr[var] + "&destination=" + destination_arr[var+1]);
+                    DownloadTask downloadTask2 = new DownloadTask();
+
+                    downloadTask2.execute(url1);
+                }
+            }
+
+            //        String url2="https://maps.googleapis.com/maps/api/directions/json?origin="+destination_arr[destination_arr.length-1]+"&destination="+source_arr[0];
+
+            //        DownloadTask downloadTask3=new DownloadTask();
+            //            downloadTask3.execute(url2);
+
+        }
+
+
+
+
+
         //String HotelData = prefs.getString("HotelRooms",null);
         //String[] HotelDataArray = HotelData.trim().split("-");
         //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
@@ -124,6 +220,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String Arrival_port = prefs.getString("ArrivalPort", null);
         //Log.i("Hoteldataaaaaa","AP"+ Arrival_port);
         String Departure_port = prefs.getString("DeparturePort", null);
+
+
 
         int Mat_count = 0;
         for (int index = 0; index < (destination_name.length + 2); index++) {
@@ -454,6 +552,155 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
 
     }
+
+    /** A method to download json data from url */
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try{
+            URL url = new URL(strUrl);
+
+            // Creating an http connection to communicate with url
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Connecting to url
+            urlConnection.connect();
+
+            // Reading data from url
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while( ( line = br.readLine()) != null){
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+
+        }catch(Exception e){
+            Log.d("Exception while downloading url", e.toString());
+        }finally{
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+    // Fetches data from url passed
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        // Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
+
+            // For storing data from web service
+            String data = "";
+
+            Log.d("URL first",""+url[0]);
+            try{
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+            }catch(Exception e){
+                Log.d("Background Task",e.toString());
+            }
+            return data;
+        }
+
+        // Executes in UI thread, after the execution of
+        // doInBackground()
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+        }
+    }
+
+    /** A class to parse the Google Places in JSON format */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> > {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try{
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                // Starts parsing data
+                routes = parser.parse(jObject);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+            MarkerOptions markerOptions = new MarkerOptions();
+            ArrayList<LatLng> position=new ArrayList<>();
+            //    LatLng position = null;
+            // Traversing through all the routes
+            for(int i=0;i<result.size();i++){
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
+
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
+
+                // Fetching all the points in i-th route
+                for(int j=0;j<path.size();j++){
+                    HashMap<String,String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    //    position = new LatLng(lat, lng);
+
+                    position.add(new LatLng(lat, lng));
+
+
+//                    points.add(position.get(i));
+                }
+
+                points.addAll(position);
+//                markerOptions.position(position);
+//                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+
+                map.addMarker(new MarkerOptions().position(position.get(0)).title("Source"));
+                map.addMarker((new MarkerOptions().position(position.get(position.size()-1))).title("Destination"));
+
+
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(5);
+                lineOptions.color(Color.BLUE);
+            }
+
+            // Drawing polyline in the Google Map for the i-th route
+//            map.addMarker(markerOptions);
+            map.addPolyline(lineOptions);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position.get(0),3));
+            map.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+
+        }
+    }
+
 
 
     @Override

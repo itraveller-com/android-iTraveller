@@ -34,11 +34,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.adapter.TransportationAdapter;
 import com.itraveller.constant.Constants;
+import com.itraveller.model.OnwardDomesticFlightModel;
+import com.itraveller.model.ReturnDomesticFlightModel;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -242,6 +245,8 @@ public class TransportationActivity extends ActionBarActivity {
 
                         transportationList.add(transportation_model);
 
+                        Collections.sort(transportationList,new PriceComparison());
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -336,6 +341,21 @@ public class TransportationActivity extends ActionBarActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
+    }
+
+
+
+    class PriceComparison implements Comparator<TransportationModel> {
+
+        @Override
+        public int compare(TransportationModel o1,TransportationModel o2) {
+            if(o1.getCost() > o2.getCost()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
     }
 
 

@@ -75,7 +75,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Departure"
             android:id="@+id/dep"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.24" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Arrival"
             android:id="@+id/arr"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.29" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Price"
             android:id="@+id/price"
-            android:layout_weight="0.16" />
+            android:layout_weight="0.11" />
 
 
 

@@ -145,14 +145,5 @@ public class FlightModel {
         this.return_model = return_model;
     }
 
-    public void setTotal_Price(int Total_Price)
-    {
-        this.total_price=Total_Price;
-    }
-    public int getTotal_Price()
-    {
-        return total_price;
-    }
-
 }
 
