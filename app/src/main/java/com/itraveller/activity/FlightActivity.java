@@ -144,9 +144,9 @@ public class FlightActivity extends ActionBarActivity {
                             Integer.parseInt(flight_fare.getString("TPartnerCommission").toString())+Integer.parseInt(flight_fare.getString("TSdiscount").toString())+
                             Integer.parseInt(flight_fare.getString("ocTax").toString());
 
-                            Log.d("Total price test",""+Total_Price);
+//                            Log.d("Total price test",""+Total_Price);
 
-                            mflight.setTotal_Price(Total_Price);
+//                            mflight.setTotal_Price(Total_Price);
 
                             JSONObject flight_onward = jsonarr.getJSONObject(i).getJSONObject("onward").getJSONObject("FlightSegments");
                             try{
@@ -236,6 +236,7 @@ public class FlightActivity extends ActionBarActivity {
                                 monward.setEndDt(onward_arr.getString("EndDt").toString());
                                 monward.setStartTerminal(onward_arr.getString("StartTerminal").toString());
                                 monward.setEndTerminal(onward_arr.getString("EndTerminal").toString());
+                                monward.setTotal_Price(Total_Price);
                                 onward_model.add(monward);
 
                                 JSONObject flight_return = jsonarr.getJSONObject(i).getJSONObject("Return").getJSONObject("FlightSegments");
@@ -264,10 +265,13 @@ public class FlightActivity extends ActionBarActivity {
                                     mreturn.setEndDt(return_arr.getString("EndDt").toString());
                                     mreturn.setStartTerminal(return_arr.getString("StartTerminal").toString());
                                     mreturn.setEndTerminal(return_arr.getString("EndTerminal").toString());
+                                    mreturn.setTotal_Price(Total_Price);
                                     return_model.add(mreturn);
                             }
                             Log.i("Onward Value", "" + onward_model.size());
 
+                            Collections.sort(onward_model, new PriceComparison());
+                            Collections.sort(return_model,new PriceComparisonReturn());
 
                             mflight.setOnward_model(onward_model);
                             mflight.setReturn_model(return_model);
@@ -323,19 +327,35 @@ public class FlightActivity extends ActionBarActivity {
         }
 
 
-        public FlightModel getFlightModel( FlightModel model)
-        {
+        class PriceComparison implements Comparator<OnwardFlightModel>{
 
-            Collections.sort((List<FlightModel>) model, new Comparator<FlightModel>() {
-                @TargetApi(Build.VERSION_CODES.KITKAT)
-                @Override public int compare(FlightModel x, FlightModel y) {
-                    return Integer.compare(x.getTotal_Price(), y.getTotal_Price());
+            @Override
+            public int compare(OnwardFlightModel o1,OnwardFlightModel o2) {
+                if(o1.getTotal_Price() < o2.getTotal_Price()){
+                    return 1;
+                } else {
+                    return -1;
                 }
-            });
-            return model;
+            }
+
         }
 
+    class PriceComparisonReturn implements Comparator<ReturnFlightModel>{
+
         @Override
+        public int compare(ReturnFlightModel o1,ReturnFlightModel o2) {
+            if(o1.getTotal_Price() < o2.getTotal_Price()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    }
+
+
+
+    @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             return true;
         }

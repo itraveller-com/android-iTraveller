@@ -3,6 +3,8 @@ package com.itraveller.model;
 public class OnwardDomesticFlightModel {
 
         String ActualBaseFare,Tax,STax,TCharge,SCharge,TDiscount,TMarkup,TPartnerCommission,TSdiscount,ocTax,id,key,AirEquipType,ArrivalAirportCode,ArrivalAirportName,ArrivalDateTime,DepartureAirportCode,DepartureAirportName,DepartureDateTime,FlightNumber,MarketingAirlineCode,OperatingAirlineCode,OperatingAirlineName,OperatingAirlineFlightNumber,NumStops,LinkSellAgrmnt,Conx,AirpChg,InsideAvailOption,GenTrafRestriction,DaysOperates,JrnyTm,EndDt,StartTerminal,EndTerminal;
+        int Total_Price;
+
 
         public OnwardDomesticFlightModel() {
         }
@@ -195,6 +197,15 @@ public class OnwardDomesticFlightModel {
 
     public void setOperatingAirlineName(String operatingAirlineName) {
         OperatingAirlineName = operatingAirlineName;
+    }
+
+    public void setTotal_Price(int Total_Price)
+    {
+        this.Total_Price=Total_Price;
+    }
+    public int getTotal_Price()
+    {
+        return Total_Price;
     }
 
 }

@@ -8,6 +8,7 @@ public class TransportationModel {
     private Boolean isCheck;
 
     private int Id, Region_Id, Cost1, KM_Limit, Price_Per_KM, Max_Person, Transportation_Id, Cost;
+    int Total_Price;
 
     private String Title, Image;
 

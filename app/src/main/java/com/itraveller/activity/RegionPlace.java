@@ -32,12 +32,15 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.itraveller.constant.Constants;
+import com.itraveller.model.TransportationModel;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -278,6 +281,7 @@ public class RegionPlace extends ActionBarActivity {
                            Log.d("Discount", "" +region_adp.getDiscount());
                            regionList.add(region_adp);
 
+                           Collections.sort(regionList,new PriceComparison());
                         }
                     }
                 } catch (JSONException e) {
@@ -393,6 +397,22 @@ public class RegionPlace extends ActionBarActivity {
     public interface NoDataInterface {
         public void DataHandler(int count);
     }
+
+
+
+    class PriceComparison implements Comparator<RegionPlaceModel> {
+
+        @Override
+        public int compare(RegionPlaceModel o1,RegionPlaceModel o2) {
+            if(o1.getPrice() > o2.getPrice()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    }
+
 
     public class CustomNoDataHandler implements NoDataInterface{
 

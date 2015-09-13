@@ -3,6 +3,7 @@ package com.itraveller.model;
 public class OnwardFlightModel {
 
         String AirEquipType,ArrivalAirportCode,ArrivalAirportName,ArrivalDateTime,DepartureAirportCode,DepartureAirportName,DepartureDateTime,FlightNumber,MarketingAirlineCode,OperatingAirlineCode,OperatingAirlineName,OperatingAirlineFlightNumber,NumStops,LinkSellAgrmnt,Conx,AirpChg,InsideAvailOption,GenTrafRestriction,DaysOperates,JrnyTm,EndDt,StartTerminal,EndTerminal;
+        int Total_Price;
 
         public OnwardFlightModel() {
         }
@@ -216,4 +217,15 @@ public class OnwardFlightModel {
         public void setEndTerminal(String endTerminal) {
             EndTerminal = endTerminal;
         }
+
+
+        public void setTotal_Price(int Total_Price)
+    {
+        this.Total_Price=Total_Price;
     }
+        public int getTotal_Price()
+    {
+        return Total_Price;
+    }
+
+}
