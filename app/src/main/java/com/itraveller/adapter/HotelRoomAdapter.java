@@ -96,7 +96,7 @@ public class HotelRoomAdapter extends BaseAdapter {
 
         holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
 
-        holder.rate.setText("" + m.getDisplay_Tariff());
+        holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
 
 
         final ViewHolder finalHolder = holder;

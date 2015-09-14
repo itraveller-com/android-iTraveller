@@ -17,7 +17,6 @@
         <item>@string/nav_item_friends</item>
         <item>@string/nav_item_notifications</item>
         <item>@string/nav_item_login</item>
-        <item>@string/nav_item_logout</item>
     </string-array>
 
     <string name="title_messages">Contact Us</string>

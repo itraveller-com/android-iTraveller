@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +32,7 @@ import com.itraveller.R;
 import com.itraveller.adapter.HotelRoomAdapter;
 import com.itraveller.constant.Constants;
 import com.itraveller.model.HotelRoomModel;
+import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
 
@@ -163,6 +166,8 @@ public class HotelRoomActvity extends Activity {
                         hrm.setFrom(jsonarr.getString("From"));
                         hrm.setTo(jsonarr.getString("To"));
                         roomList.add(hrm);
+
+                    //    Collections.sort(roomList,new PriceComparison() );
                     }
                     adapter.notifyDataSetChanged();
 
@@ -185,6 +190,8 @@ public class HotelRoomActvity extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
     }
+
+
 
 
 }

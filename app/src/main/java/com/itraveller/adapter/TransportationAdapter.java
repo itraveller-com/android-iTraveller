@@ -106,16 +106,19 @@ public class TransportationAdapter extends BaseAdapter {
         // title
         holder.title.setText(m.getTitle());
         holder.textView_persons.setText("Ideal for upto " + m.getMax_Person() + "persons");
-        holder.textView_Km.setText("" + m.getCost());
+        holder.textView_Km.setText("\u20B9"+"" + m.getCost());
 
 
         if(flag_bit==0) {
             if (m.getCost() == TransportationActivity.lowest_trans) {
+
                 editor.putString("MasterID", "" + m.getId());
                 editor.putString("TransportationID", "" + m.getTransportation_Id());
                 editor.putString("TransportationName", "" + m.getTitle());
                 editor.putString("TransportationCost", "" + m.getCost());
                 editor.commit();
+
+
                 holder.radioButton.setChecked(true);
                 mSelectedPosition = position;
                 mSelectedRB = holder.radioButton;

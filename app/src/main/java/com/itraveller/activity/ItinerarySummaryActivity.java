@@ -64,6 +64,9 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
 
+    String source_str="";
+    String destination_arr[];
+
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
 
@@ -141,49 +144,70 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
 
 
-        if(map!=null){
+        if(map!=null) {
+
+            map.clear();
 
             System.gc();
             map.clear();
             // Enable MyLocation Button in the Map
             map.setMyLocationEnabled(true);
 
-            String source=""+prefs.getString("DeparturePortString", null);
+            String source = "" + prefs.getString("DeparturePortString", null);
 
-            Log.d("Test finally 2",""+source);
-            String source_arr[] =null;
+
+            Log.d("Test finally 2", "" + source);
+
+/*            String source_arr[];
             if(source.contains(" ")) {
                 source_arr = source.split(" ");
+
+                for(int i=0;i<source_arr.length;i++)
+                source_str+=""+source_arr[i];
             }
-            String destination=""+prefs.getString("DestinationName",null);
-            String destination_arr[]=destination.split(",");
-            String dest;
+*/
+            source = source.replace(" ", "");
+            //   Log.d("Test finally 4",""+source_str);
+            String destination = "" + prefs.getString("DestinationName", null);
+            Log.d("Test finally 3", "" + destination);
+
+
+
+
+            if (destination.contains(",")) {
+            String destination_arr_temp[] = destination.split(",");
+                Log.d("Test finally 9",""+destination_arr_temp.length);
+                destination_arr = new String[destination_arr_temp.length];
+                destination_arr=destination.split(",");
+
+            }else {
+                destination_arr=new String[1];
+                destination_arr[0] = "" + destination;
+
+            }String dest;
+            Log.d("Test finally 6",""+destination_arr.length);
 
             Log.d("Test finally 3",""+destination);
             String dest_arr_temp[];
-            for(int i=0;i<destination_arr.length;i++)
-            {
-                if(destination_arr[i].contains(" "))
-                {
-                    dest_arr_temp=destination_arr[i].split(" ");
-                    destination_arr[i]=""+dest_arr_temp[0]+""+dest_arr_temp[1];
+            for(int i=0;i<destination_arr.length;i++) {
+                if (!destination_arr[i].equals(null)) {
+                    destination_arr[i] = destination_arr[i].replace(" ", "");
+                    Log.d("Test finally 5", "" + destination_arr[i]);
 
                 }
-
+                else
+                {
+                    break;
+                }
+                Log.d("Test finally 7",""+i);
             }
 
-            String url = null;
             // Getting URL to the Google Directions API
-            if(source.contains(" ")) {
-                url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + source_arr[0] + "&destination=" + destination_arr[0];
-            }
-            else
-            {
-                url="https://maps.googleapis.com/maps/api/directions/json?origin=" + source + "&destination=" + destination_arr[0];
-            }
+
+            String url="https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination_arr[0];
             //String url ="https://maps.googleapis.com/maps/api/directions/json?origin=Bengaluru&destination=Mumbai";
             if(source.contains(" "))
-            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source_arr[0]+"&destination="+destination);
+            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
 
             DownloadTask downloadTask = new DownloadTask();
 
