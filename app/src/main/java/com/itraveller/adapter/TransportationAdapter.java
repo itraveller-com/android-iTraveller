@@ -108,6 +108,7 @@ public class TransportationAdapter extends BaseAdapter {
         holder.textView_persons.setText("Ideal for upto " + m.getMax_Person() + "persons");
         holder.textView_Km.setText("" + m.getCost());
 
+
         if(flag_bit==0) {
             if (m.getCost() == TransportationActivity.lowest_trans) {
                 editor.putString("MasterID", "" + m.getId());
@@ -150,9 +151,14 @@ public class TransportationAdapter extends BaseAdapter {
                 mSelectedRB = holder.radioButton;
             }
         }
+        /*if(m.getIsCheck())
+        {
+            holder.radioButton.setChecked(true);
+        }else {
+            holder.radioButton.setChecked(false);
+        }*/
 
-
-        notifyDataSetChanged();
+       // notifyDataSetChanged();
         return convertView;
 
     }

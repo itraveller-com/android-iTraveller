@@ -29,7 +29,7 @@ dependencies {
     compile project(':dragsortlistview')
     compile project(':facebook')
     compile project(':EBS')
-    compile files('D://Android ItravellerApp Project/android-iTraveller/libs/GoogleAnalyticsServices.jar')
+    compile files('C://android-iTraveller/libs/GoogleAnalyticsServices.jar')
     compile 'com.squareup:android-times-square:1.5.0@aar'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile 'com.google.maps.android:android-maps-utils:0.3+'

@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,22 +19,50 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
+import com.ebs.android.sdk.Config;
+import com.ebs.android.sdk.EBSPayment;
+import com.ebs.android.sdk.PaymentRequest;
 import com.itraveller.R;
+import com.itraveller.payment.BuyProduct;
 
 import static com.itraveller.R.id.btn_confirm_payment;
 
 
-public class SummaryActivity extends ActionBarActivity {
+public class SummaryActivity extends ActionBarActivity{
+/* When using Appcombat support library
+   you need to extend Main Activity to ActionBarActivity.*/
 
     private Toolbar mToolbar; // Declaring the Toolbar Object
     String onward_flight_rate="";
     String return_flight_rate="";
     int flight_rate = 0;
 
-        @Override
+    //Button btn_buy;
+    Double amount;
+    //EditText ed_quantity, ed_totalamount;
+
+    private static String HOST_NAME = "";
+
+	/*For Live*/
+    //private static final int ACC_ID = 5128; // Provided by EBS
+    //private static final String SECRET_KEY = "ebskey2";
+
+    //private static final int ACC_ID = 5087; // Provided by EBS
+    //private static final String SECRET_KEY = "fcfdfb899ccf83461ffffcc7ab8fa3bd";
+
+    /*For Demo*/
+    private static final int ACC_ID = 13872; // Provided by EBS
+    private static final String SECRET_KEY = "601615509525046666e247f18b8ceb51";
+
+    private static final int PER_UNIT_PRICE = 1;
+    double totalamount;
+
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.payment_billing);
@@ -40,8 +70,13 @@ public class SummaryActivity extends ActionBarActivity {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle("Price Summary");
 
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        HOST_NAME = getResources().getString(R.string.hostname);
 
+
+            //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -53,8 +88,9 @@ public class SummaryActivity extends ActionBarActivity {
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Intent in = new Intent(SummaryActivity.this, ItinerarySummaryActivity.class);
+                    //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
                     //startActivity(in);
+                    callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
@@ -68,8 +104,8 @@ public class SummaryActivity extends ActionBarActivity {
             int flightBit = Integer.parseInt("" + F_bit);
             if(flightBit == 0)
             {
-                String flight_dom = prefs.getString("FlightPrice", null);
-                if(!flight_dom.equalsIgnoreCase(""))
+                String flight_dom = prefs.getString("FlightPrice", "0");
+                if(!flight_dom.equals("0"))
                 flight_rate = Integer.parseInt(flight_dom);
             }
             else{
@@ -96,9 +132,7 @@ public class SummaryActivity extends ActionBarActivity {
             String DayCount = prefs.getString("DestinationCount", null);
             String[] destination_day_count = DayCount.trim().split(",");
             int rate_of_rooms =0;
-
-            int HotelDataArray_length=HotelDataArray.length;
-            for (int index = 0; index < HotelDataArray_length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+            for (int index = 0; index < HotelDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
                 String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
                 //no fo rooms and price
                 int no_room_price = Integer.parseInt("" + hotel_room_Data[3]) * Integer.parseInt("" + hotel_room_Data[2]);
@@ -116,8 +150,7 @@ public class SummaryActivity extends ActionBarActivity {
 
             int activities_rate =0;
             int count_bit= 0;
-            int ActivitiesDataArray_length=ActivitiesDataArray.length;
-            for (int index = 0; index < ActivitiesDataArray_length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+            for (int index = 0; index < ActivitiesDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
 
 
                 if(!ActivitiesDataArray[index].toString().equalsIgnoreCase("null")) {
@@ -136,8 +169,9 @@ public class SummaryActivity extends ActionBarActivity {
                     }
                 }
             }
-            Log.i("ActvitiesRates","" +activities_rate);
-            Log.i("TransportationRates","" +transportation_rate);
+
+           // Log.i("ActvitiesRates","" +activities_rate);
+            //Log.i("TransportationRates","" +transportation_rate);
             int total_price = 0;
 
             if(flight_rate == 0)
@@ -178,13 +212,43 @@ public class SummaryActivity extends ActionBarActivity {
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            //getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+           /* if (id == R.id.action_settings) {
+                return true;
+            }*/
 
             return super.onOptionsItemSelected(item);
         }
+
+
+    private void callEbsKit() {
+
+        /** Payment Amount Details */
+
+        /** Mandatory */
+        // Total Amount
+        totalamount =1;
+        PaymentRequest.getInstance().setTransactionAmount(totalamount);
+
+        /** Mandatory */
+        // Reference No
+        PaymentRequest.getInstance().setReferenceNo("223");
+        //PaymentRequest.getInstance().
+
+        /** Initializing the EBS Gateway */
+        EBSPayment.getInstance().init(SummaryActivity.this, ACC_ID, SECRET_KEY, Config.Mode.ENV_LIVE, Config.Encryption.ALGORITHM_MD5, HOST_NAME);
+    }
     }
 

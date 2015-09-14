@@ -24,7 +24,6 @@ public class Constants {
 
     public static String API_ViewPagerAdapter_ImageURL = "http://stage.itraveller.com/backend/images/hotels/";
 
-
     public static String API_TransportationActivity_Tra_URL = "http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
 
     public static String API_ItinerarySummaryActivity_ImageURL = "http://stage.itraveller.com/backend/images/hotels/" ;
