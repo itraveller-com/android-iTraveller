@@ -118,8 +118,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 }
             }
         });
-
-
+        
         int TotalCountDays = 0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
         fromhome.setText("" + prefs.getString("ArrivalAirportString", null));
