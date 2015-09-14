@@ -144,15 +144,23 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         if(map!=null){
 
+            System.gc();
+            map.clear();
             // Enable MyLocation Button in the Map
             map.setMyLocationEnabled(true);
 
             String source=""+prefs.getString("DeparturePortString", null);
-            String source_arr[]=source.split(" ");
+
+            Log.d("Test finally 2",""+source);
+            String source_arr[] =null;
+            if(source.contains(" ")) {
+                source_arr = source.split(" ");
+            }
             String destination=""+prefs.getString("DestinationName",null);
             String destination_arr[]=destination.split(",");
             String dest;
 
+            Log.d("Test finally 3",""+destination);
             String dest_arr_temp[];
             for(int i=0;i<destination_arr.length;i++)
             {
@@ -164,12 +172,19 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 }
 
             }
-            map.clear();
 
+            String url = null;
             // Getting URL to the Google Directions API
-            String url="https://maps.googleapis.com/maps/api/directions/json?origin="+source_arr[0]+"&destination="+destination_arr[0];
+            if(source.contains(" ")) {
+                url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + source_arr[0] + "&destination=" + destination_arr[0];
+            }
+            else
+            {
+                url="https://maps.googleapis.com/maps/api/directions/json?origin=" + source + "&destination=" + destination_arr[0];
+            }
             //String url ="https://maps.googleapis.com/maps/api/directions/json?origin=Bengaluru&destination=Mumbai";
-            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
+            if(source.contains(" "))
+            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source_arr[0]+"&destination="+destination);
 
             DownloadTask downloadTask = new DownloadTask();
 
