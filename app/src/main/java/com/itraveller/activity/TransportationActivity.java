@@ -245,7 +245,7 @@ public class TransportationActivity extends ActionBarActivity {
 
                         transportationList.add(transportation_model);
 
-                        Collections.sort(transportationList,new PriceComparison());
+                        //Collections.sort(transportationList,new PriceComparison());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
