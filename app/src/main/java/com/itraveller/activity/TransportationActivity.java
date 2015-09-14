@@ -245,19 +245,19 @@ public class TransportationActivity extends ActionBarActivity {
 
                         transportationList.add(transportation_model);
 
-                        //Collections.sort(transportationList,new PriceComparison());
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                /*if((last_index-1) == index)
+                if((last_index-1) == index)
                 {
                     transportationList.get(swap_value).setIsCheck(true);
-                    Collections.swap(transportationList, 0, swap_value);
-                }*/
+                    //Collections.swap(transportationList, 0, swap_value);
+                    Collections.sort(transportationList,new PriceComparison());
+                    adapter.notifyDataSetChanged();
 
-                adapter.notifyDataSetChanged();
+                }
+
                 next_btn.setEnabled(true);
 
             }

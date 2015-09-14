@@ -3,6 +3,7 @@ package com.itraveller.activity;
 /**
  * Created by VNK on 6/25/2015.
  */
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -148,7 +149,7 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
                     set.add("" + HotelRoomData[i]);
                 }*/
-                //HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
+                HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
 
 
@@ -165,8 +166,8 @@ public class  HotelActivity extends ActionBarActivity {
                         ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
                         for(int k = 0;k< modelRow.size();k++) {
                             if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
-                                //if(k == 0)
-                                hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();
+                               //if(k == 0)
+                                 hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();
                                /* else
                                    hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                             }
@@ -189,7 +190,7 @@ public class  HotelActivity extends ActionBarActivity {
                     /*}
                     else{
                     set.add("" + HotelRoomData[i]);}*/
-                //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
+                    //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
                 editor.putString("HotelRooms", itinerary_hotel);
                 editor.putString("ItineraryHotelRooms", itinerary_hotel);
@@ -323,34 +324,34 @@ public class  HotelActivity extends ActionBarActivity {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         HotelRoomModel hrm = new HotelRoomModel();
                         if(flag_bit == 0){
-                            for(int index = 0;index < lowesthotelList.size();index++) {
-                                hrm.setHotel_Room_Id(jsonarr.getInt("Hotel_Room_Id"));
-                                hrm.setHotel_Id(jsonarr.getInt("Hotel_Id"));
-                                hrm.setRoom_Status(jsonarr.getInt("Room_Status"));
-                                hrm.setRack_Rate(jsonarr.getInt("Rack_Rate"));
-                                hrm.setDefault_Number(jsonarr.getInt("Default_Number"));
-                                hrm.setMaximum_Number(jsonarr.getInt("Maximum_Number"));
-                                hrm.setHotel_Room_Tariff_Id(jsonarr.getInt("Hotel_Room_Tariff_Id"));
-                                hrm.setTAC(jsonarr.getInt("TAC"));
-                                hrm.setCost(jsonarr.getInt("Cost"));
-                                hrm.setMark_Up(jsonarr.getInt("Mark_Up"));
-                                hrm.setDisplay_Tariff(jsonarr.getInt("Display_Tariff"));
-                                hrm.setCompany_Id(jsonarr.getInt("Company_Id"));
-                                hrm.setRoom_Type(jsonarr.getString("Room_Type"));
-                                hrm.setRoom_Description(jsonarr.getString("Room_Description"));
-                                hrm.setFrom(jsonarr.getString("From"));
-                                hrm.setTo(jsonarr.getString("To"));
-                                String[] value = lowesthotelList.get(index).trim().split(",");
-                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
-                                    if (Integer.parseInt("" + value[1]) == jsonarr.getInt("Hotel_Room_Id")) {
-                                        hrm.setCheck(true);
-                                        flag_bit = 1;
-                                    }
-                                    else{
-                                        //hrm.setCheck(false);
-                                    }
+                        for(int index = 0;index < lowesthotelList.size();index++) {
+                            hrm.setHotel_Room_Id(jsonarr.getInt("Hotel_Room_Id"));
+                            hrm.setHotel_Id(jsonarr.getInt("Hotel_Id"));
+                            hrm.setRoom_Status(jsonarr.getInt("Room_Status"));
+                            hrm.setRack_Rate(jsonarr.getInt("Rack_Rate"));
+                            hrm.setDefault_Number(jsonarr.getInt("Default_Number"));
+                            hrm.setMaximum_Number(jsonarr.getInt("Maximum_Number"));
+                            hrm.setHotel_Room_Tariff_Id(jsonarr.getInt("Hotel_Room_Tariff_Id"));
+                            hrm.setTAC(jsonarr.getInt("TAC"));
+                            hrm.setCost(jsonarr.getInt("Cost"));
+                            hrm.setMark_Up(jsonarr.getInt("Mark_Up"));
+                            hrm.setDisplay_Tariff(jsonarr.getInt("Display_Tariff"));
+                            hrm.setCompany_Id(jsonarr.getInt("Company_Id"));
+                            hrm.setRoom_Type(jsonarr.getString("Room_Type"));
+                            hrm.setRoom_Description(jsonarr.getString("Room_Description"));
+                            hrm.setFrom(jsonarr.getString("From"));
+                            hrm.setTo(jsonarr.getString("To"));
+                            String[] value = lowesthotelList.get(index).trim().split(",");
+                            if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
+                                if (Integer.parseInt("" + value[1]) == jsonarr.getInt("Hotel_Room_Id")) {
+                                    hrm.setCheck(true);
+                                    flag_bit = 1;
+                                }
+                                else{
+                                    //hrm.setCheck(false);
                                 }
                             }
+                        }
                         }
                         roomList.add(hrm);
                         flag_bit =0;
@@ -384,7 +385,7 @@ public class  HotelActivity extends ActionBarActivity {
         Log.d("LowestHotelURL", "" + url);
 
         if(depth==0){
-            pDialog.show();}
+        pDialog.show();}
         else{
             pDialog.hide();
         }
@@ -399,14 +400,18 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.d("Payload_RoomRate", "" + response.getJSONObject("payload"));
 
                     //for (int i = 0; i < response.getJSONObject("payload").length(); i++) {
+                    if(response.getJSONObject("payload").length()==0){
+                        Log.i("DefaultData","No Lowest hotel :" + depth);
+                    }
 
-                    JSONObject jsonarr = response.getJSONObject("payload");
-                    Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
+                        JSONObject jsonarr = response.getJSONObject("payload");
+                        Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
                     //here no of rooms add defaul
                     lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1" );
-                    //roomList.add();
+                        //roomList.add();
                     //}
-                    if(depth==(hotel_destination.length-1)){
+                   // if(depth==(hotel_destination.length-1))
+                   {
                         listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
                             @Override
                             public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked) {
@@ -417,14 +422,10 @@ public class  HotelActivity extends ActionBarActivity {
                                 cposition = childpostion;
                                 gposition = groupPosition;
                                 second.setVisibility(View.VISIBLE);
-                                activites.setVisibility(View.GONE);
                                 lv1.setVisibility(View.GONE);
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
                                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                                chk_breakfast.setChecked(true);
-                                chk_lunch.setChecked(false);
-                                chk_dinner.setChecked(false);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -500,6 +501,13 @@ public class  HotelActivity extends ActionBarActivity {
                     }
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
+                    Log.i("DefaultData", "No Lowest hotel :" + depth);
+
+                }
+                catch (Exception e){
+                    Log.d("Error Catched", "" + e.getMessage());
+                    Log.i("DefaultData", "No Lowest hotel :" + depth);
+
                 }
 
             }
@@ -507,6 +515,8 @@ public class  HotelActivity extends ActionBarActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("DefaultData", "No Lowest hotel :" + depth);
+
                 //System.err.println(error);
                 // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
                 // For AuthFailure, you can re login with user credentials.
@@ -518,6 +528,7 @@ public class  HotelActivity extends ActionBarActivity {
                     pDialog.hide();
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if( error instanceof ServerError) {
+                    //Toast.makeText(HotelActivity.this, "Server Error", Toast.LENGTH_LONG).show();
                 } else if( error instanceof AuthFailureError) {
                 } else if( error instanceof ParseError) {
                 } else if( error instanceof NoConnectionError) {
@@ -544,9 +555,8 @@ public class  HotelActivity extends ActionBarActivity {
         }
         else
         {
-            lv1.setVisibility(View.VISIBLE);
+           lv1.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
-            activites.setVisibility(View.VISIBLE);
             check_bit=0;
         }
     }
