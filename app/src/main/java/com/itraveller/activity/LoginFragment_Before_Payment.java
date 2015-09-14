@@ -112,8 +112,6 @@ public class LoginFragment_Before_Payment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        //setting layout of screen to login.xml file
-        View view=inflater.inflate(R.layout.login_before_payment, container, false);
 
         //creating threads for facebook login
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -124,6 +122,10 @@ public class LoginFragment_Before_Payment extends Fragment {
         FacebookSdk.sdkInitialize(getActivity());
 
         callbackManager = CallbackManager.Factory.create();
+
+
+        //setting layout of screen to login.xml file
+        View view=inflater.inflate(R.layout.login_before_payment, container, false);
 
         //shared preferences object for storing data in "Preferences"
         prefs = getActivity().getSharedPreferences("Preferences",Context.MODE_PRIVATE);
