@@ -29,6 +29,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import com.itraveller.R;
+import com.itraveller.activity.ItinerarySummaryActivity;
 import com.itraveller.activity.LoginFragment_Before_Payment;
 import com.itraveller.activity.SummaryActivity;
 import com.itraveller.model.FlightModel;
@@ -350,22 +351,8 @@ public class FlightAdapter extends BaseAdapter {
 
                 SharedPreferences prefs=activity.getSharedPreferences("Preferences",Context.MODE_PRIVATE);
 
-            /*    if (prefs.getInt("flag", 0) == 1) {
-                    Intent in = new Intent(activity, SummaryActivity.class);
-                    activity.startActivity(in);
-                } else {
-                    LoginFragment_Before_Payment fragment = new LoginFragment_Before_Payment();
 
-                    FragmentManager manager =
-                    android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(android.R.id.content, fragment); // newInstance() is a static factory method.
-                    transaction.commit();
-
-
-                }
-            */
-
-                Intent in = new Intent(activity, SummaryActivity.class);
+                Intent in = new Intent(activity, ItinerarySummaryActivity.class);
                 activity.startActivity(in);
 
 

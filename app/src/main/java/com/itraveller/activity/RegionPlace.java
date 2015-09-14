@@ -380,6 +380,7 @@ public class RegionPlace extends ActionBarActivity {
                     i.putExtra("profile", "temp");
                     i.putExtra("id", "temp");
                     startActivity(i);
+                    finish();
 
                 }
                 else
@@ -387,6 +388,7 @@ public class RegionPlace extends ActionBarActivity {
                     i.putExtra("profile","login_from_server");
                     i.putExtra("id","login_from_server");
                     startActivity(i);
+                    finish();
                 }
             }
             else

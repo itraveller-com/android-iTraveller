@@ -37,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -353,6 +355,9 @@ public class  HotelActivity extends ActionBarActivity {
                             }
                         }
                         roomList.add(hrm);
+
+                        Collections.sort(roomList, new PriceComparison());
+
                         flag_bit =0;
                     }
                     if(index == (totalcount-1)) {
@@ -534,6 +539,19 @@ public class  HotelActivity extends ActionBarActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
+    }
+
+    class PriceComparison implements Comparator<HotelRoomModel> {
+
+        @Override
+        public int compare(HotelRoomModel o1,HotelRoomModel o2) {
+            if(o1.getCost() > o2.getCost()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
     }
 
     public void onBackPressed() {

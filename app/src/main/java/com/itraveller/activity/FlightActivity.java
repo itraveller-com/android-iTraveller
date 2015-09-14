@@ -177,6 +177,7 @@ public class FlightActivity extends ActionBarActivity {
                                     monward.setEndDt(onward_arr.getJSONObject(j).getString("EndDt").toString());
                                     monward.setStartTerminal(onward_arr.getJSONObject(j).getString("StartTerminal").toString());
                                     monward.setEndTerminal(onward_arr.getJSONObject(j).getString("EndTerminal").toString());
+                                    monward.setTotal_Price(Total_Price);
                                     onward_model.add(monward);
                                 }
 
@@ -208,6 +209,7 @@ public class FlightActivity extends ActionBarActivity {
                                     mreturn.setEndDt(return_arr.getJSONObject(j).getString("EndDt").toString());
                                     mreturn.setStartTerminal(return_arr.getJSONObject(j).getString("StartTerminal").toString());
                                     mreturn.setEndTerminal(return_arr.getJSONObject(j).getString("EndTerminal").toString());
+                                    mreturn.setTotal_Price(Total_Price);
                                     return_model.add(mreturn);
                                 }
                             } catch(JSONException jsonex) {

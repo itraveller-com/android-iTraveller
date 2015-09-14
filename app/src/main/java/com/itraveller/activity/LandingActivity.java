@@ -123,6 +123,7 @@ public class LandingActivity extends Fragment {
                         editor.putString("FlightBit", flightBit);
                         editor.commit();
                         startActivity(in);
+                        getActivity().finish();
                     }
                 }
             }
@@ -139,6 +140,7 @@ public class LandingActivity extends Fragment {
                 editor.putString("FlightBit", "" + landingList.get(position).getHome_Page());
                 editor.commit();
                 startActivity(i);
+                getActivity().finish();
             }
         });
 
