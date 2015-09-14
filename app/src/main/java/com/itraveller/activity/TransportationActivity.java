@@ -241,8 +241,7 @@ public class TransportationActivity extends ActionBarActivity {
                         transportation_model.setPrice_Per_KM(jsonarr.getInt("Price_Per_KM"));
                         transportation_model.setMax_Person(max_person);
                         transportation_model.setImage(img);
-                        transportation_model.setIsCheck(false);
-
+                        //transportation_model.setIsCheck(false);
                         transportationList.add(transportation_model);
 
                 } catch (JSONException e) {
@@ -251,7 +250,7 @@ public class TransportationActivity extends ActionBarActivity {
 
                 if((last_index-1) == index)
                 {
-                    transportationList.get(swap_value).setIsCheck(true);
+                    //transportationList.get(swap_value).setIsCheck(true);
                     //Collections.swap(transportationList, 0, swap_value);
                     Collections.sort(transportationList,new PriceComparison());
                     adapter.notifyDataSetChanged();

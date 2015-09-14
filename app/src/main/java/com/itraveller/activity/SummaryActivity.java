@@ -73,7 +73,7 @@ public class SummaryActivity extends ActionBarActivity{
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        HOST_NAME = getResources().getString(R.string.hostname);
+            HOST_NAME = getResources().getString(R.string.hostname);
 
 
             //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -90,7 +90,7 @@ public class SummaryActivity extends ActionBarActivity{
                 public void onClick(View view) {
                     //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
                     //startActivity(in);
-                    callEbsKit();
+                  //  callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);

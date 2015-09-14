@@ -427,6 +427,7 @@ public class  HotelActivity extends ActionBarActivity {
                                 cposition = childpostion;
                                 gposition = groupPosition;
                                 second.setVisibility(View.VISIBLE);
+                                activites.setVisibility(View.GONE);
                                 lv1.setVisibility(View.GONE);
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
@@ -574,6 +575,7 @@ public class  HotelActivity extends ActionBarActivity {
         else
         {
            lv1.setVisibility(View.VISIBLE);
+          activites.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
             check_bit=0;
         }
