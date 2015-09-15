@@ -51,7 +51,6 @@ import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
 
-    SharedPreferences prefs;
     //Textview for going to signup screen
     TextView link_to_signup;
 
@@ -95,6 +94,7 @@ public class LoginFragment extends Fragment {
 
     private ShareDialog shareDialog;
     Context context;
+    SharedPreferences.Editor editor;
 
     public void setContextValue(Context context)
     {
@@ -126,12 +126,13 @@ public class LoginFragment extends Fragment {
         callbackManager = CallbackManager.Factory.create();
 
         //shared preferences object for storing data in "Preferences"
-        prefs = context.getSharedPreferences("Preferences",context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", context.MODE_PRIVATE);
+        editor=prefs.edit();
+
 
         //check if user is already logged in or not viz. if flag=0 then user is not logged in and 1 for logged in
         if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
         {
-            SharedPreferences.Editor editor=prefs.edit();
             editor.putInt("flag",0);
             editor.commit();
         }
@@ -148,9 +149,6 @@ public class LoginFragment extends Fragment {
         }
         else
         {
-
-            SharedPreferences.Editor editor=prefs.edit();
-            editor = prefs.edit();
             editor.putInt("flag", 0);
             editor.commit();
 
@@ -194,8 +192,6 @@ public class LoginFragment extends Fragment {
                     //checking if internet is present or not
                     isInternetPresent = cd.isNetworkConnection();
                     if (isInternetPresent) {
-
-                        SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("f_name", "user");
                         editor.commit();
 
@@ -238,7 +234,6 @@ public class LoginFragment extends Fragment {
                         //checking if user entered valid data
                         if (isValidEmail(email_id_from_our_server) && email_id_from_our_server.trim().length() > 0 && mobile_number.trim().length() > 0) {
 
-                            SharedPreferences.Editor editor=prefs.edit();
                             editor.putString("email_from_our_server",""+email_id_from_our_server);
                             editor.putString("mobile_number_from_our_server",""+mobile_number);
                             editor.commit();
@@ -462,7 +457,6 @@ public class LoginFragment extends Fragment {
                                         public void onClick(DialogInterface dialog,int which) {
 
                                             //storing email and mobile number of user for fuethur use
-                                            SharedPreferences.Editor editor=prefs.edit();
                                             editor.putString("email_id1", "" + email_id1);
                                             editor.putString("mobile_number1", "" + mobile_number);
                                             editor.commit();
@@ -504,7 +498,6 @@ public class LoginFragment extends Fragment {
                                     access_token=payload_object.getString("key");
 
                                     Log.d("User id is login", "" + user_id);
-                                    SharedPreferences.Editor editor=prefs.edit();
                                     editor.putString("user_id_string",""+user_id);
                                     editor.putString("access_token_string",""+access_token);
                                     editor.putString("f_name",""+email_id_from_our_server);
@@ -733,7 +726,6 @@ public class LoginFragment extends Fragment {
             String fname=profile.getFirstName();
             AccessToken at=AccessToken.getCurrentAccessToken();
 
-            SharedPreferences.Editor editor=prefs.edit();
             editor.putString("f_name", "" + fname);
             editor.putString("user_id_string", "" + id);
             editor.putString("access_token_string", "" + at);

@@ -65,6 +65,7 @@ public class  HotelActivity extends ActionBarActivity {
     int ListItemPostion;
     int heightHotelList = 5;
     Toolbar mToolbar;
+    int error_bit = 0;
     private ArrayList<String> hotelList;
     private ArrayList<String> lowesthotelList;
     String[] hotel_destination, destination_date;
@@ -199,8 +200,14 @@ public class  HotelActivity extends ActionBarActivity {
 
                 editor.commit();
 
-                Intent intent = new Intent(HotelActivity.this, ActivitiesActivity.class);
-                startActivity(intent);
+                if(error_bit != 1) {
+                    Intent intent = new Intent(HotelActivity.this, ActivitiesActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(HotelActivity.this, "Please remove the destinations without hotels/rooms" ,Toast.LENGTH_LONG).show();
+
+                }
             }
         });
 
@@ -522,7 +529,7 @@ public class  HotelActivity extends ActionBarActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("DefaultData", "No Lowest hotel :" + depth);
-
+                error_bit = 1;
                 //System.err.println(error);
                 // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
                 // For AuthFailure, you can re login with user credentials.
