@@ -33,16 +33,14 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignupFragment extends Fragment {
+public class SignupFragment_Before_Payment extends Fragment {
 
 
-
-
-    //variable for detecting internet status
     Boolean isInternetPresent = false;
 
     // Connection detector class
     ConnectionDetector cd;
+
 
     //textbox for taking user input
     public static EditText email_id_Edittext_,mobile_Edittext_;
@@ -63,7 +61,7 @@ public class SignupFragment extends Fragment {
     }
 
 
-    public SignupFragment() {
+    public SignupFragment_Before_Payment() {
         // Required empty public constructor
     }
 
@@ -73,7 +71,6 @@ public class SignupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.sign_up, container, false);
-
 
         cd=new ConnectionDetector(getActivity());
 
@@ -212,12 +209,25 @@ public class SignupFragment extends Fragment {
                             "You don't have internet connection.", false);
                 }
             }
+
         });
 
         loginScreen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 // Switching to Login Screen/closing register screen
-                getActivity().onBackPressed();
+           //     getActivity().onBackPressed();
+                //call signup fragment on clicking link
+                LoginFragment_Before_Payment fragment2=new LoginFragment_Before_Payment();
+                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(android.R.id.content, fragment2);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
 
             }
         });
@@ -246,6 +256,7 @@ public class SignupFragment extends Fragment {
         // Showing Alert Message
         alertDialog.show();
     }
+
 
 
     //function to check if user entered valid email or not
@@ -302,12 +313,24 @@ public class SignupFragment extends Fragment {
                                 editor.putString("mobile_number1", "" + mobile_number);
                                 editor.commit();
 
-                                Log.d("Email received",""+prefs.getString("email_id1", null));
+                                Log.d("Email received", "" + prefs.getString("email_id1", null));
 
-                                LoginFragment.email_id_Edittext.setText(""+prefs.getString("email_id1", null));
-                                LoginFragment.mobile_Edittext.setText(""+prefs.getString("mobile_number1", null));
+                                LoginFragment_Before_Payment.email_id_Edittext.setText(""+prefs.getString("email_id1", null));
+                                LoginFragment_Before_Payment.mobile_Edittext.setText(""+prefs.getString("mobile_number1", null));
 
-                                getActivity().onBackPressed();
+                            //    getActivity().onBackPressed();
+
+                                LoginFragment_Before_Payment fragment2=new LoginFragment_Before_Payment();
+                                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                                // Replace whatever is in the fragment_container view with this fragment,
+                                // and add the transaction to the back stack
+                                transaction.replace(android.R.id.content, fragment2);
+                                transaction.addToBackStack(null);
+
+                                // Commit the transaction
+                                transaction.commit();
+
                             }
                             else
                             {
@@ -325,7 +348,22 @@ public class SignupFragment extends Fragment {
                                 // Setting OK Button
                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        getActivity().onBackPressed();
+//                                        getActivity().onBackPressed();
+
+                                        LoginFragment_Before_Payment.email_id_Edittext.setText(""+emailid);
+                                        LoginFragment_Before_Payment.mobile_Edittext.setText(""+mobile_number);
+
+                                        LoginFragment_Before_Payment fragment2=new LoginFragment_Before_Payment();
+                                        android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                                        // Replace whatever is in the fragment_container view with this fragment,
+                                        // and add the transaction to the back stack
+                                        transaction.replace(android.R.id.content, fragment2);
+                                        transaction.addToBackStack(null);
+
+                                        // Commit the transaction
+                                        transaction.commit();
+
                                     }
                                 });
 

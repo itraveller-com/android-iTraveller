@@ -3,7 +3,6 @@ package com.itraveller.activity;
 /**
  * Created by VNK on 8/15/2015.
  */
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -29,17 +27,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import com.itraveller.R;
-import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
+import com.itraveller.map.DirectionsJSONParser;
 import com.itraveller.volley.AppController;
 
 import org.json.JSONArray;
@@ -48,16 +44,10 @@ import org.json.JSONObject;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-
-import static com.itraveller.R.id.LinearLayout1;
-import static com.itraveller.R.id.btn_confirm_payment;
 
 
 public class ItinerarySummaryActivity extends ActionBarActivity {
@@ -761,6 +751,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
     {
         SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
         SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+
+        Log.d("Skip bit testing",""+preferences.getInt("Skip_Flight_Bit",0));
         if(preferences.getInt("Skip_Flight_Bit",0)==1)
         {
             Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));

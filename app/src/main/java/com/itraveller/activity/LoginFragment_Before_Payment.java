@@ -279,7 +279,7 @@ public class LoginFragment_Before_Payment extends Fragment {
 
 
                         //call signup fragment on clicking link
-                        SignupFragment fragment2=new SignupFragment();
+                        SignupFragment_Before_Payment fragment2=new SignupFragment_Before_Payment();
                         android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                         // Replace whatever is in the fragment_container view with this fragment,
