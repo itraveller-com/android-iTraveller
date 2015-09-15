@@ -751,6 +751,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
     {
         SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
         SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+
+        Log.d("Skip bit testing",""+preferences.getInt("Skip_Flight_Bit",0));
         if(preferences.getInt("Skip_Flight_Bit",0)==1)
         {
             Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));

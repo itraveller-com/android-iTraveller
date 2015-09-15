@@ -130,6 +130,8 @@ public class LoginFragment extends Fragment {
         editor=prefs.edit();
 
 
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
+
         //check if user is already logged in or not viz. if flag=0 then user is not logged in and 1 for logged in
         if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
         {

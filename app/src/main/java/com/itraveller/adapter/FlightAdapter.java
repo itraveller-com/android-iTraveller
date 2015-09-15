@@ -317,7 +317,7 @@ public class FlightAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Log.i("ButtonClicked", "" + position);
                 SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-                final SharedPreferences.Editor editor = sharedpreferences.edit();
+                SharedPreferences.Editor editor = sharedpreferences.edit();
                 int ActualPrice = Integer.parseInt(Flightitems.get(position).getActualBaseFare()) * 2;
                 editor.putString("FlightPrice", "" + ActualPrice);
                 //JSON Value.
@@ -351,8 +351,12 @@ public class FlightAdapter extends BaseAdapter {
 
                 SharedPreferences prefs=activity.getSharedPreferences("Preferences",Context.MODE_PRIVATE);
 
-
                 Intent in = new Intent(activity, ItinerarySummaryActivity.class);
+
+                editor = prefs.edit();
+                editor.putInt("Skip_Flight_Bit", 0);
+                editor.commit();
+
                 activity.startActivity(in);
 
 

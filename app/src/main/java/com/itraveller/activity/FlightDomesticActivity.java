@@ -104,8 +104,13 @@ public class FlightDomesticActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(FlightDomesticActivity.this, ItinerarySummaryActivity.class);
+                SharedPreferences prefs=getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor;
+                editor = prefs.edit();
+                editor.putInt("Skip_Flight_Bit", 0);
+                editor.commit();
                 startActivity(in);
-                finish();
+        //        finish();
                 //FlightReturnDomestic.adapter.
             }
         });

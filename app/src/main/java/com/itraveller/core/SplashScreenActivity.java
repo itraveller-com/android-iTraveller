@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.itraveller.R;
 import com.itraveller.activity.MainActivity;
@@ -35,8 +36,10 @@ public class SplashScreenActivity extends Activity {
                 SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
                 if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
                 {
+                    Log.d("Test scr","hi");
                     SharedPreferences.Editor editor=prefs.edit();
                     editor.putInt("flag",0);
+                    editor.putString("f_name","user");
                     editor.commit();
                 }
 

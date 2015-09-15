@@ -74,12 +74,10 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     private ProfileTracker profileTracker;
     public ImageView img1;
     Context context;
-    TextView txt;
-    private CallbackManager callbackManager;
     public static String  att,str1,str2,str3,str4;
     Fragment fragment;
-
     String title;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,19 +101,13 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         greeting = (TextView) findViewById(R.id.greeting);
 
         context= this;
+
         preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
 
         //code for receiving data from other activities
         Bundle bu=getIntent().getExtras();
         str1= "" +bu.getString("profile");
         str2=""+bu.getString("id");
-        str3=""+bu.getString("fname");
-        att=""+bu.getString("AccessToken");
-
-        Log.d("AccessToken in Main",""+att);
-        Log.d("profile in temp", "" + str1);
-        Log.d("fname in temp", "" + str3);
-
         str3=""+preferences.getString("var",null);
         att=""+preferences.getString("access_token_string",null);
         str4=""+preferences.getString("user_id_string",null);
@@ -126,6 +118,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         //ImageView used for displaying image in navigation bar
         img1=(ImageView) findViewById(R.id.image);
 
+        //if user is logged in using facebook
         if(!str1.equals("unregistered") && !str2.equals("unregistered")  && !str1.equals("login_from_server") && !str2.equals("login_from_server") && str3.equals("y"))
         {
             Log.d("case","1");
@@ -153,28 +146,27 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 }
             };
         }
-     /*   else if(str1.equals("sign_up") && att.equals("sign_up"))
-        {
-            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
-            //display defult image and greetin to unregistered user
-            Log.d("Signup user","hi");
-            img1.setImageBitmap(getCroppedBitmap(icon));
-            greeting.setText("Hello "+str3 );
-        } */
         //if user is not logged in using facebook
         else if(str1.equals("login_from_server") && str2.equals("login_from_server"))
         {
+
+            Log.d("case","2");
+
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             img1.setImageBitmap(getCroppedBitmap(icon));
-            greeting.setText("Hello " + str3);
+            greeting.setText("Hello " + preferences.getString("f_name",null));
 
         }
         else
         {
+
+            Log.d("case","3");
+
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             //display defult image and greetin to unregistered user
             img1.setImageBitmap(getCroppedBitmap(icon));
-            greeting.setText("Hello user");
+            Log.d("case test",""+preferences.getString("f_name",null));
+            greeting.setText("Hello "+preferences.getString("f_name",null));
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -203,7 +195,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
-
+        //drawerFragment.setContextValue(this);
 
 
         // display the first navigation drawer view on app launch
@@ -368,6 +360,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         Log.d("URL main",""+"http://stage.itraveller.com/backend/api/v1/users/"+u_id+"/logout?token="+at);
         String url=Constants.API_logout+u_id+"/logout?token="+at;
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,url , new Response.Listener<JSONObject>() {
 
             @Override
@@ -383,36 +376,28 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
                     if(success.equals("true"))
                     {
-
                         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
                         att=null;
-
 
 
                         SharedPreferences.Editor editor=preferences.edit();
                         editor.clear();
                         editor.commit();
 
-                      //display defult image and greetin to unregistered user
+                        //display defult image and greetin to unregistered user
                         img1.setImageBitmap(getCroppedBitmap(icon));
                         greeting.setText("Hello user");
 
                         LoginFragment fragment1 = new LoginFragment();
-
                         fragment1.setContextValue(context);
                         title = getString(R.string.title_login);
                         fragment = fragment1;
-//                                 startActivity(i);
-                        //display defult image and greetin to unregistered user
-                        img1.setImageBitmap(getCroppedBitmap(icon));
-                        greeting.setText("Hello user");
-                        finish();
 
                         displayView(4);
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(),"Logout failed !!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Logout failed !!", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -484,9 +469,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     fragment1.setContextValue(context);
                     title = getString(R.string.title_login);
                     fragment = fragment1;
-                    Log.d("At is","NUll");
                 }
-                else if(att.equals("login_from_server"))
+                else if(att.equals("login_from_server") )
                 {
                     logout_from_server();
                 }
@@ -503,6 +487,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     greeting.setText("Hello user");
                     displayView(4);
                 }
+
                 break;
 
             case 4:
@@ -514,6 +499,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
                 img1.setImageBitmap(getCroppedBitmap(icon2));
                 greeting.setText("Hello user");
+
                 break;
 
             default:
