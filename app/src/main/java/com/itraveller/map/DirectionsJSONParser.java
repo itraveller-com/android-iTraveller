@@ -1,4 +1,4 @@
-package com.itraveller.activity;
+package com.itraveller.map;
 
 /**
  * Created by I TRAVELLES on 06-09-2015.

@@ -355,8 +355,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
                     if(response.getJSONArray("payload").length()!=0){
                     Collections.swap(hotelList, 0, swap_value);
-
-
+                        swap_value = 0;
                     //added on 12/08/2015
                     //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
                     mViewPagerAdapter.notifyDataSetChanged();

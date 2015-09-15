@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:alpha=".4"
+                android:alpha=".6"
                 android:background="@android:color/black"
                 android:orientation="vertical"
                 android:weightSum="1">
