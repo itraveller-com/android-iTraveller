@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.toolbox.ImageLoader;
@@ -165,17 +166,23 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
                 editor.commit();
 
-                final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
-                i.putExtra("Image", imageurl);
-                i.putExtra("Duration", duration);
-                i.putExtra("Title", title);
-                i.putExtra("Destinations", destination_value);
-                i.putExtra("DestinationsID", destination_value_id);
-                i.putExtra("DestinationsCount", destination_value_count);
-                i.putExtra("ArrivalPort", arrival_port);
-                i.putExtra("DeparturePort", dep_port);
-                i.putExtra("RegionID", region_id);
-                startActivity(i);
+
+                if( (Integer.parseInt(adult_btn.getText().toString())!=0) ) {
+                    final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
+                    i.putExtra("Image", imageurl);
+                    i.putExtra("Duration", duration);
+                    i.putExtra("Title", title);
+                    i.putExtra("Destinations", destination_value);
+                    i.putExtra("DestinationsID", destination_value_id);
+                    i.putExtra("DestinationsCount", destination_value_count);
+                    i.putExtra("ArrivalPort", arrival_port);
+                    i.putExtra("DeparturePort", dep_port);
+                    i.putExtra("RegionID", region_id);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Atleast One adult should be there", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
