@@ -499,7 +499,7 @@ public class  HotelActivity extends ActionBarActivity {
                                 //modelRow.get(childpostion).
                                 Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
                             //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
-                                String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                                String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds="+ modelRow.get(childpostion).getHotel_Id() +"&checkInDate=" + destination_date[groupPosition];
                                 Log.i("URLForRooms", "" + groupPosition + " Url :" +url);
                                 hotelRooms(url,destination_date[groupPosition] );
                                 check_bit=1;
