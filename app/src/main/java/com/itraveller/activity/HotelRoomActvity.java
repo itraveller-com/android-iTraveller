@@ -7,6 +7,7 @@ package com.itraveller.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -31,12 +32,14 @@ import java.util.List;
 import com.itraveller.R;
 import com.itraveller.adapter.HotelRoomAdapter;
 import com.itraveller.constant.Constants;
+import com.itraveller.constant.Utility;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
+import android.view.View.OnTouchListener;
 
-public class HotelRoomActvity extends Activity {
+public class HotelRoomActvity extends Activity{
 
     private Toolbar toolbar; // Declaring the Toolbar Object
     int[] value = new int[10];
@@ -58,6 +61,17 @@ public class HotelRoomActvity extends Activity {
         //hotelRoomsCheck(url_checkroom);
         listView = (ListView) findViewById(R.id.room_type);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+//        Utility.setListViewHeightBasedOnChildren(listView);
+     /*   listView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+            //    view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+*/
         adapter = new HotelRoomAdapter(this, roomList, new HotelActivity.RadiobuttonListener() {
             @Override
             public void RadioChangeListenerCustom(String position) {
@@ -190,9 +204,6 @@ public class HotelRoomActvity extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
     }
-
-
-
 
 }
 

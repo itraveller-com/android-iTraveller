@@ -105,7 +105,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
         nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 5);
+        nextYear.add(Calendar.YEAR, 1);
 
 
         adult_plus = (ImageButton) findViewById(R.id.adultplus);

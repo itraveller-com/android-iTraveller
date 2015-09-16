@@ -113,7 +113,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         str4=""+preferences.getString("user_id_string",null);
 
         Log.d("AccessToken in Main",""+att);
-        Log.d("var value in temp", "" + str3);
+        Log.d("var value in temp", "" + str1);
         Log.d("Facebook id in temp", "" + str4);
         //ImageView used for displaying image in navigation bar
         img1=(ImageView) findViewById(R.id.image);

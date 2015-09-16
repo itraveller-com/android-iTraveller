@@ -298,9 +298,17 @@ public class DragAndSort extends ActionBarActivity
                     editor.putString("ArrivalPortString", "" + from_travel.getText());
                     editor.putString("DeparturePortString", "" + to_travel.getText());
                     editor.commit();
-                    Intent intent = new Intent(DragAndSort.this, HotelActivity.class);
-                    intent.putExtra("DestinationsIDs", Destination_Value);
-                    startActivity(intent);
+                    Log.d("Test dest",""+to_home.getText());
+                    Log.d("Test dest1",""+from_travel.getText());
+                    if(  !(""+from_travel.getText()).equals("")) {
+                        Intent intent = new Intent(DragAndSort.this, HotelActivity.class);
+                        intent.putExtra("DestinationsIDs", Destination_Value);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Please Add Destination", Toast.LENGTH_LONG).show();
+                    }
+
                 }else{
                     Toast.makeText(getApplicationContext(), "Please Add Destination", Toast.LENGTH_LONG).show();
                 }

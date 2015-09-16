@@ -392,7 +392,12 @@ public class RegionPlace extends ActionBarActivity {
                 }
             }
             else
+            {
+                i.putExtra("profile","unregistered");
+                i.putExtra("id","unregistered");
+                startActivity(i);
                 finish();
+            }
         }
     }
 
