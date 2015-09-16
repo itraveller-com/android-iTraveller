@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView1"
@@ -17,7 +17,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="25dp"
         android:background="@layout/background"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -81,4 +81,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

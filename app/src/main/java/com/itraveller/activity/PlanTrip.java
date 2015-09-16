@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.toolbox.ImageLoader;
@@ -165,17 +166,23 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
                 editor.commit();
 
-                final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
-                i.putExtra("Image", imageurl);
-                i.putExtra("Duration", duration);
-                i.putExtra("Title", title);
-                i.putExtra("Destinations", destination_value);
-                i.putExtra("DestinationsID", destination_value_id);
-                i.putExtra("DestinationsCount", destination_value_count);
-                i.putExtra("ArrivalPort", arrival_port);
-                i.putExtra("DeparturePort", dep_port);
-                i.putExtra("RegionID", region_id);
-                startActivity(i);
+
+                if( (Integer.parseInt(adult_btn.getText().toString())!=0) ) {
+                    final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
+                    i.putExtra("Image", imageurl);
+                    i.putExtra("Duration", duration);
+                    i.putExtra("Title", title);
+                    i.putExtra("Destinations", destination_value);
+                    i.putExtra("DestinationsID", destination_value_id);
+                    i.putExtra("DestinationsCount", destination_value_count);
+                    i.putExtra("ArrivalPort", arrival_port);
+                    i.putExtra("DeparturePort", dep_port);
+                    i.putExtra("RegionID", region_id);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Atleast One adult should be there", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -477,6 +484,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     public void onClick(View view) {
         Log.i("ClickTest", "" + view);
         if (view == adult_plus) {
+            if(var_adult <= 20)
             var_adult++;
             adult_btn.setText("" + var_adult);
         } else if (view == adult_minus) {
@@ -484,6 +492,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_adult--;
             adult_btn.setText("" + var_adult);
         } else if (view == children_plus) {
+            if(var_children <= 20)
             var_children++;
             children_btn.setText("" + var_children);
         } else if (view == children_minus) {
@@ -491,6 +500,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_children--;
             children_btn.setText("" + var_children);
         } else if (view == child_plus) {
+            if(var_child <= 20)
             var_child++;
             child_btn.setText("" + var_child);
         } else if (view == child_minus) {
@@ -498,6 +508,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_child--;
             child_btn.setText("" + var_child);
         } else if (view == bady_plus) {
+            if(var_baby <= 20)
             var_baby++;
             baby_btn.setText("" + var_baby);
         } else if (view == bady_minus) {

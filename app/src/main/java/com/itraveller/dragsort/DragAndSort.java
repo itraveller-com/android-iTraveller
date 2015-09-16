@@ -208,6 +208,7 @@ public class DragAndSort extends ActionBarActivity
             public void onClick(View view) {
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
+                hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=0";
                 airportJSON(url, false);
                 check_bit_new = 5;
@@ -234,7 +235,7 @@ public class DragAndSort extends ActionBarActivity
         listView.setFloatViewManager(controller);
         //listView.setOnTouchListener(controller);
         //listView.setOnLongClickListener(controller);
-        listView.setDragEnabled(true);
+        //listView.setDragEnabled(false);
        /* listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -318,13 +319,14 @@ public class DragAndSort extends ActionBarActivity
         from_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("ValueData", "" + rearrangeList.get(0).getPlace());
+                //Log.i("ValueData", "" + rearrangeList.get(0).getPlace());
                 /*final Intent i = new Intent(DragAndSort.this, AirportList.class);
                 i.putExtra("Url", "http://stage.itraveller.com/backend/api/v1/airport");
                 i.putExtra("Place" , 1);
                 startActivity(i);*/
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
+                hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/airport";
                 airportJSON(url, true);
                 check_bit_new = 1;
@@ -335,6 +337,7 @@ public class DragAndSort extends ActionBarActivity
             public void onClick(View view) {
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
+                hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
                 airportJSON(url, false);
                 check_bit_new = 2;
@@ -345,6 +348,7 @@ public class DragAndSort extends ActionBarActivity
             public void onClick(View view) {
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
+                hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
                 airportJSON(url, false);
                 check_bit_new = 3;
@@ -355,6 +359,7 @@ public class DragAndSort extends ActionBarActivity
             public void onClick(View view) {
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
+                hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/airport";
                 airportJSON(url,true);
                 check_bit_new = 4;
@@ -433,6 +438,7 @@ public class DragAndSort extends ActionBarActivity
                 check_bit_new=0;
                 destination_page.setVisibility(View.VISIBLE);
                 airportlist_page.setVisibility(View.GONE);
+                hotelBook.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -627,6 +633,8 @@ public class DragAndSort extends ActionBarActivity
         {
             destination_page.setVisibility(View.VISIBLE);
             airportlist_page.setVisibility(View.GONE);
+            hotelBook.setVisibility(View.VISIBLE);
+            check_bit_new = 0;
         }
     }
 }

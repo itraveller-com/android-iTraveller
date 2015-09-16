@@ -368,10 +368,10 @@ public class  HotelActivity extends ActionBarActivity {
 
                         flag_bit =0;
                     }
-                    if(index == (totalcount-1)) {
+                   // if(index == (totalcount-1)) {
                         adapter.notifyDataSetChanged();
                         //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
-                    }
+                   // }
 
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
