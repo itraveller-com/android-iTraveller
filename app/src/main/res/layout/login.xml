@@ -1,10 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/white"
     android:weightSum="1"
     android:gravity="center">
 
@@ -19,41 +19,44 @@
         android:layout_weight="0.83"
         android:background="@layout/background"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:background="@drawable/ic_profile" />
+            android:background="@drawable/ic_profile_pic" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/round_edittext"
+            android:background="@drawable/round_edittext_login"
             android:id="@+id/email_id"
-	        android:hint="Email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
             android:textSize="16sp"/>
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/round_edittext"
+            android:background="@drawable/round_edittext_login"
             android:hint="Mobile Number"
-	        android:inputType="number"
-	        android:singleLine="true"
-	        android:maxLength="10"
-	        android:id="@+id/mobile"
+            android:inputType="number"
+            android:singleLine="true"
+            android:maxLength="10"
+            android:id="@+id/mobile"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
             android:textSize="16sp" />
 
 
@@ -65,13 +68,13 @@
             android:orientation="horizontal">
 
 
-	    <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="|"
-                android:textColor="#000000"
+                android:textColor="@color/orange"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -80,9 +83,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register Here"
-                android:textColor="#000000"
+                android:textColor="@color/orange"
                 android:textSize="16dp"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +94,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="|"
-                android:textColor="#000000"
+                android:textColor="@color/orange"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -101,39 +105,40 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@color/filterbtn"
-	        android:id="@+id/submit"
+            android:layout_marginTop="25dp"
+            android:background="@color/orange"
+            android:id="@+id/submit"
             android:text="Login"
-            android:textColor="#fff"
-            android:textSize="13dp" />
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
+            android:textSize="16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
             facebook:com_facebook_confirm_logout="false"
-            facebook:com_facebook_tooltip_mode="never_display" />
-
+            facebook:com_facebook_tooltip_mode="never_display"
+            android:layout_weight="0.10" />
 
         <Button
             android:id="@+id/btnunreg"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#eb543b"
+            android:layout_marginTop="25dp"
+            android:background="@color/orange"
             android:text="Continue Unregistered"
-            android:textColor="#fff"
-            android:textSize="13dp" />
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
 
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

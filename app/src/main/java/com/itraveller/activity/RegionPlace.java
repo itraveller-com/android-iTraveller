@@ -2,6 +2,7 @@ package com.itraveller.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -30,12 +31,16 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.itraveller.constant.Constants;
+import com.itraveller.model.TransportationModel;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +53,7 @@ import com.itraveller.volley.AppController;
  */
 public class RegionPlace extends ActionBarActivity {
 
-    private String url = "http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
+    private String url = Constants.API_RegionPlace_URL;   //"http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
     private List<RegionPlaceModel> regionList = new ArrayList<RegionPlaceModel>();
     private RegionPlaceAdapter adapter;
     private ListView listView;
@@ -162,8 +167,8 @@ public class RegionPlace extends ActionBarActivity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         // Update UI elements
-                        minval.setText(""+minValue);
-                        maxval.setText(""+maxValue);
+                        minval.setText("" + minValue);
+                        maxval.setText("" + maxValue);
                     }
                 });
 
@@ -174,6 +179,7 @@ public class RegionPlace extends ActionBarActivity {
         bundle = getIntent().getExtras();
         //Print
         System.out.println("RegionID: " + bundle.getInt("RegionID"));
+        Log.d("regionId in regionplace",url + bundle.getInt("RegionID"));
         url= url + bundle.getInt("RegionID");
         getSupportActionBar().setTitle(bundle.getString("RegionName") + " Packages");
 
@@ -219,7 +225,8 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setTitle(jsonobj.getJSONObject("Master").getString("Title"));
                            region_adp.setLink(jsonobj.getJSONObject("Master").getString("Link"));
                            //region_adp.setImage(jsonobj.getJSONObject("Master").getString("Image"));
-                           region_adp.setImage("http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                       //    region_adp.setImage("http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                           region_adp.setImage(Constants.API_RegionPlace_ImageURL+ jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
                            Log.d("Images:", "http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
                            region_adp.setArrival_Port_Id(jsonobj.getJSONObject("Master").getInt("Arrival_Port_Id"));
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
@@ -274,6 +281,7 @@ public class RegionPlace extends ActionBarActivity {
                            Log.d("Discount", "" +region_adp.getDiscount());
                            regionList.add(region_adp);
 
+                           Collections.sort(regionList,new PriceComparison());
                         }
                     }
                 } catch (JSONException e) {
@@ -364,13 +372,54 @@ public class RegionPlace extends ActionBarActivity {
         }
         else
         {
-            finish();
+            SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+            Intent i=new Intent(getApplicationContext(),MainActivity.class);
+            Log.d("Var value checking ",""+prefs.getString("var",null));
+            if(prefs.getInt("flag",0)==1) {
+                if (("" + prefs.getString("var", null)).equals("y")) {
+                    i.putExtra("profile", "temp");
+                    i.putExtra("id", "temp");
+                    startActivity(i);
+                    finish();
+
+                }
+                else
+                {
+                    i.putExtra("profile","login_from_server");
+                    i.putExtra("id","login_from_server");
+                    startActivity(i);
+                    finish();
+                }
+            }
+            else
+            {
+                i.putExtra("profile","unregistered");
+                i.putExtra("id","unregistered");
+                startActivity(i);
+                finish();
+            }
         }
     }
 
     public interface NoDataInterface {
         public void DataHandler(int count);
     }
+
+
+
+    class PriceComparison implements Comparator<RegionPlaceModel> {
+
+        @Override
+        public int compare(RegionPlaceModel o1,RegionPlaceModel o2) {
+            if(o1.getPrice() > o2.getPrice()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    }
+
 
     public class CustomNoDataHandler implements NoDataInterface{
 

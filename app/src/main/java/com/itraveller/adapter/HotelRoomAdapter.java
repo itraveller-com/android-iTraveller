@@ -2,6 +2,7 @@ package com.itraveller.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.HotelActivity;
+import com.itraveller.constant.Utility;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.volley.AppController;
 
@@ -24,11 +26,11 @@ public class HotelRoomAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
-    private  int _screen_height;
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
+    private int adults;
 
 
     public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom , HotelActivity.RadiobuttonListener RadiobuttonListener) {
@@ -37,16 +39,19 @@ public class HotelRoomAdapter extends BaseAdapter {
         this.RadioListener = RadiobuttonListener;
     }
 
+    //getting count of total number of hotel rooms
     @Override
     public int getCount() {
         return HotelRooms.size();
     }
- 
+
+    //getting item from given location
     @Override
     public Object getItem(int location) {
         return HotelRooms.get(location);
     }
- 
+
+    //getting itemID
     @Override
     public long getItemId(int position) {
         return position;
@@ -70,6 +75,8 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_minus =(Button) convertView.findViewById(R.id.minus);
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
+            SharedPreferences prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            adults = Integer.parseInt(prefs.getString("Adults", "0"));
         }
         else
         {
@@ -86,8 +93,10 @@ public class HotelRoomAdapter extends BaseAdapter {
         //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
         holder.title.setText(m.getRoom_Type());
-        holder.btn_count.setText("1");
-        holder.rate.setText("" + m.getDisplay_Tariff());
+
+        holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
+
+        holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
 
 
         final ViewHolder finalHolder = holder;
@@ -117,15 +126,14 @@ public class HotelRoomAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-
                 if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
                 }
-
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
                 RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
                 Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
+
             }
         });
 
@@ -140,19 +148,10 @@ public class HotelRoomAdapter extends BaseAdapter {
         holder.radioButton.setChecked(m.getCheck());
         if(m.getCheck())
         {  mSelectedRB = holder.radioButton;
+            mSelectedPosition = position;
         }
 
         return convertView;
-    }
-
-    public void remove(HotelRoomModel item) {
-        HotelRooms.remove(item);
-        notifyDataSetChanged();
-    }
-
-    public void insert(HotelRoomModel item, int position) {
-        HotelRooms.add(position, item);
-        notifyDataSetChanged();
     }
 
     public List<HotelRoomModel> getList(){

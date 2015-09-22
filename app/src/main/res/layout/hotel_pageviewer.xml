@@ -30,10 +30,10 @@
 
 
         <android.support.v4.view.ViewPager
-        android:id="@+id/list_pager"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:paddingTop="10dp"/>
+            android:id="@+id/list_pager"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:paddingTop="10dp"/>
 
         <RelativeLayout
             android:id="@+id/rel_left_arrow"

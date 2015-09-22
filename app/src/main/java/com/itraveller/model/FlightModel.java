@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class FlightModel {
 
     String ActualBaseFare,Tax,STax,TCharge,SCharge,TDiscount,TMarkup,TPartnerCommission,TSdiscount,ocTax,id,key;
+    int total_price;
 
     ArrayList<OnwardFlightModel> onward_model;
     ArrayList<ReturnFlightModel> return_model;
@@ -143,7 +144,6 @@ public class FlightModel {
     public void setReturn_model(ArrayList<ReturnFlightModel> return_model) {
         this.return_model = return_model;
     }
-
 
 }
 

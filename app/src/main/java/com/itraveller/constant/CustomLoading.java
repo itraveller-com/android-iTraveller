@@ -13,12 +13,8 @@ import com.itraveller.activity.ItinerarySummaryActivity;
 
 public class CustomLoading {
 	static Dialog dialog;
-	Context context;
+
 	public static void LoadingScreen(Context context, Boolean check) {
-		SharedPreferences prefsData = context.getSharedPreferences("Itinerary", context.MODE_PRIVATE);
-		String F_bit = ""+prefsData.getString("FlightBit",null);
-		int flightBit = Integer.parseInt(""+F_bit);
-		context = context;
 		// create a Dialog component
 		dialog = new Dialog(context);
 		// tell the Dialog to use the dialog.xml as it's layout description
@@ -28,9 +24,16 @@ public class CustomLoading {
 		dialog.findViewById(R.id.skip);
 		Button skip_btn = (Button) dialog.findViewById(R.id.skip);
 		final Context finalContext = context;
+
+		final SharedPreferences prefs=context.getSharedPreferences("Preferences",context.MODE_PRIVATE);
+
 		skip_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				SharedPreferences.Editor editor=prefs.edit();
+				editor.putInt("Skip_Flight_Bit",1);
+				editor.commit();
 				dialog.dismiss();
 				Intent intent = new Intent(finalContext.getApplicationContext(), ItinerarySummaryActivity.class);
 				finalContext.startActivity(intent);

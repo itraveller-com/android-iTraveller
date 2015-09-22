@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/filterButtonBG">
@@ -341,7 +342,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
 
-                android:showDividers="end">
+                android:showDividers="end"
+                android:layout_marginBottom="15dp">
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -396,6 +398,7 @@
 
 
 </LinearLayout>
+
 
     <Button
         android:layout_width="match_parent"

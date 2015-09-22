@@ -35,6 +35,7 @@ public class BuyProduct extends Activity implements OnClickListener {
 	//private static final String SECRET_KEY = "fcfdfb899ccf83461ffffcc7ab8fa3bd";
 	
 	/*For Demo*/
+	//Live Data
 	private static final int ACC_ID = 13872; // Provided by EBS
 	private static final String SECRET_KEY = "601615509525046666e247f18b8ceb51";
 	

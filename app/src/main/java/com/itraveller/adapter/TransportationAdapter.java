@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.TransportationActivity;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
@@ -32,6 +33,8 @@ public class TransportationAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
+
+    int flag_bit =0;
 
     public TransportationAdapter(Activity activity, List<TransportationModel> TransportationItems) {
         this.activity = activity;
@@ -97,39 +100,52 @@ public class TransportationAdapter extends BaseAdapter {
         final TransportationModel m = TransportationItems.get(position);
 
         // thumbnail image
-        thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+    //    thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+        thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , imageLoader);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         // title
         holder.title.setText(m.getTitle());
         holder.textView_persons.setText("Ideal for upto " + m.getMax_Person() + "persons");
-        holder.textView_Km.setText("" + m.getCost());
+        holder.textView_Km.setText("\u20B9"+"" + m.getCost());
 
+
+        if(flag_bit==0) {
+            if (m.getIsCheck()) {
+
+                editor.putString("MasterID", "" + m.getId());
+                editor.putString("TransportationID", "" + m.getTransportation_Id());
+                editor.putString("TransportationName", "" + m.getTitle());
+                editor.putString("TransportationCost", "" + m.getCost());
+                editor.commit();
+
+
+                holder.radioButton.setChecked(true);
+                mSelectedPosition = position;
+                mSelectedRB = holder.radioButton;
+                flag_bit = 1;
+            }
+        }
+
+        final ViewHolder finalHolder = holder;
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                if (position != mSelectedPosition && mSelectedRB != null) {
+                editor.putString("MasterID", "" + m.getId());
+                editor.putString("TransportationID", "" + m.getTransportation_Id());
+                editor.putString("TransportationName", "" + m.getTitle());
+                editor.putString("TransportationCost", "" + m.getCost());
+                editor.commit();
+                if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
                 }
 
-                editor.putString("TransportationName",""+ m.getTitle());
-                editor.putString("TransportationCost",""+ m.getCost());
-                editor.commit();
-
                 mSelectedPosition = position;
-                mSelectedRB = (RadioButton) v;
+                mSelectedRB = (RadioButton)v;
             }
         });
 
-        /*if(mSelectedPosition != position){
-            holder.radioButton.setChecked(false);
-        }else{
-            holder.radioButton.setChecked(true);
-            if(mSelectedRB != null && holder.radioButton != mSelectedRB){
-                mSelectedRB = holder.radioButton;
-            }
-        }*/
+
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{
@@ -137,17 +153,17 @@ public class TransportationAdapter extends BaseAdapter {
             if(mSelectedRB != null && holder.radioButton != mSelectedRB){
                 mSelectedRB = holder.radioButton;
             }
-
         }
-        if(m.getCost()== TransportationActivity.lowest_trans)
+        /*if(m.getIsCheck())
         {
-            editor.putString("TransportationName",""+ m.getTitle());
-            editor.putString("TransportationCost",""+ m.getCost());
-            editor.commit();
             holder.radioButton.setChecked(true);
-             mSelectedRB = holder.radioButton;
-        }
+        }else {
+            holder.radioButton.setChecked(false);
+        }*/
+
+       // notifyDataSetChanged();
         return convertView;
+
     }
 
     private class ViewHolder {

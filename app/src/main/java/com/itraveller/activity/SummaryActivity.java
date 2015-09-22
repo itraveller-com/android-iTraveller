@@ -73,7 +73,7 @@ public class SummaryActivity extends ActionBarActivity{
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        HOST_NAME = getResources().getString(R.string.hostname);
+            HOST_NAME = getResources().getString(R.string.hostname);
 
 
             //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -90,12 +90,12 @@ public class SummaryActivity extends ActionBarActivity{
                 public void onClick(View view) {
                     //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
                     //startActivity(in);
-                    callEbsKit();
+                  //  callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
 
-            Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+            //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
             Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
             String transportation_rate = prefs.getString("TransportationCost", null);
 
@@ -124,7 +124,9 @@ public class SummaryActivity extends ActionBarActivity{
 
             }
 
-            String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
+             String HotelData = prefs.getString("HotelRooms",null);
+             String[] HotelDataArray = HotelData.trim().split("-");
+            //String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
             String[] ActivitiesDataArray = ActivitiesData.toArray(new String[ActivitiesData.size()]);
 
             String DayCount = prefs.getString("DestinationCount", null);
@@ -167,8 +169,9 @@ public class SummaryActivity extends ActionBarActivity{
                     }
                 }
             }
-            Log.i("ActvitiesRates","" +activities_rate);
-            Log.i("TransportationRates","" +transportation_rate);
+
+           // Log.i("ActvitiesRates","" +activities_rate);
+            //Log.i("TransportationRates","" +transportation_rate);
             int total_price = 0;
 
             if(flight_rate == 0)
@@ -187,7 +190,24 @@ public class SummaryActivity extends ActionBarActivity{
             package_v.setText("Rs " + total_price);
             total.setText("Rs " + total_price);
             total_dis.setText("Rs " + total_discount.intValue());
-        }
+
+        EditText name=(EditText) findViewById(R.id.editText);
+        Log.d("Name test",""+name);
+        EditText mobile_number=(EditText) findViewById(R.id.editText2);
+        Log.d("Name test1",""+mobile_number);
+        EditText email=(EditText) findViewById(R.id.editText3);
+        Log.d("Name test2",""+email);
+        EditText postal_code=(EditText) findViewById(R.id.editText4);
+        Log.d("Name test3",""+postal_code);
+        SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
+        Log.d("Name test4",""+preferencess);
+        name.setText("" + preferencess.getString("f_name", null));
+        mobile_number.setText("" + preferencess.getString("mobile_number1", null));
+        Log.d("email in summary", ""+preferencess.getString("email_id1", null));
+        email.setText(""+preferencess.getString("email_id1",null));
+
+
+    }
 
 
         @Override

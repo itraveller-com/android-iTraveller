@@ -1,12 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/white"
     android:weightSum="1"
-    android:gravity="center">
+    android:gravity="center"
+    android:fillViewport="false">
 
 
     <LinearLayout
@@ -17,7 +18,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="25dp"
         android:background="@layout/background"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -25,48 +26,48 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:background="@drawable/ic_profile" />
+            android:background="@drawable/ic_profile_pic" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/round_edittext"
+            android:background="@drawable/round_edittext_login"
             android:id="@+id/email_id"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="16sp" />
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:textSize="16dp" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/round_edittext"
+            android:background="@drawable/round_edittext_login"
             android:hint="Mobile Number"
             android:inputType="number"
             android:singleLine="true"
             android:maxLength="10"
             android:id="@+id/mobile"
             android:paddingLeft="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="16sp" />
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:textSize="16dp" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@color/filterbtn"
+            android:layout_marginTop="30dp"
+            android:background="@color/orange"
             android:id="@+id/submit"
             android:text="Sign up"
-            android:textColor="#fff"
-            android:textSize="13dp" />
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,11 +75,12 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Already has account! Login here"
             android:id="@+id/link_to_login"
-            android:layout_marginTop="20dp"
-            android:textColor="#ffffffff" />
+            android:layout_marginTop="55dp"
+            android:textColor="@color/orange"
+            android:textAlignment="center" />
 
 
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

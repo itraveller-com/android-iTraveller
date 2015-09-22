@@ -49,7 +49,7 @@ import com.itraveller.volley.AppController;
 
 public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     ViewPager[] vp;
-  // ViewPagerAdapter[] mViewPagerAdapter;
+    // ViewPagerAdapter[] mViewPagerAdapter;
 
     ImageView[] left_arrow,right_arrow;
     RelativeLayout[] rel_left_arrow,rel_right_arrow;
@@ -57,7 +57,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     private Context context;
     private ArrayList<String> navigationItems;
     public static HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel;
-  //  private int selectedIndex;
+    //  private int selectedIndex;
     private Map<Integer, Integer> mPagerPositions ;
     ProgressDialog pDialog;
     // ViewPager vp;
@@ -79,8 +79,8 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         }
 
         mPagerPositions= new HashMap<Integer, Integer>();
-     //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
-       vp=new ViewPager[navigationItems.size()];
+        //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
+        vp=new ViewPager[navigationItems.size()];
         left_arrow = new ImageView[navigationItems.size()];
         right_arrow = new ImageView[navigationItems.size()];
         rel_left_arrow = new RelativeLayout[navigationItems.size()];
@@ -115,12 +115,12 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
 
         if (convertView == null) {
-          // setSelectedIndex(position);
+            // setSelectedIndex(position);
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hotel_pageviewer, null);
 
-           // mPagerPositions.put(position,0);
+            // mPagerPositions.put(position,0);
 
         }else{
 
@@ -142,8 +142,8 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         vp[position].setOnClickListener(new ViewPagerClickListner(position));
         vp[position].setOnPageChangeListener(new ViewPageChangeListner(position));
         if(mPagerPositions.get(position)!=null){
-          //  Log.e("Pager position ", "parent " + position + "child position " + mPagerPositions.get(position));
-             vp[position].setCurrentItem(mPagerPositions.get(position));
+            //  Log.e("Pager position ", "parent " + position + "child position " + mPagerPositions.get(position));
+            vp[position].setCurrentItem(mPagerPositions.get(position));
         }
 
 
@@ -181,24 +181,24 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
             }
         });
 
-     if(mActivitiesModel.get(""+position).size()<1){
-         Log.i("TestingRound","Testing123");
-         int ref_Val = airportJSONForText(navigationItems.get(position), position);
-         ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
-         if(modelRow.size() == 0){
-             vp[position].setVisibility(View.GONE);
-             right_arrow[position].setVisibility(View.GONE);
-             left_arrow[position].setVisibility(View.GONE);
-             rel_left_arrow[position].setVisibility(View.GONE);
-             rel_right_arrow[position].setVisibility(View.GONE);
-         }
-         else{
-             vp[position].setVisibility(View.VISIBLE);
-             right_arrow[position].setVisibility(View.VISIBLE);
-             left_arrow[position].setVisibility(View.VISIBLE);
-             rel_left_arrow[position].setVisibility(View.GONE);
-             rel_right_arrow[position].setVisibility(View.GONE);
-         }
+        if(mActivitiesModel.get(""+position).size()<1){
+            Log.i("TestingRound","Testing123");
+            int ref_Val = airportJSONForText(navigationItems.get(position), position);
+            ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
+            if(modelRow.size() == 0){
+                vp[position].setVisibility(View.GONE);
+                right_arrow[position].setVisibility(View.GONE);
+                left_arrow[position].setVisibility(View.GONE);
+                rel_left_arrow[position].setVisibility(View.GONE);
+                rel_right_arrow[position].setVisibility(View.GONE);
+            }
+            else{
+                vp[position].setVisibility(View.VISIBLE);
+                right_arrow[position].setVisibility(View.VISIBLE);
+                left_arrow[position].setVisibility(View.VISIBLE);
+                rel_left_arrow[position].setVisibility(View.GONE);
+                rel_right_arrow[position].setVisibility(View.GONE);
+            }
 
 
 
@@ -220,25 +220,25 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 //             }
 //         });
 
-     }else{
-        // mViewPagerAdapter[position] = new ViewPagerAdapter(mActivitiesModel.get(""+position));
-        // vp[position].setAdapter(mViewPagerAdapter[position]);
-        // for(int index=0;index<navigationItems.size();index++) {
-          //   if(mViewPagerAdapter[index]!=null) {
-                //mViewPagerAdapter[position].notifyDataSetChanged();
-                // vp[position].setAdapter(mViewPagerAdapter[position]);
+        }else{
+            // mViewPagerAdapter[position] = new ViewPagerAdapter(mActivitiesModel.get(""+position));
+            // vp[position].setAdapter(mViewPagerAdapter[position]);
+            // for(int index=0;index<navigationItems.size();index++) {
+            //   if(mViewPagerAdapter[index]!=null) {
+            //mViewPagerAdapter[position].notifyDataSetChanged();
+            // vp[position].setAdapter(mViewPagerAdapter[position]);
             // }
 //             if (mPagerPositions.get(position) != null)
 //                 vp[position].setCurrentItem(mPagerPositions.get(position));
-         //}
-     }
+            //}
+        }
 
         //Log.i("PageSelection" , "PageSelection" + position);
 
-       // vp[position].setTag(position);
+        // vp[position].setTag(position);
 
 
-       // if(mViewPagerAdapter[position]==null)
+        // if(mViewPagerAdapter[position]==null)
 
 //        Integer pagerPosition = mPagerPositions.get(position);
 //        if (pagerPosition != null) {
@@ -291,35 +291,35 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
                     ArrayList activitiesList=new ArrayList();
-                        for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
-                            JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
+                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+                        JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
 
-                            ActivitiesModel activities_model = new ActivitiesModel();
+                        ActivitiesModel activities_model = new ActivitiesModel();
 
-                            activities_model.setId(jsonarr.getInt("Id"));
-                            activities_model.setTitle(jsonarr.getString("Title"));
-                            activities_model.setCost(jsonarr.getInt("Cost"));
-                            activities_model.setHotel_Id(jsonarr.getString("Hotel_Id"));
-                            activities_model.setMarkup(jsonarr.getInt("Markup"));
-                            activities_model.setDisplay(jsonarr.getInt("Display"));
-                            activities_model.setStatus(jsonarr.getInt("Status"));
-                            activities_model.setRegion_Id(jsonarr.getString("Region_Id"));
-                            activities_model.setDestination_Id(jsonarr.getInt("Destination_Id"));
-                            activities_model.setCompany_Id(jsonarr.getString("Company_Id"));
-                            activities_model.setDay(jsonarr.getString("Day"));
-                            activities_model.setDuration(jsonarr.getString("Duration"));
-                            activities_model.setImage(jsonarr.getString("Image"));
-                            activities_model.setFlag(jsonarr.getInt("Flag"));
-                            activities_model.setDescription(jsonarr.getString("Description"));
-                            activities_model.setNot_Available_Month(jsonarr.getString("Not_Available_Month"));
-                            activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));
-                            activities_model.setDestination_Id_From(jsonarr.getString("Destination_Id_From"));
-                            activities_model.setBookable(jsonarr.getString("Bookable"));
-                           if (response.getJSONArray("payload").length() != 0)
+                        activities_model.setId(jsonarr.getInt("Id"));
+                        activities_model.setTitle(jsonarr.getString("Title"));
+                        activities_model.setCost(jsonarr.getInt("Cost"));
+                        activities_model.setHotel_Id(jsonarr.getString("Hotel_Id"));
+                        activities_model.setMarkup(jsonarr.getInt("Markup"));
+                        activities_model.setDisplay(jsonarr.getInt("Display"));
+                        activities_model.setStatus(jsonarr.getInt("Status"));
+                        activities_model.setRegion_Id(jsonarr.getString("Region_Id"));
+                        activities_model.setDestination_Id(jsonarr.getInt("Destination_Id"));
+                        activities_model.setCompany_Id(jsonarr.getString("Company_Id"));
+                        activities_model.setDay(jsonarr.getString("Day"));
+                        activities_model.setDuration(jsonarr.getString("Duration"));
+                        activities_model.setImage(jsonarr.getString("Image"));
+                        activities_model.setFlag(jsonarr.getInt("Flag"));
+                        activities_model.setDescription(jsonarr.getString("Description"));
+                        activities_model.setNot_Available_Month(jsonarr.getString("Not_Available_Month"));
+                        activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));
+                        activities_model.setDestination_Id_From(jsonarr.getString("Destination_Id_From"));
+                        activities_model.setBookable(jsonarr.getString("Bookable"));
+                        if (response.getJSONArray("payload").length() != 0)
                             activitiesList.add(activities_model);
-                        }
-                   // if(refresh_val != 0)
-                   mActivitiesModel.put(position+"",activitiesList);
+                    }
+                    // if(refresh_val != 0)
+                    mActivitiesModel.put(position+"",activitiesList);
                     ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
                     if(modelRow.size() == 0){
                         vp[position].setVisibility(View.GONE);
@@ -338,13 +338,13 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                         rel_right_arrow[position].setVisibility(View.VISIBLE);
                     }
                     //// else {
-                        //vp[position].setVisibility(View.GONE);
-                        //listvw will crash below code used here
-                        //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
-                        //activitiesList.remove(position);
-                        //listViewPagerAdapter.remove(""+0);
-                        //listViewPagerAdapter.notifyDataSetChanged();
-                   // }
+                    //vp[position].setVisibility(View.GONE);
+                    //listvw will crash below code used here
+                    //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
+                    //activitiesList.remove(position);
+                    //listViewPagerAdapter.remove(""+0);
+                    //listViewPagerAdapter.notifyDataSetChanged();
+                    // }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -371,13 +371,13 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                 // For ServerError 5xx, you can do retry or handle accordingly.
                 if( error instanceof NetworkError) {
 
-                   // pDialog.hide();
+                    // pDialog.hide();
                     Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if( error instanceof ServerError) {
                 } else if( error instanceof AuthFailureError) {
                 } else if( error instanceof ParseError) {
                 } else if( error instanceof NoConnectionError) {
-                   // pDialog.hide();
+                    // pDialog.hide();
                     Toast.makeText(context, "No Internet Connection" ,Toast.LENGTH_LONG).show();
                 } else if( error instanceof TimeoutError) {
                 }
@@ -407,7 +407,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         @Override
         public void onClick(View view) {
 
-          Log.e("Pager position ", "parent " + postionClicked + "child position " + mPagerPositions.get(postionClicked) + "Viewpager.Currentpostion" +vp[postionClicked].getCurrentItem());
+            Log.e("Pager position ", "parent " + postionClicked + "child position " + mPagerPositions.get(postionClicked) + "Viewpager.Currentpostion" +vp[postionClicked].getCurrentItem());
             vp[postionClicked].getCurrentItem();
 
         }
@@ -436,9 +436,9 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         }
     }
 
-     interface pagerCheckBoxChangedListner{
+    interface pagerCheckBoxChangedListner{
         public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked);
-         public  void OnImageClickListenerCustomPager(int childpostion);
+        public  void OnImageClickListenerCustomPager(int childpostion);
     }
 
 
@@ -468,7 +468,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         @Override
         public void OnImageClickListenerCustomPager(int childpostion) {
             ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get(""+groupPosition);
-           // listViewPagerAdapter.notifyDataSetChanged();
+            // listViewPagerAdapter.notifyDataSetChanged();
             //Log.i("PagerView Clicked",groupPosition+"Clicked"+childpostion+ " Check "+  modelRow.get(childpostion).getHotel_Name());
         }
     }

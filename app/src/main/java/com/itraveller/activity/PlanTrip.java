@@ -5,10 +5,12 @@ package com.itraveller.activity;
  */
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,35 +23,39 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import com.itraveller.R;
 import com.itraveller.constant.Utility;
 import com.itraveller.dragsort.DragAndSort;
 import com.itraveller.volley.AppController;
+import com.squareup.timessquare.CalendarPickerView;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+
 
 
 public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
+    SharedPreferences prefs;
     Toolbar mToolbar;// Declaring the Toolbar Object
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     Context context;
     ImageButton adult_plus, adult_minus, children_plus, children_minus, child_plus, child_minus, bady_plus, bady_minus;
     Button adult_btn, children_btn, child_btn, baby_btn;
     int var_adult = 2, var_children = 0, var_child = 0, var_baby = 0;
-    private int myear;
-    private int mmonth;
-    private int mday;
     Date d;
     Button travelDate;
+    Calendar nextYear;
+    int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +65,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Travel Data");
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,11 +93,21 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         final int dep_port = bundle.getInt("DeparturePort");
         final int itinerary_id = bundle.getInt("ItineraryID");
 
+        prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         //Calander
         Calendar c = Calendar.getInstance();
+        if((""+prefs.getString("FlightBit", null)).equals("1"))
+            c.add(Calendar.DAY_OF_YEAR,1);
+        else
+            c.add(Calendar.DAY_OF_YEAR,7);
+
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+
 
         adult_plus = (ImageButton) findViewById(R.id.adultplus);
         adult_plus.setOnClickListener(this);
@@ -144,45 +157,334 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
                 }
 
-                //Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy", "yyyy-MM-dd"));
+                Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy", "yyyy-MM-dd"));
                 Log.i("StartDate", "Date :" + Utility.addDays(travelDate.getText().toString(), 0,"dd-MM-yyyy", "dd-MM-yyyy"));
 
                 editor.putString("DefaultDate", "" + Utility.addDays(travelDate.getText().toString(), 0,"dd-MM-yyyy", "dd-MM-yyyy"));
                 editor.putString("TravelDate", "" + Utility.addDays(travelDate.getText().toString(), 0, "dd-MM-yyyy","yyyy-MM-dd"));
-                //editor.putString("EndDate", Utility.addDays(travelDate.getText().toString(), duration - 1,"dd-MM-yyyy","yyyy-MM-dd"));
+                editor.putString("EndDate", Utility.addDays(travelDate.getText().toString(), duration - 1, "dd-MM-yyyy", "yyyy-MM-dd"));
 
                 editor.commit();
 
-                final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
-                i.putExtra("Image", imageurl);
-                i.putExtra("Duration", duration);
-                i.putExtra("Title", title);
-                i.putExtra("Destinations", destination_value);
-                i.putExtra("DestinationsID", destination_value_id);
-                i.putExtra("DestinationsCount", destination_value_count);
-                i.putExtra("ArrivalPort", arrival_port);
-                i.putExtra("DeparturePort", dep_port);
-                i.putExtra("RegionID", region_id);
-                startActivity(i);
+
+                if( (Integer.parseInt(adult_btn.getText().toString())!=0) ) {
+                    final Intent i = new Intent(PlanTrip.this, DragAndSort.class);
+                    i.putExtra("Image", imageurl);
+                    i.putExtra("Duration", duration);
+                    i.putExtra("Title", title);
+                    i.putExtra("Destinations", destination_value);
+                    i.putExtra("DestinationsID", destination_value_id);
+                    i.putExtra("DestinationsCount", destination_value_count);
+                    i.putExtra("ArrivalPort", arrival_port);
+                    i.putExtra("DeparturePort", dep_port);
+                    i.putExtra("RegionID", region_id);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Atleast One adult should be there", Toast.LENGTH_LONG).show();
+                }
             }
         });
+
         travelDate = (Button) findViewById(R.id.travel_date);
         travelDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
         travelDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                DialogFragment picker = new DatePicker();
-                picker.show(PlanTrip.this.getFragmentManager(), "datePicker");
+
+        /*        final Dialog dialog = new Dialog(PlanTrip.this);
+                dialog.setContentView(R.layout.time_square_calendar);
+                dialog.setTitle("Select Date...");
+
+                final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+                final Date today = new Date();
+                Log.d("Today", "" + calendar);
+                calendar.init(today, nextYear.getTime())
+                        .withSelectedDate(today);
+                //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+                cancelButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String date_=""+calendar.getSelectedDate();
+                        String date_arr[]=date_.split(" ");
+                        int day=Integer.parseInt(date_arr[2]);
+                        String day_str=String.valueOf(day);
+                        int month = 0;
+                        switch(date_arr[1])
+                        {
+                            case "Jan":
+                                month=1;
+                                break;
+                            case "Feb":
+                                month=2;
+                                break;
+                            case "Mar":
+                                month=3;
+                                break;
+                            case "Apr":
+                                month=4;
+                                break;
+                            case "May":
+                                month=5;
+                                break;
+                            case "Jun":
+                                month=6;
+                                break;
+                            case "Jul":
+                                month=7;
+                                break;
+                            case "Aug":
+                                month=8;
+                                break;
+                            case "Sep":
+                                month=9;
+                                break;
+                            case "Oct":
+                                month=10;
+                                break;
+                            case "Nov":
+                                month=11;
+                                break;
+                            case "Dec":
+                                month=12;
+                                break;
+                        }
+                        String month_str=String.valueOf(month);
+
+                        travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+
+         */   if(count==0) {
+                    function1();
+                    count++;
+                }else
+                    function2();
+
             }
         });
+    }
+
+
+    public void function1()
+    {
+        final Dialog dialog = new Dialog(PlanTrip.this);
+        dialog.setContentView(R.layout.time_square_calendar);
+        dialog.setTitle("Select Date...");
+
+        final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+        final Date today = new Date();
+        Log.d("Today", "" + today);
+        Date temp;
+        if((""+prefs.getString("FlightBit",null)).equals("1"))
+            temp=new Date(today.getTime() +86400000L );
+        else
+            temp=new Date(today.getTime()+604800000L);
+
+        calendar.init(temp, nextYear.getTime())
+                .withSelectedDate(temp);
+        //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date_=""+calendar.getSelectedDate();
+                String date_arr[]=date_.split(" ");
+                int day=Integer.parseInt(date_arr[2]);
+                String day_str=String.valueOf(day);
+                int month = 0;
+                switch(date_arr[1])
+                {
+                    case "Jan":
+                        month=1;
+                        break;
+                    case "Feb":
+                        month=2;
+                        break;
+                    case "Mar":
+                        month=3;
+                        break;
+                    case "Apr":
+                        month=4;
+                        break;
+                    case "May":
+                        month=5;
+                        break;
+                    case "Jun":
+                        month=6;
+                        break;
+                    case "Jul":
+                        month=7;
+                        break;
+                    case "Aug":
+                        month=8;
+                        break;
+                    case "Sep":
+                        month=9;
+                        break;
+                    case "Oct":
+                        month=10;
+                        break;
+                    case "Nov":
+                        month=11;
+                        break;
+                    case "Dec":
+                        month=12;
+                        break;
+                }
+                String month_str=String.valueOf(month);
+
+                travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+
+    public Date getDate(String str)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateInString = str;
+        Date date = null;
+        try {
+            date = sdf.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("Date is",""+date);
+        return date;
+    }
+    public void function2()
+    {
+
+
+        final Dialog dialog = new Dialog(PlanTrip.this);
+        dialog.setContentView(R.layout.time_square_calendar);
+        dialog.setTitle("Select Date...");
+
+        final CalendarPickerView calendar = (CalendarPickerView) dialog.findViewById(R.id.calendar_view_);
+        final Date today = new Date();
+
+        String str=travelDate.getText().toString();
+        Log.d("Today2",""+str);
+        Date temp=getDate(str);
+
+        Date temp1;
+
+        if((""+prefs.getString("FlightBit",null)).equals("1"))
+            temp1=new Date(today.getTime() + 86400000L);
+        else
+            temp1=new Date(today.getTime()+604800000L);
+
+
+        Log.d("Today1", "" + calendar);
+        calendar.init(temp1, nextYear.getTime())
+                .withSelectedDate(temp);
+        //            .inMode(CalendarPickerView.SelectionMode.RANGE);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        Button cancelButton=(Button) dialog.findViewById(R.id.dialogButtonCancel);
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date_=""+calendar.getSelectedDate();
+                String date_arr[]=date_.split(" ");
+                int day=Integer.parseInt(date_arr[2]);
+                String day_str=String.valueOf(day);
+                int month = 0;
+                switch(date_arr[1])
+                {
+                    case "Jan":
+                        month=1;
+                        break;
+                    case "Feb":
+                        month=2;
+                        break;
+                    case "Mar":
+                        month=3;
+                        break;
+                    case "Apr":
+                        month=4;
+                        break;
+                    case "May":
+                        month=5;
+                        break;
+                    case "Jun":
+                        month=6;
+                        break;
+                    case "Jul":
+                        month=7;
+                        break;
+                    case "Aug":
+                        month=8;
+                        break;
+                    case "Sep":
+                        month=9;
+                        break;
+                    case "Oct":
+                        month=10;
+                        break;
+                    case "Nov":
+                        month=11;
+                        break;
+                    case "Dec":
+                        month=12;
+                        break;
+                }
+                String month_str=String.valueOf(month);
+
+                travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     @Override
     public void onClick(View view) {
         Log.i("ClickTest", "" + view);
         if (view == adult_plus) {
+            if(var_adult < 50)
             var_adult++;
             adult_btn.setText("" + var_adult);
         } else if (view == adult_minus) {
@@ -190,6 +492,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_adult--;
             adult_btn.setText("" + var_adult);
         } else if (view == children_plus) {
+            if(var_children < 50)
             var_children++;
             children_btn.setText("" + var_children);
         } else if (view == children_minus) {
@@ -197,6 +500,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_children--;
             children_btn.setText("" + var_children);
         } else if (view == child_plus) {
+            if(var_child < 20)
             var_child++;
             child_btn.setText("" + var_child);
         } else if (view == child_minus) {
@@ -204,6 +508,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_child--;
             child_btn.setText("" + var_child);
         } else if (view == bady_plus) {
+            if(var_baby < 20)
             var_baby++;
             baby_btn.setText("" + var_baby);
         } else if (view == bady_minus) {
@@ -215,92 +520,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
     }
 
-
-   /* @SuppressLint("ValidFragment")
-    public class DatePickerFrom extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            final Calendar c = Calendar.getInstance();
-            myear = c.get(Calendar.YEAR);
-            mmonth = c.get(Calendar.MONTH);
-            mday = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog _date = new DatePickerDialog(getActivity(), this,
-                    myear, mmonth, mday) {
-                public void onDateChanged(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                    if (year < myear)
-                        view.updateDate(myear, mmonth, mday);
-
-                    if (monthOfYear < mmonth && year == myear)
-                        view.updateDate(myear, mmonth, mday);
-
-                    if (dayOfMonth < mday && year == myear
-                            && monthOfYear == mmonth)
-                        view.updateDate(myear, mmonth, mday);
-                }
-            };
-            return _date;
-        }
-
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            myear = yy;
-            mmonth = mm;
-            mday = dd;
-            travelDate.setText(dd + "-" + (mm + 1) + "-" + yy);
-        }
-
-    }*/
-
-    // ***************************************************************************************************//
-    // *********************************************DATE PICKER*******************************************//
-    // ***************************************************************************************************//
-
-    @SuppressLint("ValidFragment")
-    public class DatePicker extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            final Calendar c = Calendar.getInstance();
-            myear = c.get(Calendar.YEAR);
-            mmonth = c.get(Calendar.MONTH);
-            mday = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog _date = new DatePickerDialog(getActivity(), this,
-                    myear, mmonth, mday) {
-                public void onDateChanged(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                    if (year < myear)
-                        updateDate(myear, mmonth, mday);
-
-                    if (monthOfYear < mmonth && year == myear)
-                        updateDate(myear, mmonth, mday);
-
-                    if (dayOfMonth < mday && year == myear
-                            && monthOfYear == mmonth)
-                        updateDate(myear, mmonth, mday);
-                }
-            };
-            final Calendar cc = Calendar.getInstance();
-            cc.get(Calendar.YEAR);
-            cc.get(Calendar.MONTH);
-            cc.get(Calendar.DAY_OF_MONTH);
-            return _date;
-        }
-
-        @Override
-        public void onDateSet(android.widget.DatePicker datePicker, int yy, int mm, int dd) {
-            myear = yy;
-            mmonth = mm;
-            mday = dd;
-            travelDate.setText(dd + "-" + (mm + 1) + "-" + yy);
-        }
-    }
 
     public void onBackPressed() {
         finish();

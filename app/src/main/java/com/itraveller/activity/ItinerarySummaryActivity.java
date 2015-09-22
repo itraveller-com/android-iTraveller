@@ -3,13 +3,14 @@ package com.itraveller.activity;
 /**
  * Created by VNK on 8/15/2015.
  */
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,36 +18,52 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.constant.Utility;
+import com.itraveller.map.DirectionsJSONParser;
 import com.itraveller.volley.AppController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
-import static com.itraveller.R.id.LinearLayout1;
-import static com.itraveller.R.id.btn_confirm_payment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class ItinerarySummaryActivity extends ActionBarActivity {
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
 
+    String source_str="";
+    String destination_arr[];
+
+    GoogleMap map;
+    ArrayList<LatLng> markerPoints;
+
+
     private Toolbar mToolbar; // Declaring the Toolbar Object
-    String onward_flight_rate="";
-    String return_flight_rate="";
+    String onward_flight_rate = "";
+    String return_flight_rate = "";
     int flight_rate = 0;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
@@ -76,30 +93,150 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         TextView tohome = (TextView) findViewById(R.id.to_home);
         TextView transportationname = (TextView) findViewById(R.id.transportation);
 
+        final SharedPreferences preferencess = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+
         Button confirm = (Button) findViewById(R.id.to_payment);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
-                startActivity(in);
+                if (preferencess.getInt("flag", 0) == 1) {
+                    Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
+                    startActivity(in);
+                } else {
+                    LoginFragment_Before_Payment fragment = new LoginFragment_Before_Payment();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(android.R.id.content, fragment).commit();
+
+                }
             }
         });
-
-
+        
         int TotalCountDays = 0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
-        fromhome.setText(""+prefs.getString("ArrivalAirportString", null));
-        totravel.setText(""+prefs.getString("DeparturePortString", null));
-        fromtravel.setText(""+prefs.getString("ArrivalPortString", null));
-        tohome.setText(""+prefs.getString("DepartureAirportString", null));
-        transportationname.setText(""+prefs.getString("TransportationName", null));
-        String travel_date = ""+prefs.getString("TravelDate", null);
+        fromhome.setText("" + prefs.getString("ArrivalAirportString", null));
+        totravel.setText("" + prefs.getString("DeparturePortString", null));
+        fromtravel.setText("" + prefs.getString("ArrivalPortString", null));
+        tohome.setText("" + prefs.getString("DepartureAirportString", null));
+        transportationname.setText("" + prefs.getString("TransportationName", null));
+        String travel_date = "" + prefs.getString("TravelDate", null);
 
-        Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+
+        // Initializing
+        markerPoints = new ArrayList<LatLng>();
+
+        // Getting reference to SupportMapFragment of the activity_main
+        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+
+        // Getting Map for the SupportMapFragment
+        map = fm.getMap();
+
+
+
+
+        if(map!=null) {
+
+            map.clear();
+
+            System.gc();
+            map.clear();
+            // Enable MyLocation Button in the Map
+            map.setMyLocationEnabled(true);
+
+            String source = "" + prefs.getString("DeparturePortString", null);
+
+
+            Log.d("Test finally 2", "" + source);
+
+/*            String source_arr[];
+            if(source.contains(" ")) {
+                source_arr = source.split(" ");
+
+                for(int i=0;i<source_arr.length;i++)
+                source_str+=""+source_arr[i];
+            }
+*/
+            source = source.replace(" ", "");
+            //   Log.d("Test finally 4",""+source_str);
+            String destination = "" + prefs.getString("DestinationName", null);
+            Log.d("Test finally 3", "" + destination);
+
+
+
+
+            if (destination.contains(",")) {
+            String destination_arr_temp[] = destination.split(",");
+                Log.d("Test finally 9",""+destination_arr_temp.length);
+                destination_arr = new String[destination_arr_temp.length];
+                destination_arr=destination.split(",");
+
+            }else {
+                destination_arr=new String[1];
+                destination_arr[0] = "" + destination;
+
+            }String dest;
+            Log.d("Test finally 6",""+destination_arr.length);
+
+            Log.d("Test finally 3",""+destination);
+            String dest_arr_temp[];
+            for(int i=0;i<destination_arr.length;i++) {
+                if (!destination_arr[i].equals(null)) {
+                    destination_arr[i] = destination_arr[i].replace(" ", "");
+                    Log.d("Test finally 5", "" + destination_arr[i]);
+
+                }
+                else
+                {
+                    break;
+                }
+                Log.d("Test finally 7",""+i);
+            }
+
+            // Getting URL to the Google Directions API
+
+            String url="https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination_arr[0];
+            //String url ="https://maps.googleapis.com/maps/api/directions/json?origin=Bengaluru&destination=Mumbai";
+            if(source.contains(" "))
+            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
+
+            DownloadTask downloadTask = new DownloadTask();
+
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+
+            if(destination_arr.length>1) {
+                for (int var = 0; var < destination_arr.length - 1; var++) {
+                    if(destination_arr[var].equals("Katra") )
+                        destination_arr[var]=destination_arr[var].replace("Katra","KatraJammu");
+                    if(destination_arr[var+1].equals("Katra"))
+                        destination_arr[var+1]=destination_arr[var+1].replace("Katra","KatraJammu");
+                    String url1 = "https://maps.googleapis.com/maps/api/directions/json?origin=" + destination_arr[var] + "&destination=" + destination_arr[var + 1];
+
+                    Log.d("Test finally1", "https://maps.googleapis.com/maps/api/directions/json?origin=" + destination_arr[var] + "&destination=" + destination_arr[var+1]);
+                    DownloadTask downloadTask2 = new DownloadTask();
+
+                    downloadTask2.execute(url1);
+                }
+            }
+
+            //        String url2="https://maps.googleapis.com/maps/api/directions/json?origin="+destination_arr[destination_arr.length-1]+"&destination="+source_arr[0];
+
+            //        DownloadTask downloadTask3=new DownloadTask();
+            //            downloadTask3.execute(url2);
+
+        }
+
+
+
+
+
+        //String HotelData = prefs.getString("HotelRooms",null);
+        //String[] HotelDataArray = HotelData.trim().split("-");
+        //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
         String Hotels = prefs.getString("Hotels", null);
         String DayCount = prefs.getString("DestinationCount", null);
         String[] deatination_day_count = DayCount.trim().split(",");
-       // Array
+        // Array
         for (int x = 0; x < deatination_day_count.length; x++) {
             TotalCountDays = TotalCountDays + Integer.parseInt(deatination_day_count[x]);
         }
@@ -112,6 +249,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         //Log.i("Hoteldataaaaaa","AP"+ Arrival_port);
         String Departure_port = prefs.getString("DeparturePort", null);
 
+
+
         int Mat_count = 0;
         for (int index = 0; index < (destination_name.length + 2); index++) {
             //Log.i("DestinationMat",deatination_day_count[index]);
@@ -120,13 +259,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             } else if (index == (destination_name.length + 1)) {
                 Mat_Destination.add(Departure_port);
             } else {
-                for(int j = 0; j< (Integer.parseInt(deatination_day_count[Mat_count]) + 1); j++) {
+                for (int j = 0; j < (Integer.parseInt(deatination_day_count[Mat_count]) + 1); j++) {
                     Mat_Destination.add(destination_name[Mat_count]);
                 }
                 Mat_count++;
             }
         }
-        for(int i = 0 ; i < Mat_Destination.size(); i++){
+        for (int i = 0; i < Mat_Destination.size(); i++) {
             Log.i("DestinationName_Mat", Mat_Destination.get(i));
 
         }
@@ -139,12 +278,12 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         String[] ActivitiesDay = ActivitiesData.trim().split("/");
 
         String[] activities_val = new String[ActivitiesDay.length];
-        for(int index=0;index <ActivitiesDay.length; index++){
-            String activities_title = "0";
+        for (int index = 0; index < ActivitiesDay.length; index++) {
+            String activities_title = "";
             int count_bit = 0;
             String[] different_activities = ActivitiesDay[index].trim().split(":");
-            for(int i = 0; i< different_activities.length ;i++){
-                if(!different_activities[i].equalsIgnoreCase("")) {
+            for (int i = 0; i < different_activities.length; i++) {
+                if (!different_activities[i].equalsIgnoreCase("")) {
                     String[] activities_ = different_activities[i].trim().split(",");
                     if (count_bit == 0) {
                         activities_title = activities_[2];
@@ -154,18 +293,20 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     }
                 }
             }
-            activities_val[index] = ""+activities_title;
+            activities_val[index] = "" + activities_title;
         }
 
         int count = 0;
         for (int i = 0; i < HotelsArray.length; i++) {
 
-                for (int j = 0; j < Integer.parseInt(deatination_day_count[i]); j++) {
-                    String[] hotels_Data = HotelsArray[i].trim().split(",");
+            for (int j = 0; j < Integer.parseInt(deatination_day_count[i]); j++) {
+                String[] hotels_Data = HotelsArray[i].trim().split(",");
 
-                    View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
+                View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
 
-                    NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+                NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+
+                try {
                     imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
                     TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
                     TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
@@ -173,46 +314,86 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     TextView place_name = (TextView) view.findViewById(R.id.place_name);
                     TextView day_date = (TextView) view.findViewById(R.id.date_day);
                     // Assigning value to  imageview and textview here
+                    //if(HotelsArray.length != i) {
+                    imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
                     hotel_name.setText(hotels_Data[0]);
                     hotel_des.setText(hotels_Data[1]);
-                    day_date.setText("Day " + (count + 1) );
+                    //}
+                    day_date.setText("Day " + (count + 1));
                     place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
                     activities_title_txt.setText(activities_val[count]);
                     count++;
                     main_lay.addView(view);
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                } catch(Exception e){
 
                 }
 
+            }
+
         }
+
+        View view = LayoutInflater.from(this).inflate(R.layout.summary_row, null);
+
+        NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
+        TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
+        TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
+        TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
+        TextView place_name = (TextView) view.findViewById(R.id.place_name);
+        TextView day_date = (TextView) view.findViewById(R.id.date_day);
+        // Assigning value to  imageview and textview here
+
+        imageView.getLayoutParams().height = 80;
+        hotel_name.setText("No Hotels");
+
+        day_date.setText("Day " + (count + 1));
+        place_name.setText("(" + destination_name[(HotelsArray.length - 1)] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
+        activities_title_txt.setText(activities_val[count]);
+        count++;
+        main_lay.addView(view);
+
 
         ///////////////////////////////////////////////////////////////////////////////////
         //////////////////////////Itinerary Email JSON ///////////////////////////////////
+
+        SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         try {
             JSONObject itinerary_obj = new JSONObject();
-            itinerary_obj.put("itineraryId", "2274");
-            itinerary_obj.put("dateOfTravel", "06-07-2015");
-            itinerary_obj.put("adult", 2);
-            itinerary_obj.put("child-above-5", 0);
-            itinerary_obj.put("child-below-5", 0);
-            itinerary_obj.put("infant", 0);
-            itinerary_obj.put("endDate", "08-07-2015");
-            itinerary_obj.put("regionId", "7,13,14");
-            itinerary_obj.put("masterTransportation", 50);
-            itinerary_obj.put("selectedTransportation", 68);
+            itinerary_obj.put("itineraryId", "" + pref.getInt("ItineraryID", 0));
+            itinerary_obj.put("dateOfTravel", "" + pref.getString("TravelDate",null));
+            itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
+            itinerary_obj.put("child-above-5", "" + pref.getString("Children_12_5", "0"));
+            itinerary_obj.put("child-below-5", "" + pref.getString("Children_5_2", "0"));
+            itinerary_obj.put("infant", "" + pref.getString("Children_2_0", "0"));
+            itinerary_obj.put("endDate", "" + pref.getString("EndDate", "0"));
+            itinerary_obj.put("regionId", pref.getString("RegionID", "0"));
+            itinerary_obj.put("masterTransportation",  pref.getString("MasterID", "0"));
+            itinerary_obj.put("selectedTransportation",  pref.getString("TransportationID", "0"));
+
             itinerary_obj.put("travellingFrom", "MUMBAI");
             itinerary_obj.put("arrivalPort", "Cochin International Airport");
             itinerary_obj.put("departurePort", "Cochin International Airport");
             itinerary_obj.put("travelTo", "MUMBAI");
-            itinerary_obj.put("flight", "International");
+            if(Integer.parseInt(pref.getString("FlightBit", "0")) == 0){
+
+            itinerary_obj.put("flight", "International");}
+            else{
+                itinerary_obj.put("flight", "Domestic");
+            }
 
             JSONArray destination_id = new JSONArray();
             JSONArray destination_name_arr = new JSONArray();
             JSONArray night_arr = new JSONArray();
 
-            for(int i = 0 ; i <3 ; i++){
-                destination_id.put("101");
-                destination_name_arr.put("Alleppey-Houseboats");
-                night_arr.put("2");
+            String[] des_id = pref.getString("DestinationID", "0").trim().split(",");
+            String[] des_name = pref.getString("DestinationName", "0").trim().split(",");
+            String[] des_count = pref.getString("DestinationCount", "0").trim().split(",");
+
+            for(int i = 0 ; i <des_count.length ; i++){
+                destination_id.put("" + des_id[i]);
+                destination_name_arr.put("" + des_name[i]);
+                night_arr.put("" + des_count[i]);
             }
 
             itinerary_obj.put("destination" , destination_id);
@@ -222,6 +403,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             JSONObject itinerary_hotel_obj = new JSONObject();
             JSONArray hotel_date = new JSONArray();
             JSONObject hotel_date_obj = new JSONObject();
+
+            pref.getString("Hotels", "0");
+//            pref.getStringSet("HotelRooms", null);
+            pref.getString("ItineraryHotelRooms", "0");
 
             for(int j = 0 ; j < 3 ; j++)
             {
@@ -240,11 +425,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             }
             itinerary_obj.put("hotels", hotel_date);
 
+            pref.getStringSet("ActivitiesData", null);
+            pref.getString("ActivitiesDataString", "0");
 
             JSONArray activites_date = new JSONArray();
             JSONObject activites_date_obj = new JSONObject();
 
-            for(int k=0;k<3;k++){
+        for(int k=0;k<3;k++){
                 JSONArray itinerary_activites = new JSONArray();
                 for(int l =0 ;l<2;l++){
                     itinerary_activites.put("1254");
@@ -329,7 +516,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 flight.put("key", "");
                 JSONArray flight_onward_arr =new JSONArray();
                 for(int i=0 ; i<2; i++){
-                 JSONObject flightonward = new JSONObject();
+                    JSONObject flightonward = new JSONObject();
                     flightonward.put("AirEquipType","");
                     flightonward.put("ArrivalAirportCode","");
                     flightonward.put("ArrivalAirportName","");
@@ -354,7 +541,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                     flightonward.put("StartTerminal","");
                     flightonward.put("EndTerminal","");
                     flight_onward_arr.put(flightonward);
-                    }
+                }
                 flight.put("onward",flight_onward_arr);
                 JSONArray flight_return_arr =new JSONArray();
                 for(int j=0 ; j<2; j++){
@@ -400,6 +587,155 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
     }
 
+    /** A method to download json data from url */
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try{
+            URL url = new URL(strUrl);
+
+            // Creating an http connection to communicate with url
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Connecting to url
+            urlConnection.connect();
+
+            // Reading data from url
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while( ( line = br.readLine()) != null){
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+
+        }catch(Exception e){
+            Log.d("Exception while downloading url", e.toString());
+        }finally{
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+    // Fetches data from url passed
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        // Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
+
+            // For storing data from web service
+            String data = "";
+
+            Log.d("URL first",""+url[0]);
+            try{
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+            }catch(Exception e){
+                Log.d("Background Task",e.toString());
+            }
+            return data;
+        }
+
+        // Executes in UI thread, after the execution of
+        // doInBackground()
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+        }
+    }
+
+    /** A class to parse the Google Places in JSON format */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> > {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try{
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                // Starts parsing data
+                routes = parser.parse(jObject);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+            MarkerOptions markerOptions = new MarkerOptions();
+            ArrayList<LatLng> position=new ArrayList<>();
+            //    LatLng position = null;
+            // Traversing through all the routes
+            for(int i=0;i<result.size();i++){
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
+
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
+
+                // Fetching all the points in i-th route
+                for(int j=0;j<path.size();j++){
+                    HashMap<String,String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    //    position = new LatLng(lat, lng);
+
+                    position.add(new LatLng(lat, lng));
+
+
+//                    points.add(position.get(i));
+                }
+
+                points.addAll(position);
+//                markerOptions.position(position);
+//                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+
+                map.addMarker(new MarkerOptions().position(position.get(0)).title("Source"));
+                map.addMarker((new MarkerOptions().position(position.get(position.size()-1))).title("Destination"));
+
+
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(5);
+                lineOptions.color(Color.BLUE);
+            }
+
+            // Drawing polyline in the Google Map for the i-th route
+//            map.addMarker(markerOptions);
+            map.addPolyline(lineOptions);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position.get(0),3));
+            map.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+
+        }
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -415,6 +751,27 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed()
+    {
+        SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+
+        Log.d("Skip bit testing",""+preferences.getInt("Skip_Flight_Bit",0));
+        if(preferences.getInt("Skip_Flight_Bit",0)==1)
+        {
+            Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));
+            if((""+prefs.getString("FlightBit",null)).equals("1"))
+            {
+                FlightDomesticActivity.fda.finish();
+            }
+            else
+            {
+                FlightActivity.fa.finish();
+            }
+        }
+        finish();
     }
 }
 

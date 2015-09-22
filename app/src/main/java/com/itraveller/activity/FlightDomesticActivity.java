@@ -4,6 +4,7 @@ package com.itraveller.activity;
  * Created by VNK on 6/11/2015.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,12 +41,15 @@ import org.xml.sax.InputSource;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.itraveller.R;
 import com.itraveller.adapter.FlightViewPagerAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.constant.CustomLoading;
 import com.itraveller.model.FlightModel;
 import com.itraveller.model.OnwardDomesticFlightModel;
@@ -55,9 +59,11 @@ import com.itraveller.volley.AppController;
 
 
 public class FlightDomesticActivity extends ActionBarActivity{
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
+    /* When using Appcombat support library
+       you need to extend Main Activity to ActionBarActivity.*/
+    public static Activity fda;
 
+    int Total_Price;
     private Toolbar mToolbar; // Declaring the Toolbar Object
     private ViewPager pager;
     private FlightViewPagerAdapter adapter = null;
@@ -68,14 +74,16 @@ public class FlightDomesticActivity extends ActionBarActivity{
     Button next;
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.flight_domestic);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.flight_domestic);
         //String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?travelFrom=BOM&arrivalPort=BLR&departDate=2015-08-05&returnDate=2015-08-08e&adults=2&children=0&infants=0&departurePort=BLR&travelTo=BOM";
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Flight");
 
+
+        fda=this;
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,13 +104,20 @@ public class FlightDomesticActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(FlightDomesticActivity.this, ItinerarySummaryActivity.class);
+                SharedPreferences prefs=getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor;
+                editor = prefs.edit();
+                editor.putInt("Skip_Flight_Bit", 0);
+                editor.commit();
                 startActivity(in);
-                finish();
+        //        finish();
                 //FlightReturnDomestic.adapter.
             }
         });
 
-        String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?" +
+
+        //    String url ="http://stage.itraveller.com/backend/api/v1/domesticflight?" +
+        String url= Constants.API_Domestic_Flights+
                 "travelFrom=" + prefs.getString("ArrivalAirport", null) +
                 "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                 "&departDate=" + prefs.getString("TravelDate", null) +
@@ -137,30 +152,30 @@ public class FlightDomesticActivity extends ActionBarActivity{
         tabs.setViewPager(pager);
         xmlparseflight(url);
 
-        }
+    }
 
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            //getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-            //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatement
            /* if (id == R.id.action_settings) {
                 return true;
             }*/
 
-            return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void xmlparseflight(String url)
     {
@@ -204,6 +219,19 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setTPartnerCommission("" + getCharacterDataFromElement((Element) name_fl_8.item(0)));
                             NodeList name_fl_9 = element.getElementsByTagName("TSdiscount");
                             monward.setTSdiscount("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
+
+
+
+                            Total_Price=Integer.parseInt(""+getCharacterDataFromElement((Element) name_fl_1.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_2.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_3.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_4.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_5.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_6.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_7.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_8.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
+
                             //NodeList name_fl_10 = element.getElementsByTagName("ocTax");
                             //mflight.setOcTax("" + getCharacterDataFromElement((Element) name_fl_10.item(0)));
 
@@ -212,21 +240,23 @@ public class FlightDomesticActivity extends ActionBarActivity{
                                 Element element1 = (Element) nodes1.item(i);*/
 
                             NodeList name = element.getElementsByTagName("AirEquipType");
-                            monward.setAirEquipType(""+getCharacterDataFromElement((Element) name.item(0)));
+                            monward.setAirEquipType("" + getCharacterDataFromElement((Element) name.item(0)));
                             NodeList name1 = element.getElementsByTagName("ArrivalAirportCode");
-                            monward.setArrivalAirportCode(""+getCharacterDataFromElement((Element) name1.item(0)));
+                            monward.setArrivalAirportCode("" + getCharacterDataFromElement((Element) name1.item(0)));
                             NodeList name2 = element.getElementsByTagName("airLineName");
                             monward.setOperatingAirlineName("" + getCharacterDataFromElement((Element) name2.item(0)));
                             NodeList name3 = element.getElementsByTagName("ArrivalDateTime");
-                            monward.setArrivalDateTime(""+getCharacterDataFromElement((Element) name3.item(0)));
+                            monward.setArrivalDateTime("" + getCharacterDataFromElement((Element) name3.item(0)));
                             NodeList name4 = element.getElementsByTagName("DepartureAirportCode");
-                            monward.setDepartureAirportCode(""+getCharacterDataFromElement((Element) name4.item(0)));
+                            monward.setDepartureAirportCode("" + getCharacterDataFromElement((Element) name4.item(0)));
                                 /*NodeList name5 = element.getElementsByTagName("DepartureAirportName");
                                 monward.setDepartureAirportName(""+getCharacterDataFromElement((Element) name5.item(0)));*/
                             NodeList name6 = element.getElementsByTagName("DepartureDateTime");
-                            monward.setDepartureDateTime(""+getCharacterDataFromElement((Element) name6.item(0)));
+                            monward.setDepartureDateTime("" + getCharacterDataFromElement((Element) name6.item(0)));
                             NodeList name7 = element.getElementsByTagName("FlightNumber");
                             monward.setFlightNumber(""+getCharacterDataFromElement((Element) name7.item(0)));
+
+                            monward.setTotal_Price(Total_Price);
                                 /*NodeList name8 = element.getElementsByTagName("MarketingAirlineCode");
                                 monward.setMarketingAirlineCode(""+getCharacterDataFromElement((Element) name8.item(0)));
                                 NodeList name9 = element.getElementsByTagName("OperatingAirlineCode");
@@ -241,6 +271,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
                                 monward.setLinkSellAgrmnt(""+getCharacterDataFromElement((Element) name13.item(0)));*/
 
                             onward_domestic_model.add(monward);
+
+                            Collections.sort(onward_domestic_model,new PriceComparison());
                         }
 
 
@@ -273,6 +305,19 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setTPartnerCommission("" + getCharacterDataFromElement((Element) name_fl_8.item(0)));
                             NodeList name_fl_9 = element.getElementsByTagName("TSdiscount");
                             monward.setTSdiscount("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
+
+
+                            Total_Price=Integer.parseInt(""+getCharacterDataFromElement((Element) name_fl_1.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_2.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_3.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_4.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_5.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_6.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_7.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_8.item(0)))+
+                                    Integer.parseInt("" + getCharacterDataFromElement((Element) name_fl_9.item(0)));
+
+
                             //NodeList name_fl_10 = element.getElementsByTagName("ocTax");
                             //mflight.setOcTax("" + getCharacterDataFromElement((Element) name_fl_10.item(0)));
 
@@ -285,7 +330,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             NodeList name1 = element.getElementsByTagName("ArrivalAirportCode");
                             monward.setArrivalAirportCode("" + getCharacterDataFromElement((Element) name1.item(0)));
                             NodeList name2 = element.getElementsByTagName("airLineName");
-                                monward.setOperatingAirlineName(""+getCharacterDataFromElement((Element) name2.item(0)));
+                            monward.setOperatingAirlineName("" + getCharacterDataFromElement((Element) name2.item(0)));
                             NodeList name3 = element.getElementsByTagName("ArrivalDateTime");
                             monward.setArrivalDateTime("" + getCharacterDataFromElement((Element) name3.item(0)));
                             NodeList name4 = element.getElementsByTagName("DepartureAirportCode");
@@ -296,6 +341,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
                             monward.setDepartureDateTime("" + getCharacterDataFromElement((Element) name6.item(0)));
                             NodeList name7 = element.getElementsByTagName("FlightNumber");
                             monward.setFlightNumber("" + getCharacterDataFromElement((Element) name7.item(0)));
+
+                            monward.setTotal_Price(Total_Price);
                                /* NodeList name8 = element.getElementsByTagName("MarketingAirlineCode");
                                 monward.setMarketingAirlineCode(""+getCharacterDataFromElement((Element) name8.item(0)));
                                 NodeList name9 = element.getElementsByTagName("OperatingAirlineCode");
@@ -310,6 +357,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
                                 monward.setLinkSellAgrmnt(""+getCharacterDataFromElement((Element) name13.item(0)));*/
 
                             return_domestic_model.add(monward);
+
+                            Collections.sort(return_domestic_model,new PriceComparisonReturn());
                         }
 
                     }
@@ -363,6 +412,35 @@ public class FlightDomesticActivity extends ActionBarActivity{
         }
         return "";
     }
+
+
+    class PriceComparison implements Comparator<OnwardDomesticFlightModel> {
+
+        @Override
+        public int compare(OnwardDomesticFlightModel o1,OnwardDomesticFlightModel o2) {
+            if(o1.getTotal_Price() > o2.getTotal_Price()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    }
+
+    class PriceComparisonReturn implements Comparator<ReturnDomesticFlightModel> {
+
+        @Override
+        public int compare(ReturnDomesticFlightModel o1,ReturnDomesticFlightModel o2) {
+            if(o1.getTotal_Price() > o2.getTotal_Price()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    }
+
+
 
     public void onBackPressed() {
         finish();

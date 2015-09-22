@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -18,6 +17,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.ArrayList;
 
 import com.itraveller.R;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.volley.AppController;
 
@@ -29,7 +29,9 @@ public class ViewPagerActivitiesAdapter extends PagerAdapter {
 ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     int check_bit=0;
+
     static int temp;
+    public static int temp_id;
     ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
 
     @SuppressLint("NewApi")
@@ -86,19 +88,17 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         try {
 
+            temp_id=arrayModelClasses.get(position).getId();
+            image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
 
+        //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
 
-            image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getTitle());
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");
             else
             cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getCost());
-            time.setText("" + arrayModelClasses.get(position).getDuration() + "HRS");
-
-            //code modified by rohan
-            if(arrayModelClasses.get(position).getDuration().isEmpty() && arrayModelClasses.get(position).getCost()==0)
-                temp=0;
+            time.setText("" + arrayModelClasses.get(position).getDuration() + " HRS");
 
             if(arrayModelClasses.get(position).isChecked()){
                 if(check_bit == 0) {
@@ -110,9 +110,6 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
                 checkBox.setChecked(false);
                 Log.i("CheckedORNot", "Notchecked" + position);
             }
-
-
-
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -138,7 +135,6 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         } catch (Exception e1) {
             // TODO Auto-generated catch block
-            Log.d("Not a vlid data","hi");
             e1.printStackTrace();
         }
         ((ViewPager) collection).addView(view, 0);
