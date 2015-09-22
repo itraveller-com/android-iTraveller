@@ -276,7 +276,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center|bottom"
-        android:text="Next >>"
+        android:text="Price Summary >>"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/style_filterbutton"

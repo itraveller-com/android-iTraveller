@@ -161,6 +161,8 @@ public class LoginFragment extends Fragment {
             mobile_Edittext = (EditText) view.findViewById(R.id.mobile);
             server_loginButton = (Button) view.findViewById(R.id.submit);
 
+
+
             //TextView used as a link to registration form
             link_to_signup = (TextView) view.findViewById(R.id.link_to_register);
 

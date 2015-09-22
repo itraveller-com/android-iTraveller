@@ -320,23 +320,29 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
                 NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.thumbnail);
 
-                imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
-                TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
-                TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
-                TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
-                TextView place_name = (TextView) view.findViewById(R.id.place_name);
-                TextView day_date = (TextView) view.findViewById(R.id.date_day);
-                // Assigning value to  imageview and textview here
-                //if(HotelsArray.length != i) {
-                imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
-                hotel_name.setText(hotels_Data[0]);
-                hotel_des.setText(hotels_Data[1]);
-                //}
-                day_date.setText("Day " + (count + 1));
-                place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
-                activities_title_txt.setText(activities_val[count]);
-                count++;
-                main_lay.addView(view);
+                try {
+                    imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
+                    TextView hotel_name = (TextView) view.findViewById(R.id.hotel_name);
+                    TextView hotel_des = (TextView) view.findViewById(R.id.hotel_des);
+                    TextView activities_title_txt = (TextView) view.findViewById(R.id.activities);
+                    TextView place_name = (TextView) view.findViewById(R.id.place_name);
+                    TextView day_date = (TextView) view.findViewById(R.id.date_day);
+                    // Assigning value to  imageview and textview here
+                    //if(HotelsArray.length != i) {
+                    imageView.setImageUrl("http://stage.itraveller.com/backend/images/hotels/" + hotels_Data[2] + ".jpg", imageLoader);
+                    hotel_name.setText(hotels_Data[0]);
+                    hotel_des.setText(hotels_Data[1]);
+                    //}
+                    day_date.setText("Day " + (count + 1));
+                    place_name.setText("(" + destination_name[i] + ", " + Utility.addDays(travel_date.toString(), count, "yyyy-MM-dd", "dd-MM-yyyy") + ")");
+                    activities_title_txt.setText(activities_val[count]);
+                    count++;
+                    main_lay.addView(view);
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                } catch(Exception e){
+
+                }
 
             }
 

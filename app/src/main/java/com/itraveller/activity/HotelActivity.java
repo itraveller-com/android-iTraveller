@@ -186,6 +186,7 @@ public class  HotelActivity extends ActionBarActivity {
         chk_lunch = (CheckBox) findViewById(R.id.lunch);
         chk_dinner = (CheckBox) findViewById(R.id.dinner);
         pDialog = new ProgressDialog(HotelActivity.this);
+
         pDialog.setMessage("Loading...");
 
         Bundle bundle = getIntent().getExtras();
@@ -675,6 +676,92 @@ public class  HotelActivity extends ActionBarActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.i("DefaultData", "No Lowest hotel :" + depth);
                 error_bit = 1;
+                pDialog.hide();
+                activites.setEnabled(true);
+                // listViewPagerAdapter.add(null);
+                listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
+                    @Override
+                    public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked) {
+                    }
+
+                    @Override
+                    public void OnImageClickListenerCustomPager(final int childpostion, final int groupPosition) {
+                        cposition = childpostion;
+                        gposition = groupPosition;
+                        second.setVisibility(View.VISIBLE);
+                        activites.setVisibility(View.GONE);
+                        lv1.setVisibility(View.GONE);
+                        roomList = new ArrayList<HotelRoomModel>();
+                        listView = (ListView) findViewById(R.id.room_type);
+                        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                        final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+                                /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
+                                String[] meal_plan_data = meal_plan.split(",");
+                                if()
+                                            if(modelRow.get(childpostion).getLunch()!=0)
+                                    {
+                                        chk_lunch.setChecked(true);
+                                    }
+                                    if(modelRow.get(childpostion).getDinner()!=0)
+                                    {
+                                        chk_dinner.setChecked(true);
+                                    }
+                                    chk_lunch.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(chk_lunch.isChecked())
+                                                modelRow.get(childpostion).setLunch(1);
+                                            else
+                                                modelRow.get(childpostion).setLunch(0);
+                                        }
+                                });
+                                chk_dinner.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if(chk_dinner.isChecked())
+                                            modelRow.get(childpostion).setDinner(1);
+                                        else
+                                            modelRow.get(childpostion).setDinner(0);
+                                    }
+                                });*/
+                        adapter = new HotelRoomAdapter(HotelActivity.this, roomList, new RadiobuttonListener() {
+                            @Override
+                            public void RadioChangeListenerCustom(String Value) {
+
+
+                                Log.i("TestPostion",""+ Value);
+                                Log.i("TestPostionGroup",""+groupPosition);
+                                lowesthotelList.set(groupPosition,""+Value);
+                                HotelRoomData[gposition] = Value;
+                                final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
+                                for(int index =0 ; index<modelRow.size();index++) {
+                                    if(index==cposition) {
+                                        modelRow.get(cposition).setChecked(true);
+                                    }
+                                    else {
+                                        modelRow.get(index).setChecked(false);
+                                    }
+                                }
+                                ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                listViewPagerAdapter.notifyDataSetChanged();
+                                //notifyAll();
+                            }
+
+
+                        });
+                        listView.setAdapter(adapter);
+                        //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+                        //modelRow.get(childpostion).
+                        Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
+                        //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                        String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds="+ modelRow.get(childpostion).getHotel_Id() +"&checkInDate=" + destination_date[groupPosition];
+                        Log.i("URLForRooms", "" + groupPosition + " Url :" +url);
+                        hotelRooms(url,destination_date[groupPosition] );
+                        check_bit=1;
+                    }
+                });
+
+                lv1.setAdapter(listViewPagerAdapter);
                 //System.err.println(error);
                 // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
                 // For AuthFailure, you can re login with user credentials.

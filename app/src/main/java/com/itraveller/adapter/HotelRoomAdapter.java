@@ -126,15 +126,14 @@ public class HotelRoomAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-
                 if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
                 }
-
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
                 RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
                 Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
+
             }
         });
 
@@ -149,6 +148,7 @@ public class HotelRoomAdapter extends BaseAdapter {
         holder.radioButton.setChecked(m.getCheck());
         if(m.getCheck())
         {  mSelectedRB = holder.radioButton;
+            mSelectedPosition = position;
         }
 
         return convertView;

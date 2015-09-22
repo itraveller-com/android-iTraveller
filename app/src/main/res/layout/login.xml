@@ -20,7 +20,9 @@
         android:background="@layout/background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="100dp"
