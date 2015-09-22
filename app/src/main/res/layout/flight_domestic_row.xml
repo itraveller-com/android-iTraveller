@@ -11,48 +11,60 @@
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="60dp">
+        android:minHeight="60dp"
+    android:weightSum="1">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radiobtn"
             android:checked="false"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.1"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="421"
             android:id="@+id/name"
-            android:gravity="left|center" />
+            android:gravity="left"
+            android:layout_weight="0.12"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="14:54"
             android:id="@+id/dep"
-            android:textSize="16dp"
-            android:gravity="left|center" />
+            android:textSize="12dp"
+            android:gravity="left"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="0.36"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="15:54"
             android:id="@+id/arr"
-            android:textSize="16dp"
-            android:gravity="left|center" />
+            android:layout_marginLeft="15dp"
+            android:textSize="12dp"
+            android:gravity="left"
+            android:layout_weight="0.32"
+            />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Rs 10,000"
             android:id="@+id/price"
-            android:gravity="center" />
+            android:textSize="14dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_weight="0.1"/>
 
 
     </TableRow>

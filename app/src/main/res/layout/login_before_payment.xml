@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView1"
@@ -19,7 +19,8 @@
         android:layout_weight="0.83"
         android:background="@layout/background"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="100dp"
@@ -49,7 +50,7 @@
             android:hint="Mobile Number"
             android:inputType="number"
             android:singleLine="true"
-            android:maxLength="10"
+            android:maxLength="15"
             android:id="@+id/mobile"
             android:paddingLeft="8dp"
             android:textColor="@color/orange"
@@ -112,7 +113,7 @@
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:textSize="16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -121,10 +122,11 @@
             android:layout_gravity="center_horizontal"
             facebook:com_facebook_confirm_logout="false"
             facebook:com_facebook_tooltip_mode="never_display"
-            />
+            android:layout_weight="0.10" />
+
 
 
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

@@ -4,14 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -41,6 +48,7 @@ import com.itraveller.R;
 import com.itraveller.adapter.TransportationAdapter;
 import com.itraveller.constant.Constants;
 import com.itraveller.model.OnwardDomesticFlightModel;
+import com.itraveller.model.RegionPlaceModel;
 import com.itraveller.model.ReturnDomesticFlightModel;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
@@ -51,6 +59,14 @@ import com.itraveller.volley.AppController;
 
 
 public class TransportationActivity extends ActionBarActivity {
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+
+    int cost;
+    JSONObject jsonarr;
+    static TransportationModel temp_model;
 
     private String url;// = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
     private List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
@@ -84,6 +100,11 @@ public class TransportationActivity extends ActionBarActivity {
                 onBackPressed();
             }
         });
+
+    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+    //    setupDrawer();
+
 
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
@@ -119,6 +140,10 @@ public class TransportationActivity extends ActionBarActivity {
                 int flightBit = Integer.parseInt(""+F_bit);
                 if(prefsData.getString("TravelFrom", null).equalsIgnoreCase("1")||prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
                     Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
+                    SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+                    SharedPreferences.Editor editor=prefs.edit();
+                    editor.putInt("No_Flights", 1);
+                    editor.commit();
                     startActivity(intent);
                 }
                 else
@@ -159,7 +184,7 @@ public class TransportationActivity extends ActionBarActivity {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         String Tra_url =Constants.API_TransportationActivity_Tra_URL;    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
                         TransportationCost(Tra_url + jsonarr.getInt("Id"),jsonarr.getString("Title"),jsonarr.getInt("Max_Person"),jsonarr.getString("Image"),i,response.getJSONArray("payload").length());
-
+                        Log.d("TransportationTest", "" + Tra_url + jsonarr.getInt("Id"));
                     }
 
                     pDialog.dismiss();
@@ -203,9 +228,89 @@ public class TransportationActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Summary Data");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("Transportations");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+/*
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        int menuToUse = R.menu.right_side_menu;
+
+        MenuInflater inflater = getMenuInflater();
+
+
+        inflater.inflate(menuToUse, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        int id = item.getItemId();
+
+
+        if(id == R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+
+
+    /*    if (item != null && item.getItemId() == R.id.btnMyMenu) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+
+
+    */    return false;
+    }
+
+
 
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int index, final int last_index)
     {
+
+        final TransportationModel transportation_model = new TransportationModel();
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 TransURL, new Response.Listener<JSONObject>() {
@@ -213,14 +318,14 @@ public class TransportationActivity extends ActionBarActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    Log.d("Response from server",""+response.toString());
                     Log.d("Boolean", ""+response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONObject("payload"));
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
-                    JSONObject jsonarr = response.getJSONObject("payload");
-                    TransportationModel transportation_model = new TransportationModel();
+                    jsonarr = response.getJSONObject("payload");
                     if(index == 0) {
                         lowest_trans = Integer.parseInt(""+jsonarr.getInt("Cost"));
 
@@ -236,23 +341,42 @@ public class TransportationActivity extends ActionBarActivity {
                         transportation_model.setTransportation_Id(jsonarr.getInt("Transportation_Id"));
                         transportation_model.setTitle("" + title);
                         transportation_model.setCost(jsonarr.getInt("Cost"));
+                        cost=jsonarr.getInt("Cost");
                         transportation_model.setCost1(jsonarr.getInt("Cost1"));
                         transportation_model.setKM_Limit(jsonarr.getInt("KM_Limit"));
                         transportation_model.setPrice_Per_KM(jsonarr.getInt("Price_Per_KM"));
                         transportation_model.setMax_Person(max_person);
                         transportation_model.setImage(img);
                         //transportation_model.setIsCheck(false);
+                //    if(cost!=0) {
                         transportationList.add(transportation_model);
+                        Collections.sort(transportationList, new PriceComparison());
+
+                    for(int i=0;i<transportationList.size()-1;i++)
+                        Collections.swap(transportationList,i,i+1);
+
+                    //    }//else
+                //    {
+                //        temp_model=transportation_model;
+                //    }
+                //    Collections.sort(transportationList, new PriceComparison());
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                Log.d("TransportationTest", "" + "Hai");
                 if((last_index-1) == index)
                 {
                     //transportationList.get(swap_value).setIsCheck(true);
                     //Collections.swap(transportationList, 0, swap_value);
-                    Collections.sort(transportationList,new PriceComparison());
+                    Log.d("Skip bit 11", "" + cost);
+                //    Collections.sort(transportationList, new PriceComparison());
+                //    transportationList.add(temp_model);
+
+                //    for(int i=0;i<transportationList.size()-1;i++)
+                //        Collections.swap(transportationList,i,i+1);
+
                     adapter.notifyDataSetChanged();
 
                 }
@@ -272,20 +396,6 @@ public class TransportationActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        if(id == R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public void ShortName(String ShortnameURL, final String arr_dep)

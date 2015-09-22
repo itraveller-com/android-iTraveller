@@ -8,12 +8,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -63,6 +68,10 @@ public class FlightDomesticActivity extends ActionBarActivity{
        you need to extend Main Activity to ActionBarActivity.*/
     public static Activity fda;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+
     int Total_Price;
     private Toolbar mToolbar; // Declaring the Toolbar Object
     private ViewPager pager;
@@ -95,6 +104,12 @@ public class FlightDomesticActivity extends ActionBarActivity{
                 onBackPressed();
             }
         });
+
+    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+    //    setupDrawer();
+
+
         SharedPreferences prefs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         prefs.edit().putString("OnwardFlightPrice","0").commit();
         prefs.edit().putString("ReturnFlightPrice", "0").commit();
@@ -154,12 +169,54 @@ public class FlightDomesticActivity extends ActionBarActivity{
 
     }
 
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Summary Data");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("Flights");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+/*
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
+        int menuToUse = R.menu.right_side_menu;
+
+        MenuInflater inflater = getMenuInflater();
+
+
+        inflater.inflate(menuToUse, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -167,15 +224,22 @@ public class FlightDomesticActivity extends ActionBarActivity{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-           /* if (id == R.id.action_settings) {
-                return true;
-            }*/
 
-        return super.onOptionsItemSelected(item);
+        if (item != null && item.getItemId() == R.id.btnMyMenu) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+
+
+        return false;
     }
+
+
+*/
 
     public void xmlparseflight(String url)
     {

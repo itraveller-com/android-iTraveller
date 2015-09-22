@@ -561,7 +561,7 @@ public class LoginFragment extends Fragment {
                 //VolleyLog.d("TAG", "Error: " + error.getMessage());
                 pDialog.dismiss();
                 if (ConnectionDetector.isNetworkConnection()) {
-                    Toast.makeText(context, "Internet Problem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Internal Server Error", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -750,3 +750,4 @@ public class LoginFragment extends Fragment {
         }
     }
 }
+

@@ -33,6 +33,7 @@ public class CustomLoading {
 
 				SharedPreferences.Editor editor=prefs.edit();
 				editor.putInt("Skip_Flight_Bit",1);
+				editor.putInt("No_Flights",0);
 				editor.commit();
 				dialog.dismiss();
 				Intent intent = new Intent(finalContext.getApplicationContext(), ItinerarySummaryActivity.class);

@@ -204,7 +204,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/style_filterbutton"
-            android:text="Select"
+            android:text="Select >>"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

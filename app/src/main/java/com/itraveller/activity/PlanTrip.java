@@ -45,7 +45,9 @@ import java.util.Date;
 
 public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
+    String date_str;
     SharedPreferences prefs;
+    SharedPreferences preferences;
     Toolbar mToolbar;// Declaring the Toolbar Object
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     Context context;
@@ -92,6 +94,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         final int arrival_port = bundle.getInt("ArrivalPort");
         final int dep_port = bundle.getInt("DeparturePort");
         final int itinerary_id = bundle.getInt("ItineraryID");
+
+        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
 
         prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         //Calander
@@ -277,6 +281,10 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 }else
                     function2();
 
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("Date_str",""+date_str);
+                editor.commit();
+
             }
         });
     }
@@ -359,7 +367,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-
+                date_str=day_str+"-"+month_str+"-"+date_arr[5];
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
                 dialog.dismiss();
             }
@@ -470,7 +478,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-
+                date_str=day_str+"-"+month_str+"-"+date_arr[5];
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
                 dialog.dismiss();
             }

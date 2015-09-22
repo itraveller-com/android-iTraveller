@@ -87,7 +87,7 @@
             android:value="@string/facebook_app_name" />
         <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC-SesnLxkFZ_BHCKJeABKvpgp8Puih67I "/>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1636017390018337"
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1699899676905365"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
 
