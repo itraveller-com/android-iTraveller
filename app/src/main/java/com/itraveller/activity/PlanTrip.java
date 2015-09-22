@@ -484,7 +484,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     public void onClick(View view) {
         Log.i("ClickTest", "" + view);
         if (view == adult_plus) {
-            if(var_adult <= 20)
+            if(var_adult < 50)
             var_adult++;
             adult_btn.setText("" + var_adult);
         } else if (view == adult_minus) {
@@ -492,7 +492,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_adult--;
             adult_btn.setText("" + var_adult);
         } else if (view == children_plus) {
-            if(var_children <= 20)
+            if(var_children < 50)
             var_children++;
             children_btn.setText("" + var_children);
         } else if (view == children_minus) {
@@ -500,7 +500,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_children--;
             children_btn.setText("" + var_children);
         } else if (view == child_plus) {
-            if(var_child <= 20)
+            if(var_child < 20)
             var_child++;
             child_btn.setText("" + var_child);
         } else if (view == child_minus) {
@@ -508,7 +508,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_child--;
             child_btn.setText("" + var_child);
         } else if (view == bady_plus) {
-            if(var_baby <= 20)
+            if(var_baby < 20)
             var_baby++;
             baby_btn.setText("" + var_baby);
         } else if (view == bady_minus) {
