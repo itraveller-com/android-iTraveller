@@ -93,12 +93,12 @@ public class RearrangePlaceAdapter extends BaseAdapter {
 
     public void remove(RearrangePlaceModel item) {
         RearrangeItems.remove(item);
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void insert(RearrangePlaceModel item, int position) {
         RearrangeItems.add(position, item);
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public List<RearrangePlaceModel> getList(){
