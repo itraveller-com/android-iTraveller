@@ -183,6 +183,11 @@ public class RegionPlace extends ActionBarActivity {
         url= url + bundle.getInt("RegionID");
         getSupportActionBar().setTitle(bundle.getString("RegionName") + " Packages");
 
+
+        SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencess.edit();
+        editor.putString("package_name",bundle.getString("RegionName"));
+        editor.commit();
       // mToolbar = (Toolbar) findViewById(R.id.toolbar);
     //   setSupportActionBar(mToolbar);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);

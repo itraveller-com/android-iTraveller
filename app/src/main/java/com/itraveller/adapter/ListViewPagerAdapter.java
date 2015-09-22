@@ -59,6 +59,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
   //  private int selectedIndex;
     private Map<Integer, Integer> mPagerPositions ;
     String[] hotel_destination;
+    String[] hotel_nights;
 
     public ListViewPagerAdapter(Context context, ArrayList<String> navigationItems, ArrayList<String> defaultHotelRoom, HotelActivity.pagerCheckBoxChangedListner1 pagerviewlistener) {
         super(context, R.layout.view_pager_list_view, navigationItems);
@@ -120,10 +121,12 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
         }
         SharedPreferences mysettings= context.getSharedPreferences("Itinerary", 0);
+        String Destintion_night = mysettings.getString("DestinationCount", null);
         String Destintion_NAME = mysettings.getString("DestinationName", null);
         hotel_destination = Destintion_NAME.trim().split(",");
+        hotel_nights = Destintion_night.trim().split(",");
         TextView txtview = (TextView) convertView.findViewById(R.id.hotel_place_name);
-        txtview.setText("" + hotel_destination[position]);
+        txtview.setText("" + hotel_destination[position] + " (" + hotel_nights[position] + "Nights)");
         vp[position] = (ViewPager) convertView.findViewById(R.id.list_pager);
         mViewPagerAdapter = new ViewPagerAdapter(mHotelModels.get(""+position),new PagerCheckedChangeListnerCustom(position));
         vp[position].setAdapter(mViewPagerAdapter);
@@ -179,10 +182,10 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
 
          airportJSONForText(navigationItems.get(position), position);
-            Log.i("TestingRound","Testing123");
-
             ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
-           if(modelRow.size() == 0){
+         Log.i("TestingRound","Testing123" + modelRow.size());
+
+         if(modelRow.size() == 0){
                 vp[position].setVisibility(View.GONE);
                 right_arrow[position].setVisibility(View.GONE);
                 left_arrow[position].setVisibility(View.GONE);

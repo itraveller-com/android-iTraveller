@@ -110,7 +110,7 @@ public class TransportationAdapter extends BaseAdapter {
 
 
         if(flag_bit==0) {
-            if (m.getCost() == TransportationActivity.lowest_trans) {
+            if (m.getIsCheck()) {
 
                 editor.putString("MasterID", "" + m.getId());
                 editor.putString("TransportationID", "" + m.getTransportation_Id());

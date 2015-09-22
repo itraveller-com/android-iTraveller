@@ -154,7 +154,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
             Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
             img1.setImageBitmap(getCroppedBitmap(icon));
-            greeting.setText("Hello " + preferences.getString("f_name",null));
+            String str=""+ preferences.getString("f_name",null);
+            greeting.setText("Hello "+str.substring(0,1).toUpperCase()+str.substring(1));
 
         }
         else

@@ -307,7 +307,7 @@ public class DragAndSort extends ActionBarActivity
                         startActivity(intent);
                     }
                     else{
-                        Toast.makeText(getApplicationContext(), "Please Add Destination", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please Add Arrival and Departure Destination", Toast.LENGTH_LONG).show();
                     }
 
                 }else{

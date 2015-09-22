@@ -5,19 +5,33 @@ package com.itraveller.activity;
  */
 
 import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+
 import android.os.Bundle;
+
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
+
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,9 +47,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import com.itraveller.R;
+
+import com.itraveller.adapter.HotelRoomAdapter;
+import com.itraveller.adapter.ListViewPagerAdapter;
+
+import com.itraveller.constant.Constants;
+
+import com.itraveller.model.ActivitiesModel;
+import com.itraveller.model.HotelModel;
+import com.itraveller.model.HotelRoomModel;
+
+import com.itraveller.volley.AppController;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,20 +74,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.facebook.internal.Utility;
-import com.itraveller.R;
-import com.itraveller.adapter.HotelRoomAdapter;
-import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
-import com.itraveller.adapter.ListViewPagerAdapter;
-import com.itraveller.adapter.ViewPagerAdapter;
-import com.itraveller.constant.Constants;
-import com.itraveller.model.ActivitiesModel;
-import com.itraveller.model.HotelModel;
-import com.itraveller.model.HotelRoomModel;
-import com.itraveller.volley.AppController;
-
 public class  HotelActivity extends ActionBarActivity {
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    TextView nameText,placesText,destinationText,arr_dateText,dep_dateText,daysText,adultsText,child_5_12_Text,child_below_5_Text;
+    TextView nameSellerText,addressSellerText,arrAtText,dateDisplayText,roomDisplayText,totalPriceText;
+    TextView discountPriceText,priceAdvanceText,remainingPriceText;
     // Declare Variable
     public static ListViewPagerAdapter listViewPagerAdapter;
     int ListItemPostion;
@@ -90,6 +112,7 @@ public class  HotelActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // Get the view from viewpager_main.xml
         setContentView(R.layout.view_pager_list_view);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -106,10 +129,64 @@ public class  HotelActivity extends ActionBarActivity {
             }
         });
 
+
+  //      mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+  //      setupDrawer();
+
+
+        nameText=(TextView) findViewById(R.id.name_value);
+        placesText=(TextView) findViewById(R.id.places_value);
+        destinationText=(TextView) findViewById(R.id.destinations_value);
+        arr_dateText=(TextView) findViewById(R.id.date_of_arrival_value);
+        dep_dateText=(TextView) findViewById(R.id.date_of_departure_value);
+        daysText=(TextView) findViewById(R.id.no_of_days_value);
+        adultsText=(TextView) findViewById(R.id.no_of_adults_value);
+        child_5_12_Text=(TextView) findViewById(R.id.no_of_children_5_12_value);
+        child_below_5_Text=(TextView) findViewById(R.id.no_of_children_below_5_value);
+        totalPriceText=(TextView) findViewById(R.id.total_price_value);
+        discountPriceText=(TextView) findViewById(R.id.disount_value);
+        remainingPriceText=(TextView) findViewById(R.id.price_after_discount_value);
+        priceAdvanceText=(TextView) findViewById(R.id.booking_advance_value);
+        nameSellerText=(TextView) findViewById(R.id.name_of_seller_value);
+        addressSellerText=(TextView) findViewById(R.id.address_of_seller_value);
+        arrAtText=(TextView) findViewById(R.id.arrival_at_value);
+        dateDisplayText=(TextView) findViewById(R.id.date_of_arrival_display);
+        roomDisplayText=(TextView) findViewById(R.id.room_type_display);
+
+
+
+/*        SharedPreferences preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+
+        if(preferences.getInt("flag",0)==1)
+        {
+            String str=""+preferences.getString("f_name", null);
+            nameText.setText(str.substring(0,1).toUpperCase()+str.substring(1));
+        }
+        else
+        {
+            nameText.setText("User");
+        }
+        placesText.setText("" + prefs.getString("package_name", null));
+        destinationText.setText("" + prefs.getString("DestinationName", null));
+        arr_dateText.setText(""+preferences.getString("Date_str",null));
+        dep_dateText.setText(""+preferences.getString("Date_str",null));
+        daysText.setText(""+prefs.getInt("Duration",0));
+        adultsText.setText(""+prefs.getString("Adults",null));
+        child_5_12_Text.setText(""+prefs.getString("Children_12_5",null));
+        child_below_5_Text.setText(""+prefs.getString("Children_5_2",null));
+        totalPriceText.setText("");
+        discountPriceText.setText("");
+        remainingPriceText.setText("");
+        priceAdvanceText.setText("");
+        addressSellerText.setText("");
+*/
         chk_breakfast = (CheckBox) findViewById(R.id.breakfast);
         chk_lunch = (CheckBox) findViewById(R.id.lunch);
         chk_dinner = (CheckBox) findViewById(R.id.dinner);
         pDialog = new ProgressDialog(HotelActivity.this);
+
         pDialog.setMessage("Loading...");
 
         Bundle bundle = getIntent().getExtras();
@@ -219,6 +296,75 @@ public class  HotelActivity extends ActionBarActivity {
 
     }
 
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Summary Data");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("Hotels");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+/*    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        int menuToUse = R.menu.right_side_menu;
+
+        MenuInflater inflater = getMenuInflater();
+
+
+        inflater.inflate(menuToUse, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+
+        if (item != null && item.getItemId() == R.id.btnMyMenu) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+
+
+        return false;
+    }
+*/
     public interface RadiobuttonListener {
         public void RadioChangeListenerCustom(String position);
     }
@@ -530,6 +676,92 @@ public class  HotelActivity extends ActionBarActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.i("DefaultData", "No Lowest hotel :" + depth);
                 error_bit = 1;
+                pDialog.hide();
+                activites.setEnabled(true);
+                // listViewPagerAdapter.add(null);
+                listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
+                    @Override
+                    public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked) {
+                    }
+
+                    @Override
+                    public void OnImageClickListenerCustomPager(final int childpostion, final int groupPosition) {
+                        cposition = childpostion;
+                        gposition = groupPosition;
+                        second.setVisibility(View.VISIBLE);
+                        activites.setVisibility(View.GONE);
+                        lv1.setVisibility(View.GONE);
+                        roomList = new ArrayList<HotelRoomModel>();
+                        listView = (ListView) findViewById(R.id.room_type);
+                        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                        final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+                                /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
+                                String[] meal_plan_data = meal_plan.split(",");
+                                if()
+                                            if(modelRow.get(childpostion).getLunch()!=0)
+                                    {
+                                        chk_lunch.setChecked(true);
+                                    }
+                                    if(modelRow.get(childpostion).getDinner()!=0)
+                                    {
+                                        chk_dinner.setChecked(true);
+                                    }
+                                    chk_lunch.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(chk_lunch.isChecked())
+                                                modelRow.get(childpostion).setLunch(1);
+                                            else
+                                                modelRow.get(childpostion).setLunch(0);
+                                        }
+                                });
+                                chk_dinner.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if(chk_dinner.isChecked())
+                                            modelRow.get(childpostion).setDinner(1);
+                                        else
+                                            modelRow.get(childpostion).setDinner(0);
+                                    }
+                                });*/
+                        adapter = new HotelRoomAdapter(HotelActivity.this, roomList, new RadiobuttonListener() {
+                            @Override
+                            public void RadioChangeListenerCustom(String Value) {
+
+
+                                Log.i("TestPostion",""+ Value);
+                                Log.i("TestPostionGroup",""+groupPosition);
+                                lowesthotelList.set(groupPosition,""+Value);
+                                HotelRoomData[gposition] = Value;
+                                final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
+                                for(int index =0 ; index<modelRow.size();index++) {
+                                    if(index==cposition) {
+                                        modelRow.get(cposition).setChecked(true);
+                                    }
+                                    else {
+                                        modelRow.get(index).setChecked(false);
+                                    }
+                                }
+                                ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                listViewPagerAdapter.notifyDataSetChanged();
+                                //notifyAll();
+                            }
+
+
+                        });
+                        listView.setAdapter(adapter);
+                        //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+                        //modelRow.get(childpostion).
+                        Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
+                        //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
+                        String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds="+ modelRow.get(childpostion).getHotel_Id() +"&checkInDate=" + destination_date[groupPosition];
+                        Log.i("URLForRooms", "" + groupPosition + " Url :" +url);
+                        hotelRooms(url,destination_date[groupPosition] );
+                        check_bit=1;
+                    }
+                });
+
+                lv1.setAdapter(listViewPagerAdapter);
                 //System.err.println(error);
                 // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
                 // For AuthFailure, you can re login with user credentials.

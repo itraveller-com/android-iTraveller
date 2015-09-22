@@ -161,6 +161,8 @@ public class LoginFragment extends Fragment {
             mobile_Edittext = (EditText) view.findViewById(R.id.mobile);
             server_loginButton = (Button) view.findViewById(R.id.submit);
 
+
+
             //TextView used as a link to registration form
             link_to_signup = (TextView) view.findViewById(R.id.link_to_register);
 
@@ -561,7 +563,7 @@ public class LoginFragment extends Fragment {
                 //VolleyLog.d("TAG", "Error: " + error.getMessage());
                 pDialog.dismiss();
                 if (ConnectionDetector.isNetworkConnection()) {
-                    Toast.makeText(context, "Internet Problem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Internal Server Error", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -750,3 +752,4 @@ public class LoginFragment extends Fragment {
         }
     }
 }
+

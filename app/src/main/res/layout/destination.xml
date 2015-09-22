@@ -376,7 +376,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book Hotels"
+            android:text="Book Hotels >>"
             android:background="@drawable/style_filterbutton"
             android:id="@+id/book_hotel"
             android:layout_alignParentBottom="true"

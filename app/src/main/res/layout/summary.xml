@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
 
@@ -269,7 +276,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center|bottom"
-        android:text="Next"
+        android:text="Price Summary >>"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/style_filterbutton"
@@ -282,3 +289,12 @@
 
 
 </RelativeLayout>
+
+
+    <include layout="@layout/summary_data"
+        android:layout_gravity="right"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"></include>
+
+
+</android.support.v4.widget.DrawerLayout>

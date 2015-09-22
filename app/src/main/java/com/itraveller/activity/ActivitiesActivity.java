@@ -7,12 +7,20 @@ package com.itraveller.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,6 +36,9 @@ import com.itraveller.model.ActivitiesModel;
 
 public class ActivitiesActivity extends ActionBarActivity {
 
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     // Declare Variable
     public ListViewPagerActivitiesAdapter listViewPagerAdapter;
     private ArrayList<String> activitiesList;
@@ -72,9 +83,15 @@ public class ActivitiesActivity extends ActionBarActivity {
         });
 
 
+
+    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+     //   setupDrawer();
+
+
         //"Proceed" button to go to payment page
         proceed_activity = (Button) findViewById(R.id.to_activities);
-        proceed_activity.setText("Proceed");
+        proceed_activity.setText("Proceed to Transportation");
 
 
         //proceed_activity.setEnabled(false);
@@ -283,6 +300,76 @@ public class ActivitiesActivity extends ActionBarActivity {
 
     }
 
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Summary Data");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("Activities");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+/*
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        int menuToUse = R.menu.right_side_menu;
+
+        MenuInflater inflater = getMenuInflater();
+
+
+        inflater.inflate(menuToUse, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+
+        if (item != null && item.getItemId() == R.id.btnMyMenu) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+
+
+        return false;
+    }
+
+*/
     private void setData() {
 
 

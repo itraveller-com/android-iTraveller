@@ -60,9 +60,10 @@ public class HotelRoomActvity extends Activity{
         hotelRooms(url);
         //hotelRoomsCheck(url_checkroom);
         listView = (ListView) findViewById(R.id.room_type);
+
+
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-//        Utility.setListViewHeightBasedOnChildren(listView);
      /*   listView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -79,6 +80,8 @@ public class HotelRoomActvity extends Activity{
             }
         });
         listView.setAdapter(adapter);
+
+    //    Utility.setListViewHeightBasedOnChildren(listView);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -473,7 +473,7 @@ public class LoginFragment_Before_Payment extends Fragment {
                 //VolleyLog.d("TAG", "Error: " + error.getMessage());
                 pDialog.dismiss();
                 if (ConnectionDetector.isNetworkConnection()) {
-                    Toast.makeText(getActivity(), "Internet Problem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Internal Server Error", Toast.LENGTH_SHORT).show();
 
                 }
             }

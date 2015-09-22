@@ -20,7 +20,9 @@
         android:background="@layout/background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="100dp"
@@ -50,7 +52,7 @@
             android:hint="Mobile Number"
             android:inputType="number"
             android:singleLine="true"
-            android:maxLength="10"
+            android:maxLength="15"
             android:id="@+id/mobile"
             android:paddingLeft="8dp"
             android:textColor="@color/orange"

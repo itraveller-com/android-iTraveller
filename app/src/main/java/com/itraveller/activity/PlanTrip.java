@@ -45,7 +45,9 @@ import java.util.Date;
 
 public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
+    String date_str;
     SharedPreferences prefs;
+    SharedPreferences preferences;
     Toolbar mToolbar;// Declaring the Toolbar Object
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     Context context;
@@ -92,6 +94,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         final int arrival_port = bundle.getInt("ArrivalPort");
         final int dep_port = bundle.getInt("DeparturePort");
         final int itinerary_id = bundle.getInt("ItineraryID");
+
+        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
 
         prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         //Calander
@@ -277,6 +281,10 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 }else
                     function2();
 
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("Date_str",""+date_str);
+                editor.commit();
+
             }
         });
     }
@@ -359,7 +367,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-
+                date_str=day_str+"-"+month_str+"-"+date_arr[5];
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
                 dialog.dismiss();
             }
@@ -470,7 +478,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-
+                date_str=day_str+"-"+month_str+"-"+date_arr[5];
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
                 dialog.dismiss();
             }
@@ -484,7 +492,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     public void onClick(View view) {
         Log.i("ClickTest", "" + view);
         if (view == adult_plus) {
-            if(var_adult < 20)
+            if(var_adult < 50)
             var_adult++;
             adult_btn.setText("" + var_adult);
         } else if (view == adult_minus) {
@@ -492,7 +500,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_adult--;
             adult_btn.setText("" + var_adult);
         } else if (view == children_plus) {
-            if(var_children < 5)
+            if(var_children < 50)
             var_children++;
             children_btn.setText("" + var_children);
         } else if (view == children_minus) {
@@ -500,7 +508,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_children--;
             children_btn.setText("" + var_children);
         } else if (view == child_plus) {
-            if(var_child < 5)
+            if(var_child < 20)
             var_child++;
             child_btn.setText("" + var_child);
         } else if (view == child_minus) {
@@ -508,7 +516,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_child--;
             child_btn.setText("" + var_child);
         } else if (view == bady_plus) {
-            if(var_baby < 5)
+            if(var_baby < 20)
             var_baby++;
             baby_btn.setText("" + var_baby);
         } else if (view == bady_minus) {
@@ -516,8 +524,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_baby--;
             baby_btn.setText("" + var_baby);
         }
-
-
     }
 
 
