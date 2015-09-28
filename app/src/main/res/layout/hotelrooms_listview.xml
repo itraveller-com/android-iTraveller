@@ -27,8 +27,8 @@
     </RelativeLayout>
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/room_type"
         android:divider="@null"
         android:dividerHeight="0dp"

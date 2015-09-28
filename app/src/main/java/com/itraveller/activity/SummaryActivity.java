@@ -90,7 +90,7 @@ public class SummaryActivity extends ActionBarActivity{
                 public void onClick(View view) {
                     //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
                     //startActivity(in);
-                  //  callEbsKit();
+                   // callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);

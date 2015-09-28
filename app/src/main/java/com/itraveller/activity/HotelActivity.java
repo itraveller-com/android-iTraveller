@@ -54,6 +54,7 @@ import com.itraveller.adapter.ListViewPagerAdapter;
 
 import com.itraveller.constant.Constants;
 
+import com.itraveller.constant.Utility;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
@@ -473,7 +474,7 @@ public class  HotelActivity extends ActionBarActivity {
                 try {
                     Log.d("Boolean", "" + response.getBoolean("success"));
                     Log.d("Error", "" + response.getJSONObject("error"));
-                    Log.d("Payload_RoomRate", "" + response.getJSONArray("payload"));
+                    Log.d("Payload_RoomRate12", "" + response.getJSONArray("payload"));
                     int flag_bit = 0;
                     for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
@@ -514,10 +515,12 @@ public class  HotelActivity extends ActionBarActivity {
 
                         flag_bit =0;
                     }
-                   // if(index == (totalcount-1)) {
-                        adapter.notifyDataSetChanged();
-                        //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
+                     //if(index == (totalcount-1)) {
+                       adapter.notifyDataSetChanged();
+                         Utility.setListViewHeightBasedOnChildren(listView);
+                    //Log.v("Test","Test");
                    // }
+
 
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
@@ -584,7 +587,8 @@ public class  HotelActivity extends ActionBarActivity {
                                 lv1.setVisibility(View.GONE);
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
-                                listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                                listView.setAdapter(null);
+                                Utility.setListViewHeightBasedOnChildren(listView);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -641,6 +645,8 @@ public class  HotelActivity extends ActionBarActivity {
 
                                 });
                                 listView.setAdapter(adapter);
+                                Utility.setListViewHeightBasedOnChildren(listView);
+                                //listView.deferNotifyDataSetChanged();
                                 //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 //modelRow.get(childpostion).
                                 Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
@@ -693,7 +699,6 @@ public class  HotelActivity extends ActionBarActivity {
                         lv1.setVisibility(View.GONE);
                         roomList = new ArrayList<HotelRoomModel>();
                         listView = (ListView) findViewById(R.id.room_type);
-                        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                         final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -749,7 +754,9 @@ public class  HotelActivity extends ActionBarActivity {
 
 
                         });
+
                         listView.setAdapter(adapter);
+                            Utility.setListViewHeightBasedOnChildren(listView);
                         //ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
                         //modelRow.get(childpostion).
                         Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());

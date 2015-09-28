@@ -38,7 +38,7 @@ public class FlightOnwardDomestic extends Fragment {
         TextView dep=(TextView) rootView.findViewById(R.id.dep_city);
         TextView arr=(TextView) rootView.findViewById(R.id.arr_city);
         dep.setText(""+prefs.getString("ArrivalAirport", null));
-        arr.setText(""+prefs.getString("TravelFrom", null));
+        arr.setText(""+prefs.getString("TravelTo", null));
         ListView listview = (ListView) rootView.findViewById(R.id.flights_listview);
         adapter = new FlightDomesticOnwardAdapter(getActivity(), onward_domestic_model);
         listview.setAdapter(adapter);

@@ -120,7 +120,7 @@ public class BuyProduct extends Activity implements OnClickListener {
 		
 		/** Mandatory */
 		// Reference No
-		PaymentRequest.getInstance().setReferenceNo("223");
+		PaymentRequest.getInstance().setReferenceNo("2231");
 		//PaymentRequest.getInstance().
 		
 		/** Initializing the EBS Gateway */

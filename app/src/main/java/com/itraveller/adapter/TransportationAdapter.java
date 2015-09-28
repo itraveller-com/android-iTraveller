@@ -95,6 +95,10 @@ public class TransportationAdapter extends BaseAdapter {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,_screen_height/2);
         frame_lay.setLayoutParams(lp);
         SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+
+        final SharedPreferences prefsData = activity.getSharedPreferences("SavedData", activity.MODE_PRIVATE);
+
+
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         // getting data for the row
         final TransportationModel m = TransportationItems.get(position);
@@ -136,6 +140,8 @@ public class TransportationAdapter extends BaseAdapter {
                 editor.putString("TransportationName", "" + m.getTitle());
                 editor.putString("TransportationCost", "" + m.getCost());
                 editor.commit();
+
+                prefsData.edit().putString("TransportationID", "" + m.getTransportation_Id()).commit();
                 if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
                 }
