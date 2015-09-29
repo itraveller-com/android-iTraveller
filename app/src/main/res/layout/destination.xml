@@ -387,7 +387,7 @@
             android:textColor="#ffffffff"
             android:capitalize="none" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/airport_listview"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -402,7 +402,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/white"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout3">
 
                 <SearchView
                     android:layout_width="match_parent"
@@ -416,8 +420,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/list"
                 android:background="@color/white"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/linearLayout3" />
+
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/include_loading"
+                layout="@layout/loading_screen"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

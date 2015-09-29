@@ -115,6 +115,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
     //    setupDrawer();
 
+
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
@@ -123,6 +124,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
         SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
         String Region_id = prefsData.getString("RegionID", null);
+
+
+
         url = Constants.API_TransportationActivity_URL + Region_id;
         Log.i("Transportation_URL", "" + url);
         Log.i("ArrivalAirport", "" + prefsData.getString("ArrivalAirport", null));
@@ -138,6 +142,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         Log.i("iTraveller", "Screen Height: " + _screen_height);
         int width = prefs.getInt("Screen_Width", 0); //0 is the default value.
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, (_screen_height - 60));
+
+
+        //For changing the text in next button
 
 
         next_btn = (Button) findViewById(R.id.to_payment);
@@ -281,14 +288,18 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                         if(arr_dep.equalsIgnoreCase("Departure")) {
                             if (response.getJSONObject("payload").getString("Code").equalsIgnoreCase("1")) {
                                 editor.putString("TravelFrom", "1");
+                                next_btn.setText("Itinerary Summary");
                             } else {
                                 editor.putString("TravelFrom", response.getJSONObject("payload").getString("Code"));
+                                next_btn.setText("Book Flights");
                             }
                         }else if(arr_dep.equalsIgnoreCase("Arrival")){
                             if (response.getJSONObject("payload").getString("Code").equalsIgnoreCase("1")) {
                                 editor.putString("TravelTo", "1");
+                                next_btn.setText("Itinerary Summary");
                             } else {
                                 editor.putString("TravelTo", response.getJSONObject("payload").getString("Code"));
+                                next_btn.setText("Book Flights");
                             }
                         }
                         editor.commit();
