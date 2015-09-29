@@ -95,7 +95,7 @@ public class ActivitiesActivity extends ActionBarActivity {
 
         //"Proceed" button to go to payment page
         proceed_activity = (Button) findViewById(R.id.to_activities);
-        proceed_activity.setText("Proceed to Transportation");
+        proceed_activity.setText("Proceed to Transportation >>");
 
 
         //proceed_activity.setEnabled(false);

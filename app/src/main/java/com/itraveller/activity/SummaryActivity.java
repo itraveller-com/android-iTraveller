@@ -198,12 +198,18 @@ public class SummaryActivity extends ActionBarActivity{
         EditText email=(EditText) findViewById(R.id.editText3);
         Log.d("Name test2",""+email);
         EditText postal_code=(EditText) findViewById(R.id.editText4);
-        Log.d("Name test3",""+postal_code);
+        Log.d("Name test3", "" + postal_code);
         SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
-        Log.d("Name test4",""+preferencess);
+        Log.d("Name test4", "" + preferencess);
         name.setText("" + preferencess.getString("f_name", null));
+        if(("" + preferencess.getString("mobile_number1", null)).equals(null) || ("" + preferencess.getString("mobile_number1", null)).equals("0"))
+        mobile_number.setText("");
+        else
         mobile_number.setText("" + preferencess.getString("mobile_number1", null));
         Log.d("email in summary", ""+preferencess.getString("email_id1", null));
+        if((""+preferencess.getString("email_id1",null)).equals(null))
+            email.setText("");
+        else
         email.setText(""+preferencess.getString("email_id1",null));
 
 

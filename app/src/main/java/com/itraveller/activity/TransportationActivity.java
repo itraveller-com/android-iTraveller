@@ -148,10 +148,17 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
 
         next_btn = (Button) findViewById(R.id.to_payment);
+
+
+        Log.d("Nextbtn test",""+next_btn);
+
         next_btn.setEnabled(false);
+
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
                 prefsData.edit().putString("OnwardFlightPrice", "0").commit();
                 prefsData.edit().putString("ReturnFlightPrice", "0").commit();
@@ -159,8 +166,8 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 int flightBit = Integer.parseInt("" + F_bit);
                 if (prefsData.getString("TravelFrom", null).equalsIgnoreCase("1") || prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
                     Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
-                    SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
-                    SharedPreferences.Editor editor=prefs.edit();
+                    SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("No_Flights", 1);
                     editor.commit();
                     startActivity(intent);

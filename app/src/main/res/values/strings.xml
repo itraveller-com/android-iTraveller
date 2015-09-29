@@ -6,18 +6,30 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">How it Works?</string>
-    <string name="nav_item_friends">About Us</string>
-    <string name="nav_item_notifications">Contact Us</string>
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_how_it_works">How it Works?</string>
+    <string name="nav_item_about_us">About Us</string>
+    <string name="nav_item_contact_us">Contact Us</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
+
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_how_it_works</item>
+        <item>@string/nav_item_about_us</item>
+        <item>@string/nav_item_contact_us</item>
         <item>@string/nav_item_login</item>
     </string-array>
+
+
+    <array name="nav_drawer_icons">
+        <item>@drawable/home</item>
+        <item>@drawable/how_it_works</item>
+        <item>@drawable/about_us</item>
+        <item>@drawable/contact_us</item>
+        <item>@drawable/logout</item>
+    </array>
 
     <string name="title_messages">Contact Us</string>
     <string name="title_friends">About Us</string>
@@ -49,5 +61,54 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="mission_statement_text">&#8226; iTraveller is resolved to become the largest
+        tech-enabled platform for holidays of India, with an ambitious target of $ one billion
+        transactions by 2019. The idea is to inculcate the culture of online
+        discovery and planning for holidays translating to a strong marketplace of travellers and
+        native wholesale suppliers from travel destinations across the world. </string>
+
+
+    <string name="who_we_are_text">&#8226; iTraveller is a technology enabled market place for holidays. We
+        have burned thousands of candles, spending hundreds of nights in crafting the philosophy of
+        iTraveller, which is an utmost fine blend of travel and technology. iTraveller automates the
+        native suppliers (sellers) at the backend and you at the front end, get to book your trips online.
+We are not a travel agent and we don\'t charge any commissions from you. The idea is to cut the intermediaries,
+        thereby bringing the best prices and value to the travellers.</string>
+
+    <string name="what_we_do_text">&#8226; iTraveller, founded in early 2012, have created a proprietary technology
+        back bone, which functions as a market place for holidays. The travellers can discover, plan and book
+        their trips, with options to completely customise and buy their trips online. On the supply side,
+        iTraveller aggregates native wholesale suppliers who are responsible for the services, thereby panning
+        out a scalable market place model, for the first time in India for holidays. The travellers who
+        come online on iTraveller can choose their destinations, discover the hotels and transfers,
+        compare reviews and plan their activities and sightseeing for their trips. By virtue of having the
+        native wholesale suppliers who own the inventory and best prices on the platform, the travellers also
+        get to discover the best available prices from the market. There are over 2 Lakhs trips created by users
+        on iTraveller, features over 20 travel destinations across the globe and over 60 native wholesale suppliers
+        from across these destinations. With the level of automation enabled in the supply chain of holidays, the
+        users are able to plan and book their holidays with the same level of convenience of booking flights,
+        hotels or bus tickets. </string>
+
+    <string name="connect_with_team_text">&#8226; Based in Bangalore, we are a small team of passionate guys - broadly into
+        technology and marketing. Connect with us on Facebook or write to us, for anything interesting
+        at founders@itraveller.com</string>
+
+    <string name="contact_us_message">Our sales and support teams are available via phone, live chat, Twitter and email.</string>
+
+    <string name="office_address">2nd Floor, Suite # 2CE, Neil Rao Towers, EPIP Phase-1,
+    Plot No 118, Road No.3, Whitefield,
+    Bangalore - 560066.
+    inquiry@itraveller.com
+    080 9514 1515 </string>
+
+
+    <string name="how_it_works_text">&#8226; iTraveller has done the best possible use of technology in automating
+        the supply chain of holiday packages. Our technology backbone is powering hundreds of travel agents
+        and native tour operators across the destinations (prominently in India and a few overseas).
+        With the help of our platform, the tour operators are not only able to go online, but also allow
+        travelers to create their own customized itineraries, automate the bookings and also able to fulfill
+        each and every promise given to travelers at the time of booking by having efficient back end automation
+        with the hotels, transportation etc. </string>
 
 </resources>
