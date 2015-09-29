@@ -23,6 +23,7 @@ import com.itraveller.model.HotelRoomModel;
 import com.itraveller.volley.AppController;
 
 public class HotelRoomAdapter extends BaseAdapter {
+
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
@@ -31,8 +32,8 @@ public class HotelRoomAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
     private int adults;
-
-
+    SharedPreferences preferences;
+    SharedPreferences prefs;
     public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom , HotelActivity.RadiobuttonListener RadiobuttonListener) {
         this.activity = activity;
         this.HotelRooms = Hotelroom;
@@ -75,7 +76,7 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_minus =(Button) convertView.findViewById(R.id.minus);
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
-            SharedPreferences prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
             adults = Integer.parseInt(prefs.getString("Adults", "0"));
         }
         else
@@ -131,8 +132,9 @@ public class HotelRoomAdapter extends BaseAdapter {
                 }
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
-                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
+                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
+                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff());
+
 
             }
         });
@@ -140,7 +142,8 @@ public class HotelRoomAdapter extends BaseAdapter {
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{
-            holder.radioButton.setChecked(true);
+                holder.radioButton.setChecked(true);
+            Log.d("Checked box", "hi");
             if(mSelectedRB != null && holder.radioButton != mSelectedRB){
                 mSelectedRB = holder.radioButton;
             }

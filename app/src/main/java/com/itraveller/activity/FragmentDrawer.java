@@ -3,6 +3,7 @@ package com.itraveller.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -36,6 +37,7 @@ public class FragmentDrawer extends Fragment {
     private View containerView;
     public static String[] titles = null;
     private FragmentDrawerListener drawerListener;
+    private TypedArray navMenuIcons;
 
     public FragmentDrawer() {
 
@@ -55,7 +57,7 @@ public class FragmentDrawer extends Fragment {
         //if user is already logged in then changing "Login" to "Logout"
         if(prefs.getInt("temp",0)==1)
         {
-            titles[3]=titles[3].replace(""+titles[3],"Logout");
+            titles[4]=titles[4].replace(""+titles[4],"Logout");
         }
 
 
@@ -63,8 +65,11 @@ public class FragmentDrawer extends Fragment {
         for (int i = 0; i < titles.length; i++) {
             NavDrawerItem navItem = new NavDrawerItem();
             navItem.setTitle(titles[i]);
+            navItem.setIcon(navMenuIcons.getResourceId(i,-1));
             data.add(navItem);
         }
+
+        navMenuIcons.recycle();
         return data;
     }
 
@@ -74,6 +79,7 @@ public class FragmentDrawer extends Fragment {
 
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        navMenuIcons=getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
     }
 
 

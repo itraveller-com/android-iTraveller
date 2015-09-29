@@ -109,6 +109,7 @@ public class LandingActivity extends Fragment {
                         String[] Region_id = Filterregion_.get(i).getKey().trim().split("/");
                         int length = Filterregion_.get(i).getKey().trim().split("/").length;
                         Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length-1]));
+
                         final Intent in = new Intent(getActivity(), RegionPlace.class);
                         in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
                         in.putExtra("RegionName", Filterregion_.get(i).getValue());

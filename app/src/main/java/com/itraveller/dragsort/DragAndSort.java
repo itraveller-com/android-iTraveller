@@ -283,6 +283,9 @@ public class DragAndSort extends ActionBarActivity
                     SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
 
+                    String no_of_dest[]=Destination_Value.split(",");
+
+                    editor.putInt("No_of_Destinations",no_of_dest.length);
                     editor.putString("DestinationID", Destination_Value);
                     editor.putString("DestinationCount", Destination_Count);
                     editor.putString("DestinationName", Destination_Name);

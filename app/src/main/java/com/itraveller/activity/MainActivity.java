@@ -204,7 +204,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         if((str1.equals("x") && preferences.getInt("flag",0)==1) || str1.equals("unregistered") || str1.equals("login_from_server") || str3.equals("y"))
             displayView(0);
         else
-            displayView(4);
+            displayView(5);
 
 
     }
@@ -394,7 +394,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                         title = getString(R.string.title_login);
                         fragment = fragment1;
 
-                        displayView(4);
+                        displayView(5);
                     }
                     else
                     {
@@ -448,20 +448,29 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
                 break;
 
+
             case 1:
+
+                fragment=new HowItWorksFragment();
+                title= "How it works";
+
+                break;
+
+            case 2:
 
                 fragment = new FriendsFragment();
                 title = getString(R.string.title_friends);
 
                 break;
 
-            case 2:
+            case 3:
+
                 fragment = new MessagesFragment();
                 title = getString(R.string.title_messages);
 
                 break;
 
-            case 3:
+            case 4:
 
                 Log.d("AccessToken before if",""+att);
                 if(att.equals("unregistered")) {
@@ -486,12 +495,13 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     editor.commit();
                     img1.setImageBitmap(getCroppedBitmap(icon1));
                     greeting.setText("Hello user");
-                    displayView(4);
+                    displayView(5);
                 }
 
                 break;
 
-            case 4:
+            case 5:
+
                 LoginFragment fragment1 = new LoginFragment();
                 fragment1.setContextValue(context);
                 title = getString(R.string.title_login);
