@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -84,10 +85,11 @@ public class DragAndSort extends ActionBarActivity
     private String[] destination_Count;
     private int arrival_id,departure_id;
     private String travelfrom , travelto;
+    private View include_loading;
 
 
     private LinearLayout destination_page;
-    private LinearLayout airportlist_page;
+    private RelativeLayout airportlist_page;
 
    private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
     {
@@ -135,15 +137,20 @@ public class DragAndSort extends ActionBarActivity
             }
         });
 
+        //Saving the data for previous use
         SharedPreferences prefsSaved = getSharedPreferences("SavedData", MODE_PRIVATE);
         SharedPreferences.Editor editorSaved = prefsSaved.edit();
         editorSaved.putString("Activities", null);
         editorSaved.putString("TransportationID", null);
         editorSaved.commit();
 
+        //Loading Layout View
+        include_loading = findViewById(R.id.include_loading);
+        include_loading.setVisibility(View.GONE);
+
         //Main Layout
         destination_page = (LinearLayout) findViewById(R.id.destination_page);
-        airportlist_page = (LinearLayout) findViewById(R.id.airport_listview);
+        airportlist_page = (RelativeLayout) findViewById(R.id.airport_listview);
 
         LinearLayout from_airport_sp = (LinearLayout) findViewById(R.id.from_home_airport);
         LinearLayout from_port_sp = (LinearLayout) findViewById(R.id.from_travel_port);
@@ -212,6 +219,7 @@ public class DragAndSort extends ActionBarActivity
         add_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -330,6 +338,7 @@ public class DragAndSort extends ActionBarActivity
                 i.putExtra("Url", "http://stage.itraveller.com/backend/api/v1/airport");
                 i.putExtra("Place" , 1);
                 startActivity(i);*/
+                include_loading.setVisibility(View.VISIBLE);
                 listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
@@ -342,6 +351,7 @@ public class DragAndSort extends ActionBarActivity
         from_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
                 listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
@@ -354,6 +364,7 @@ public class DragAndSort extends ActionBarActivity
         to_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
                 listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
@@ -366,6 +377,7 @@ public class DragAndSort extends ActionBarActivity
         to_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
                 listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
@@ -542,7 +554,7 @@ public class DragAndSort extends ActionBarActivity
                 }
                 adapter_airport.notifyDataSetChanged();
                 adapter_portandLoc.notifyDataSetChanged();
-
+                include_loading.setVisibility(View.GONE);
 
             }
         },  new Response.ErrorListener() {
@@ -641,6 +653,7 @@ public class DragAndSort extends ActionBarActivity
         }
         else
         {
+            include_loading.setVisibility(View.GONE);
             listview.setAdapter(null);
             destination_page.setVisibility(View.VISIBLE);
             airportlist_page.setVisibility(View.GONE);

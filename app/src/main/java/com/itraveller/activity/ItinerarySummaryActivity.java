@@ -129,8 +129,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         int TotalCountDays = 0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
         fromhome.setText("" + prefs.getString("ArrivalAirportString", null));
-        totravel.setText("" + prefs.getString("DeparturePortString", null));
-        fromtravel.setText("" + prefs.getString("ArrivalPortString", null));
+        totravel.setText("" + prefs.getString("ArrivalPortString", null));
+        fromtravel.setText("" + prefs.getString("DeparturePortString", null));
         tohome.setText("" + prefs.getString("DepartureAirportString", null));
         transportationname.setText("" + prefs.getString("TransportationName", null));
         String travel_date = "" + prefs.getString("TravelDate", null);
