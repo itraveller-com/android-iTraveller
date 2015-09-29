@@ -41,6 +41,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         holder.title.setText(current.getTitle());
     }
 
+
     @Override
     public int getItemCount() {
         return data.size();

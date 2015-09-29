@@ -183,7 +183,14 @@ public class LoginFragment extends Fragment {
                 protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
                     Log.d("ProfileTrack11", "Profile");
                     //update UI if there is some change in user profile
-                    updateUI();
+
+                    isInternetPresent = cd.isNetworkConnection();
+                    if (isInternetPresent) {
+                        updateUI();
+                    } else {
+                        showAlertDialog(getActivity(), "No Internet Connection",
+                                "You don't have internet connection.", false);
+                    }
 
                 }
             };
@@ -342,7 +349,9 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(LoginResult loginResult) {
                             //if user successfully redirected to facebook page
 //                            getActivity().finish();
+
                             new fblogin().execute(loginResult.getAccessToken());
+
                         }
 
                         @Override
@@ -352,6 +361,11 @@ public class LoginFragment extends Fragment {
 
                         @Override
                         public void onError(FacebookException e) {
+
+                            if (e.getMessage().equalsIgnoreCase("CONNECTION_FAILURE: CONNECTION_FAILURE")) {
+                                showAlertDialog(getActivity(), "No Internet Connection",
+                                        "You don't have internet connection.", false);
+                            }
 
                         }
 
@@ -368,7 +382,7 @@ public class LoginFragment extends Fragment {
 
 
                         //call signup fragment on clicking link
-                        SignupFragment fragment2=new SignupFragment();
+                        SignupFragment fragment2 = new SignupFragment();
                         android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                         // Replace whatever is in the fragment_container view with this fragment,
@@ -379,9 +393,7 @@ public class LoginFragment extends Fragment {
                         // Commit the transaction
                         transaction.commit();
 
-                    }
-                    else
-                    {
+                    } else {
                         // Internet connection is not present
                         // Ask user to connect to Internet
                         showAlertDialog(getActivity(), "No Internet Connection",

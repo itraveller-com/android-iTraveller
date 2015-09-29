@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,13 +66,15 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     ViewPagerActivitiesAdapter mViewPagerAdapter;
     ListViewPagerActivitiesAdapter listViewPagerAdapter;
     ArrayList<String> activitiesList;
+    ArrayList<String> dayCount;
+    String activities_data;
 
-
-    public ListViewPagerActivitiesAdapter(Context context, ArrayList<String> navigationItems) {
+    public ListViewPagerActivitiesAdapter(Context context, ArrayList<String> navigationItems, ArrayList<String> dayCount) {
         super(context, R.layout.view_pager_list_view, navigationItems);
         this.context = context;
         pDialog = new ProgressDialog(context);
         this.navigationItems = navigationItems;
+        this.dayCount = dayCount;
         mActivitiesModel=new HashMap<>();
         for(int index=0;index<navigationItems.size();index++){
             mActivitiesModel.put(""+index,new ArrayList<ActivitiesModel>());
@@ -119,7 +123,9 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hotel_pageviewer, null);
-
+            SharedPreferences prefs = context.getSharedPreferences("SavedData", context.MODE_PRIVATE);
+            activities_data = prefs.getString("Activities", "0");
+            //activities_data.replace("/"/,"")
             // mPagerPositions.put(position,0);
 
         }else{
@@ -183,7 +189,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
         if(mActivitiesModel.get(""+position).size()<1){
             Log.i("TestingRound","Testing123");
-            int ref_Val = airportJSONForText(navigationItems.get(position), position);
+            int ref_Val = airportJSONForText(navigationItems.get(position), position , Integer.parseInt(dayCount.get(position)));
             ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
             if(modelRow.size() == 0){
                 vp[position].setVisibility(View.GONE);
@@ -273,7 +279,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 //        }
 //    }
 
-    public int airportJSONForText (String url, final int position )
+    public int airportJSONForText (String url, final int position , final int dayCount)
     {
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
@@ -315,6 +321,29 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                         activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));
                         activities_model.setDestination_Id_From(jsonarr.getString("Destination_Id_From"));
                         activities_model.setBookable(jsonarr.getString("Bookable"));
+                        activities_model.setChecked(false);
+
+                        if (!activities_data.equalsIgnoreCase("0") ) {
+                            JSONObject act = new JSONObject(activities_data);
+                            Log.i("JSON_Activities",""+act);
+
+                            JSONArray act_arr = act.getJSONArray("activities");
+                            for (int p = 0; p < act_arr.length(); p++) {
+                                JSONObject json_obj = act_arr.getJSONObject(p);
+                                if (Integer.parseInt(json_obj.getString("DestinationID")) == jsonarr.getInt("Destination_Id")) {
+                                    JSONArray json_array = json_obj.getJSONArray("ActivitiesID");
+                                    JSONObject json_object = json_array.getJSONObject(dayCount-1);
+                                    JSONArray json_a1 = json_object.getJSONArray("Day " + (dayCount-1));
+                                    for (int q = 0; q < json_a1.length(); q++) {
+                                        if (Integer.parseInt("" + json_a1.getInt(q)) == jsonarr.getInt("Id")) {
+                                            activities_model.setChecked(true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //Log.i("JSON_Activities",""+act.getJSONArray("activities"));
+
                         if (response.getJSONArray("payload").length() != 0)
                             activitiesList.add(activities_model);
                     }

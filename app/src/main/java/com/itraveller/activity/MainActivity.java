@@ -428,6 +428,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         displayView(position);
     }
 
+
     private void displayView(int position) {
 
         fragment = null;

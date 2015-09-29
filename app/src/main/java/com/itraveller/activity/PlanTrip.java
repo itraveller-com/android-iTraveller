@@ -84,6 +84,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         duration_sp.setText((bundle.getInt("Duration") - 1) + " Nights / " + bundle.getInt("Duration") + " Days");
         title_sp.setText(bundle.getString("Title"));
 
+
         final String imageurl = bundle.getString("Image");
         final int duration = bundle.getInt("Duration");
         final String title = bundle.getString("Title");
@@ -524,8 +525,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 var_baby--;
             baby_btn.setText("" + var_baby);
         }
-
-
     }
 
 

@@ -88,6 +88,8 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
     int index = 0 ;
     int index_at = 0;
     ProgressDialog pDialog;
+    SharedPreferences savedPrefsData;
+    int transportationID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +115,11 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
     //    setupDrawer();
 
-
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
+
+        savedPrefsData = getSharedPreferences("SavedData", MODE_PRIVATE);
+        transportationID = Integer.parseInt("" + savedPrefsData.getString("TransportationID", "0"));
 
         SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
         String Region_id = prefsData.getString("RegionID", null);
@@ -294,7 +298,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                     e.printStackTrace();
                 }
 
-                adapter.notifyDataSetChanged();
+              //  adapter.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener() {
@@ -458,7 +462,18 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                                     transportationList.remove(0);
                                 }
                             }
-                            transportationList.get(0).setIsCheck(true);
+                            if(transportationID == 0) {
+                                transportationList.get(0).setIsCheck(true);
+                            }
+                            else{
+                                for(int x = 0; x < transportationList.size(); x++) {
+                                    if(transportationList.get(x).getTransportation_Id() == transportationID) {
+                                        transportationList.get(x).setIsCheck(true);
+                                        transportationList.add((0), transportationList.get(x));
+                                        transportationList.remove(x + 1);
+                                    }
+                                }
+                            }
                             adapter.notifyDataSetChanged();
                             pDialog.hide();
                         }
