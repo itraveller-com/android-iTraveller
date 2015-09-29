@@ -135,6 +135,12 @@ public class DragAndSort extends ActionBarActivity
             }
         });
 
+        SharedPreferences prefsSaved = getSharedPreferences("SavedData", MODE_PRIVATE);
+        SharedPreferences.Editor editorSaved = prefsSaved.edit();
+        editorSaved.putString("Activities", null);
+        editorSaved.putString("TransportationID", null);
+        editorSaved.commit();
+
         //Main Layout
         destination_page = (LinearLayout) findViewById(R.id.destination_page);
         airportlist_page = (LinearLayout) findViewById(R.id.airport_listview);
@@ -324,6 +330,7 @@ public class DragAndSort extends ActionBarActivity
                 i.putExtra("Url", "http://stage.itraveller.com/backend/api/v1/airport");
                 i.putExtra("Place" , 1);
                 startActivity(i);*/
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -335,6 +342,7 @@ public class DragAndSort extends ActionBarActivity
         from_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -346,6 +354,7 @@ public class DragAndSort extends ActionBarActivity
         to_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -357,6 +366,7 @@ public class DragAndSort extends ActionBarActivity
         to_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -631,6 +641,7 @@ public class DragAndSort extends ActionBarActivity
         }
         else
         {
+            listview.setAdapter(null);
             destination_page.setVisibility(View.VISIBLE);
             airportlist_page.setVisibility(View.GONE);
             hotelBook.setVisibility(View.VISIBLE);

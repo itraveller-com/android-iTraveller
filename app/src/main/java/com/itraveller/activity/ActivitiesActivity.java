@@ -33,6 +33,10 @@ import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.model.ActivitiesModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class ActivitiesActivity extends ActionBarActivity {
 
@@ -267,7 +271,7 @@ public class ActivitiesActivity extends ActionBarActivity {
         for(int i = 0 ; i< TotalCountDays +1;i++)
         {
 
-                Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+            Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
         //        activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             activitiesList.add(Constants.API_ActivitiesActivity_URL+ Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             /*Log.i("FinaL", "" + Mat2_Destination.get(i));
@@ -374,7 +378,7 @@ public class ActivitiesActivity extends ActionBarActivity {
 
 
 
-        listViewPagerAdapter = new ListViewPagerActivitiesAdapter(ActivitiesActivity.this, activitiesList);
+        listViewPagerAdapter = new ListViewPagerActivitiesAdapter(ActivitiesActivity.this, activitiesList, Mat2_DayCount);
 
         // listViewPagerAdapter.add(null);
         lv1.setAdapter(listViewPagerAdapter);
@@ -386,6 +390,51 @@ public class ActivitiesActivity extends ActionBarActivity {
 
 
     public void onBackPressed() {
+        SaveDataActivities();
         finish();
     }
+
+    public void SaveDataActivities() {
+        try {
+            int index =0;
+            JSONArray json_main_arr = new JSONArray();
+            for (int in = 0; in < destination_id.length; in++) {
+                JSONObject json_obj = new JSONObject();
+                json_obj.put("DestinationID", "" + destination_id[in]);
+                json_obj.put("NightsCount", "" + destination_day_count[in]);
+                JSONArray actvity_array = new JSONArray();
+                for (int i = 0; i < Integer.parseInt(destination_day_count[in]); i++) {
+                  JSONObject activities_obj = new JSONObject();
+                    JSONArray activities_arr = new JSONArray();
+                    ArrayList<ActivitiesModel> modelRow = ListViewPagerActivitiesAdapter.mActivitiesModel.get("" + index);
+                    index++;
+                    int modelRow_size = modelRow.size();
+                    for (int j = 0; j < modelRow_size; j++) {
+                        if (modelRow.get(j).isChecked() == true) {
+                            activities_arr.put(modelRow.get(j).getId());
+                            //Log.i("DataValue ", i + " Clicked " + j + " Check " + modelRow.get(j).isChecked());
+                        }
+
+                    }
+
+                    activities_obj.put("Day " + i, activities_arr);
+                    actvity_array.put(activities_obj);
+                }
+                json_obj.put("ActivitiesID", actvity_array);
+                json_main_arr.put(json_obj);
+            }
+            JSONObject final_data = new JSONObject();
+            final_data.put("activities", json_main_arr);
+            Log.e("Final String", final_data.toString());
+            final SharedPreferences prefsData = getSharedPreferences("SavedData", MODE_PRIVATE);
+            prefsData.edit().putString("Activities", "" + final_data).commit();
+
+
+        } catch (JSONException e) {
+        } catch (NullPointerException e){
+        } catch (Exception e) {
+        }
+
+    }
+
 }
