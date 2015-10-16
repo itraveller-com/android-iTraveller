@@ -12,7 +12,6 @@ package com.itraveller.constant;
     import android.view.View.MeasureSpec;
     import android.widget.ListAdapter;
     import android.widget.ListView;
-
     import java.net.InetAddress;
     import java.text.DateFormat;
     import java.text.ParseException;

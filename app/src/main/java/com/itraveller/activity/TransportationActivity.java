@@ -258,7 +258,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
     public void ShortName(String ShortnameURL, final String arr_dep)
     {
-        Log.i("ShortNameURL " + arr_dep,""+ShortnameURL);
+        Log.i("TestingURL", "Enter into function");
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 ShortnameURL, new Response.Listener<JSONObject>() {
 
@@ -289,7 +289,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                         editor.commit();
 
                     }
-
+                    Log.d("TestingURL", "Function in");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -308,7 +308,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
-
+        Log.d("TestingURL", "Exit from function");
     }
 
 

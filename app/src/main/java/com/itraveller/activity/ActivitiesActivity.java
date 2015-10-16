@@ -372,10 +372,7 @@ public class ActivitiesActivity extends ActionBarActivity {
 */
     private void setData() {
 
-
-
         listViewPagerAdapter = new ListViewPagerActivitiesAdapter(ActivitiesActivity.this, activitiesList);
-
         // listViewPagerAdapter.add(null);
         lv1.setAdapter(listViewPagerAdapter);
         //ListViewPagerActivitiesAdapter listviewactivities = new ListViewPagerActivitiesAdapter();
