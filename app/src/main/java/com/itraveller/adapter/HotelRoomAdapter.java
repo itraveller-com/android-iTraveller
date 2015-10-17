@@ -128,7 +128,7 @@ public class HotelRoomAdapter extends BaseAdapter {
                 if(finalHolder.radioButton.isChecked()) {
                     int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) + 1;
                     finalHolder.btn_count.setText("" + x);
-                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type() );
+                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString()  );
                     //m.set("" + x);
                 }
             }
@@ -141,7 +141,7 @@ public class HotelRoomAdapter extends BaseAdapter {
                 if(finalHolder.radioButton.isChecked()) {
                     if (x > 0) {
                         finalHolder.btn_count.setText("" + x);
-                        RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type() );
+                        RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() );
                     }
                 }
                 //m.setNights("" + x);
@@ -157,7 +157,7 @@ public class HotelRoomAdapter extends BaseAdapter {
                 }
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type() );
+                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() );
                 Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
 
             }
