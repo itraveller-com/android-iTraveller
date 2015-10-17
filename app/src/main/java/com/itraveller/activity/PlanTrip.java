@@ -36,6 +36,7 @@ import com.itraveller.volley.AppController;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,6 +60,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
     Button travelDate;
     Calendar nextYear;
     int count=0;
+    SharedPreferences post_prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 onBackPressed();
             }
         });
+
+        post_prefs=getSharedPreferences("PostDate",MODE_PRIVATE);
 
         NetworkImageView img = (NetworkImageView) findViewById(R.id.thumbnail);
         TextView title_sp = (TextView) findViewById(R.id.title_rp);
@@ -202,6 +206,20 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         travelDate = (Button) findViewById(R.id.travel_date);
         travelDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
         travelDate.setTypeface(tf);
+
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        String weekday = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
+        Log.d("Day of week test", "" + weekday);
+
+        date_str=weekday+"-"+mDay + "-" + (mMonth + 1) + "-" + mYear;
+
+
+        Log.d("Date str=",""+date_str);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("Date_str", "" + date_str);
+        editor.commit();
+
+
         travelDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -291,9 +309,6 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                 }else
                     function2();
 
-                SharedPreferences.Editor editor=preferences.edit();
-                editor.putString("Date_str",""+date_str);
-                editor.commit();
 
             }
         });
@@ -333,6 +348,11 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 String date_=""+calendar.getSelectedDate();
+
+                String date_array[]=date_.split(" ");
+
+                Log.d("Date format test",""+date_);
+
                 String date_arr[]=date_.split(" ");
                 int day=Integer.parseInt(date_arr[2]);
                 String day_str=String.valueOf(day);
@@ -377,7 +397,14 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-                date_str=day_str+"-"+month_str+"-"+date_arr[5];
+                date_str=date_array[0]+"-"+day_str+"-"+month_str+"-"+date_arr[5];
+
+                Log.d("Date str=",""+date_str);
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("Date_str",""+date_str);
+                editor.commit();
+
+
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
                 dialog.dismiss();
             }
@@ -444,6 +471,9 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 String date_=""+calendar.getSelectedDate();
+
+                String date_array[]=date_.split(" ");
+
                 String date_arr[]=date_.split(" ");
                 int day=Integer.parseInt(date_arr[2]);
                 String day_str=String.valueOf(day);
@@ -488,8 +518,15 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
                         break;
                 }
                 String month_str=String.valueOf(month);
-                date_str=day_str+"-"+month_str+"-"+date_arr[5];
+                date_str=date_array[0]+"-"+day_str+"-"+month_str+"-"+date_arr[5];
                 travelDate.setText(day_str+"-"+month_str+"-"+date_arr[5]);
+
+                Log.d("Date str=",""+date_str);
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("Date_str",""+date_str);
+                editor.commit();
+
+
                 dialog.dismiss();
             }
         });

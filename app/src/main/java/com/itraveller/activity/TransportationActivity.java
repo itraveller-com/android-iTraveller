@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,14 +40,26 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.itraveller.R;
+import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
+import com.itraveller.adapter.ListViewPagerAdapter;
 import com.itraveller.adapter.TransportationAdapter;
 import com.itraveller.constant.Constants;
+import com.itraveller.constant.Utility;
+import com.itraveller.model.ActivitiesModel;
+import com.itraveller.model.HotelModel;
 import com.itraveller.model.OnwardDomesticFlightModel;
 import com.itraveller.model.RegionPlaceModel;
 import com.itraveller.model.ReturnDomesticFlightModel;
@@ -59,6 +72,32 @@ import com.itraveller.volley.AppController;
 
 
 public class TransportationActivity extends ActionBarActivity implements MyCallbackClass {
+
+    SharedPreferences preferences;
+    ProgressDialog ndDialog;
+    TextView nameText,placesText,destinationText,arr_dateText,dep_dateText,daysText,adultsText,child_5_12_Text,child_below_5_Text;
+    TextView nameSellerText,addressSellerText,arrAtText,dateDisplayText,roomDisplayText,totalPriceText;
+    TextView discountPriceText,priceAdvanceText,remainingPriceText,departureText,transportationText;
+    SharedPreferences prfs,post_prefs;
+    SharedPreferences prefs;
+    String[] ActivityData;
+    public static int total_sum,activity_sum;
+    public static int count;
+    public static int transportation_cost;
+    public static String Destination_Value;
+    public static String Destination_Date;
+
+
+    ArrayList<DiscountModel> Discount_list=new ArrayList<DiscountModel>();
+    String[] HotelRoomData;
+    private ArrayList<String> lowesthotelList;
+    String Region_id;
+    public static String destination_id_arr[];
+    public static String destination_date_arr[];
+    static String trans_id;
+    String supplier_str="";
+    String discount_str="";
+    public static int sum;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -88,6 +127,8 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
     int index = 0 ;
     int index_at = 0;
     ProgressDialog pDialog;
+    SharedPreferences savedPrefsData;
+    int transportationID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,16 +150,81 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
             }
         });
 
-    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-    //    setupDrawer();
+        setupDrawer();
+
+
+        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+        prfs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+        post_prefs=getSharedPreferences("PostData",MODE_PRIVATE);
+
+        nameText=(TextView) findViewById(R.id.name_value);
+        placesText=(TextView) findViewById(R.id.places_value);
+        destinationText=(TextView) findViewById(R.id.destinations_value);
+        arr_dateText=(TextView) findViewById(R.id.date_of_arrival_value);
+        dep_dateText=(TextView) findViewById(R.id.date_of_departure_value);
+        daysText=(TextView) findViewById(R.id.no_of_days_value);
+        adultsText=(TextView) findViewById(R.id.no_of_adults_value);
+        child_5_12_Text=(TextView) findViewById(R.id.no_of_children_5_12_value);
+        child_below_5_Text=(TextView) findViewById(R.id.no_of_children_below_5_value);
+        totalPriceText=(TextView) findViewById(R.id.total_price_value);
+        discountPriceText=(TextView) findViewById(R.id.disount_value);
+        remainingPriceText=(TextView) findViewById(R.id.price_after_discount_value);
+        priceAdvanceText=(TextView) findViewById(R.id.booking_advance_value);
+        nameSellerText=(TextView) findViewById(R.id.name_of_seller_value);
+        addressSellerText=(TextView) findViewById(R.id.address_of_seller_value);
+        arrAtText=(TextView) findViewById(R.id.arrival_at_value);
+        dateDisplayText=(TextView) findViewById(R.id.date_of_arrival_display);
+        roomDisplayText=(TextView) findViewById(R.id.room_type_display);
+        departureText=(TextView) findViewById(R.id.departure_from_text_value);
+        transportationText=(TextView) findViewById(R.id.transportation_text_value);
+
+        Log.d("No of nights count", "" + preferences.getString("package_name", null));
+
+        if(preferences.getInt("flag",0)==1)
+        {
+            String str=""+preferences.getString("f_name", null);
+            nameText.setText(str.substring(0,1).toUpperCase()+str.substring(1));
+        }
+        else
+        {
+            nameText.setText("User");
+        }
+
+        placesText.setText("" + preferences.getString("package_name", null));
+        destinationText.setText("" + prefs.getString("DestinationName", null));
+        arr_dateText.setText(getConvertedDate(""+preferences.getString("Date_str",null)));
+        dep_dateText.setText(getNextConvertedDate("" + preferences.getString("Date_str", null)));
+        daysText.setText("" + prefs.getInt("Duration",0));
+        adultsText.setText("" + prefs.getString("Adults", null));
+        child_5_12_Text.setText("" + prefs.getString("Children_12_5",null));
+        child_below_5_Text.setText("" + prefs.getString("Children_5_2",null));
+        totalPriceText.setText("Calculating...");
+        discountPriceText.setText("Calculating...");
+        remainingPriceText.setText("Calculating...");
+        priceAdvanceText.setText("Calculating...");
+        addressSellerText.setText("");
+        arrAtText.setText(prefs.getString("ArrivalPortString",null));
+        dateDisplayText.setText("");
+        roomDisplayText.setText("");
+        departureText.setText(prefs.getString("DeparturePortString",null));
+        transportationText.setText("Loading...");
+
 
 
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
+        savedPrefsData = getSharedPreferences("SavedData", MODE_PRIVATE);
+        transportationID = Integer.parseInt("" + savedPrefsData.getString("TransportationID", "0"));
+
         SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
-        String Region_id = prefsData.getString("RegionID", null);
+        Region_id = prefsData.getString("RegionID", null);
+
+
+
         url = Constants.API_TransportationActivity_URL + Region_id;
         Log.i("Transportation_URL", "" + url);
         Log.i("ArrivalAirport", "" + prefsData.getString("ArrivalAirport", null));
@@ -136,11 +242,21 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, (_screen_height - 60));
 
 
+        //For changing the text in next button
+
+
         next_btn = (Button) findViewById(R.id.to_payment);
+
+
+        Log.d("Nextbtn test",""+next_btn);
+
         next_btn.setEnabled(false);
+
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
                 prefsData.edit().putString("OnwardFlightPrice", "0").commit();
                 prefsData.edit().putString("ReturnFlightPrice", "0").commit();
@@ -148,8 +264,8 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 int flightBit = Integer.parseInt("" + F_bit);
                 if (prefsData.getString("TravelFrom", null).equalsIgnoreCase("1") || prefsData.getString("TravelTo", null).equalsIgnoreCase("1")) {
                     Intent intent = new Intent(TransportationActivity.this, ItinerarySummaryActivity.class);
-                    SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
-                    SharedPreferences.Editor editor=prefs.edit();
+                    SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("No_Flights", 1);
                     editor.commit();
                     startActivity(intent);
@@ -173,6 +289,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
         pDialog.show();
+
+        ndDialog=new ProgressDialog(TransportationActivity.this);
+
         SynchronousFunction();
     }
 
@@ -182,6 +301,37 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+
+                ndDialog.setMessage("Loading...");
+                ndDialog.setCancelable(false);
+                ndDialog.show();
+
+                Destination_Value=prfs.getString("DestinationID",null);
+                Destination_Date=prfs.getString("DestinationDate",null);
+
+                String temp_destination_id_arr[]=Destination_Value.split(",");
+                String temp_destination_date_arr[]=Destination_Date.split(",");
+
+                destination_id_arr=new String[temp_destination_id_arr.length];
+                destination_date_arr=new String[temp_destination_date_arr.length];
+
+                Log.d("Destination date test111", "" + Destination_Date);
+
+
+                destination_id_arr=Destination_Value.split(",");
+                destination_date_arr=Destination_Date.split(",");
+
+
+                totalPriceText.setText("Calculating...");
+                discountPriceText.setText("Calculating...");
+                remainingPriceText.setText("Calculating...");
+                priceAdvanceText.setText("Calculating...");
+                nameSellerText.setText("Loading...");
+                addressSellerText.setText("Loading...");
+                transportationText.setText("Loading...");
+
+                getHotelAndActivitySum();
+
                 getSupportActionBar().setTitle("Summary Data");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -189,6 +339,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+
+                sum=0;
+
                 getSupportActionBar().setTitle("Transportations");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -199,7 +352,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-/*
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -225,23 +378,23 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
         return super.onCreateOptionsMenu(menu);
     }
-*/
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        int id = item.getItemId();
+/*        int id = item.getItemId();
 
 
         if(id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
+*/
 
-
-    /*    if (item != null && item.getItemId() == R.id.btnMyMenu) {
+        if (item != null && item.getItemId() == R.id.btnMyMenu) {
             if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
             } else {
@@ -250,15 +403,276 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         }
 
 
-    */    return false;
+        return false;
+    }
+
+    public void getHotelAndActivitySum()
+    {
+        String Hotel_ID_arr[]=prefs.getString("HotelRooms",null).split("-");
+        Log.d("Activity test testte",Hotel_ID_arr[0]);
+        String Hotel_Data_arr[]=new String[4];
+
+        for(int i=0;i<Hotel_ID_arr.length;i++)
+        {
+            Hotel_Data_arr = Hotel_ID_arr[i].split(",");
+            Log.d("Activity test testtt",""+Hotel_Data_arr.length);
+            sum += Integer.parseInt(Hotel_Data_arr[2]);
+
+        }
+        String activity_str=post_prefs.getString("ActivitiesDataString",null);
+        Log.d("Activity test6",""+activity_str);
+
+        String day_activity_arr[]=activity_str.split("/");
+
+
+        for(int i=0;i<day_activity_arr.length;i++)
+        {
+            String activity_arr[]=day_activity_arr[i].split(":");
+
+            Log.d("Activity test65", "" + activity_arr.length);
+
+            for(int j=0;j<activity_arr.length;j++)
+            {
+                String activity_data_arr[]=activity_arr[j].split(",");
+                Log.d("Activity test45", "" + activity_data_arr.length);
+
+                if(activity_data_arr.length>2)
+                {
+                    String temp_str = activity_data_arr[1];
+                    Log.d("Activity test56", "" + temp_str);
+
+                    if (temp_str.equals(" ") || temp_str.equals(""))
+                        temp_str = "0";
+
+                    int temp = Integer.parseInt(temp_str);
+                    Log.d("Activity test57", "" + temp);
+
+                    activity_sum += temp;
+                }
+                else
+                {
+                    activity_sum+=0;
+                }
+            }
+        }
+
+        Log.d("Activity test1",""+activity_sum);
+
+        sum=sum+(activity_sum);
+
+        getUserSelectedTransportation();
     }
 
 
+    public void getSupplierDetails()
+    {
+        Log.d("URL test test10","hi");
+        String url="http://m.itraveller.com/api/v1/supplier?region="+Region_id;
+        int i;
+        Log.d("URL test test11", "" + url + "hii " + destination_date_arr.length);
+        for(i=0;i<destination_date_arr.length;i++) {
+
+            final int finalI = i;
+            JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+                    url, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        Log.i("Test99", "Testing7657" + response);
+                        Log.d("Boolean99", "" + response.getBoolean("success"));
+                        Log.d("Error99", "" + response.getJSONObject("error"));
+                        Log.d("Payload99", "" + response.getJSONArray("payload"));
+                        // JSONObject jsonobj = response.getJSONObject("payload").get;
+                        // Parsing json
+                        int temp=0;
+
+                        Log.d("URL test test14",""+response.getJSONArray("payload").length());
+                        Log.d("URL test test15",""+destination_date_arr[finalI]);
+                        for (int j = 0; j < response.getJSONArray("payload").length(); j++) {
+                            JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(j);
+                            Log.d("URL test test16",""+jsonarr.getString("Company_Id"));
+                            supplier_str +=""+ jsonarr.getString("Company_Id") + "::" + ""+jsonarr.getString("Name") + "::" + ""+jsonarr.getString("Address")+"::" +""+destination_date_arr[finalI] +":-";
+                            Log.d("URL test test6",""+supplier_str);
+                            temp=j;
+                        }
+
+                        if(temp==(response.getJSONArray("payload").length()-1))
+                        {
+                            Log.d("URL test test5",""+supplier_str);
+                            getDiscount(supplier_str);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        VolleyLog.d("Volley Error", "Error: " + e.getMessage());
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //System.err.println(error);
+                    // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
+                    // For AuthFailure, you can re login with user credentials.
+                    // For ClientError, 400 & 401, Errors happening on client side when sending api request.
+                    // In this case you can check how client is forming the api and debug accordingly.
+                    // For ServerError 5xx, you can do retry or handle accordingly.
+                    if (error instanceof NetworkError) {
+
+                        // pDialog.hide();
+                        Toast.makeText(TransportationActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                    } else if (error instanceof ServerError) {
+                    } else if (error instanceof AuthFailureError) {
+                    } else if (error instanceof ParseError) {
+                    } else if (error instanceof NoConnectionError) {
+                        // pDialog.hide();
+                        Toast.makeText(TransportationActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                    } else if (error instanceof TimeoutError) {
+                    }
+                }
+            }) {
+            };
+        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
+                5,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+            AppController.getInstance().addToRequestQueue(strReq);
+
+        }
+
+    }
+
+    public void getDiscount(String supplier_details)
+    {
+        Log.d("URL test test1",""+supplier_details);
+
+        final String no_of_supplier[]=supplier_details.split(":-");
+        String supplier_data[]=new String[4];
+
+        Log.d("URL test test2",""+no_of_supplier.length);
+        int temp;
+        final DiscountModel discount_model=new DiscountModel();
+
+
+        supplier_data=no_of_supplier[0].split("::");
+
+        String url = "http://m.itraveller.com/api/v1/supplier/discount?checkInDate="+supplier_data[3]+"&companyId=" + supplier_data[0];
+
+        Log.d("URL test test",""+url);
+
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+                url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.i("Test", "Testing7657" + response);
+                    Log.d("Boolean", "" + response.getBoolean("success"));
+                    Log.d("Error78", "" + response.getJSONObject("error"));
+                    Log.d("Payload78", "" + response.getJSONArray("payload"));
+                    // JSONObject jsonobj = response.getJSONObject("payload").get;
+                    // Parsing jso
+
+                    JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(0);
+
+                    discount_model.setCompany_ID("" + jsonarr.getString("Company_Id"));
+                    discount_model.setCompany_Name("" + jsonarr.getString("Company_Name"));
+                    discount_model.setCompany_Discount(Integer.parseInt("" + jsonarr.getString("Discount")));
+                    discount_model.setCompany_Address(""+jsonarr.getString("Company_Address"));
+
+                    Discount_list.add(discount_model);
+
+                    Collections.sort(Discount_list, new DiscountComparison());
+
+                    discount_str+=""+jsonarr.getString("Company_Id")+","+""+jsonarr.getString("Company_Name")+","+jsonarr.getString("Discount")+"::";
+
+                    CalculateDiscount();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    VolleyLog.d("Volley Error", "Error: " + e.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //System.err.println(error);
+                // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
+                // For AuthFailure, you can re login with user credentials.
+                // For ClientError, 400 & 401, Errors happening on client side when sending api request.
+                // In this case you can check how client is forming the api and debug accordingly.
+                // For ServerError 5xx, you can do retry or handle accordingly.
+                if (error instanceof NetworkError) {
+
+                    // pDialog.hide();
+                    Toast.makeText(TransportationActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof ParseError) {
+                } else if (error instanceof NoConnectionError) {
+                    // pDialog.hide();
+                    Toast.makeText(TransportationActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof TimeoutError) {
+                }
+            }
+        }) {
+        };
+
+        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
+                5,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+        AppController.getInstance().addToRequestQueue(strReq);
+
+
+    }
+
+    public void CalculateDiscount()
+    {
+        Log.d("URL test test21", "" + discount_str);
+
+        Log.d("URL test test45", "" + sum);
+        Log.d("URL test test24", "" + Discount_list.size());
+        for(int i=0;i<Discount_list.size();i++)
+            Log.d("URL test test23",""+Discount_list.get(i).getCompany_ID()+"  "+Discount_list.get(i).getCompany_Discount()+" "+Discount_list.get(i).getCompany_Name());
+
+        SharedPreferences.Editor editor=post_prefs.edit();
+
+        totalPriceText.setText("\u20B9 " + sum);
+        editor.putInt("TotalPackagePrice", sum);
+
+        discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
+        editor.putInt("DiscountValue", Discount_list.get(0).getCompany_Discount());
+
+        int remaining_price=sum-((Integer.parseInt(""+Discount_list.get(0).getCompany_Discount())*sum)/100);
+        remainingPriceText.setText("\u20B9 "+""+remaining_price);
+        editor.putInt("RemainingPrice", remaining_price);
+
+        int adv_price=(20*remaining_price)/100;
+        priceAdvanceText.setText("\u20B9 " + "" + adv_price);
+        editor.putInt("AdvancePrice", adv_price);
+
+        nameSellerText.setText("" + Discount_list.get(0).getCompany_Name());
+        editor.putString("SellerName", "" + Discount_list.get(0).getCompany_Name());
+
+        addressSellerText.setText("" + Discount_list.get(0).getCompany_Address());
+        editor.putString("SellerAddress", "" + Discount_list.get(0).getCompany_Address());
+
+        transportationText.setText("" + prefs.getString("TransportationName", null));
+        editor.putString("TransportationName", ""+prefs.getString("TransportationName",null));
+
+        editor.commit();
+
+        ndDialog.hide();
+    }
 
 
     public void ShortName(String ShortnameURL, final String arr_dep)
     {
         Log.i("TestingURL", "Enter into function");
+        Log.i("ShortNameURL " + arr_dep, "" + ShortnameURL);
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 ShortnameURL, new Response.Listener<JSONObject>() {
 
@@ -276,14 +690,18 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                         if(arr_dep.equalsIgnoreCase("Departure")) {
                             if (response.getJSONObject("payload").getString("Code").equalsIgnoreCase("1")) {
                                 editor.putString("TravelFrom", "1");
+                                next_btn.setText("Itinerary Summary");
                             } else {
                                 editor.putString("TravelFrom", response.getJSONObject("payload").getString("Code"));
+                                next_btn.setText("Book Flights");
                             }
                         }else if(arr_dep.equalsIgnoreCase("Arrival")){
                             if (response.getJSONObject("payload").getString("Code").equalsIgnoreCase("1")) {
                                 editor.putString("TravelTo", "1");
+                                next_btn.setText("Itinerary Summary");
                             } else {
                                 editor.putString("TravelTo", response.getJSONObject("payload").getString("Code"));
+                                next_btn.setText("Book Flights");
                             }
                         }
                         editor.commit();
@@ -294,7 +712,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                     e.printStackTrace();
                 }
 
-                adapter.notifyDataSetChanged();
+              //  adapter.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener() {
@@ -331,6 +749,99 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
     }
 
+
+
+    public String getNextConvertedDate(String str)
+    {
+        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov", "Dec"};
+        String nights_count="" + prefs.getString("DestinationCount", null);
+        Log.d("URL test test46",""+nights_count);
+        String nights_count_arr[]=nights_count.split(",");
+        int no_of_nights=0;
+
+        for(int i=0;i<nights_count_arr.length;i++)
+        {
+            no_of_nights+=Integer.parseInt(nights_count_arr[i]);
+        }
+
+
+        //rohan
+        String dateInString = str; // Start date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        Calendar c = Calendar.getInstance();
+
+        try {
+            c.setTime(sdf.parse(dateInString));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        c.add(Calendar.DATE, (no_of_nights+1));//insert the number of days you want to be added to the current date
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date resultdate = new Date(c.getTimeInMillis());
+        dateInString = sdf.format(resultdate);
+
+        Log.d("Calendar test test455", "" + dateInString);
+
+        String temp[]=dateInString.split("-");
+
+
+        int day=Integer.parseInt(temp[0]);
+        Log.d("URL test test47",""+day);
+        int temp_month = Integer.parseInt(temp[1]);
+        Log.d("URL test test48",""+temp_month);
+        int year = Integer.parseInt(temp[2]);
+        Log.d("URL test test49",""+no_of_nights);
+
+
+
+        String day_str = getDay(temp[0] + "-" + temp[1]+"-"+temp[2]);
+
+        Log.d("URL test test50",temp[0] + "-" + temp[1]+"-"+temp[2]);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("Date_end_str",temp[0] + "-" + temp[1]+"-"+temp[2]);
+        editor.commit();
+
+        day_str=day_str.substring(0, 3);
+
+        str=day_str+", "+day+" "+month[temp_month-1]+" "+temp[2];
+
+        return str;
+    }
+
+
+    private String getDay(String dateStr){
+        //dateStr must be in DD-MM-YYYY Formate
+        Date date = null;
+        String day=null;
+
+        try {
+            date = new SimpleDateFormat("DD-MM-yyyy").parse(dateStr);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+            //System.out.println("DAY "+simpleDateFormat.format(date).toUpperCase());
+            day = simpleDateFormat.format(date);
+
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return day;
+    }
+
+    public String getConvertedDate(String str)
+    {
+        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        String temp[]=str.split("-");
+        int temp_month=Integer.parseInt(temp[2]);
+        str=temp[0]+", "+temp[1]+" "+month[temp_month-1]+" "+temp[3];
+        return str;
+    }
 
     public void onBackPressed() {
         finish();
@@ -402,6 +913,21 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 AppController.getInstance().addToRequestQueue(strReq);
     }
 
+    public void getUserSelectedTransportation()
+    {
+        String tra_id=prefs.getString("TransportationID",null);
+        String tra_name=prefs.getString("TransportationName",null);
+        String tra_cost=prefs.getString("TransportationCost",null);
+
+        Log.d("Transportation test2",""+tra_cost);
+
+
+        sum+=Integer.parseInt(tra_cost);
+        Log.d("Transportation test6",""+total_sum);
+
+        getSupplierDetails();
+    }
+
 
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int last_index) {
         synchronized (this) {
@@ -424,6 +950,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                         transportation_model.setTransportation_Id(jsonarr.getInt("Transportation_Id"));
                         transportation_model.setTitle("" + title);
                         transportation_model.setCost(jsonarr.getInt("Cost"));
+                        Log.d("Transportation cost",""+jsonarr.getInt("Cost"));
                         transportation_model.setCost1(jsonarr.getInt("Cost1"));
                         transportation_model.setKM_Limit(jsonarr.getInt("KM_Limit"));
                         transportation_model.setPrice_Per_KM(jsonarr.getInt("Price_Per_KM"));
@@ -458,7 +985,18 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                                     transportationList.remove(0);
                                 }
                             }
-                            transportationList.get(0).setIsCheck(true);
+                            if(transportationID == 0) {
+                                transportationList.get(0).setIsCheck(true);
+                            }
+                            else{
+                                for(int x = 0; x < transportationList.size(); x++) {
+                                    if(transportationList.get(x).getTransportation_Id() == transportationID) {
+                                        transportationList.get(x).setIsCheck(true);
+                                        transportationList.add((0), transportationList.get(x));
+                                        transportationList.remove(x + 1);
+                                    }
+                                }
+                            }
                             adapter.notifyDataSetChanged();
                             pDialog.hide();
                         }

@@ -41,8 +41,9 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     int swap_value = 0;
     //ImageView left_arrow,right_arrow;
     int single_loop_bit =0;
-    //ViewPagerAdapter viewpageradapter;
-
+   //ViewPagerAdapter viewpageradapter;
+    SharedPreferences user_selected_data;
+    SharedPreferences mysettings;
     ImageView[] left_arrow,right_arrow;
     RelativeLayout[] rel_left_arrow,rel_right_arrow;
     int checkbit = 0;
@@ -57,6 +58,9 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     private Map<Integer, Integer> mPagerPositions ;
     String[] hotel_destination;
     String[] hotel_nights;
+
+    String hotels_data = "{\"Hotels\":[{\"DestinationID\":\"99\",\"HotelID\":\"1472\",\"HotelRoomID\":\"4287\"}]}";
+
 
     public ListViewPagerAdapter(Context context, ArrayList<String> navigationItems, ArrayList<String> defaultHotelRoom, HotelActivity.pagerCheckBoxChangedListner1 pagerviewlistener) {
         super(context, R.layout.view_pager_list_view, navigationItems);
@@ -114,7 +118,10 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         }else{
 
         }
-        SharedPreferences mysettings= context.getSharedPreferences("Itinerary", 0);
+
+        user_selected_data=context.getSharedPreferences("User Selected Data",context.MODE_PRIVATE);
+
+        mysettings= context.getSharedPreferences("Itinerary", 0);
         String Destintion_night = mysettings.getString("DestinationCount", null);
         String Destintion_NAME = mysettings.getString("DestinationName", null);
         hotel_destination = Destintion_NAME.trim().split(",");
@@ -334,13 +341,20 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                             hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
                             String[] value = defaultHotelRoom.get(index).trim().split(",");
 
-                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
-                                    hotel_model.setChecked(true);
-                                    swap_value = i;
-                                    flag_bit = 1;
-                                } else {
-                                    hotel_model.setChecked(false);
-                                }
+
+                                Log.d("Count test test1",""+defaultHotelRoom.get(index));
+
+
+                                    if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
+
+
+                                        hotel_model.setChecked(true);
+                                        swap_value = i;
+                                        Log.d("chech est test", "hi");
+                                        flag_bit = 1;
+                                    } else {
+                                        hotel_model.setChecked(false);
+                                    }
                             }
                             //hotel_model.setChecked(true);
 
@@ -375,7 +389,8 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                     }
                     mHotelModels.put(position + "", hotelList);
                     ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
-                    if(modelRow.size() == 0){
+                    if(modelRow.size() == 0)
+                    {
                         vp[position].setVisibility(View.GONE);
                         left_arrow[position].setVisibility(View.GONE);
                         right_arrow[position].setVisibility(View.GONE);
@@ -383,7 +398,8 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         rel_left_arrow[position].setVisibility(View.GONE);
                         rel_right_arrow[position].setVisibility(View.GONE);
                     }
-                    else{
+                    else
+                    {
                         vp[position].setVisibility(View.VISIBLE);
                         left_arrow[position].setVisibility(View.VISIBLE);
                         right_arrow[position].setVisibility(View.VISIBLE);
@@ -392,11 +408,15 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         rel_right_arrow[position].setVisibility(View.VISIBLE);
                     }
 
-                } catch (JSONException e) {
+                }
+                catch (JSONException e)
+                {
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-                if(single_loop_bit!=1) {
+
+                if(single_loop_bit!=1)
+                {
                     HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
                     mViewPagerAdapter.notifyDataSetChanged();
                 }

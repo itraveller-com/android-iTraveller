@@ -2,6 +2,7 @@ package com.itraveller.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -71,7 +72,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     @Override
     public Object instantiateItem(View collection, final int position) {
-        Log.i("PageSelection", "PageSelectionViewPager instatntiate " + position);
+        Log.d("PageSelection", "PageSelectionViewPager instatntiate " + position);
         // Inflating layout
         LayoutInflater inflater = (LayoutInflater) collection.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -85,6 +86,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
 
 
+
         try {
 
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
@@ -93,7 +95,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);
-
+            Log.d("checkbox test",""+arrayModelClasses.get(position).isChecked());
             if(arrayModelClasses.get(position).isChecked()){
                 if(check_bit == 0) {
                     checkBox.setChecked(true);

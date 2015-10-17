@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".CustomListViewAndroidExample" >
 
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,16 +48,6 @@
                         android:textStyle="bold" />
 
                 </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="No rooms available"
-                    android:id="@+id/no_rooms_ava"
-                    android:gravity="center"
-                    android:textColor="#ff000000"
-                    android:visibility="gone" />
 
                 <ListView
                     android:layout_width="fill_parent"
@@ -123,46 +114,51 @@
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/container_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:id="@+id/container_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar"
-                />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            />
 
-        </LinearLayout>
+    </LinearLayout>
 
 
-        <ListView
-            android:id="@+id/campaignListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_below="@+id/container_toolbar"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/to_activities">
-        </ListView>
+    <ListView
+        android:id="@+id/campaignListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_above="@+id/to_activities"
+        android:layout_below="@+id/container_toolbar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </ListView>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Proceed to Activities >>"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:background="@drawable/style_filterbutton"
-            android:id="@+id/to_activities"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed to Activities >>"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/style_filterbutton"
+        android:id="@+id/to_activities"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
 
     </RelativeLayout>
-    <include layout="@layout/summary_data"
-        android:layout_gravity="right"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"></include>
 
+
+    <include layout="@layout/summary_data"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"></include>
 
 </android.support.v4.widget.DrawerLayout>

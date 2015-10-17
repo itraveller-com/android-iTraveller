@@ -105,9 +105,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
             }
         });
 
-    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-    //    setupDrawer();
+        setupDrawer();
 
 
         SharedPreferences prefs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
@@ -192,7 +192,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
         mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-/*
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -239,7 +239,6 @@ public class FlightDomesticActivity extends ActionBarActivity{
     }
 
 
-*/
 
     public void xmlparseflight(String url)
     {

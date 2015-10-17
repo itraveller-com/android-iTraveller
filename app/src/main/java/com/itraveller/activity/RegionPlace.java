@@ -67,6 +67,7 @@ public class RegionPlace extends ActionBarActivity {
     int min_value = 0, max_value = 0;
     LinearLayout no_data_lay;
 
+    SharedPreferences prefss;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,9 @@ public class RegionPlace extends ActionBarActivity {
                 onBackPressed();
             }
         });
+
+        prefss=getSharedPreferences("PostData",MODE_PRIVATE);
+
         filter_btn = (Button) findViewById(R.id.addbtnfilter);
         final TextView minval = (TextView) findViewById(R.id.minvalue);
         final TextView maxval = (TextView) findViewById(R.id.maxvalue);
@@ -186,11 +190,16 @@ public class RegionPlace extends ActionBarActivity {
 
         SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencess.edit();
-        editor.putString("package_name",bundle.getString("RegionName"));
+        editor.putString("package_name", bundle.getString("RegionName"));
         editor.commit();
+
+        SharedPreferences.Editor editor1=prefs.edit();
+        editor1.putString("RegionName", bundle.getString("RegionName"));
+        editor1.putInt("RegionID",bundle.getInt("RegionID"));
+        editor1.commit();
       // mToolbar = (Toolbar) findViewById(R.id.toolbar);
     //   setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayShrpowHomeEnabled(true);
 
         listView = (ListView) findViewById(R.id.listView);
         adapter = new RegionPlaceAdapter(this, regionList, new CustomNoDataHandler());
@@ -231,13 +240,20 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setLink(jsonobj.getJSONObject("Master").getString("Link"));
                            //region_adp.setImage(jsonobj.getJSONObject("Master").getString("Image"));
                        //    region_adp.setImage("http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
-                           region_adp.setImage(Constants.API_RegionPlace_ImageURL+ jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
+                           region_adp.setImage(Constants.API_RegionPlace_ImageURL + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
                            Log.d("Images:", "http://stage.itraveller.com/backend/images/packages/" + jsonobj.getJSONObject("Master").getInt("Itinerary_Id") + ".jpg");
                            region_adp.setArrival_Port_Id(jsonobj.getJSONObject("Master").getInt("Arrival_Port_Id"));
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                            region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
                            region_adp.setDuration_Day(jsonobj.getJSONObject("Master").getInt("Duration_Day"));
                            region_adp.setPrice(jsonobj.getJSONObject("Master").getInt("Price"));
+
+                           SharedPreferences.Editor editor2=prefss.edit();
+
+                           editor2.putInt("ItineraryId", jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
+                           editor2.putInt("TripDuration",jsonobj.getJSONObject("Master").getInt("Duration_Day"));
+                           editor2.commit();
+
                            if(index ==0) {
                                min_value = jsonobj.getJSONObject("Master").getInt("Price");
                                max_value = jsonobj.getJSONObject("Master").getInt("Price");

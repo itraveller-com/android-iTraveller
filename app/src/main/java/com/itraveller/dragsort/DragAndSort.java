@@ -1,6 +1,8 @@
 package com.itraveller.dragsort;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.ProgressDialog;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -38,6 +41,13 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.itraveller.adapter.HotelRoomAdapter;
+import com.itraveller.adapter.ListViewPagerAdapter;
+import com.itraveller.adapter.TransportationAdapter;
+import com.itraveller.constant.Constants;
+import com.itraveller.model.HotelModel;
+import com.itraveller.model.HotelRoomModel;
+import com.itraveller.model.TransportationModel;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -57,10 +67,18 @@ import com.itraveller.volley.AppController;
 
 public class DragAndSort extends ActionBarActivity
 {
+
+    public Intent intent;
+    public static String Destination_Value;
+    public static String Destination_Date;
+
+    SharedPreferences sharedpreferences;
     DragSortListView listView;
     String[] names;
    // ArrayAdapter<String> adapter;
     Toolbar mToolbar;
+
+
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     ////// New Page
     private List<AirportModel> airportList = new ArrayList<AirportModel>();
@@ -75,8 +93,8 @@ public class DragAndSort extends ActionBarActivity
     public static ListView listview;
     private SearchView search_airport;
     private TextView from_home , from_travel , to_home ,to_travel;
-    private String url;
-    private String region_id;
+    public String url;
+    public static String region_id;
     private int check_bit_new = 0;
     private ScrollView scroll;
     private Button hotelBook;
@@ -84,10 +102,10 @@ public class DragAndSort extends ActionBarActivity
     private String[] destination_Count;
     private int arrival_id,departure_id;
     private String travelfrom , travelto;
-
+    private View include_loading;
 
     private LinearLayout destination_page;
-    private LinearLayout airportlist_page;
+    private RelativeLayout airportlist_page;
 
    private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
     {
@@ -122,6 +140,8 @@ public class DragAndSort extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.destination);
+
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -135,9 +155,20 @@ public class DragAndSort extends ActionBarActivity
             }
         });
 
+        //Saving the data for previous use
+        SharedPreferences prefsSaved = getSharedPreferences("SavedData", MODE_PRIVATE);
+        SharedPreferences.Editor editorSaved = prefsSaved.edit();
+        editorSaved.putString("Activities", null);
+        editorSaved.putString("TransportationID", null);
+        editorSaved.commit();
+
+        //Loading Layout View
+        include_loading = findViewById(R.id.include_loading);
+        include_loading.setVisibility(View.GONE);
+
         //Main Layout
         destination_page = (LinearLayout) findViewById(R.id.destination_page);
-        airportlist_page = (LinearLayout) findViewById(R.id.airport_listview);
+        airportlist_page = (RelativeLayout) findViewById(R.id.airport_listview);
 
         LinearLayout from_airport_sp = (LinearLayout) findViewById(R.id.from_home_airport);
         LinearLayout from_port_sp = (LinearLayout) findViewById(R.id.from_travel_port);
@@ -168,7 +199,7 @@ public class DragAndSort extends ActionBarActivity
         title_sp.setText(bundle.getString("Title"));
         //region_id = bundle.getInt("RegionID");
 
-        SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
 
         region_id = "" + sharedpreferences.getString("RegionID", null);
         String TestValue = bundle.getString("Destinations");
@@ -193,6 +224,7 @@ public class DragAndSort extends ActionBarActivity
         /*SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();*/
 
+
         //listView.setAdapter(adapter);
 
         for(int i = 0; i<names.length ; i++)
@@ -206,6 +238,7 @@ public class DragAndSort extends ActionBarActivity
         add_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -247,13 +280,14 @@ public class DragAndSort extends ActionBarActivity
         hotelBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Destination_Value = null;
                 String Destination_Count = null;
                 String Destination_Name = null;
-                String Destination_Date = null;
                 String CheckDate = null;
                 int TotalCount = 0;
                 SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
+
+                String no_of_nights_str="";
+
                 int rearrangeList_size=rearrangeList.size();
                 for(int i = 0; i< rearrangeList_size;i++) {
                    /* Log.v("TestData","Data :"+rearrangeList.get(i).getPlace());
@@ -276,13 +310,22 @@ public class DragAndSort extends ActionBarActivity
                         Destination_Count = Destination_Count + "," + rearrangeList.get(i).getNights();
                         Destination_Name = Destination_Name + "," + rearrangeList.get(i).getPlace();
                     }
-                    Log.v("TestDataDate","Date :"+Destination_Date);
+                    Log.v("TestDataDate", "Date :" + Destination_Date);
+                    Log.d("No of nights test", "" + rearrangeList.get(i).getNights());
+                    no_of_nights_str+=""+rearrangeList.get(i).getNights()+",";
+
                 }
+
+                Log.d("No of nights test1", "" + no_of_nights_str);
+
 
                 if(adapter_rearrange.getCount() != 0) {
                     SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
 
+                    String no_of_dest[]=Destination_Value.split(",");
+
+                    editor.putInt("No_of_Destinations",no_of_dest.length);
                     editor.putString("DestinationID", Destination_Value);
                     editor.putString("DestinationCount", Destination_Count);
                     editor.putString("DestinationName", Destination_Name);
@@ -293,18 +336,27 @@ public class DragAndSort extends ActionBarActivity
                     editor.putString("DepartureAirport", "" + travelto);
                     editor.putString("ArrivalPort", "" + arrival_id);
                     editor.putString("DeparturePort", "" + departure_id);
+
                     //For Itinerary Summaray
                     editor.putString("ArrivalAirportString", "" + from_home.getText());
                     editor.putString("DepartureAirportString", "" + to_home.getText());
                     editor.putString("ArrivalPortString", "" + from_travel.getText());
                     editor.putString("DeparturePortString", "" + to_travel.getText());
+
                     editor.commit();
+
                     Log.d("Test dest",""+to_home.getText());
                     Log.d("Test dest1",""+from_travel.getText());
                     if(  !(""+from_travel.getText()).equals("")) {
-                        Intent intent = new Intent(DragAndSort.this, HotelActivity.class);
+                        intent = new Intent(DragAndSort.this, HotelActivity.class);
                         intent.putExtra("DestinationsIDs", Destination_Value);
+
+                        editor.putString("No_of_nights_dest",""+no_of_nights_str);
+                        editor.commit();
+                        Log.d("Destination Date test", "" + region_id);
+
                         startActivity(intent);
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "Please Add Arrival and Departure Destination", Toast.LENGTH_LONG).show();
@@ -324,6 +376,8 @@ public class DragAndSort extends ActionBarActivity
                 i.putExtra("Url", "http://stage.itraveller.com/backend/api/v1/airport");
                 i.putExtra("Place" , 1);
                 startActivity(i);*/
+                include_loading.setVisibility(View.VISIBLE);
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -335,6 +389,8 @@ public class DragAndSort extends ActionBarActivity
         from_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -346,6 +402,8 @@ public class DragAndSort extends ActionBarActivity
         to_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -357,6 +415,8 @@ public class DragAndSort extends ActionBarActivity
         to_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                include_loading.setVisibility(View.VISIBLE);
+                listview.setAdapter(null);
                 destination_page.setVisibility(View.GONE);
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
@@ -532,7 +592,7 @@ public class DragAndSort extends ActionBarActivity
                 }
                 adapter_airport.notifyDataSetChanged();
                 adapter_portandLoc.notifyDataSetChanged();
-
+                include_loading.setVisibility(View.GONE);
 
             }
         },  new Response.ErrorListener() {
@@ -624,18 +684,21 @@ public class DragAndSort extends ActionBarActivity
     }
 
     public void onBackPressed() {
-        Log.i("CheckBitValue",""+check_bit_new);
+        Log.i("CheckBitValue", "" + check_bit_new);
         if(check_bit_new==0)
         {
             finish();
         }
         else
         {
+            include_loading.setVisibility(View.GONE);
+            listview.setAdapter(null);
             destination_page.setVisibility(View.VISIBLE);
             airportlist_page.setVisibility(View.GONE);
             hotelBook.setVisibility(View.VISIBLE);
             check_bit_new = 0;
         }
     }
+
 }
 

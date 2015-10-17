@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/minus_btn"
-
+            style="?android:attr/borderlessButtonStyle"
             android:background="#fffefffd"
             android:textStyle="bold"
             android:textSize="25dp" />
@@ -95,7 +95,8 @@
             android:layout_height="wrap_content"
             android:text="+"
             android:id="@+id/plus_btn"
-  android:background="#fffefffd"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="#fffefffd"
             android:textSize="25dp" />
 
     </LinearLayout>

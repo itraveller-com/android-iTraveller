@@ -24,6 +24,8 @@ import com.itraveller.model.HotelRoomModel;
 import com.itraveller.volley.AppController;
 
 public class HotelRoomAdapter extends BaseAdapter {
+
+    public static String Hotel_Data;
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
@@ -34,6 +36,8 @@ public class HotelRoomAdapter extends BaseAdapter {
     HotelActivity.RadiobuttonListener RadioListener;
     private int adults;
     private int groupPosition;
+    SharedPreferences preferences,post_data;
+    SharedPreferences prefs;
 
 
 
@@ -81,7 +85,8 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_minus =(Button) convertView.findViewById(R.id.minus);
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
-            SharedPreferences prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            post_data=activity.getSharedPreferences("PostData",activity.MODE_PRIVATE);
             adults = Integer.parseInt(prefs.getString("Adults", "0"));
         }
         else
@@ -95,6 +100,7 @@ public class HotelRoomAdapter extends BaseAdapter {
         //holder.radioButton.setChecked(false);
         // getting data for the row
         final HotelRoomModel m = HotelRooms.get(position);
+
 
         //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
@@ -166,7 +172,8 @@ public class HotelRoomAdapter extends BaseAdapter {
         if(mSelectedPosition != position){
             holder.radioButton.setChecked(false);
         }else{
-            holder.radioButton.setChecked(true);
+                holder.radioButton.setChecked(true);
+            Log.d("Checked box", "hi");
             if(mSelectedRB != null && holder.radioButton != mSelectedRB){
                 mSelectedRB = holder.radioButton;
             }

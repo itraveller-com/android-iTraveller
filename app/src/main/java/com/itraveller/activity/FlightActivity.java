@@ -92,9 +92,9 @@ public class FlightActivity extends ActionBarActivity {
                 }
             });
 
-        //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+            mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-         //   setupDrawer();
+            setupDrawer();
 
 
             CustomLoading.LoadingScreen(FlightActivity.this, false);
@@ -365,7 +365,7 @@ public class FlightActivity extends ActionBarActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-/*
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -411,7 +411,6 @@ public class FlightActivity extends ActionBarActivity {
         return false;
     }
 
-*/
     class PriceComparison implements Comparator<OnwardFlightModel>{
 
             @Override
@@ -437,9 +436,6 @@ public class FlightActivity extends ActionBarActivity {
         }
 
     }
-
-
-
 
 }
 
