@@ -4,8 +4,11 @@ package com.itraveller.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -120,6 +123,11 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
                 mDrawerLayout.setClickable(true);
+
+            /*    LandingActivity fragment=new LandingActivity();
+                View view=fragment.getView();
+                view.setVisibility(View.GONE);
+            */
             }
 
             @Override
@@ -127,6 +135,13 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
                 mDrawerLayout.setClickable(false);
+
+
+            /*    LandingActivity fragment=new LandingActivity();
+                View view=fragment.getView();
+                view.setVisibility(View.VISIBLE);
+            */
+
             }
 
             @Override

@@ -3,6 +3,7 @@ package com.itraveller.activity;
 /**
  * Created by VNK on 8/15/2015.
  */
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +36,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,6 +64,14 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class ItinerarySummaryActivity extends ActionBarActivity {
 /* When using Appcombat support library
    you need to extend Main Activity to ActionBarActivity.*/
+    ProgressDialog ndDialog;
+    TextView nameText,placesText,destinationText,arr_dateText,dep_dateText,daysText,adultsText,child_5_12_Text,child_below_5_Text;
+    TextView nameSellerText,addressSellerText,arrAtText,dateDisplayText,roomDisplayText,totalPriceText;
+    TextView discountPriceText,priceAdvanceText,remainingPriceText,departureText,transportationText;
+    SharedPreferences prfs;
+    SharedPreferences prefs;
+    SharedPreferences preferences;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -96,9 +109,70 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         });
 
 
-    //    mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-    //    setupDrawer();
+        setupDrawer();
+
+
+
+        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+        prfs=getSharedPreferences("Itinerary",MODE_PRIVATE);
+
+
+        nameText=(TextView) findViewById(R.id.name_value);
+        placesText=(TextView) findViewById(R.id.places_value);
+        destinationText=(TextView) findViewById(R.id.destinations_value);
+        arr_dateText=(TextView) findViewById(R.id.date_of_arrival_value);
+        dep_dateText=(TextView) findViewById(R.id.date_of_departure_value);
+        daysText=(TextView) findViewById(R.id.no_of_days_value);
+        adultsText=(TextView) findViewById(R.id.no_of_adults_value);
+        child_5_12_Text=(TextView) findViewById(R.id.no_of_children_5_12_value);
+        child_below_5_Text=(TextView) findViewById(R.id.no_of_children_below_5_value);
+        totalPriceText=(TextView) findViewById(R.id.total_price_value);
+        discountPriceText=(TextView) findViewById(R.id.disount_value);
+        remainingPriceText=(TextView) findViewById(R.id.price_after_discount_value);
+        priceAdvanceText=(TextView) findViewById(R.id.booking_advance_value);
+        nameSellerText=(TextView) findViewById(R.id.name_of_seller_value);
+        addressSellerText=(TextView) findViewById(R.id.address_of_seller_value);
+        arrAtText=(TextView) findViewById(R.id.arrival_at_value);
+        dateDisplayText=(TextView) findViewById(R.id.date_of_arrival_display);
+        roomDisplayText=(TextView) findViewById(R.id.room_type_display);
+        departureText=(TextView) findViewById(R.id.departure_from_text_value);
+        transportationText=(TextView) findViewById(R.id.transportation_text_value);
+
+        Log.d("No of nights count", "" + preferences.getString("package_name", null));
+
+        if(preferences.getInt("flag",0)==1)
+        {
+            String str=""+preferences.getString("f_name", null);
+            nameText.setText(str.substring(0,1).toUpperCase()+str.substring(1));
+        }
+        else
+        {
+            nameText.setText("User");
+        }
+
+        placesText.setText("" + preferences.getString("package_name", null));
+        destinationText.setText("" + prefs.getString("DestinationName", null));
+        arr_dateText.setText(getConvertedDate("" + preferences.getString("Date_str", null)));
+        dep_dateText.setText(getNextConvertedDate("" + preferences.getString("Date_str", null)));
+        daysText.setText("" + prefs.getInt("Duration", 0));
+        adultsText.setText("" + prefs.getString("Adults", null));
+        child_5_12_Text.setText("" + prefs.getString("Children_12_5",null));
+        child_below_5_Text.setText("" + prefs.getString("Children_5_2",null));
+        totalPriceText.setText("Calculating...");
+        discountPriceText.setText("Calculating...");
+        remainingPriceText.setText("Calculating...");
+        priceAdvanceText.setText("Calculating...");
+        addressSellerText.setText("");
+        arrAtText.setText(prefs.getString("ArrivalPortString",null));
+        dateDisplayText.setText("");
+        roomDisplayText.setText("");
+        departureText.setText(prefs.getString("DeparturePortString",null));
+        transportationText.setText("Loading...");
+
+        ndDialog=new ProgressDialog(ItinerarySummaryActivity.this);
 
 
         TextView fromhome = (TextView) findViewById(R.id.from_home);
@@ -164,7 +238,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
 /*            String source_arr[];
             if(source.contains(" ")) {
-                source_arr = source.split(" ");
+                source_arr = source.split(" ")
 
                 for(int i=0;i<source_arr.length;i++)
                 source_str+=""+source_arr[i];
@@ -239,10 +313,6 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             //            downloadTask3.execute(url2);
 
         }
-
-
-
-
 
         //String HotelData = prefs.getString("HotelRooms",null);
         //String[] HotelDataArray = HotelData.trim().split("-");
@@ -601,6 +671,96 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
     }
 
+    public String getNextConvertedDate(String str)
+    {
+        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov", "Dec"};
+        String nights_count="" + prefs.getString("DestinationCount", null);
+        Log.d("URL test test46",""+nights_count);
+        String nights_count_arr[]=nights_count.split(",");
+        int no_of_nights=0;
+
+        for(int i=0;i<nights_count_arr.length;i++)
+        {
+            no_of_nights+=Integer.parseInt(nights_count_arr[i]);
+        }
+
+
+        //rohan
+        String dateInString = str; // Start date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        Calendar c = Calendar.getInstance();
+
+        try {
+            c.setTime(sdf.parse(dateInString));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        c.add(Calendar.DATE, (no_of_nights+1));//insert the number of days you want to be added to the current date
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date resultdate = new Date(c.getTimeInMillis());
+        dateInString = sdf.format(resultdate);
+
+        Log.d("Calendar test test455", "" + dateInString);
+
+        String temp[]=dateInString.split("-");
+
+
+        int day=Integer.parseInt(temp[0]);
+        Log.d("URL test test47",""+day);
+        int temp_month = Integer.parseInt(temp[1]);
+        Log.d("URL test test48",""+temp_month);
+        int year = Integer.parseInt(temp[2]);
+        Log.d("URL test test49",""+no_of_nights);
+
+
+
+        String day_str = getDay(temp[0] + "-" + temp[1]+"-"+temp[2]);
+
+        Log.d("URL test test50",temp[0] + "-" + temp[1]+"-"+temp[2]);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("Date_end_str",temp[0] + "-" + temp[1]+"-"+temp[2]);
+        editor.commit();
+
+        day_str=day_str.substring(0, 3);
+
+        str=day_str+", "+day+" "+month[temp_month-1]+" "+temp[2];
+
+        return str;
+    }
+
+    private String getDay(String dateStr){
+        //dateStr must be in DD-MM-YYYY Formate
+        Date date = null;
+        String day=null;
+
+        try {
+            date = new SimpleDateFormat("DD-MM-yyyy").parse(dateStr);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+            //System.out.println("DAY "+simpleDateFormat.format(date).toUpperCase());
+            day = simpleDateFormat.format(date);
+
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return day;
+    }
+
+    public String getConvertedDate(String str)
+    {
+        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        String temp[]=str.split("-");
+        int temp_month=Integer.parseInt(temp[2]);
+        str=temp[0]+", "+temp[1]+" "+month[temp_month-1]+" "+temp[3];
+        return str;
+    }
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -608,6 +768,20 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+
+/*                ndDialog.setMessage("Loading...");
+                ndDialog.setCancelable(false);
+                ndDialog.show();
+
+                totalPriceText.setText("Calculating...");
+                discountPriceText.setText("Calculating...");
+                remainingPriceText.setText("Calculating...");
+                priceAdvanceText.setText("Calculating...");
+                nameSellerText.setText("Loading...");
+                addressSellerText.setText("Loading...");
+                transportationText.setText("Loading...");
+
+*/
                 getSupportActionBar().setTitle("Summary Data");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -625,7 +799,8 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-/*
+
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -670,7 +845,6 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         return false;
     }
-*/
     /** A method to download json data from url */
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";

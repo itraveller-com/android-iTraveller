@@ -350,22 +350,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                                 Log.d("Count test test1",""+defaultHotelRoom.get(index));
 
 
-                                    String dest_str=""+mysettings.getString("DestinationID",null);
-                                    int curr_dest_ID=user_selected_data.getInt("DestinationIDValue", 0);
-
-                                    Log.d("Curr str test11",""+dest_str);
-                                    Log.d("Curr str test111",""+curr_dest_ID);
-                                    Log.d("Curr str test211",""+dest_str.contains(String.valueOf(curr_dest_ID)));
-
-                                SharedPreferences.Editor editor1=user_selected_data.edit();
-
-                                int temp_dest=user_selected_data.getInt("DestinationIDValue", 0);
-                                int curr_dest=user_selected_data.getInt("DestinationIDValue"+temp_dest,0);
-
-                                Log.d("No dest",""+mysettings.getInt("No_of_Destinations",0));
-                                Log.d("No dest1",""+user_selected_data.getInt("No_of_previous_Destinations",0));
-
-
                                     if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
 
 

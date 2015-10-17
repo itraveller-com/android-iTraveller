@@ -7,6 +7,7 @@ public class HotelModel {
 
     int Hotel_Id, Hotel_Status, Dinner, Lunch, B2C_Flag, Extra_Adult, Visibility;
 
+
     String Region_Id,Destination_Id, Hotel_Name, Hotel_Email, Hotel_Description, Hotel_Tripadvisor, Hotel_Meal_Plan, Hotel_Image,
             Hotel_Star_Rating, Hotel_Address, Hotel_Latitude, Hotel_Longitude, Hotel_URL, Hotel_Number, District, State, Country,
             Pincode, Website, Trip_Image, Trip_Script, Account_Holder, Account_Number, Bank, Branch, IFSC_Code, Date, admin_Id;

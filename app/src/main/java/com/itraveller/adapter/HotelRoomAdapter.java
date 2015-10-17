@@ -24,6 +24,7 @@ import com.itraveller.volley.AppController;
 
 public class HotelRoomAdapter extends BaseAdapter {
 
+    public static String Hotel_Data;
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
@@ -32,7 +33,7 @@ public class HotelRoomAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
     private int adults;
-    SharedPreferences preferences;
+    SharedPreferences preferences,post_data;
     SharedPreferences prefs;
     public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom , HotelActivity.RadiobuttonListener RadiobuttonListener) {
         this.activity = activity;
@@ -77,6 +78,7 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
             prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
+            post_data=activity.getSharedPreferences("PostData",activity.MODE_PRIVATE);
             adults = Integer.parseInt(prefs.getString("Adults", "0"));
         }
         else
@@ -91,11 +93,13 @@ public class HotelRoomAdapter extends BaseAdapter {
         // getting data for the row
         final HotelRoomModel m = HotelRooms.get(position);
 
+
         //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
         holder.title.setText(m.getRoom_Type());
 
-        holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
+        //holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
+        holder.btn_count.setText("" + Utility.noRooms(3,adults));
 
         holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
 
@@ -106,7 +110,7 @@ public class HotelRoomAdapter extends BaseAdapter {
             public void onClick(View view) {
                   int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) + 1;
                   finalHolder.btn_count.setText("" + x);
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
+                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
                   //m.set("" + x);
             }
         });
@@ -117,7 +121,7 @@ public class HotelRoomAdapter extends BaseAdapter {
                int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) - 1;
                 if (x > 0) {
                     finalHolder.btn_count.setText("" + x);
-                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
+                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
                 }
                 //m.setNights("" + x);
             }
@@ -133,8 +137,9 @@ public class HotelRoomAdapter extends BaseAdapter {
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
                 RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
-                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff());
+                Log.d("Room Data test111", m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff()+","+m.getRoom_Type());
 
+                Hotel_Data+=m.getHotel_Id()+","+m.getHotel_Room_Id()+","+m.getDisplay_Tariff()+"::";
 
             }
         });

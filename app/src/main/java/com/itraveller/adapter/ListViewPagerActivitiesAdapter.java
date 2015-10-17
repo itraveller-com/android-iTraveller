@@ -50,6 +50,8 @@ import com.itraveller.volley.AppController;
 
 
 public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
+
+    String default_activity_id_str="";
     ViewPager[] vp;
     // ViewPagerAdapter[] mViewPagerAdapter;
 
@@ -294,6 +296,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                     Log.d("Payload", ""+response.getJSONArray("payload"));
                     refresh_val = response.getJSONArray("payload").length();
 
+                    Log.d("Cost test test1233","hi");
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
                     ArrayList activitiesList=new ArrayList();
@@ -305,6 +308,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                         activities_model.setId(jsonarr.getInt("Id"));
                         activities_model.setTitle(jsonarr.getString("Title"));
                         activities_model.setCost(jsonarr.getInt("Cost"));
+                        Log.d("Cost test test", "" + jsonarr.getInt("Cost"));
                         activities_model.setHotel_Id(jsonarr.getString("Hotel_Id"));
                         activities_model.setMarkup(jsonarr.getInt("Markup"));
                         activities_model.setDisplay(jsonarr.getInt("Display"));
@@ -316,6 +320,12 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                         activities_model.setDuration(jsonarr.getString("Duration"));
                         activities_model.setImage(jsonarr.getString("Image"));
                         activities_model.setFlag(jsonarr.getInt("Flag"));
+                        Log.d("Cost test test111", "" + jsonarr.getInt("Flag"));
+                        if(jsonarr.getInt("Flag")==1)
+                        {
+                            default_activity_id_str+=""+jsonarr.getInt("Id")+",";
+                        }
+                        Log.d("Cost test test123",""+default_activity_id_str);
                         activities_model.setDescription(jsonarr.getString("Description"));
                         activities_model.setNot_Available_Month(jsonarr.getString("Not_Available_Month"));
                         activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));

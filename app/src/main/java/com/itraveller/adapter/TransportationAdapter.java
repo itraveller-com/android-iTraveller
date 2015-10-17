@@ -139,8 +139,10 @@ public class TransportationAdapter extends BaseAdapter {
                 editor.putString("TransportationID", "" + m.getTransportation_Id());
                 editor.putString("TransportationName", "" + m.getTitle());
                 editor.putString("TransportationCost", "" + m.getCost());
+                Log.d("Transportation test3",""+m.getCost());
                 editor.commit();
 
+                Log.d("TransportationTest1","hi");
                 prefsData.edit().putString("TransportationID", "" + m.getTransportation_Id()).commit();
                 if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);

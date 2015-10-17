@@ -5,6 +5,8 @@ package com.itraveller.activity;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -61,6 +63,8 @@ public class SummaryActivity extends ActionBarActivity{
     private static final int PER_UNIT_PRICE = 1;
     double totalamount;
 
+    String user_name,user_mobile_number,user_email,user_postal_code;
+
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +88,157 @@ public class SummaryActivity extends ActionBarActivity{
                 }
             });
 
+
+            final EditText nameEditText=(EditText) findViewById(R.id.customer_name);
+            final EditText mobileEditText=(EditText) findViewById(R.id.customer_mobile_number);
+            final EditText emailEditText=(EditText) findViewById(R.id.customer_email);
+            final EditText postalEdiText=(EditText) findViewById(R.id.customer_postal_code);
+
+
             Button confirm = (Button) findViewById(R.id.btn_confirm_payment);
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    user_name=nameEditText.getText().toString();
+                    user_mobile_number=mobileEditText.getText().toString();
+                    user_email=emailEditText.getText().toString();
+                    user_postal_code=postalEdiText.getText().toString();
+
+                    if(user_name.trim().length()>0 && user_mobile_number.trim().length()>9 && user_email.trim().length()>0 && isValidEmail(user_email) && user_postal_code.trim().length()>5)
+                    {
+
+                    }
+                    else if(user_name.trim().length()==0 &&  user_mobile_number.trim().length()>9 && user_email.trim().length()>0 && isValidEmail(user_email) &&  user_postal_code.trim().length()>5)
+                    {
+                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Invalid Details");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Please enter user name ");
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.drawable.fail);
+
+                        // Setting OK Button
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog closed
+                                nameEditText.setText("");
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                    }
+                    else if(user_name.trim().length()>0 && (user_mobile_number.trim().length()==0 || user_mobile_number.trim().length()<10)  && user_email.trim().length()>0 && isValidEmail(user_email) &&  user_postal_code.trim().length()>5)
+                    {
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Invalid Details");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Please enter mobile number ");
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.drawable.fail);
+
+                        // Setting OK Button
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog closed
+                                mobileEditText.setText("");
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                    }
+                    else if(user_name.trim().length()>0 && (user_mobile_number.trim().length()>9)  && (user_email.trim().length()==0 || !isValidEmail(user_email)) &&  user_postal_code.trim().length()>5)
+                    {
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Invalid Details");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Please enter valid email id ");
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.drawable.fail);
+
+                        // Setting OK Button
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog closed
+                                emailEditText.setText("");
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                    }
+                    else if(user_name.trim().length()>0 &&  (user_mobile_number.trim().length()>9)  && (user_email.trim().length()>0 && isValidEmail(user_email)) && (user_postal_code.trim().length()==0 || user_postal_code.trim().length()<6))
+                    {
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Invalid Details");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Please enter valid postal code ");
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.drawable.fail);
+
+                        // Setting OK Button
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog closed
+                                postalEdiText.setText("");
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                    }
+                    else
+                    {
+                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Invalid Details");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Please enter all valid details ");
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.drawable.fail);
+
+                        // Setting OK Button
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog closed
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                    }
+
+
+
                     //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
                     //startActivity(in);
                    // callEbsKit();
@@ -191,30 +342,32 @@ public class SummaryActivity extends ActionBarActivity{
             total.setText("Rs " + total_price);
             total_dis.setText("Rs " + total_discount.intValue());
 
-        EditText name=(EditText) findViewById(R.id.editText);
-        Log.d("Name test",""+name);
-        EditText mobile_number=(EditText) findViewById(R.id.editText2);
-        Log.d("Name test1",""+mobile_number);
-        EditText email=(EditText) findViewById(R.id.editText3);
-        Log.d("Name test2",""+email);
-        EditText postal_code=(EditText) findViewById(R.id.editText4);
-        Log.d("Name test3", "" + postal_code);
         SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
         Log.d("Name test4", "" + preferencess);
-        name.setText("" + preferencess.getString("f_name", null));
+        nameEditText.setText("" + preferencess.getString("f_name", null));
         if(("" + preferencess.getString("mobile_number1", null)).equals(null) || ("" + preferencess.getString("mobile_number1", null)).equals("0"))
-        mobile_number.setText("");
+        mobileEditText.setText("");
         else
-        mobile_number.setText("" + preferencess.getString("mobile_number1", null));
+        mobileEditText.setText("" + preferencess.getString("mobile_number1", null));
         Log.d("email in summary", ""+preferencess.getString("email_id1", null));
-        if((""+preferencess.getString("email_id1",null)).equals(null))
-            email.setText("");
+        Log.d("Email id in summary",""+preferencess.getString("email_id1",null));
+        if((""+preferencess.getString("email_id1",null)).equals("null"))
+            emailEditText.setText("");
         else
-        email.setText(""+preferencess.getString("email_id1",null));
+            emailEditText.setText(""+preferencess.getString("email_id1",null));
 
 
     }
 
+
+    //function to check if entered email is valid or not
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
