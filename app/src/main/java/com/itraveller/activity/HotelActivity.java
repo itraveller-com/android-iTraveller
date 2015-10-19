@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -20,6 +21,10 @@ import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -195,7 +200,7 @@ public class  HotelActivity extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        //mealplanlayout = (LinearLayout) findViewById(R.id.meal_plan);
+        mealplanlayout = (LinearLayout) findViewById(R.id.meal_plan);
         mealhead = (TextView) findViewById(R.id.room);
         nameText=(TextView) findViewById(R.id.name_value);
         placesText=(TextView) findViewById(R.id.places_value);
@@ -1105,14 +1110,8 @@ public class  HotelActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
 
-    /*    @Override
+        @Override
         protected void onPostCreate(Bundle savedInstanceState) {
             super.onPostCreate(savedInstanceState);
             // Sync the toggle state after onRestoreInstanceState has occurred.
@@ -1154,10 +1153,9 @@ public class  HotelActivity extends ActionBarActivity {
             }
 
 
-<<<<<<< HEAD
             return false;
         }
-    */
+
     public interface RadiobuttonListener {
         public void RadioChangeListenerCustom(String position);
     }
@@ -1687,16 +1685,25 @@ public class  HotelActivity extends ActionBarActivity {
     public void CalculateSum()
     {
         Log.d("Destination date te771", "" + sum);
-        Log.d("Destination date te772", "" + transportationList.get(1).getCost());
+        Log.d("Destination date te778", "" + transportationList.get(0).getCost());
+        Log.d("Destination date te779", "" + transportationList.get(0).getTitle());
+
         Log.d("Destination date te773", "" + transportationList.size());
+    //    Log.d("Destination date te772", "" + transportationList.get(1).getCost());
 
         SharedPreferences.Editor editor=prfs.edit();
 
         if(count==0)
         {
 
-            sum += transportationList.get(1).getCost();
+            if(transportationList.size()>1) {
 
+                sum += transportationList.get(1).getCost();
+            }
+            else if(transportationList.size()==1)
+            {
+                sum+=transportationList.get(0).getCost();
+            }
             if(chk_lunch.isChecked())
             {
                 sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
@@ -1706,31 +1713,61 @@ public class  HotelActivity extends ActionBarActivity {
                 sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
             }
 
-            transportation_cost+=transportationList.get(1).getCost();
-
+            if(transportationList.size()>1) {
+                transportation_cost += transportationList.get(1).getCost();
+            }
+            else if(transportationList.size()==1)
+            {
+                transportation_cost+=transportationList.get(0).getCost();
+            }
 
             Log.d("Destination date te77", "" + sum);
-            Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
-            Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
+        //    Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
+        //    Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
 
+            String transportation_title;
+            if(transportationList.size()>1)
+            {
+                transportationText.setText("" + transportationList.get(1).getTitle());
+            }
+            else if(transportationList.size()==1){
+                transportationText.setText("" + transportationList.get(0).getTitle());
+
+            }
 
             totalPriceText.setText("\u20B9 " + "" + sum);
-            transportationText.setText("" + transportationList.get(1).getTitle());
 
-            editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
-            editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
-            editor.putString("TransportationCostOld",""+transportation_cost);
-            Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
-            Log.d("Destination date tt97", "" + transportation_cost);
+            if(transportationList.size()>1) {
+
+                editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
+                editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
+                editor.putString("TransportationCostOld", "" + transportation_cost);
+                Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
+                Log.d("Destination date tt97", "" + transportation_cost);
 
 
-            editor.putInt("TotalCost", sum);
-            editor.commit();
+                editor.putInt("TotalCost", sum);
+                editor.commit();
 
-            trans_id=""+transportationList.get(1).getId();
-            count++;
+                trans_id = "" + transportationList.get(1).getId();
+            }else if(transportationList.size()==1)
+            {
+                editor.putString("TransportaionTitle", "" + transportationList.get(0).getTitle());
+                editor.putString("TransportationIDV", "" + transportationList.get(0).getId());
+                editor.putString("TransportationCostOld", "" + transportation_cost);
+                Log.d("Destination date tt89", "" + transportationList.get(0).getCost());
+                Log.d("Destination date tt97", "" + transportation_cost);
 
-            Log.d("TransporatationID test",""+transportationList.get(1).getId());
+
+                editor.putInt("TotalCost", sum);
+                editor.commit();
+
+                trans_id = "" + transportationList.get(0).getId();
+
+            }
+                count++;
+
+        //    Log.d("TransporatationID test",""+transportationList.get(1).getId());
 
             getSupplierDetails();
 

@@ -291,7 +291,7 @@
 </RelativeLayout>
 
 
-    <include layout="@layout/summary_data"
+    <include layout="@layout/travel_summary_data"
         android:layout_gravity="right"
         android:layout_height="match_parent"
         android:layout_width="match_parent"></include>

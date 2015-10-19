@@ -6,6 +6,7 @@ package com.itraveller.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,7 +30,12 @@ import com.ebs.android.sdk.Config;
 import com.ebs.android.sdk.EBSPayment;
 import com.ebs.android.sdk.PaymentRequest;
 import com.itraveller.R;
+import com.itraveller.constant.Utility;
 import com.itraveller.payment.BuyProduct;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.itraveller.R.id.btn_confirm_payment;
 
@@ -409,5 +415,8 @@ public class SummaryActivity extends ActionBarActivity{
         /** Initializing the EBS Gateway */
         EBSPayment.getInstance().init(SummaryActivity.this, ACC_ID, SECRET_KEY, Config.Mode.ENV_LIVE, Config.Encryption.ALGORITHM_MD5, HOST_NAME);
     }
-    }
+
+
+
+}
 

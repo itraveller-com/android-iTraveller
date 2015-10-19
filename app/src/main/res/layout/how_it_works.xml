@@ -28,6 +28,7 @@
             android:layout_marginBottom="10dp"
             android:layout_gravity="left"
             android:gravity="left"
+            android:textSize="16dp"
             android:text="@string/how_it_works_text"/>
 
     </LinearLayout>
