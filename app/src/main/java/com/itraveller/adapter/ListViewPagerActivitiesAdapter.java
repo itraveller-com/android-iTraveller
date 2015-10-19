@@ -331,6 +331,9 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                         activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));
                         activities_model.setDestination_Id_From(jsonarr.getString("Destination_Id_From"));
                         activities_model.setBookable(jsonarr.getString("Bookable"));
+                        if(jsonarr.getInt("Flag")== 1){
+                            activities_model.setChecked(true);
+                        }
                         activities_model.setChecked(false);
 
                         if (!activities_data.equalsIgnoreCase("0") ) {
@@ -477,7 +480,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
     interface pagerCheckBoxChangedListner{
         public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked);
-        public  void OnImageClickListenerCustomPager(int childpostion);
+        public void OnImageClickListenerCustomPager(int childpostion);
     }
 
 

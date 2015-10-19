@@ -48,9 +48,6 @@
             android:name="com.itraveller.activity.ItinerarySummaryActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.itraveller.activity.HotelRoomActvity"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name="com.itraveller.activity.FlightDomesticActivity"
             android:screenOrientation="portrait"></activity>
         <activity

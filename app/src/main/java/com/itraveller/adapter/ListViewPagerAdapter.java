@@ -4,7 +4,6 @@ package com.itraveller.adapter;
  * Created by VNK on 6/25/2015.
  */
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,10 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,7 +31,6 @@ import java.util.Map;
 
 import com.itraveller.R;
 import com.itraveller.activity.HotelActivity;
-import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.volley.AppController;
 
@@ -50,6 +46,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     SharedPreferences mysettings;
     ImageView[] left_arrow,right_arrow;
     RelativeLayout[] rel_left_arrow,rel_right_arrow;
+    int checkbit = 0;
 
   HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
 
@@ -57,7 +54,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     private ArrayList<String> navigationItems;
     private ArrayList<String> defaultHotelRoom;
     public static HashMap<String,ArrayList<HotelModel>> mHotelModels;
-  //  private int selectedIndex;
+    //private int selectedIndex;
     private Map<Integer, Integer> mPagerPositions ;
     String[] hotel_destination;
     String[] hotel_nights;
@@ -77,8 +74,8 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         }
 
         mPagerPositions= new HashMap<Integer, Integer>();
-     //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
-       vp=new ViewPager[navigationItems.size()];
+        //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
+        vp=new ViewPager[navigationItems.size()];
 
         left_arrow = new ImageView[navigationItems.size()];
         right_arrow = new ImageView[navigationItems.size()];
@@ -98,17 +95,14 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
     @Override
     public String getItem(int position) {
-
         return navigationItems.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
         return position;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public View getView( final int position, View convertView, ViewGroup parent) {
        // ViewPager vp;
@@ -293,8 +287,10 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                     Log.d("Boolean", "" + response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload", ""+response.getJSONArray("payload"));
-
                     if(response.getJSONArray("payload").length()==0){
+                        /*HotelModel hotel_model = new HotelModel();
+                        ArrayList hotelList=new ArrayList();
+                        hotelList.add(OwnAccomadation(hotel_model));*/
                         single_loop_bit =1;
                     }else{
                         single_loop_bit =0;
@@ -343,7 +339,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                             hotel_model.setIFSC_Code(jsonarr.getString("IFSC_Code"));
                             hotel_model.setDate(jsonarr.getString("Date"));
                             hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
-
                             String[] value = defaultHotelRoom.get(index).trim().split(",");
 
 
@@ -365,13 +360,28 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
                         }
                       //
-                        hotelList.add(hotel_model);
+
+
+                        if(i == (response.getJSONArray("payload").length() - 1)){
+                            hotelList.add(hotel_model);
+                            //hotelList.add(OwnAccomadation(hotel_model));
+                            //swap_value = swap_value + 2;
+                        }
+                        else{
+                            //if(checkbit == 0) {
+                                hotelList.add(hotel_model);
+                                checkbit = 1;
+                            //}
+                        }
                         flag_bit =0;
                     }
  //                   Collections.swap(hotelList, 0, swap_value);  //error line
 
                     if(response.getJSONArray("payload").length()!=0){
+                        HotelModel hotel_model = new HotelModel();
+                        hotelList.add(OwnAccomadation(hotel_model));
                     Collections.swap(hotelList, 0, swap_value);
+
                         swap_value = 0;
                     //added on 12/08/2015
                     //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
@@ -485,7 +495,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                 }
                 else
                     modelRow.get(index).setChecked(false);
-
             }
             notifyDataSetChanged();
         }
@@ -499,6 +508,45 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
 
         }
+    }
+
+    public HotelModel OwnAccomadation(HotelModel hotel_model){
+        hotel_model.setHotel_Id(0);
+        hotel_model.setRegion_Id("All");
+        hotel_model.setDestination_Id("0");
+        hotel_model.setHotel_Name("Own Accommodation");
+        hotel_model.setHotel_Email("");
+        hotel_model.setHotel_Description("");
+        hotel_model.setHotel_Tripadvisor("");
+        hotel_model.setHotel_Meal_Plan("");
+        hotel_model.setHotel_Image("");
+        hotel_model.setHotel_Status(0);
+        hotel_model.setHotel_Star_Rating("");
+        hotel_model.setHotel_Address("");
+        hotel_model.setHotel_Latitude("");
+        hotel_model.setHotel_Longitude("");
+        hotel_model.setHotel_URL("");
+        hotel_model.setHotel_Number("");
+        hotel_model.setDistrict("");
+        hotel_model.setState("");
+        hotel_model.setCountry("");
+        hotel_model.setPincode("");
+        hotel_model.setDinner(0);
+        hotel_model.setLunch(0);
+        hotel_model.setExtra_Adult(0);
+        hotel_model.setVisibility(0);
+        hotel_model.setWebsite("");
+        hotel_model.setB2C_Flag(0);
+        hotel_model.setTrip_Image("");
+        hotel_model.setTrip_Script("");
+        hotel_model.setAccount_Holder("");
+        hotel_model.setAccount_Number("");
+        hotel_model.setBank("");
+        hotel_model.setIFSC_Code("");
+        hotel_model.setDate("");
+        hotel_model.setAdmin_Id("");
+        hotel_model.setChecked(false);
+        return hotel_model;
     }
 
 }

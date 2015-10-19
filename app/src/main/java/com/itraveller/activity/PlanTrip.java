@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -67,6 +68,10 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         setContentView(R.layout.plan_your_trip_test);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        String fontPath = "fonts/ProximaNova-Bold.otf";
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+
         getSupportActionBar().setTitle("Travel Data");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,6 +93,9 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
         duration_sp.setText((bundle.getInt("Duration") - 1) + " Nights / " + bundle.getInt("Duration") + " Days");
         title_sp.setText(bundle.getString("Title"));
 
+        // Applying font
+        title_sp.setTypeface(tf);
+        duration_sp.setTypeface(tf);
 
         final String imageurl = bundle.getString("Image");
         final int duration = bundle.getInt("Duration");
@@ -197,6 +205,7 @@ public class PlanTrip extends ActionBarActivity implements OnClickListener {
 
         travelDate = (Button) findViewById(R.id.travel_date);
         travelDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
+        travelDate.setTypeface(tf);
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         String weekday = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.itraveller.R;
@@ -28,17 +29,24 @@ public class HotelRoomAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<HotelRoomModel> HotelRooms;
+    private ArrayList<String> lowesthotelList;
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
     private int adults;
+    private int groupPosition;
     SharedPreferences preferences,post_data;
     SharedPreferences prefs;
-    public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom , HotelActivity.RadiobuttonListener RadiobuttonListener) {
+
+
+
+    public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom, ArrayList<String> lowesthotelList,int groupPosition, HotelActivity.RadiobuttonListener RadiobuttonListener) {
         this.activity = activity;
         this.HotelRooms = Hotelroom;
         this.RadioListener = RadiobuttonListener;
+        this.lowesthotelList = lowesthotelList;
+        this.groupPosition = groupPosition;
     }
 
     //getting count of total number of hotel rooms
@@ -98,20 +106,37 @@ public class HotelRoomAdapter extends BaseAdapter {
         // title
         holder.title.setText(m.getRoom_Type());
 
-        //holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(),adults));
-        holder.btn_count.setText("" + Utility.noRooms(3,adults));
+        holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(), adults));
 
-        holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
+        try {
+            String[] hotel_room_Data = lowesthotelList.get(groupPosition).trim().split(",");
+            if (Integer.parseInt(hotel_room_Data[2]) == m.getDisplay_Tariff()){
+                //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
+                holder.rate.setText("Same price");
+            }
+            else if(Integer.parseInt(hotel_room_Data[2]) > m.getDisplay_Tariff()){
+                holder.rate.setText((Integer.parseInt(hotel_room_Data[2]) - m.getDisplay_Tariff()) + " less");
+            }
+            else {
+                holder.rate.setText((m.getDisplay_Tariff() - Integer.parseInt(hotel_room_Data[2])) + " more");
+            }
+        }catch (Exception e){
+
+        }
+
+        //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
 
 
         final ViewHolder finalHolder = holder;
         holder.btn_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                  int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) + 1;
-                  finalHolder.btn_count.setText("" + x);
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
-                  //m.set("" + x);
+                if(finalHolder.radioButton.isChecked()) {
+                    int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) + 1;
+                    finalHolder.btn_count.setText("" + x);
+                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString()  );
+                    //m.set("" + x);
+                }
             }
         });
 
@@ -119,9 +144,11 @@ public class HotelRoomAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) - 1;
-                if (x > 0) {
-                    finalHolder.btn_count.setText("" + x);
-                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
+                if(finalHolder.radioButton.isChecked()) {
+                    if (x > 0) {
+                        finalHolder.btn_count.setText("" + x);
+                        RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() );
+                    }
                 }
                 //m.setNights("" + x);
             }
@@ -136,10 +163,8 @@ public class HotelRoomAdapter extends BaseAdapter {
                 }
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton)v;
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + "," + m.getRoom_Type());
-                Log.d("Room Data test111", m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff()+","+m.getRoom_Type());
-
-                Hotel_Data+=m.getHotel_Id()+","+m.getHotel_Room_Id()+","+m.getDisplay_Tariff()+"::";
+                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() );
+                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
 
             }
         });
