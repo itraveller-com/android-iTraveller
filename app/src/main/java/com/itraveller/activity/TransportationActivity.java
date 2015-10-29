@@ -303,7 +303,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 super.onDrawerOpened(drawerView);
 
                 ndDialog.setMessage("Loading...");
-                ndDialog.setCancelable(false);
+                ndDialog.setCancelable(true);
                 ndDialog.show();
 
                 Destination_Value=prfs.getString("DestinationID",null);
@@ -867,7 +867,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                             for (int i = 0; i < response_JSON_arr_length; i++) {
 
                                 JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-                                String Tra_url = Constants.API_TransportationActivity_Tra_URL;    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
+                                String Tra_url = Constants.API_TransportationActivity_Tra_URL+Region_id+"&transportationId=";    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
 
                                 TransportationCost(Tra_url + jsonarr.getInt("Id"), jsonarr.getString("Title"), jsonarr.getInt("Max_Person"), jsonarr.getString("Image"), response.getJSONArray("payload").length());
                                 //url_data.add(Tra_url + jsonarr.getInt("Id") + "," + jsonarr.getString("Title") + "," + jsonarr.getInt("Max_Person") + "," + jsonarr.getString("Image") + "," + i + "," + response.getJSONArray("payload").length());

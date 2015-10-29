@@ -566,7 +566,11 @@ public class  HotelActivity extends ActionBarActivity {
         for(int i=0;i<Discount_list.size();i++)
         Log.d("URL test test23",""+Discount_list.get(i).getCompany_ID()+"  "+Discount_list.get(i).getCompany_Discount()+" "+Discount_list.get(i).getCompany_Name());
 
-        discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
+        int discount_val=Integer.parseInt("" + Discount_list.get(0).getCompany_Discount());
+        int discount_in_Rs=(sum*discount_val)/100;
+
+        discountPriceText.setText("\u20B9 "+""+discount_in_Rs);
+    //    discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
 
         SharedPreferences.Editor editor=post_prefs.edit();
         editor.putInt("DiscountValue", Discount_list.get(0).getCompany_Discount());
@@ -1067,7 +1071,7 @@ public class  HotelActivity extends ActionBarActivity {
                 Log.d("Destination date te45",""+flag);
 
                 ndDialog.setMessage("Loading...");
-                ndDialog.setCancelable(false);
+                ndDialog.setCancelable(true);
                 ndDialog.show();
 
                 getUserSelectedHotelData();
@@ -1232,7 +1236,7 @@ public class  HotelActivity extends ActionBarActivity {
 
                             //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
                                 String url_checkroom=Constants.API_HotelActivity_Checkroom+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
-
+                                Log.d("hotel123",""+url_checkroom);
                                 hotelRoomsCheck(url_checkroom, RoomObj.length(), inc);
                                 second.setVisibility(View.VISIBLE);
                                 activites.setVisibility(View.GONE);
@@ -1373,6 +1377,7 @@ public class  HotelActivity extends ActionBarActivity {
 
     public void DefaultHotelRoomSet(String url, final int depth) {
         Log.d("LowestHotelURL", "" + url);
+        Log.d("Hotel1234567","hi");
 
         if(depth==0){
         pDialog.show();}
@@ -1396,7 +1401,7 @@ public class  HotelActivity extends ActionBarActivity {
                     }
 
                         JSONObject jsonarr = response.getJSONObject("payload");
-                        Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
+                        Log.d("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
                     SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
                     String saved_details = sharedpreferences.getString("HotelDetails", "NoData");
                     if(!saved_details.equalsIgnoreCase("NoData")) {
@@ -1476,7 +1481,7 @@ public class  HotelActivity extends ActionBarActivity {
                                 });*/
                             }
                                 else {
-
+                                    Log.d("hotel1234",""+"http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
                                     MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition], groupPosition);
                                     Log.i("MealPlanURL", "" + "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
                                     //Added Apdater to Null Here
@@ -1514,6 +1519,7 @@ public class  HotelActivity extends ActionBarActivity {
                                     //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
                                     String url = Constants.API_HotelActivity_HOTEL_ROOMS + Region_ID + "&hotelIds=" + modelRow.get(childpostion).getHotel_Id() + "&checkInDate=" + destination_date[groupPosition];
                                     Log.i("URLForRooms", "" + groupPosition + " Url :" + url);
+                                    Log.d("Hotel11",""+url);
                                     hotelRooms(url, destination_date[groupPosition]);
                                 }
                                 check_bit=1;

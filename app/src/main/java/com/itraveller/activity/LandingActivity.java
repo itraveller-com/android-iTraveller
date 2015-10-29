@@ -193,6 +193,7 @@ public class LandingActivity extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    Log.d("Response in LandingPage",""+response.toString());
                     Log.d("Boolean", ""+response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
                     Log.d("Payload_regions", ""+response.getJSONArray("payload").length());
@@ -210,6 +211,7 @@ public class LandingActivity extends Fragment {
                         if(jsonarr.getInt("Slider") == 1) {
 
                             landing_model.setRegion_Id(jsonarr.getInt("Region_Id"));
+                            Log.d("Response in Lan1",""+jsonarr.getInt("Region_Id"));
                             landing_model.setRegion_Name(jsonarr.getString("Region_Name"));
                             landing_model.setEnable_Flag(jsonarr.getString("Enable_Flag"));
                             landing_model.setAlias(jsonarr.getString("Alias"));

@@ -243,6 +243,7 @@ public class DragAndSort extends ActionBarActivity
                 airportlist_page.setVisibility(View.VISIBLE);
                 hotelBook.setVisibility(View.GONE);
                 url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=0";
+                Log.d("Add dest url test",""+url);
                 airportJSON(url, false);
                 check_bit_new = 5;
             }
@@ -520,7 +521,7 @@ public class DragAndSort extends ActionBarActivity
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.i("Test", "Testing" + response);
+                    Log.i("TestResponse", "Testing" + response);
                     Log.d("Boolean", "" + response.getBoolean("success"));
                     Log.d("Error", "" + response.getJSONObject("error"));
                     Log.d("PayloadValue", ""+ airport);

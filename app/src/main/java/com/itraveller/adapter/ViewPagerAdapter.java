@@ -91,6 +91,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
 
+            Log.d("hotel123456","hi");
             image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
             //if(arrayModelClasses.get(position).get)

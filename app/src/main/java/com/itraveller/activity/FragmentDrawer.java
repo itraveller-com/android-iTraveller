@@ -12,14 +12,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +36,7 @@ import com.itraveller.model.NavDrawerItem;
 public class FragmentDrawer extends Fragment {
 
     private static String TAG = FragmentDrawer.class.getSimpleName();
-
+    ImageButton down_arrow;
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -93,6 +97,7 @@ public class FragmentDrawer extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         //mDrawerLayout.isDrawerOpen(Gravity.RIGHT);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        down_arrow=(ImageButton) layout.findViewById(R.id.down_arrow_image);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
@@ -109,6 +114,33 @@ public class FragmentDrawer extends Fragment {
 
             }
         }));
+
+        down_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Hello user","Hello");
+
+//                down_arrow.setImageResource(R.drawable.up_arrow_img);
+
+                PopupMenu popup = new PopupMenu(getActivity(), down_arrow);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.nav_drawer_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+
+ //                       down_arrow.setImageResource(R.drawable.down_arrow_img);
+
+                        Toast.makeText(getActivity(),"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popup.show();
+
+            }
+        });
 
         return layout;
     }

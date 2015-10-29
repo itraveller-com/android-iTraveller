@@ -181,7 +181,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             }
         });
 
-
+        Log.d("Hotel12345", "" + navigationItems.get(position));
          airportJSONForText(navigationItems.get(position), position);
             ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
          Log.i("TestingRound","Testing123" + modelRow.size());

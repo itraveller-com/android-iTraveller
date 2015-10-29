@@ -313,6 +313,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         Log.i("iTraveller", "ActionBar_Height " + getActionBarHeight());
         editor.putInt("ActionBar_Height", getActionBarHeight());
         editor.commit();
+
+
         /*getMenuInflater().inflate(R.menu.menu_main, menu);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().show();*/
@@ -366,7 +368,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
+                Log.d(TAG+"logout string", response.toString());
 
                 try
                 {

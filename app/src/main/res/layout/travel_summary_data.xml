@@ -51,7 +51,7 @@
             android:text="Name : "
             android:id="@+id/name"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="User"
             android:id="@+id/name_value"/>
@@ -69,7 +69,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/places"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bengaluru"
             android:id="@+id/places_value"/>
@@ -88,7 +88,7 @@
             android:id="@+id/destinations"
             android:layout_marginLeft="10dp"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SSR International Airport - Mauritius (6N) - SSR International Airport"
             android:id="@+id/destinations_value"/>
@@ -106,7 +106,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/date_of_arrival"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sun, 27 September 15"
             android:id="@+id/date_of_arrival_value"/>
@@ -124,7 +124,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/date_of_departure"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sat, 03 October 15"
             android:id="@+id/date_of_departure_value"/>
@@ -144,7 +144,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/no_of_days"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="7"
             android:id="@+id/no_of_days_value"/>
@@ -163,7 +163,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/no_of_adults"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2"
             android:id="@+id/no_of_adults_value"/>
@@ -182,7 +182,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/no_of_children_5_12"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2"
             android:id="@+id/no_of_children_5_12_value"/>
@@ -201,7 +201,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/no_of_children_below_5"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2"
             android:id="@+id/no_of_children_below_5_value"/>
@@ -218,7 +218,7 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/total_price"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/total_price_value"
                 android:text="Rs. 94000 "/>
@@ -235,7 +235,7 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/discount"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/disount_value"
                 android:text="Rs. 10000 "/>
@@ -252,7 +252,7 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/price_after_discount"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/price_after_discount_value"
                 android:text="Rs. 84000 "/>
@@ -269,7 +269,7 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/booking_advance"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/booking_advance_value"
                 android:text="Rs. 19000 "/>
@@ -318,7 +318,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/name_of_seller"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name_of_seller_value"
             android:text="Earthwalk-Seaside Holidays, Mauritius"/>
@@ -336,7 +336,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/address_of_seller"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/address_of_seller_value"
             android:text="11, Hi Daureeawoo Street, Port Louis, Mauritius"/>

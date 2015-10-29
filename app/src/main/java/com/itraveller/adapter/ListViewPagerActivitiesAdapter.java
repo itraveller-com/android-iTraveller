@@ -190,7 +190,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         });
 
         if(mActivitiesModel.get(""+position).size()<1){
-            Log.i("TestingRound","Testing123");
+            Log.i("TestingRound",""+navigationItems.get(position));
             int ref_Val = airportJSONForText(navigationItems.get(position), position , Integer.parseInt(dayCount.get(position)));
             ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
             if(modelRow.size() == 0){
@@ -284,6 +284,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     public int airportJSONForText (String url, final int position , final int dayCount)
     {
 
+        Log.d("URL activity test",""+url);
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
 

@@ -217,7 +217,7 @@ public class FlightActivity extends ActionBarActivity {
                                     mreturn.setConx(return_arr.getJSONObject(j).getString("Conx").toString());
                                     mreturn.setAirpChg(return_arr.getJSONObject(j).getString("AirpChg").toString());
                                     mreturn.setInsideAvailOption(return_arr.getJSONObject(j).getString("InsideAvailOption").toString());
-                                    mreturn.setGenTrafRestriction(return_arr.getJSONObject(j).getString("GenTrafRestriction").toString());
+                                     mreturn.setGenTrafRestriction(return_arr.getJSONObject(j).getString("GenTrafRestriction").toString());
                                     mreturn.setDaysOperates(return_arr.getJSONObject(j).getString("DaysOperates").toString());
                                     mreturn.setJrnyTm(return_arr.getJSONObject(j).getString("JrnyTm").toString());
                                     mreturn.setEndDt(return_arr.getJSONObject(j).getString("EndDt").toString());

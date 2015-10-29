@@ -28,6 +28,8 @@ import com.itraveller.activity.RegionPlace;
 import com.itraveller.model.RegionPlaceModel;
 import com.itraveller.volley.AppController;
 
+import org.w3c.dom.Text;
+
 
 /**
  * Created by VNK on 6/10/2015.
@@ -90,7 +92,8 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
             FrameLayout frame_lay = (FrameLayout) convertView.findViewById(R.id.imgMain);
             TextView title = (TextView) convertView.findViewById(R.id.title);
             TextView destination = (TextView) convertView.findViewById(R.id.destination);
-            TextView discountRs = (TextView) convertView.findViewById(R.id.discount);
+            TextView no_of_nights=(TextView) convertView.findViewById(R.id.no_of_nights);
+        //    TextView discountRs = (TextView) convertView.findViewById(R.id.discount);
             // 60 is the height of the filter button
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,(_screen_height/2) - 60);
             frame_lay.setLayoutParams(lp);
@@ -106,7 +109,8 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
             // title
             title.setText(m.getTitle());
             destination.setText(m.getDestination());
-            discountRs.setText("Rs: "+m.getDiscount());
+            no_of_nights.setText("("+(Places.get(position).getDuration_Day()-1)+" Nights"+"/"+""+Places.get(position).getDuration_Day()+" Days"+")");
+        //    discountRs.setText("Rs: "+m.getDiscount());
             final Bundle bundle = activity.getIntent().getExtras();
 
             // Listen for ListView Item Click
@@ -116,10 +120,12 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
                     final Intent i = new Intent(activity, PlanTrip.class);
                     i.putExtra("Image", Places.get(position).getImage());
                     i.putExtra("Duration", Places.get(position).getDuration_Day());
+                    Log.d("No of nights region11", "" + Places.get(position).getDuration_Day());
                     i.putExtra("Title", Places.get(position).getTitle());
                     i.putExtra("Destinations", Places.get(position).getDestination());
                     i.putExtra("DestinationsID", Places.get(position).getDestination_Key());
                     i.putExtra("DestinationsCount", Places.get(position).getDestination_Count());
+                    Log.d("No of nights region",""+Places.get(position).getDestination_Count());
                     i.putExtra("ArrivalPort", Places.get(position).getArrival_Port_Id());
                     i.putExtra("DeparturePort", Places.get(position).getDeparture_Port_Id());
                     i.putExtra("ItineraryID", Places.get(position).getItinerary_Id());

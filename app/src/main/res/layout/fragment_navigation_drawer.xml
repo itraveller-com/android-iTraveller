@@ -8,41 +8,57 @@
     <RelativeLayout
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="180dp"
+        android:gravity="center_vertical"
         android:layout_alignParentTop="true"
         android:clickable="true"
         android:focusableInTouchMode="true"
         android:focusable="true"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/rsz_nav_drawer_image">
 
         <TextView
             android:id="@+id/greeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:textColor="#ffffffff"
             android:textSize="18sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Hello"
+            android:gravity="left"
+            android:text="Hello User"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:layout_below="@+id/image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <ImageView
             android:id="@+id/image"
+            android:src="@drawable/ic_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
-            android:layout_above="@+id/greeting"
-            android:layout_centerHorizontal="true"
             android:clickable="true"
             android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/down_arrow_img"
+            android:id="@+id/down_arrow_image"
+            android:adjustViewBounds="true"
+            android:layout_alignBottom="@+id/greeting"
+            android:layout_alignRight="@+id/greeting"
+            android:layout_alignEnd="@+id/greeting" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
