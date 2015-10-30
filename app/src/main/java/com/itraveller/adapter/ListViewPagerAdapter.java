@@ -47,6 +47,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     ImageView[] left_arrow,right_arrow;
     RelativeLayout[] rel_left_arrow,rel_right_arrow;
     int checkbit = 0;
+    int CheckBoolean = 0;
 
   HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
 
@@ -122,6 +123,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         user_selected_data=context.getSharedPreferences("User Selected Data",context.MODE_PRIVATE);
 
         mysettings= context.getSharedPreferences("Itinerary", 0);
+
         String Destintion_night = mysettings.getString("DestinationCount", null);
         String Destintion_NAME = mysettings.getString("DestinationName", null);
         hotel_destination = Destintion_NAME.trim().split(",");
@@ -340,20 +342,17 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                             hotel_model.setDate(jsonarr.getString("Date"));
                             hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
                             String[] value = defaultHotelRoom.get(index).trim().split(",");
-
-
-                                Log.d("Count test test1",""+defaultHotelRoom.get(index));
-
-
-                                    if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
-
-
+                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
                                         hotel_model.setChecked(true);
+                                        hotel_model.setLunch(Integer.parseInt(value[4]));
+                                        hotel_model.setDinner(Integer.parseInt(value[5]));
                                         swap_value = i;
-                                        Log.d("chech est test", "hi");
                                         flag_bit = 1;
+                                        CheckBoolean =1;
                                     } else {
                                         hotel_model.setChecked(false);
+                                    hotel_model.setLunch(0);
+                                    hotel_model.setDinner(0);
                                     }
                             }
                             //hotel_model.setChecked(true);
@@ -379,8 +378,8 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
                     if(response.getJSONArray("payload").length()!=0){
                         HotelModel hotel_model = new HotelModel();
-                        hotelList.add(OwnAccomadation(hotel_model));
-                    Collections.swap(hotelList, 0, swap_value);
+                        hotelList.add(OwnAccomadation(hotel_model, CheckBoolean, hotelList.size()));
+                     Collections.swap(hotelList, 0, swap_value);
 
                         swap_value = 0;
                     //added on 12/08/2015
@@ -510,7 +509,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         }
     }
 
-    public HotelModel OwnAccomadation(HotelModel hotel_model){
+    public HotelModel OwnAccomadation(HotelModel hotel_model, int checkvalue, int swapvalueat){
         hotel_model.setHotel_Id(0);
         hotel_model.setRegion_Id("All");
         hotel_model.setDestination_Id("0");
@@ -526,7 +525,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         hotel_model.setHotel_Latitude("");
         hotel_model.setHotel_Longitude("");
         hotel_model.setHotel_URL("");
-        hotel_model.setHotel_Number("");
         hotel_model.setDistrict("");
         hotel_model.setState("");
         hotel_model.setCountry("");
@@ -540,12 +538,19 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         hotel_model.setTrip_Image("");
         hotel_model.setTrip_Script("");
         hotel_model.setAccount_Holder("");
-        hotel_model.setAccount_Number("");
+        hotel_model.setAccount_Number("0");
         hotel_model.setBank("");
         hotel_model.setIFSC_Code("");
         hotel_model.setDate("");
         hotel_model.setAdmin_Id("");
-        hotel_model.setChecked(false);
+        if(checkvalue == 0) {
+            hotel_model.setChecked(true);
+            swap_value = swapvalueat;
+        }
+        else
+        {
+            hotel_model.setChecked(false);
+        }
         return hotel_model;
     }
 

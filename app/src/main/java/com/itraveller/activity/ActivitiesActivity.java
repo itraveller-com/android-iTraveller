@@ -42,6 +42,7 @@ import com.itraveller.adapter.ListViewPagerActivitiesAdapter;
 import com.itraveller.adapter.ListViewPagerAdapter;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
+import com.itraveller.crash.ExceptionHandler;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.TransportationModel;
@@ -127,6 +128,7 @@ public class ActivitiesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // Get the view from viewpager_main.xml
         setContentView(R.layout.view_pager_list_view);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
         //Toolbar for dsplaying "Activities" title
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

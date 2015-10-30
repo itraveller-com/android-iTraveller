@@ -68,8 +68,9 @@ public class LandingAdapter extends BaseAdapter {
 
 
         SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-            _screen_height = prefs.getInt("Screen_Height", 0)-(prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
-            Log.i("iTraveller", "Screen Height: "+_screen_height);
+       // _screen_height = prefs.getInt("Screen_Height", 0)-(prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
+        _screen_height = prefs.getInt("Screen_Height", 0)- prefs.getInt("ActionBar_Height", 0);
+        Log.i("iTraveller", "Screen Height: "+_screen_height);
             int width = prefs.getInt("Screen_Width", 0); //0 is the default value.
 
 
