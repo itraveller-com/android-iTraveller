@@ -196,7 +196,7 @@ public class LandingActivity extends Fragment {
                     Log.d("Response in LandingPage",""+response.toString());
                     Log.d("Boolean", ""+response.getBoolean("success"));
                     Log.d("Error", ""+response.getJSONObject("error"));
-                    Log.d("Payload_regions", ""+response.getJSONArray("payload").length());
+                    Log.d("Payload_regions", ""+response.getJSONArray("payload"));
 
                     // JSONObject jsonobj = response.getJSONObject("payload").get;
                     // Parsing json
@@ -206,6 +206,7 @@ public class LandingActivity extends Fragment {
                         //Log.i("i value", "" + i);
 
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
+                        Log.d("Payload_regions_data", ""+jsonarr);
                         LandingModel landing_model = new LandingModel();
 
                         if(jsonarr.getInt("Slider") == 1) {
@@ -272,11 +273,11 @@ public class LandingActivity extends Fragment {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
         // Inflate the layout for this fragment
-        serachJson(Constants.API_LandingActivity_Search_Region);
+        searchJson(Constants.API_LandingActivity_Search_Region);
         return rootView;
     }
 
-    public void serachJson(String url)
+    public void searchJson(String url)
     {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
@@ -339,4 +340,3 @@ public class LandingActivity extends Fragment {
 
 
 }
-

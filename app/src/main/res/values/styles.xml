@@ -8,36 +8,40 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/orange</item>
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+<<<<<<< HEAD
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:activatedBackgroundIndicator">@drawable/drawer_list_selector</item>
+=======
+    <item name="android:windowBackground">@color/windowBackground</item>
+>>>>>>> d3d7fe86c32a8f6b8a1b2fa5d649d7f0c9575111
     </style>
 
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/windowBackground</item>
     </style>
 
-    <style name="MyTheme.ActionBar.TitleIcon" parent="@style/MyMaterialTheme.Base">
-        <item name="android:textColor">@color/windowBackground</item>
-    </style>
+     <style name="MyTheme.ActionBar.TitleIcon" parent="@style/MyMaterialTheme.Base">
+         <item name="android:textColor">@color/windowBackground</item>
+     </style>
 
-    <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="android:minWidth">0dp</item>
-        <item name="android:padding">100dp</item>
-        <item name="android:scaleType">centerInside</item>
-    </style>
+     <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+         <item name="android:minWidth">0dp</item>
+         <item name="android:padding">100dp</item>
+         <item name="android:scaleType">centerInside</item>
+     </style>
 
-    <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="android:paddingRight">10dp</item>
-    </style>
+     <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+         <item name="android:paddingRight">10dp</item>
+     </style>
 
-    <style name="AppTheme" parent="MyMaterialTheme.Base">
-        <item name="toolbarStyle">@style/myToolbarStyle</item>
-        <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
-    </style>
+     <style name="AppTheme" parent="MyMaterialTheme.Base">
+         <item name="toolbarStyle">@style/myToolbarStyle</item>
+         <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
+     </style>
 
 
     <style name="font_size">

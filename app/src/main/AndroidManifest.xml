@@ -19,7 +19,7 @@
     <application
         android:name="com.itraveller.volley.AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ilogo"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/MyMaterialTheme">
         <activity

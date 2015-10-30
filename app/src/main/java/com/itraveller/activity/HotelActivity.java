@@ -112,6 +112,7 @@ public class  HotelActivity extends ActionBarActivity {
     public static int sum;
     public static int activity_sum;
     public static int flag=0;
+    public int totalPersons = 0;
 
     private TransportationAdapter tra_adapter;
     public static List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
@@ -140,7 +141,7 @@ public class  HotelActivity extends ActionBarActivity {
     private ArrayList<String> hotelList;
     private ArrayList<String> mealPlanURL;
     private ArrayList<String> lowesthotelList;
-    String[] hotel_destination, destination_date;
+    String[] hotel_destination, destination_date, pre_saved_hotel_destination_id;
     ListView lv1;
     LinearLayout second;
     ///HOTEL ROOM ACTIVITY
@@ -161,6 +162,7 @@ public class  HotelActivity extends ActionBarActivity {
     private LinearLayout mealplanlayout;
     private TextView mealhead;
     int Checkgpostion;
+    String IDS_value;
 
     SharedPreferences sharedpreferences;
 
@@ -244,6 +246,7 @@ public class  HotelActivity extends ActionBarActivity {
         dep_dateText.setText(getNextConvertedDate("" + preferences.getString("Date_str", null)));
         daysText.setText("" + prefs.getInt("Duration", 0));
         adultsText.setText("" + prefs.getString("Adults", null));
+        totalPersons = Integer.parseInt(prefs.getString("Adults", null)) + Integer.parseInt( prefs.getString("Children_12_5", null));
         child_5_12_Text.setText("" + prefs.getString("Children_12_5", null));
         child_below_5_Text.setText("" + prefs.getString("Children_5_2", null));
         totalPriceText.setText("");
@@ -284,14 +287,17 @@ public class  HotelActivity extends ActionBarActivity {
                 }*/
                 if(b) {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
-                        modelRow.get(cposition).setLunch(Integer.parseInt("" + mealplanList.get(0).getLunch()));
-
+                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                        if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
+                            modelRow.get(cposition).setLunch(Integer.parseInt("" + mealplanList.get(0).getLunch()));
+                    }
                 }
                 else{
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
-                        modelRow.get(cposition).setLunch(Integer.parseInt("0"));
+                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                        if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
+                            modelRow.get(cposition).setLunch(Integer.parseInt("0"));
+                    }
                 }
                 SaveData();
 
@@ -307,12 +313,16 @@ public class  HotelActivity extends ActionBarActivity {
                 Log.e("Lowest_Value1",""+gposition);
                 if (b) {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
-                        modelRow.get(cposition).setDinner(Integer.parseInt("" + mealplanList.get(0).getDinner()));
+                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                        if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
+                            modelRow.get(cposition).setDinner(Integer.parseInt("" + mealplanList.get(0).getDinner()));
+                    }
                 } else {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
-                        modelRow.get(cposition).setDinner(Integer.parseInt("0"));
+                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                        if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
+                            modelRow.get(cposition).setDinner(Integer.parseInt("0"));
+                    }
                 }
                 SaveData();
             }
@@ -323,13 +333,19 @@ public class  HotelActivity extends ActionBarActivity {
 
         ndDialog=new ProgressDialog(HotelActivity.this);
 
-        String IDS_value = bundle.getString("DestinationsIDs");
+        IDS_value = bundle.getString("DestinationsIDs");
         prfs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         String Date_value = prfs.getString("DestinationDate", "");
         Region_ID= prfs.getString("RegionID", "");
 
         //Destination Count
     //    Log.d("Hotel cost test",""+prfs.getInt("Total_Hotel_Cost",0));
+
+        SharedPreferences prfs1 = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
+        String preSavedHotelDestinationID = prfs1.getString("HotelDestinationID", "");
+
+        pre_saved_hotel_destination_id = preSavedHotelDestinationID.trim().split(",");
+
 
 
         hotel_destination = IDS_value.trim().split(",");
@@ -339,6 +355,9 @@ public class  HotelActivity extends ActionBarActivity {
         lv1 = (ListView) findViewById(R.id.campaignListView);
         // lv1.setAdapter(new ArrayAdapter<String>(getActivity(),
         // android.R.layout.simple_list_item_1,aList));
+
+
+
 
         user_selected_data=getSharedPreferences("User Selected Data",MODE_PRIVATE);
 
@@ -443,119 +462,6 @@ public class  HotelActivity extends ActionBarActivity {
 
     }
 
-    public void getDetailJSON()
-    {
-        SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-        try {
-            JSONObject itinerary_obj = new JSONObject();
-            itinerary_obj.put("itineraryId", "" + pref.getInt("ItineraryID", 0));
-            itinerary_obj.put("dateOfTravel", "" + preferences.getString("Date_start_str", null));
-            itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
-            itinerary_obj.put("child-above-5", "" + pref.getString("Children_12_5", "0"));
-            itinerary_obj.put("child-below-5", "" + pref.getString("Children_5_2", "0"));
-            itinerary_obj.put("infant", "" + pref.getString("Children_2_0", "0"));
-            itinerary_obj.put("endDate", "" + preferences.getString("Date_end_str", "0"));
-            itinerary_obj.put("regionId", pref.getString("RegionID", "0"));
-            itinerary_obj.put("masterTransportation",  pref.getString("MasterID", "0"));
-            itinerary_obj.put("selectedTransportation",  pref.getString("TransportationIDV", null));
-
-            itinerary_obj.put("travellingFrom", pref.getString("ArrivalAirportString",null));
-            itinerary_obj.put("arrivalPort", pref.getString("ArrivalPortString",null));
-            itinerary_obj.put("departurePort", pref.getString("DeparturePortString",null));
-            itinerary_obj.put("travelTo", pref.getString("DepartureAirportString",null));
-
-            JSONArray destination_id = new JSONArray();
-            JSONArray destination_name_arr = new JSONArray();
-            JSONArray night_arr = new JSONArray();
-
-            String[] des_id = pref.getString("DestinationID", "0").trim().split(",");
-            String[] des_name = pref.getString("DestinationName", "0").trim().split(",");
-            String[] des_count = pref.getString("DestinationCount", "0").trim().split(",");
-
-            for(int i = 0 ; i <des_count.length ; i++){
-                destination_id.put("" + des_id[i]);
-                destination_name_arr.put("" + des_name[i]);
-                night_arr.put("" + des_count[i]);
-            }
-
-            itinerary_obj.put("destination" , destination_id);
-            itinerary_obj.put("destinations" , destination_name_arr);
-            itinerary_obj.put("nights" , night_arr);
-
-            JSONObject itinerary_hotel_obj = new JSONObject();
-            JSONArray hotel_date = new JSONArray();
-            JSONObject hotel_date_obj = new JSONObject();
-
-            pref.getString("Hotels", "0");
-//            pref.getStringSet("HotelRooms", null);
-            pref.getString("ItineraryHotelRooms", "0");
-
-            String No_of_Nights_arr[]=(""+pref.getString("No_of_nights_dest",null)).split(",");
-
-            String Hotel_ID_arr[]=post_prefs.getString("HotelRooms",null).split("-");
-
-            String Hotel_Data_arr[]=new String[4];
-
-            String Hotel_Date_arr[]=(""+prfs.getString("DestinationDate",null)).split(",");
-
-            for(int j = 0 ; j < des_count.length ; j++)
-            {
-
-                Hotel_Data_arr=Hotel_ID_arr[j].split(",");
-
-                itinerary_hotel_obj.put("Destination_Id",des_id[j]);
-                itinerary_hotel_obj.put("Rooms","" + Utility.noRooms(3,Integer.parseInt("" + pref.getString("Adults", "0"))));
-                itinerary_hotel_obj.put("Breakfast","1");
-                itinerary_hotel_obj.put("Lunch","0");
-                itinerary_hotel_obj.put("Dinner","0");
-                itinerary_hotel_obj.put("Nights",No_of_Nights_arr[j]);
-                itinerary_hotel_obj.put("Hotel_Id",Hotel_Data_arr[0]);
-                itinerary_hotel_obj.put("Hotel_Room_Id",Hotel_Data_arr[1]);
-                itinerary_hotel_obj.put("Display_Tariff",Hotel_Data_arr[2]);
-                //hotel_date.put(itinerary_hotel_obj);
-                hotel_date_obj.put(""+Hotel_Date_arr[j],itinerary_hotel_obj);
-                hotel_date.put(hotel_date_obj);
-            }
-            itinerary_obj.put("hotels", hotel_date);
-
-            pref.getStringSet("ActivitiesData", null);
-            pref.getString("ActivitiesDataString", "0");
-
-            JSONArray activites_date = new JSONArray();
-            JSONObject activites_date_obj = new JSONObject();
-
-            String Per_Day_activities_arr[]=default_activity_id_str.split("-");
-
-
-            for(int k=0;k<des_count.length;k++){
-                JSONArray itinerary_activites = new JSONArray();
-
-                String daily_activities_id_arr[]=Per_Day_activities_arr[k].split(",");
-
-                for(int l =0 ;l<daily_activities_id_arr.length;l++){
-                    itinerary_activites.put(""+daily_activities_id_arr[l]);
-                }
-                activites_date_obj.put(""+Hotel_Date_arr[k],itinerary_activites);
-                activites_date.put(activites_date_obj);
-            }
-            itinerary_obj.put("activities", activites_date);
-
-
-            JSONObject transportation_obj = new JSONObject();
-
-            transportation_obj.put("TransportationID",""+pref.getString("TransportationIDV",null));
-
-            itinerary_obj.put("transportation", transportation_obj);
-
-
-            Log.d("JSON ItinerarySummary", "" + itinerary_obj.toString());
-
-        }
-        catch (JSONException e){
-            System.out.println("JSON Exception " + e);
-        }
-
-    }
 
     public void CalculateDiscount()
     {
@@ -685,7 +591,7 @@ public class  HotelActivity extends ActionBarActivity {
         Log.d("URL test test10","hi");
         String url="http://m.itraveller.com/api/v1/supplier?region="+region_id;
         int i;
-        Log.d("URL test test11",""+url+"hii "+destination_date_arr.length);
+        Log.d("URL test test11", "" + url + "hii " + destination_date_arr.length);
         for(i=0;i<destination_date_arr.length;i++) {
 
             final int finalI = i;
@@ -772,8 +678,8 @@ public class  HotelActivity extends ActionBarActivity {
 
         String Hotel_Data_arr[]=new String[4];
 
-        Log.d("Welcome22",""+destination_id_arr.length);
-        Log.d("Welcome456",""+prefs.getString("HotelRooms",null));
+        Log.d("Welcome22", "" + destination_id_arr.length);
+        Log.d("Welcome456", "" + prefs.getString("HotelRooms", null));
 
         for(int i=0;i<Hotel_ID_arr.length;i++) {
 
@@ -884,7 +790,7 @@ public class  HotelActivity extends ActionBarActivity {
             default_activity_id_str+="-";
         }
         SharedPreferences.Editor editor=preferences.edit();
-        editor.putInt("ActivityCost",activity_sum);
+        editor.putInt("ActivityCost", activity_sum);
         editor.commit();
     }
 
@@ -916,7 +822,7 @@ public class  HotelActivity extends ActionBarActivity {
                 for(int k = 0;k< modelRow.size();k++) {
                     if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
                         //if(k == 0)
-                        hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();
+                        hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner() +","+Utility.noRooms(3, totalPersons)+",0,0";
                                /* else
                               hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                     }
@@ -1062,7 +968,7 @@ public class  HotelActivity extends ActionBarActivity {
                 destination_id_arr=new String[temp_destination_id_arr.length];
                 destination_date_arr=new String[temp_destination_date_arr.length];
 
-                Log.d("Destination date test111", "" + Destination_Date);
+                //Log.d("Destination date test111", "" + Destination_Date);
 
 
                 destination_id_arr=Destination_Value.split(",");
@@ -1114,7 +1020,6 @@ public class  HotelActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-
         @Override
         protected void onPostCreate(Bundle savedInstanceState) {
             super.onPostCreate(savedInstanceState);
@@ -1155,11 +1060,8 @@ public class  HotelActivity extends ActionBarActivity {
                     mDrawerLayout.openDrawer(Gravity.RIGHT);
                 }
             }
-
-
             return false;
         }
-
     public interface RadiobuttonListener {
         public void RadioChangeListenerCustom(String position);
     }
@@ -1178,13 +1080,16 @@ public class  HotelActivity extends ActionBarActivity {
         lowesthotelList = new ArrayList<>();
         SharedPreferences.Editor editor1=user_selected_data.edit();
 
+
+
+
         for (int index = 0; index < hotel_destination.length; index++) {
         //    hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
             hotelList.add(Constants.API_HotelActivity_HotelList + hotel_destination[index]);
             editor1.putInt("DestinationIDValue" + hotel_destination[index], Integer.parseInt("" + hotel_destination[index]));
             editor1.commit();
             //Default Hotel Set Value
-            DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID, index);
+            DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID, index, hotel_destination[index]);
             MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + hotel_destination[index] + "&region=" + Region_ID + "&checkInDate=" + destination_date[index], -1);
             Log.i("HotelURL", "" + "http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
             Log.i("MealPlanURL","http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + hotel_destination[index] + "&region=" + Region_ID + "&checkInDate=" + destination_date[index]);
@@ -1335,7 +1240,7 @@ public class  HotelActivity extends ActionBarActivity {
                                     }
                                 } else {
                                     hotelcheckbit = false;
-                                    HiddenLayoutMealPlan(false);
+                                    //HiddenLayoutMealPlan(false);
                                 }
                             }
                             roomList.add(hrm);
@@ -1349,12 +1254,18 @@ public class  HotelActivity extends ActionBarActivity {
                             Log.d("Error_Catched", "No Rooms");
                             //     }
                         }
-                        Utility.setListViewHeightBasedOnChildren(listView);
-                        adapter.notifyDataSetChanged();
+
                         //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
 
+                       // if(totalcount==(index-2)){
+                            Utility.setListViewHeightBasedOnChildren(listView);
+                            adapter.notifyDataSetChanged();
 
+                       // }
                     }
+
+
+
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
                 }
@@ -1375,7 +1286,7 @@ public class  HotelActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
-    public void DefaultHotelRoomSet(String url, final int depth) {
+    public void DefaultHotelRoomSet(String url, final int depth, final String hotel_dest) {
         Log.d("LowestHotelURL", "" + url);
         Log.d("Hotel1234567","hi");
 
@@ -1400,16 +1311,37 @@ public class  HotelActivity extends ActionBarActivity {
                         Log.i("DefaultData","No Lowest hotel :" + depth);
                     }
 
+                    int new_value =0;
                         JSONObject jsonarr = response.getJSONObject("payload");
                         Log.d("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
                     SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
                     String saved_details = sharedpreferences.getString("HotelDetails", "NoData");
-                    if(!saved_details.equalsIgnoreCase("NoData")) {
-                        String[] hotel_room_Data = saved_details.trim().split("-");
-                        lowesthotelList.add(hotel_room_Data[depth]);
+                    String[] hotel_room_Data = saved_details.trim().split("-");
+
+                    //for(int i =0 ; i < hotel_destination.length; i++){
+                        for(int j =0 ;j < pre_saved_hotel_destination_id.length ; j++) {
+                            if(hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])){
+                                lowesthotelList.add(hotel_room_Data[depth]);
+                                new_value =1;
+                            }
+                        }
+                    //}
+                   /* if(!saved_details.equalsIgnoreCase("NoData")) {
+                        *//*for(int i = 0;i<hotel_room_Data.length;i++){
+                            String[] hotel_room_Data_id = hotel_room_Data[depth].trim().split(",");
+                            if(hotel_room_Data_id[0].equalsIgnoreCase( jsonarr.getString("Hotel_Id"))){
+                                if(hotel_room_Data_id[1].equalsIgnoreCase(jsonarr.getString("Hotel_Room_Id"))){
+                                    lowesthotelList.add(hotel_room_Data[depth]);
+                                    new_value =1;
+                                }
+                            }
+                            }*//*
                     }else {
                         //here no of rooms add defaul
                         lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + ",1");
+                    }*/
+                    if(new_value == 0){
+                        lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(3, totalPersons)+",0,0");
                     }
                         //roomList.add();
                     //}
@@ -1427,17 +1359,42 @@ public class  HotelActivity extends ActionBarActivity {
                                 cposition = childpostion;
                                 gposition = groupPosition;
 
-                                if(Checkgpostion != groupPosition) {
-                                    chk_lunch.setChecked(false);
-                                    chk_dinner.setChecked(false);
-                                    Checkgpostion = groupPosition;
-                                }
+
                                 mealplanList = new ArrayList<MealPlanModel>();
 
                                 roomList = new ArrayList<HotelRoomModel>();
                                 listView = (ListView) findViewById(R.id.room_type);
                                 Utility.setListViewHeightBasedOnChildren(listView);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
+
+
+
+                                if(!modelRow.get(childpostion).isChecked()) {
+                                    chk_lunch.setChecked(false);
+                                    chk_dinner.setChecked(false);
+                                }
+
+                                if(modelRow.get(childpostion).getLunch() !=  0)
+                                {
+                                    chk_lunch.setChecked(true);
+                                }
+                                else {
+                                    chk_lunch.setChecked(false);
+                                }
+                                if(modelRow.get(childpostion).getDinner()!=0)
+                                {
+                                    chk_dinner.setChecked(true);
+                                }else{
+                                    chk_dinner.setChecked(false);
+
+                                }
+                                if(modelRow.get(childpostion).isChecked()){
+                                    HiddenLayoutMealPlan(true);
+                                }
+                                else{
+                                    HiddenLayoutMealPlan(false);
+                                }
+
                                 if (modelRow.get(childpostion).getHotel_Id() == 0) {
                                     for (int index = 0; index < modelRow.size(); index++) {
                                         modelRow.get(index).setChecked(false);
@@ -1445,6 +1402,9 @@ public class  HotelActivity extends ActionBarActivity {
                                     modelRow.get(childpostion).setChecked(true);
                                     ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
                                     listViewPagerAdapter.notifyDataSetChanged();
+                                    lowesthotelList.set(groupPosition, "0,0,0," + Utility.noRooms(3, totalPersons) + ",0,0");
+                                    SaveData();
+
                                     /*if(modelRow.get(childpostion).isChecked()){
                                         hotelcheckbit = true;
                                     }
@@ -1564,6 +1524,18 @@ public class  HotelActivity extends ActionBarActivity {
                         gposition = groupPosition;
                         final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
 
+                        if(modelRow.get(childpostion).getLunch()!=0)
+                        {
+                            chk_lunch.setChecked(true);
+                        }else {
+                            chk_lunch.setChecked(false);
+                        }
+                        if(modelRow.get(childpostion).getDinner()!=0)
+                        {
+                            chk_dinner.setChecked(true);
+                        }else {
+                            chk_dinner.setChecked(false);
+                        }
                         second.setVisibility(View.VISIBLE);
                         activites.setVisibility(View.GONE);
                         lv1.setVisibility(View.GONE);
@@ -1862,7 +1834,6 @@ public class  HotelActivity extends ActionBarActivity {
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int last_index, final int temp_index) {
 
         Log.d("Welcome46","Welcome");
-
         Log.d("Welcome47",""+TransURL);
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
@@ -1952,6 +1923,7 @@ public class  HotelActivity extends ActionBarActivity {
             count=0;
             flag=0;
             finish();
+            //SaveData();
         }
         else
         {
@@ -1959,6 +1931,7 @@ public class  HotelActivity extends ActionBarActivity {
           activites.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
             check_bit=0;
+            SaveData();
         }
     }
 
@@ -2098,15 +2071,18 @@ public class  HotelActivity extends ActionBarActivity {
                 }
             }
 
+            Log.d("Lowest_Value1",""+ lowesthotelList.get(i));
            // Log.d("Lowest_Value",""+ lowesthotelList.get(i));
             //if(datas.equalsIgnoreCase("null")) {
             //set.add("" + lowesthotelList.get(i));
+            String[] lowest_value = lowesthotelList.get(i).trim().split(",");
+
             if(i == 0) {
-                itinerary_hotel = "" + lowesthotelList.get(i) + "," + hotel_string;
+                itinerary_hotel = "" + lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," + hotel_string;
             }
             else{
                 hotel_string_main = hotel_string_main + "-" + hotel_string;
-                itinerary_hotel = itinerary_hotel + "-" + lowesthotelList.get(i) + "," +hotel_string;
+                itinerary_hotel = itinerary_hotel + "-" +  lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," +hotel_string;
             }
 
         }
@@ -2114,6 +2090,7 @@ public class  HotelActivity extends ActionBarActivity {
         SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("HotelDetails", itinerary_hotel);
+        editor.putString("HotelDestinationID", ""+IDS_value);
         editor.commit();
 
     }

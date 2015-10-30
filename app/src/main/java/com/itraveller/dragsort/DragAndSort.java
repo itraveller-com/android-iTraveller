@@ -231,7 +231,7 @@ public class DragAndSort extends ActionBarActivity
         {
             RearrangePlaceModel m = new RearrangePlaceModel();
             m.setPlace(names[i]);
-            m.setPlaceID(Integer.parseInt(destination_ID[i]));
+            m.setPlaceID(Integer.parseInt(destination_ID[i]) );
             m.setNights(destination_Count[i]);
             rearrangeList.add(m);
         }
