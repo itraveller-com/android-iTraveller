@@ -7,6 +7,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.RippleDrawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.itraveller.R;
 import com.itraveller.activity.RegionPlace;
 import com.itraveller.constant.Constants;
@@ -61,17 +66,19 @@ public class CardAdapaterLanding extends RecyclerView.Adapter<CardAdapaterLandin
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.material_landing_card_item, viewGroup, false);
+
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+
         final LandingModel nature = mItems.get(i);
         viewHolder.tvNature.setText(nature.getRegion_Name());
         //viewHolder.tvDesNature.setText(""+nature.getPage_Title());
-        viewHolder.imgThumbnail.setImageUrl(Constants.API_LandingAdapter_ImageURL+nature.getRegion_Id()+".jpg", imageLoader);
-        viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
+        viewHolder.imgThumbnail.setImageUrl(Constants.API_LandingAdapter_ImageURL + nature.getRegion_Id() + ".jpg", imageLoader);
+        viewHolder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Intent i = new Intent(activity, RegionPlace.class);
@@ -94,10 +101,12 @@ public class CardAdapaterLanding extends RecyclerView.Adapter<CardAdapaterLandin
 
         public NetworkImageView imgThumbnail;
         public TextView tvNature;
+        public CardView cardview;
         //public TextView tvDesNature;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            cardview = (CardView)itemView.findViewById(R.id.cardView);
             imgThumbnail = (NetworkImageView)itemView.findViewById(R.id.img_thumbnail);
             imgThumbnail.setDefaultImageResId(R.drawable.itraveller_logo);
             imgThumbnail.setErrorImageResId(R.drawable.ic_launcher);

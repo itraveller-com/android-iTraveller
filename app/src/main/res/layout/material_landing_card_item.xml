@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="3dp"
@@ -13,21 +16,30 @@
         android:layout_marginLeft="9dp"
         android:layout_marginRight="9dp"
         card_view:cardElevation="4dp"
+        android:layout_marginBottom="1dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginBottom="1dp">
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true">
+        <!--its for ripple effect but it will not work on onclick-->
+
         <RelativeLayout
             android:id="@+id/top_layout"
             android:layout_width="fill_parent"
             android:layout_height="200dp">
+
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/img_thumbnail"
                 android:layout_width="fill_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
-                android:layout_alignParentBottom="true" />
-            <TextView
+                android:layout_alignParentBottom="true" >
+
+                </com.android.volley.toolbox.NetworkImageView>
+
+
+    <TextView
                 android:id="@+id/tv_nature"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
@@ -45,8 +57,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+
+</android.support.v7.widget.CardView>
 
 </LinearLayout>

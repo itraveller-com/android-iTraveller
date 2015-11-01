@@ -177,11 +177,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().show();
+
         if (Build.VERSION.SDK_INT >= 21) {
 
             // Set the status bar to dark-semi-transparentish
@@ -402,7 +399,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
                         //display defult image and greetin to unregistered user
                         img1.setImageBitmap(getCroppedBitmap(icon));
-                        greeting.setText("Hello user");
+                        greeting.setText("");
 
                         LoginFragment fragment1 = new LoginFragment();
                         fragment1.setContextValue(context);
@@ -456,7 +453,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_home);
                 if(!str3.equals("y"))
                 {
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_profile_black);
                     //display defult image and greetin to unregistered user
                     img1.setImageBitmap(getCroppedBitmap(icon));
                     greeting.setText("Hello " + preferences.getString("f_name", null));
@@ -504,13 +501,13 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 {
                     LoginManager.getInstance().logOut();
 
-                    Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                    Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_profile_black);
 
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.clear();
                     editor.commit();
                     img1.setImageBitmap(getCroppedBitmap(icon1));
-                    greeting.setText("Hello user");
+                    greeting.setText("Welcome to iTraveller.com");
                     displayView(5);
                 }
 
@@ -523,9 +520,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_login);
                 fragment = fragment1;
 
-                Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_profile_black);
                 img1.setImageBitmap(getCroppedBitmap(icon2));
-                greeting.setText("Hello user");
+                greeting.setText("Welcome to iTraveller.com");
 
                 break;
 

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    buildToolsVersion '23.0.0'
 
     defaultConfig {
         applicationId "com.itraveller"
@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
-    //compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
+    compile 'com.balysv:material-ripple:1.0.2'
     compile 'org.immutables:gson:2.1.0.alpha'
     compile project(':app1')
     compile project(':rangeseekbar')

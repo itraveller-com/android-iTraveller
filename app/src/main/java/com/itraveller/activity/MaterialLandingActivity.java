@@ -4,21 +4,34 @@ package com.itraveller.activity;
  * Created by iTraveller on 10/28/2015.
  */
 
+import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -30,12 +43,17 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.itraveller.R;
 import com.itraveller.constant.Constants;
 import com.itraveller.materialadapter.CardAdapater;
 import com.itraveller.materialadapter.CardAdapaterLanding;
+import com.itraveller.materialsearch.SearchAdapter;
+import com.itraveller.materialsearch.SharedPreference;
+import com.itraveller.materialsearch.Utils;
 import com.itraveller.model.LandingModel;
+import com.itraveller.model.SearchBarModel;
 import com.itraveller.volley.AppController;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -43,6 +61,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -55,6 +74,9 @@ public class MaterialLandingActivity extends Fragment {
     FloatingActionButton fab;
     ProgressBar progessbar;
     private List<LandingModel> landingList = new ArrayList<LandingModel>();
+    private ArrayList<String> region_;
+    private ArrayList<SearchBarModel> Filterregion_;
+    SearchAdapter searchAdapter;
 
 
     @Override
@@ -79,17 +101,22 @@ public class MaterialLandingActivity extends Fragment {
             }
         });
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        mSwipeRefreshLayout.setRefreshing(false);
+        //mSwipeRefreshLayout.setRefreshing(true);
 
         //Fab Floating Button
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        //fab.
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fab.hide();
+               loadToolBarSearch();
             }
         });
+
+        //For Search Bar
+        Filterregion_ = new ArrayList<SearchBarModel>();
+        region_ = new ArrayList<String>();
 
         //Adding RecyclerView Object
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
@@ -101,6 +128,8 @@ public class MaterialLandingActivity extends Fragment {
         mAdapter = new CardAdapaterLanding(landingList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        fab.attachToRecyclerView(mRecyclerView);
+        searchJson(Constants.API_LandingActivity_Search_Region);
         JsonCallForDestination();
 
         return rootView;
@@ -214,5 +243,166 @@ public class MaterialLandingActivity extends Fragment {
     public void HiddenControls()
     {
         progessbar.setVisibility(View.GONE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void loadToolBarSearch() {
+
+
+        /*Window window = getActivity().getWindow();
+
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        // finally change the color
+        window.setStatusBarColor(getActivity().getResources().getColor(R.color.orange));*/
+
+
+        View view = getActivity().getLayoutInflater().inflate(R.layout.view_toolbar_search, null);
+        LinearLayout parentToolbarSearch = (LinearLayout) view.findViewById(R.id.parent_toolbar_search);
+        ImageView imgToolBack = (ImageView) view.findViewById(R.id.img_tool_back);
+        final EditText edtToolSearch = (EditText) view.findViewById(R.id.edt_tool_search);
+        ImageView imgToolMic = (ImageView) view.findViewById(R.id.img_tool_mic);
+        final ListView listSearch = (ListView) view.findViewById(R.id.list_search);
+        final TextView txtEmpty = (TextView) view.findViewById(R.id.txt_empty);
+
+        Utils.setListViewHeightBasedOnChildren(listSearch);
+
+        edtToolSearch.setHint("Search your country");
+
+        final Dialog toolbarSearchDialog = new Dialog(getActivity(), R.style.MaterialSearch);
+        toolbarSearchDialog.setContentView(view);
+        toolbarSearchDialog.setCancelable(false);
+        toolbarSearchDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        toolbarSearchDialog.getWindow().setGravity(Gravity.BOTTOM);
+        toolbarSearchDialog.show();
+
+
+        toolbarSearchDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        searchAdapter = new SearchAdapter(getActivity(), region_, false);
+
+        listSearch.setVisibility(View.VISIBLE);
+        listSearch.setAdapter(searchAdapter);
+
+
+        listSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String country = String.valueOf(adapterView.getItemAtPosition(position));
+                SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES, country);
+                edtToolSearch.setText(country);
+                listSearch.setVisibility(View.GONE);
+
+
+            }
+        });
+        edtToolSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                //String[] country = getResources().getStringArray(R.array.countries_array);
+                //mCountries = new ArrayList<String>(Arrays.asList(country));
+                listSearch.setVisibility(View.VISIBLE);
+                searchAdapter.updateList(region_, true);
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ArrayList<String> filterList = new ArrayList<String>();
+                boolean isNodata = false;
+                if (s.length() > 0) {
+                    for (int i = 0; i < region_.size(); i++) {
+
+
+                        if (region_.get(i).toLowerCase().startsWith(s.toString().trim().toLowerCase())) {
+
+                            filterList.add(region_.get(i));
+
+                            listSearch.setVisibility(View.VISIBLE);
+                            searchAdapter.updateList(filterList, true);
+                            isNodata = true;
+                        }
+                    }
+                    if (!isNodata) {
+                        listSearch.setVisibility(View.GONE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                        txtEmpty.setText("No data found");
+                    }
+                } else {
+                    listSearch.setVisibility(View.GONE);
+                    txtEmpty.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        imgToolBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toolbarSearchDialog.dismiss();
+                fab.show();
+            }
+        });
+
+        imgToolMic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                edtToolSearch.setText("");
+
+            }
+        });
+    }
+
+    public void searchJson(String url)
+    {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+                url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("Boolean", ""+response.getBoolean("success"));
+                    Log.d("Error", ""+response.getJSONObject("error"));
+                    Log.d("Payload", ""+response.getJSONArray("payload"));
+
+                    // Parsing json
+                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
+
+                        JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
+                        SearchBarModel search_bar = new SearchBarModel();
+                        search_bar.setValue(jsonarr.getString("value"));
+                        search_bar.setKey(jsonarr.getString("key"));
+                        Filterregion_.add(search_bar);
+                        region_.add(jsonarr.getString("value"));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+               // searchAdapter.notifyDataSetChanged();
+                fab.setVisibility(View.VISIBLE);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("Volley Error", "Error: " + error.getMessage());
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq);
     }
 }
