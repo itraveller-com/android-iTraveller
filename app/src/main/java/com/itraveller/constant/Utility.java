@@ -7,6 +7,7 @@ package com.itraveller.constant;
     import android.net.ConnectivityManager;
     import android.net.NetworkInfo;
     import android.os.StrictMode;
+    import android.support.v7.widget.RecyclerView;
     import android.view.View;
     import android.view.ViewGroup;
     import android.view.View.MeasureSpec;
@@ -39,8 +40,26 @@ public class Utility {
             params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
             listView.setLayoutParams(params);
             listView.requestLayout();
+
         }
 
+
+    public static void measureScrapChild(RecyclerView.Recycler recycler, int position, int widthSpec,
+                                   int heightSpec, int[] measuredDimension) {
+        View view = recycler.getViewForPosition(position);
+        if (view != null) {
+            RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
+            int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec,
+                    //getPaddingLeft() + getPaddingRight(), p.width);
+                    20, p.width);
+            int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec,
+                    20, p.height);
+            view.measure(childWidthSpec, childHeightSpec);
+            measuredDimension[0] = view.getMeasuredWidth() + p.leftMargin + p.rightMargin;
+            measuredDimension[1] = view.getMeasuredHeight() + p.bottomMargin + p.topMargin;
+            recycler.recycleView(view);
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     //////////////////WIFI or Mobile Network Available or Not //////////////////////

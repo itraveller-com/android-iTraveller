@@ -6,7 +6,9 @@ package com.itraveller.activity;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -45,8 +49,14 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
+import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.itraveller.R;
 import com.itraveller.constant.Constants;
+import com.itraveller.constant.Utility;
 import com.itraveller.materialadapter.CardAdapater;
 import com.itraveller.materialadapter.CardAdapaterLanding;
 import com.itraveller.materialsearch.SearchAdapter;
@@ -56,6 +66,8 @@ import com.itraveller.model.LandingModel;
 import com.itraveller.model.SearchBarModel;
 import com.itraveller.volley.AppController;
 import com.melnykov.fab.FloatingActionButton;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,9 +77,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MaterialLandingActivity extends Fragment {
+public class MaterialLandingActivity extends Fragment implements ObservableScrollViewCallbacks {
 
-    RecyclerView mRecyclerView;
+    ObservableRecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -77,6 +89,11 @@ public class MaterialLandingActivity extends Fragment {
     private ArrayList<String> region_;
     private ArrayList<SearchBarModel> Filterregion_;
     SearchAdapter searchAdapter;
+    private int mBaseTranslationY;
+    private View mHeaderView;
+    private View mToolbarView;
+    private TextView toolSearch;
+    private LinearLayout toolbarSearch;
 
 
     @Override
@@ -89,7 +106,18 @@ public class MaterialLandingActivity extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.material_landing_listview, container, false);
         //Destination fetching URL
-        String url = Constants.API_LandingActivity_Region;
+        mHeaderView = rootView.findViewById(R.id.header);
+        mToolbarView = rootView.findViewById(R.id.toolbarnew);
+        toolbarSearch = (LinearLayout) rootView.findViewById(R.id.search_bar);
+        toolSearch = (TextView) rootView.findViewById(R.id.edt_tool_search);
+        toolSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadToolBarSearch();
+                toolbarSearch.setVisibility(View.GONE);
+            }
+        });
+
 
         progessbar = (ProgressBar) rootView.findViewById(R.id.progressBarLanding);
 
@@ -101,10 +129,10 @@ public class MaterialLandingActivity extends Fragment {
             }
         });
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        //mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
 
         //Fab Floating Button
-        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        /*fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,26 +140,31 @@ public class MaterialLandingActivity extends Fragment {
                 fab.hide();
                loadToolBarSearch();
             }
-        });
+        });*/
 
         //For Search Bar
         Filterregion_ = new ArrayList<SearchBarModel>();
         region_ = new ArrayList<String>();
 
         //Adding RecyclerView Object
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView = (ObservableRecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setScrollViewCallbacks(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(false);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        /*mLayoutManager = new LinearLayoutManager(getActivity());
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);*/
 
         mAdapter = new CardAdapaterLanding(landingList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        fab.attachToRecyclerView(mRecyclerView);
+
+       // fab.attachToRecyclerView(mRecyclerView);
+
         searchJson(Constants.API_LandingActivity_Search_Region);
         JsonCallForDestination();
-
         return rootView;
     }
 
@@ -139,6 +172,8 @@ public class MaterialLandingActivity extends Fragment {
         mSwipeRefreshLayout.setRefreshing(true);
         JsonCallForDestination();
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -271,7 +306,7 @@ public class MaterialLandingActivity extends Fragment {
 
         Utils.setListViewHeightBasedOnChildren(listSearch);
 
-        edtToolSearch.setHint("Search your country");
+        edtToolSearch.setHint("Search your Destination");
 
         final Dialog toolbarSearchDialog = new Dialog(getActivity(), R.style.MaterialSearch);
         toolbarSearchDialog.setContentView(view);
@@ -288,14 +323,42 @@ public class MaterialLandingActivity extends Fragment {
         listSearch.setVisibility(View.VISIBLE);
         listSearch.setAdapter(searchAdapter);
 
+        //Shared Preference for checking flight(Domestic or International)
+        SharedPreferences sharedpreferences = getActivity().getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
 
         listSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Log.i("OnCLick", "Clicked" + searchAdapter.getItem(position));
+                int Filterregion__size=Filterregion_.size();
+                edtToolSearch.setText( searchAdapter.getItem(position).toString() );
+                for(int i=0;i<Filterregion__size;i++)
+                {
+                    if(Filterregion_.get(i).getValue().equalsIgnoreCase(edtToolSearch.getText().toString()))
+                    {
+                        //Log.i("OnCLick", "Clicked" + Filterregion_.get(i).getKey());
+                        String[] Region_id = Filterregion_.get(i).getKey().trim().split("/");
+                        int length = Filterregion_.get(i).getKey().trim().split("/").length;
+                        Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length-1]));
 
-                String country = String.valueOf(adapterView.getItemAtPosition(position));
-                SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES, country);
-                edtToolSearch.setText(country);
+                        final Intent in = new Intent(getActivity(), RegionPlace.class);
+                        in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
+                        in.putExtra("RegionName", Filterregion_.get(i).getValue());
+                        String flightBit="";
+                        int landingList_size=landingList.size();
+                        for(int index = 0; index < landingList_size ; index ++)
+                        {
+                            if(Integer.parseInt(Region_id[length-1]) == landingList.get(index).getRegion_Id()){
+                                flightBit = ""+landingList.get(index).getHome_Page();
+                            }
+                        }
+                        editor.putString("FlightBit", flightBit);
+                        editor.commit();
+                        startActivity(in);
+                        getActivity().finish();
+                    }
+                }
                 listSearch.setVisibility(View.GONE);
 
 
@@ -351,7 +414,8 @@ public class MaterialLandingActivity extends Fragment {
             @Override
             public void onClick(View view) {
                 toolbarSearchDialog.dismiss();
-                fab.show();
+                toolbarSearch.setVisibility(View.VISIBLE);
+                //fab.show();
             }
         });
 
@@ -392,7 +456,7 @@ public class MaterialLandingActivity extends Fragment {
                     e.printStackTrace();
                 }
                // searchAdapter.notifyDataSetChanged();
-                fab.setVisibility(View.VISIBLE);
+                //fab.setVisibility(View.VISIBLE);
             }
         }, new Response.ErrorListener() {
 
@@ -404,5 +468,78 @@ public class MaterialLandingActivity extends Fragment {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
+    }
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        //if (dragging) {
+            int toolbarHeight = mToolbarView.getHeight();
+            if (firstScroll) {
+                float currentHeaderTranslationY = ViewHelper.getTranslationY(mHeaderView);
+                if (-toolbarHeight < currentHeaderTranslationY) {
+                    mBaseTranslationY = scrollY;
+                }
+            }
+            float headerTranslationY = getFloat(-(scrollY - mBaseTranslationY), -toolbarHeight, 0);
+            ViewPropertyAnimator.animate(mHeaderView).cancel();
+            ViewHelper.setTranslationY(mHeaderView, headerTranslationY);
+       // }
+    }
+
+    public static float getFloat(final float value, final float minValue, final float maxValue) {
+        return Math.min(maxValue, Math.max(minValue, value));
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        mBaseTranslationY = 0;
+
+        if (scrollState == ScrollState.DOWN) {
+            showToolbar();
+        } else if (scrollState == ScrollState.UP) {
+            int toolbarHeight = mToolbarView.getHeight();
+            int scrollY = mRecyclerView.getCurrentScrollY();
+            if (toolbarHeight <= scrollY) {
+                hideToolbar();
+            } else {
+                showToolbar();
+            }
+        } else {
+            // Even if onScrollChanged occurs without scrollY changing, toolbar should be adjusted
+            if (!toolbarIsShown() && !toolbarIsHidden()) {
+                // Toolbar is moving but doesn't know which to move:
+                // you can change this to hideToolbar()
+                showToolbar();
+            }
+        }
+    }
+
+    private boolean toolbarIsShown() {
+        return ViewHelper.getTranslationY(mHeaderView) == 0;
+    }
+
+    private boolean toolbarIsHidden() {
+        return ViewHelper.getTranslationY(mHeaderView) == -mToolbarView.getHeight();
+    }
+
+    private void showToolbar() {
+        float headerTranslationY = ViewHelper.getTranslationY(mHeaderView);
+        if (headerTranslationY != 0) {
+            ViewPropertyAnimator.animate(mHeaderView).cancel();
+            ViewPropertyAnimator.animate(mHeaderView).translationY(0).setDuration(200).start();
+        }
+    }
+
+    private void hideToolbar() {
+        float headerTranslationY = ViewHelper.getTranslationY(mHeaderView);
+        int toolbarHeight = mToolbarView.getHeight();
+        if (headerTranslationY != -toolbarHeight) {
+            ViewPropertyAnimator.animate(mHeaderView).cancel();
+            ViewPropertyAnimator.animate(mHeaderView).translationY(-toolbarHeight).setDuration(200).start();
+        }
     }
 }

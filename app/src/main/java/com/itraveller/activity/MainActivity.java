@@ -190,7 +190,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         }
 
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        //getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         //To save Screen, Actionbar and Statusbar Height
         editor = getSharedPreferences(MY_PREFS, MODE_PRIVATE).edit();
