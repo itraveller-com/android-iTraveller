@@ -48,6 +48,7 @@ import com.itraveller.constant.Constants;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.model.TransportationModel;
+import com.melnykov.fab.FloatingActionButton;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -77,7 +78,7 @@ public class DragAndSort extends ActionBarActivity
     String[] names;
    // ArrayAdapter<String> adapter;
     Toolbar mToolbar;
-
+    FloatingActionButton fab;
 
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     ////// New Page
@@ -177,6 +178,15 @@ public class DragAndSort extends ActionBarActivity
         ImageButton add_new = (ImageButton) findViewById(R.id.imageButton);
 
 
+        //Fab Floating Button
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         NetworkImageView img = (NetworkImageView) findViewById(R.id.thumbnail);
         TextView title_sp = (TextView) findViewById(R.id.title_rp);
         TextView duration_sp = (TextView) findViewById(R.id.duration_rp);
@@ -220,6 +230,7 @@ public class DragAndSort extends ActionBarActivity
 
         adapter_rearrange = new RearrangePlaceAdapter(this,rearrangeList);
         listView.setAdapter(adapter_rearrange);
+        fab.attachToListView(listView);
 
         /*SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();*/
@@ -231,7 +242,7 @@ public class DragAndSort extends ActionBarActivity
         {
             RearrangePlaceModel m = new RearrangePlaceModel();
             m.setPlace(names[i]);
-            m.setPlaceID(Integer.parseInt(destination_ID[i]));
+            m.setPlaceID(Integer.parseInt(destination_ID[i]) );
             m.setNights(destination_Count[i]);
             rearrangeList.add(m);
         }

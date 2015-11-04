@@ -444,6 +444,9 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         try {
             JSONObject itinerary_obj = new JSONObject();
+
+            itinerary_obj.put("email", "" + pref.getInt("ItineraryID", 0));
+            itinerary_obj.put("phone", "" + pref.getString("TravelDate",null));
             itinerary_obj.put("itineraryId", "" + pref.getInt("ItineraryID", 0));
             itinerary_obj.put("dateOfTravel", "" + pref.getString("TravelDate",null));
             itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
@@ -484,8 +487,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             itinerary_obj.put("destinations" , destination_name_arr);
             itinerary_obj.put("nights" , night_arr);
 
-            JSONObject itinerary_hotel_obj = new JSONObject();
-            JSONArray hotel_date = new JSONArray();
+            //JSONArray hotel_date = new JSONArray();
             JSONObject hotel_date_obj = new JSONObject();
 
             pref.getString("Hotels", "0");
@@ -494,6 +496,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
             for(int j = 0 ; j < 3 ; j++)
             {
+                JSONObject itinerary_hotel_obj = new JSONObject();
                 itinerary_hotel_obj.put("Destination_Id","101");
                 itinerary_hotel_obj.put("Rooms","1");
                 itinerary_hotel_obj.put("Breakfast","1");
@@ -504,10 +507,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 itinerary_hotel_obj.put("Hotel_Room_Id","1122");
                 itinerary_hotel_obj.put("Display_Tariff","9310");
                 //hotel_date.put(itinerary_hotel_obj);
-                hotel_date_obj.put("10-09-2015",itinerary_hotel_obj);
-                hotel_date.put(hotel_date_obj);
+                hotel_date_obj.put("10-09-2015"+j,itinerary_hotel_obj);
+                //hotel_date.put(hotel_date_obj);
             }
-            itinerary_obj.put("hotels", hotel_date);
+            itinerary_obj.put("hotels", hotel_date_obj);
 
             pref.getStringSet("ActivitiesData", null);
             pref.getString("ActivitiesDataString", "0");
@@ -520,7 +523,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 for(int l =0 ;l<2;l++){
                     itinerary_activites.put("1254");
                 }
-                activites_date_obj.put("10-09-2015",itinerary_activites);
+                activites_date_obj.put("10-09-2015"+k,itinerary_activites);
                 activites_date.put(activites_date_obj);
             }
             itinerary_obj.put("activities", activites_date);

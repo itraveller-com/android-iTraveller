@@ -40,8 +40,8 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/orangeStatus"
+            android:textColorHint="@color/orangeStatus"
             android:textSize="16sp"/>
 
         <EditText
@@ -55,8 +55,8 @@
             android:maxLength="15"
             android:id="@+id/mobile"
             android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/orangeStatus"
+            android:textColorHint="@color/orangeStatus"
             android:textSize="16sp" />
 
 
@@ -74,7 +74,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="|"
-                android:textColor="@color/orange"
+                android:textColor="@color/orangeStatus"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register Here"
-                android:textColor="@color/orange"
+                android:textColor="@color/orangeStatus"
                 android:textSize="16dp"
                 android:textStyle="normal"
                 />
@@ -94,7 +94,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="|"
-                android:textColor="@color/orange"
+                android:textColor="@color/orangeStatus"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
-            android:background="@color/orange"
+            android:background="@color/orangeStatus"
             android:id="@+id/submit"
             android:text="Login"
             android:textColor="@color/white"
@@ -132,7 +132,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
-            android:background="@color/orange"
+            android:background="@color/orangeStatus"
             android:text="Continue Unregistered"
             android:textColor="@color/white"
             android:textSize="16dp" />

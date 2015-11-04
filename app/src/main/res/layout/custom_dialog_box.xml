@@ -28,7 +28,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/ilogo" />
+                android:src="@mipmap/ic_logo" />
 
             <TextView
                 android:id="@+id/textView1"
