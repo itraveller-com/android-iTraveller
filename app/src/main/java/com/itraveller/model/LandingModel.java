@@ -108,7 +108,9 @@ public class LandingModel {
         Page_Title = page_Title;
     }
 
-
+    public String getPage_Title() {
+        return Page_Title;
+    }
     public void setPage_Description(String page_Description) {
         Page_Description = page_Description;
     }

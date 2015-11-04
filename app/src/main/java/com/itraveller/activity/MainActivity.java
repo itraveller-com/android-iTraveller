@@ -1,5 +1,6 @@
 package com.itraveller.activity;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,11 +8,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -25,6 +28,7 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +83,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     String title;
     private CallbackManager callbackManager;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,12 +177,20 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().show();
+
+        if (Build.VERSION.SDK_INT >= 21) {
+
+            // Set the status bar to dark-semi-transparentish
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            // Set paddingTop of toolbar to height of status bar.
+            // Fixes statusbar covers toolbar issue
+            mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        }
+
+        //getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         //To save Screen, Actionbar and Statusbar Height
         editor = getSharedPreferences(MY_PREFS, MODE_PRIVATE).edit();
@@ -337,7 +350,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
        /* if (id == R.id.action_settings) {
             return true;
         }
-
         if(id == R.id.action_search){
             Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
             return true;
@@ -387,7 +399,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
                         //display defult image and greetin to unregistered user
                         img1.setImageBitmap(getCroppedBitmap(icon));
-                        greeting.setText("Hello user");
+                        greeting.setText("");
 
                         LoginFragment fragment1 = new LoginFragment();
                         fragment1.setContextValue(context);
@@ -437,11 +449,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         {
             case 0:
 
-                fragment = new LandingActivity();
+                fragment = new MaterialLandingActivity();
                 title = getString(R.string.title_home);
                 if(!str3.equals("y"))
                 {
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_profile_black);
                     //display defult image and greetin to unregistered user
                     img1.setImageBitmap(getCroppedBitmap(icon));
                     greeting.setText("Hello " + preferences.getString("f_name", null));
@@ -489,13 +501,13 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 {
                     LoginManager.getInstance().logOut();
 
-                    Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                    Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_profile_black);
 
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.clear();
                     editor.commit();
                     img1.setImageBitmap(getCroppedBitmap(icon1));
-                    greeting.setText("Hello user");
+                    greeting.setText("Welcome to iTraveller.com");
                     displayView(5);
                 }
 
@@ -508,9 +520,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_login);
                 fragment = fragment1;
 
-                Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
+                Bitmap icon2 = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_profile_black);
                 img1.setImageBitmap(getCroppedBitmap(icon2));
-                greeting.setText("Hello user");
+                greeting.setText("Welcome to iTraveller.com");
 
                 break;
 

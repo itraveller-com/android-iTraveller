@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.ab1209.stickybar.ObservableScrollView
+        android:id="@+id/activity_sticky_bar_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/activity_sticky_bar_relative_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/holo_orange_dark"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:id="@+id/activity_sticky_bar_layout_sticky_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/holo_blue_dark"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_sticky_bar_relative_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_sticky_bar_relative_top_layout"
+                android:background="@android:color/holo_red_light">
+
+                <TextView
+                    android:id="@+id/activity_sticky_bar_tv_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="25dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.ab1209.stickybar.ObservableScrollView>
+
+    <LinearLayout
+        android:id="@+id/activity_sticky_bar_layout_sticky_view_2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="horizontal" />
+</RelativeLayout>

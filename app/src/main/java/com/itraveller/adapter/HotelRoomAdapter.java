@@ -106,10 +106,11 @@ public class HotelRoomAdapter extends BaseAdapter {
         // title
         holder.title.setText(m.getRoom_Type());
 
-        holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(), adults));
+        //holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(), adults));
 
         try {
             String[] hotel_room_Data = lowesthotelList.get(groupPosition).trim().split(",");
+            holder.btn_count.setText("" + hotel_room_Data[3]);
             if (Integer.parseInt(hotel_room_Data[2]) == m.getDisplay_Tariff()){
                 //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
                 holder.rate.setText("Same price");
