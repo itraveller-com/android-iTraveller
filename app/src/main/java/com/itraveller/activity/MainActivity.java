@@ -74,9 +74,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     private SharedPreferences.Editor editor;
     public static final String MY_PREFS = "ScreenHeight";
     //private MaterialMenuDrawable materialMenu;
-    private TextView greeting;
+    public static TextView greeting;
     private ProfileTracker profileTracker;
-    public ImageView img1;
+    public static ImageView img1;
     Context context;
     public static String  att,str1,str2,str3,str4;
     Fragment fragment;
@@ -110,9 +110,12 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
 
         //code for receiving data from other activities
-        Bundle bu=getIntent().getExtras();
-        str1= "" +bu.getString("profile");
-        str2=""+bu.getString("id");
+    //    Bundle bu=getIntent().getExtras();
+
+        str1=""+preferences.getString("Profile"," ");
+        str2=""+preferences.getString("ID"," ");
+    //    str1= "" +bu.getString("profile");
+    //    str2=""+bu.getString("id");
         str3=""+preferences.getString("var",null);
         att=""+preferences.getString("access_token_string",null);
         str4=""+preferences.getString("user_id_string",null);
@@ -190,8 +193,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         }
 
-        //getWindow().setStatusBarColor(Color.TRANSPARENT);
-
         //To save Screen, Actionbar and Statusbar Height
         editor = getSharedPreferences(MY_PREFS, MODE_PRIVATE).edit();
         editor.putInt("Status_Height",getStatusBarHeight());
@@ -212,13 +213,22 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         //drawerFragment.setContextValue(this);
 
 
+
         // display the first navigation drawer view on app launch
         //   if((att.equals("unregistered") || att.equals("login_from_server") || !str1.equals("unregistered") || !str1.equals("login_from_server") || preferences.getInt("flag",0)==1 || preferences.getInt("temp",0)==1)  && !str1.equals("x") )
-        if((str1.equals("x") && preferences.getInt("flag",0)==1) || str1.equals("unregistered") || str1.equals("login_from_server") || str3.equals("y"))
-            displayView(0);
-        else
-            displayView(5);
+        Log.d("String test test111",""+preferences.getInt("login_flag",0)+" "+preferences.getInt("flag",0)+" "+str1+" "+str3);
 
+        if((preferences.getInt("login_flag",0)==1 && preferences.getInt("flag",0)==1) || str1.equals("unregistered") || str1.equals("login_from_server") || str3.equals("y"))
+        {
+            displayView(0);
+        }
+        else
+        {
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putInt("begin_flag",1);
+            editor.commit();
+            displayView(5);
+        }
 
     }
 
@@ -326,6 +336,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         Log.i("iTraveller", "ActionBar_Height " + getActionBarHeight());
         editor.putInt("ActionBar_Height", getActionBarHeight());
         editor.commit();
+
+
         /*getMenuInflater().inflate(R.menu.menu_main, menu);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().show();*/
@@ -378,7 +390,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
+                Log.d(TAG+"logout string", response.toString());
 
                 try
                 {
@@ -401,10 +413,14 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                         img1.setImageBitmap(getCroppedBitmap(icon));
                         greeting.setText("");
 
+                        editor.putInt("begin_flag", 2);
+                        editor.commit();
+
                         LoginFragment fragment1 = new LoginFragment();
                         fragment1.setContextValue(context);
                         title = getString(R.string.title_login);
                         fragment = fragment1;
+
 
                         displayView(5);
                     }
@@ -485,15 +501,22 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
             case 4:
 
+
+
                 Log.d("AccessToken before if",""+att);
-                if(att.equals("unregistered")) {
+                if(str1.equals("unregistered")) {
                     Log.d("Inside at", "accesstoken is null");
+
+                    SharedPreferences.Editor editor=preferences.edit();
+                    editor.putInt("begin_flag",2);
+                    editor.commit();
+
                     LoginFragment fragment1 = new LoginFragment();
                     fragment1.setContextValue(context);
                     title = getString(R.string.title_login);
                     fragment = fragment1;
                 }
-                else if(att.equals("login_from_server") )
+                else if(str1.equals("login_from_server") )
                 {
                     logout_from_server();
                 }
@@ -506,6 +529,12 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.clear();
                     editor.commit();
+
+                    SharedPreferences.Editor editor1=preferences.edit();
+                    editor1.putInt("begin_flag", 2);
+                    editor1.commit();
+
+
                     img1.setImageBitmap(getCroppedBitmap(icon1));
                     greeting.setText("Welcome to iTraveller.com");
                     displayView(5);

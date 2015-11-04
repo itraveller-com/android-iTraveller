@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="action_home">Home</string>
+
     <string name="search">Search your destination</string>
     <string name="app_name">iTraveller</string>
     <string name="action_settings">Settings</string>

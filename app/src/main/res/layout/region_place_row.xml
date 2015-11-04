@@ -15,7 +15,7 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
-        <RelativeLayout
+<!--        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="75dp"
@@ -58,8 +58,8 @@
             </LinearLayout>
 
         </RelativeLayout>
-
-        <LinearLayout
+-->
+<!--        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -69,8 +69,22 @@
             android:background="#FFFFFF"
             android:alpha="0.8"
             android:layout_gravity="bottom">
+-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:background="#FFFFFF"
+            android:layout_gravity="bottom">
 
-            <TextView
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+  <!--          <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -80,7 +94,29 @@
                 android:singleLine="true"
                 android:alpha=".87"
                 android:id="@+id/title" />
+-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Package Title"
+                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:id="@+id/title" />
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginLeft="20dp"
+                    android:text="(3 Nights)"
+                    android:textColor="@color/black"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:id="@+id/no_of_nights" />
+
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

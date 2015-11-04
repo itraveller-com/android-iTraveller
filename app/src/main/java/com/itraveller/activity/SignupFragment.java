@@ -288,7 +288,7 @@ public class SignupFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("TAG signup", response.toString());
+                        Log.d("TAG signup response", response.toString());
                         try
                         {
 

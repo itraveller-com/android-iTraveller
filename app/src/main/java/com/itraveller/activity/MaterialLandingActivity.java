@@ -10,6 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,6 +25,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +41,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ViewFlipper;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -54,7 +65,6 @@ import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.itraveller.R;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.materialadapter.CardAdapater;
@@ -94,7 +104,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     private View mToolbarView;
     private TextView toolSearch;
     private LinearLayout toolbarSearch;
-
+    ViewFlipper vf;
+    SharedPreferences.Editor editor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +128,69 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                 toolbarSearch.setVisibility(View.GONE);
             }
         });
+
+
+
+
+        vf=(ViewFlipper) rootView.findViewById(R.id.viewFlipper);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+
+
+        SharedPreferences.Editor editor2=prefs.edit();
+        editor2.putString("Profile","Hi");
+        editor2.putString("ID","Hi");
+        editor2.commit();
+
+        Log.d("Flag testing2", "" + prefs.getInt("flag", 0) + " " + prefs.getInt("login_flag", 0));
+
+        if(prefs.getInt("flag",0)==1 && prefs.getInt("login_flag",0)==1)
+        {
+            ((MainActivity) getActivity()).getSupportActionBar().hide();
+
+            LinearLayout splash_screen=(LinearLayout) rootView.findViewById(R.id.splash_screen_id);
+            //    LinearLayout login_form=(LinearLayout) view.findViewById(R.id.login_form);
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+
+            ImageView itr_logo=(ImageView) rootView.findViewById(R.id.itraveller_logo_);
+
+            TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                    height/8, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+            animation.setDuration(2250);  // animation duration
+            //    animation.setRepeatCount(5);  // animation repeat count
+            animation.setRepeatMode(0);   // repeat animation (left to right, right to left )
+            animation.setFillAfter(true);
+
+
+            itr_logo.startAnimation(animation);
+
+
+            splash_screen.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    vf.showNext();
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
+
+                }
+            }, 1200);
+
+        }
+        else if(prefs.getInt("flag",0)==1 && prefs.getInt("login_flag",0)==2)
+        {
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.putInt("login_flag", 1);
+            editor.commit();
+            vf.showNext();
+        }
+        else
+        {
+            vf.showNext();
+        }
 
 
         progessbar = (ProgressBar) rootView.findViewById(R.id.progressBarLanding);

@@ -18,6 +18,13 @@ public class NavDrawerItem {
         this.icon = icon;
     }
 
+    public boolean isShowNotify(){
+        return showNotify;
+    }
+
+    public void setShowNotify(boolean shownotify){
+        this.showNotify=shownotify;
+    }
 
     public String getTitle() {
         return title;

@@ -404,8 +404,8 @@ public class ActivitiesActivity extends ActionBarActivity {
         for(int i = 0 ; i< TotalCountDays +1;i++)
         {
 
-            Log.v("Activities URL", "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
-        //        activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+            Log.v("Activities URL", "" + "http://itraveller.com/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
+        //     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa   activitiesList.add("http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             activitiesList.add(Constants.API_ActivitiesActivity_URL+ Mat2_Destination.get(i) + "&toDestination=" + Mat2_Destination.get(i + 1) + "&regionIds=" + Region_id + "&day=" + Mat2_DayCount.get(i) + "&hotelId=" + Mat2_HotelID.get(i));
             /*Log.i("FinaL", "" + Mat2_Destination.get(i));
             Log.i("FinaLValue", "" + Mat2_HotelID.get(i));
@@ -643,7 +643,7 @@ public class ActivitiesActivity extends ActionBarActivity {
     public void CalculateSum()
     {
         Log.d("Destination date te771", "" + sum);
-        Log.d("Destination date te772", "" + transportationList.get(1).getCost());
+    //    Log.d("Destination date te772", "" + transportationList.get(1).getCost());
         Log.d("Destination date te773", "" + transportationList.size());
 
         SharedPreferences.Editor editor=prfs.edit();
@@ -651,33 +651,57 @@ public class ActivitiesActivity extends ActionBarActivity {
         if(count==0)
         {
 
-            sum += transportationList.get(1).getCost();
+            if(transportationList.size()>1)
+            {
+                sum += transportationList.get(1).getCost();
+                transportation_cost+=transportationList.get(1).getCost();
+                transportationText.setText("" + transportationList.get(1).getTitle());
 
 
-            transportation_cost+=transportationList.get(1).getCost();
+
+                editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
+                editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
+                editor.putString("TransportationCostOld",""+transportation_cost);
+                Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
+                Log.d("Destination date tt97", "" + transportation_cost);
+
+
+                editor.putInt("TotalCost", sum);
+                editor.commit();
+
+                trans_id=""+transportationList.get(1).getId();
+            }
+            else if(transportationList.size()==1){
+                sum+=transportationList.get(0).getCost();
+                transportation_cost+=transportationList.get(0).getCost();
+                transportationText.setText("" + transportationList.get(0).getTitle());
+
+
+                editor.putString("TransportaionTitle", "" + transportationList.get(0).getTitle());
+                editor.putString("TransportationIDV", "" + transportationList.get(0).getId());
+                editor.putString("TransportationCostOld",""+transportation_cost);
+                Log.d("Destination date tt89", "" + transportationList.get(0).getCost());
+                Log.d("Destination date tt97", "" + transportation_cost);
+
+
+                editor.putInt("TotalCost", sum);
+                editor.commit();
+
+                trans_id=""+transportationList.get(0).getId();
+            }
+
+        //    transportation_cost+=transportationList.get(1).getCost();
 
 
             Log.d("Destination date te77", "" + sum);
-            Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
-            Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
+        //    Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
+        //    Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
 
 
-            transportationText.setText("" + transportationList.get(1).getTitle());
 
-            editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
-            editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
-            editor.putString("TransportationCostOld",""+transportation_cost);
-            Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
-            Log.d("Destination date tt97", "" + transportation_cost);
-
-
-            editor.putInt("TotalCost", sum);
-            editor.commit();
-
-            trans_id=""+transportationList.get(1).getId();
             count++;
 
-            Log.d("TransporatationID test",""+transportationList.get(1).getId());
+        //    Log.d("TransporatationID test",""+transportationList.get(1).getId());
 
             getSupplierDetails();
 
@@ -1066,7 +1090,7 @@ public class ActivitiesActivity extends ActionBarActivity {
                 super.onDrawerOpened(drawerView);
 
                 ndDialog.setMessage("Loading...");
-                ndDialog.setCancelable(false);
+                ndDialog.setCancelable(true);
                 ndDialog.show();
 
                 Destination_Value=prfs.getString("DestinationID",null);

@@ -53,6 +53,7 @@ import com.itraveller.volley.AppController;
  */
 public class RegionPlace extends ActionBarActivity {
 
+    SharedPreferences prefs ;
     private String url = Constants.API_RegionPlace_URL;   //"http://stage.itraveller.com/backend/api/v1/itinerary/regionId/";
     private List<RegionPlaceModel> regionList = new ArrayList<RegionPlaceModel>();
     private RegionPlaceAdapter adapter;
@@ -87,8 +88,9 @@ public class RegionPlace extends ActionBarActivity {
             }
         });
 
+        prefs = getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         prefss=getSharedPreferences("PostData",MODE_PRIVATE);
-
+/*
         filter_btn = (Button) findViewById(R.id.addbtnfilter);
         final TextView minval = (TextView) findViewById(R.id.minvalue);
         final TextView maxval = (TextView) findViewById(R.id.maxvalue);
@@ -145,6 +147,7 @@ public class RegionPlace extends ActionBarActivity {
                 }
             }
         });
+
         SharedPreferences prefs = getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         _screen_height = prefs.getInt("Screen_Height", 0)-(prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
         Log.i("iTraveller", "Screen Height: " + _screen_height);
@@ -157,7 +160,7 @@ public class RegionPlace extends ActionBarActivity {
         /*rangeSeekBar.setRangeValues(12000, 110000);
         rangeSeekBar.setSelectedMinValue(12000);
         rangeSeekBar.setSelectedMaxValue(110000);*/
-        rangeSeekBar.setNotifyWhileDragging(true);
+/*        rangeSeekBar.setNotifyWhileDragging(true);
         // Add to layout
         LinearLayout layout = (LinearLayout) findViewById(R.id.seekbar_placeholder);
         no_data_lay = (LinearLayout) findViewById(R.id.no_data_layout);
@@ -178,7 +181,7 @@ public class RegionPlace extends ActionBarActivity {
 
             }
         });
-
+*/
         //Bundle to read value from another activity
         bundle = getIntent().getExtras();
         //Print
@@ -246,6 +249,7 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                            region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
                            region_adp.setDuration_Day(jsonobj.getJSONObject("Master").getInt("Duration_Day"));
+                           Log.d("No of nights testing in package",""+jsonobj.getJSONObject("Master").getInt("Duration_Day"));
                            region_adp.setPrice(jsonobj.getJSONObject("Master").getInt("Price"));
 
                            SharedPreferences.Editor editor2=prefss.edit();
@@ -273,6 +277,7 @@ public class RegionPlace extends ActionBarActivity {
                            String destinationKeyValue = null;
                            String destinationValue = null;
                            String destinationCount = null;
+
                            while(destinationKeys.hasNext() ) {
                                String destinationKey = (String) destinationKeys.next();
                                if(i == 0)
@@ -282,6 +287,8 @@ public class RegionPlace extends ActionBarActivity {
                                    destinationValue = destobj.getString("name");
                                    destinationCount = destobj.getString("count");
 
+                                    Log.d("Rohan test test",""+destobj.getString("count"));
+
                                    i++;
                                }
                                else{
@@ -289,11 +296,17 @@ public class RegionPlace extends ActionBarActivity {
                                    JSONObject destobj = jsonobj.getJSONObject("Destination").getJSONObject(destinationKey);
                                    destinationValue = destinationValue + "," + destobj.getString("name").toString();
                                    destinationCount = destinationCount + "," + destobj.getString("count").toString();
+
+                                   Log.d("Rohan test test1",""+destobj.getString("count"));
+                                   Log.d("Rohan test test2",""+destobj.getString("count").toString());
+
+
                                }
                                //Log.i("KeyDestination", "" + jsonobj.getJSONObject("Destination").getString(destinationKey));
                                region_adp.setDestination_Key(destinationKeyValue);
                                region_adp.setDestination(destinationValue);
                                region_adp.setDestination_Count(destinationCount);
+
                            }
                            Log.i("Key_DestinationValue", "" + destinationKeyValue);
                            Log.i("Key_Destination", "" + destinationValue);
@@ -302,7 +315,7 @@ public class RegionPlace extends ActionBarActivity {
                            Log.d("Discount", "" +region_adp.getDiscount());
                            regionList.add(region_adp);
 
-                           Collections.sort(regionList,new PriceComparison());
+                       //    Collections.sort(regionList,new PriceComparison());
                         }
                     }
                 } catch (JSONException e) {
@@ -311,12 +324,12 @@ public class RegionPlace extends ActionBarActivity {
                // pDialog.hide();
                //  region_adapter.notifyDataSetChanged();
                 // Update UI elements
-                minval.setText(""+ (min_value - 1));
+            /*    minval.setText(""+ (min_value - 1));
                 maxval.setText(""+ (max_value + 1));
                 rangeSeekBar.setRangeValues(min_value - 1, max_value + 1);
                 rangeSeekBar.setSelectedMinValue(min_value - 1);
                 rangeSeekBar.setSelectedMaxValue(max_value + 1);
-                adapter.notifyDataSetChanged();
+            */    adapter.notifyDataSetChanged();
                 pDialog.hide();
                 //searchText.startAnimation(animFadein);
             }
@@ -386,40 +399,49 @@ public class RegionPlace extends ActionBarActivity {
     }
 
     public void onBackPressed() {
-        if(filter_btn.getText().toString().equalsIgnoreCase("Apply Filter"))
+    /*    if(filter_btn.getText().toString().equalsIgnoreCase("Apply Filter"))
         {
             filter_details.setVisibility(View.GONE);
             filter_btn.setText("Filter");
         }
         else
         {
-            SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+     */       SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+            SharedPreferences.Editor editor=prefs.edit();
             Intent i=new Intent(getApplicationContext(),MainActivity.class);
             Log.d("Var value checking ",""+prefs.getString("var",null));
-            if(prefs.getInt("flag",0)==1) {
+            if(prefs.getInt("flag",0)==1)
+            {
                 if (("" + prefs.getString("var", null)).equals("y")) {
-                    i.putExtra("profile", "temp");
-                    i.putExtra("id", "temp");
+
+                    editor.putString("Profile","temp");
+                    editor.putString("ID","temp");
+                    editor.commit();
+
                     startActivity(i);
                     finish();
 
                 }
                 else
                 {
-                    i.putExtra("profile","login_from_server");
-                    i.putExtra("id","login_from_server");
+                    editor.putString("Profile","login_from_server");
+                    editor.putString("ID", "login_from_server");
+                    editor.commit();
+
                     startActivity(i);
                     finish();
                 }
             }
             else
             {
-                i.putExtra("profile","unregistered");
-                i.putExtra("id","unregistered");
+                editor.putString("Profile","unregistered");
+                editor.putString("ID","unregistered");
+                editor.commit();
+
                 startActivity(i);
                 finish();
             }
-        }
+    //    }
     }
 
     public interface NoDataInterface {

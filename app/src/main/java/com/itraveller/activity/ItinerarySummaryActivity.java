@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -47,6 +48,7 @@ import java.util.List;
 import com.itraveller.R;
 import com.itraveller.constant.Utility;
 import com.itraveller.map.DirectionsJSONParser;
+import com.itraveller.map.WorkaroundMapFragment;
 import com.itraveller.volley.AppController;
 
 import org.json.JSONArray;
@@ -71,6 +73,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
     SharedPreferences prfs;
     SharedPreferences prefs;
     SharedPreferences preferences;
+    ScrollView sc;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -220,6 +223,18 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         map = fm.getMap();
 
 
+        map = ((WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        sc = (ScrollView) findViewById(R.id.scrollView2); //parent scrollview in xml, give your scrollview id value
+
+        ((WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                .setListener(new WorkaroundMapFragment.OnTouchListener() {
+                    @Override
+                    public void onTouch() {
+                        sc.requestDisallowInterceptTouchEvent(true);
+                    }
+                });
 
 
         if(map!=null) {

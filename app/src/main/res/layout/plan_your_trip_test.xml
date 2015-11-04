@@ -97,7 +97,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp">
-
+<!--
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -110,6 +110,38 @@
                     android:elevation="2dp"
                     android:translationZ="2dp"
                     android:layout_gravity="center" />
+-->             <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/calendar_ic"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitXY"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1.5"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/calendar_icon" />
+
+                    <Button
+                        android:id="@+id/travel_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1.5"
+                        android:layout_toRightOf="@+id/calendar_ic"
+                        android:layout_toEndOf="@+id/calendar_ic"
+                        android:textColor="@color/textColorPrimary"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_shadow"
+                        android:elevation="2dp"
+                        android:translationZ="2dp"/>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
             <TextView
