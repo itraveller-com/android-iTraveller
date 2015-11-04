@@ -7,18 +7,25 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -87,6 +94,7 @@ public class LoginFragment extends Fragment {
     //Buttons for login user and for continuing without login
     Button server_unregisteredButton,server_loginButton;
 
+    TextView skip_login_link;
     //profiletracker for keeping track of user profile on facebook
     private ProfileTracker profileTracker;
     private ProgressDialog pDialog;
@@ -95,6 +103,9 @@ public class LoginFragment extends Fragment {
     private ShareDialog shareDialog;
     Context context;
     SharedPreferences.Editor editor;
+
+
+    ViewFlipper vf;
 
     public void setContextValue(Context context)
     {
@@ -125,12 +136,57 @@ public class LoginFragment extends Fragment {
 
         callbackManager = CallbackManager.Factory.create();
 
+        FragmentDrawer.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(false);
+
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
+
+        vf=(ViewFlipper) view.findViewById(R.id.viewFlipper);
+
         //shared preferences object for storing data in "Preferences"
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", context.MODE_PRIVATE);
         editor=prefs.edit();
 
+        if(prefs.getInt("begin_flag",0)==1)
+        {
 
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
+            LinearLayout splash_screen=(LinearLayout) view.findViewById(R.id.splash_screen_id);
+            LinearLayout login_form=(LinearLayout) view.findViewById(R.id.login_form);
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+
+            ImageView itr_logo=(ImageView) view.findViewById(R.id.itraveller_logo_);
+
+            TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                    height/8, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+            animation.setDuration(2250);  // animation duration
+            //    animation.setRepeatCount(5);  // animation repeat count
+            animation.setRepeatMode(0);   // repeat animation (left to right, right to left )
+            animation.setFillAfter(true);
+
+
+            itr_logo.startAnimation(animation);
+
+
+            splash_screen.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    vf.showNext();
+
+                }
+            }, 1200);
+
+        }
+        else
+        {
+            vf.showNext();
+        }
+
+
 
         //check if user is already logged in or not viz. if flag=0 then user is not logged in and 1 for logged in
         if(String.valueOf(prefs.getInt("flag", 0)).equals(null))
@@ -171,8 +227,9 @@ public class LoginFragment extends Fragment {
             facebook_loginButton.setFragment(LoginFragment.this);
 
             //Button used for allowing user to continue without logging in or unregistered
-            server_unregisteredButton = (Button) view.findViewById(R.id.btnunreg);
+        //    server_unregisteredButton = (Button) view.findViewById(R.id.btnunreg);
 
+            skip_login_link=(TextView) view.findViewById(R.id.btnunreg);
             //Setting permissions for accessing data from facebook
             facebook_loginButton.setReadPermissions(Arrays
                     .asList("public_profile, email, user_birthday, user_friends"));
@@ -196,7 +253,7 @@ public class LoginFragment extends Fragment {
             };
 
             //user redirected to Homepage of our app without registration or login
-            server_unregisteredButton.setOnClickListener(new View.OnClickListener() {
+            skip_login_link.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -212,8 +269,12 @@ public class LoginFragment extends Fragment {
 */
                         //redirect user to our apps homepage
                         Intent i = new Intent(context, MainActivity.class);
-                        i.putExtra("profile", "unregistered");
-                        i.putExtra("id", "unregistered");
+                        editor.putString("Profile","unregistered");
+                        editor.putString("ID","unregistered");
+                        editor.putInt("login_flag", 0);
+                        editor.commit();
+                    //    i.putExtra("profile", "unregistered");
+                    //    i.putExtra("id", "unregistered");
                         startActivity(i);
 
                         getActivity().finish();
@@ -392,7 +453,6 @@ public class LoginFragment extends Fragment {
 
                         // Commit the transaction
                         transaction.commit();
-
                     } else {
                         // Internet connection is not present
                         // Ask user to connect to Internet
@@ -514,12 +574,13 @@ public class LoginFragment extends Fragment {
                                     access_token=payload_object.getString("key");
 
                                     Log.d("User id is login", "" + user_id);
-                                    editor.putString("user_id_string",""+user_id);
+                                    editor.putString("user_id_string", "" + user_id);
                                     editor.putString("access_token_string",""+access_token);
                                     editor.putString("f_name",""+email_id_from_our_server);
                                     editor.putString("email_id1",""+email_id1);
                                     editor.putString("mobile_number1",""+mobile_number);
                                     editor.putInt("temp", 1);
+                                    editor.putInt("login_flag",2);
                                     editor.putInt("flag",1);
                                     editor.commit();
 
@@ -527,9 +588,15 @@ public class LoginFragment extends Fragment {
                                     JSONObject user_object=payload_object.getJSONObject("user");
 
 
+                                    SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", context.MODE_PRIVATE);
+                                    editor=prefs.edit();
+
                                     Intent i = new Intent(context, MainActivity.class);
-                                    i.putExtra("profile", "login_from_server");
-                                    i.putExtra("id", "login_from_server");
+                                    editor.putString("Profile","login_from_server");
+                                    editor.putString("ID","login_from_server");
+                                    editor.commit();
+                                //    i.putExtra("profile", "login_from_server");
+                                //    i.putExtra("id", "login_from_server");
                                     startActivity(i);
                                     getActivity().finish();
                                 }
@@ -749,15 +816,24 @@ public class LoginFragment extends Fragment {
             editor.putString("email_id1", "" + email_id_from_facebook);
             editor.putString("mobile_number1","0");
             editor.putString("var", "y");
-            editor.putInt("flag",1);
+            editor.putInt("flag", 1);
+            editor.putInt("login_flag",2);
             editor.putInt("temp", 1);
             editor.commit();
 
             Log.d("LoginFragmentAT", "" + at);
 
+            SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", context.MODE_PRIVATE);
+            editor=prefs.edit();
+
+
             Intent i=new Intent(context,MainActivity.class);
-            i.putExtra("profile",profile);
-            i.putExtra("id",id);
+
+            editor.putString("Profile",""+profile);
+            editor.putString("ID",""+id);
+            editor.commit();
+        //    i.putExtra("profile",profile);
+        //    i.putExtra("id",id);
 
             startActivity(i);
             getActivity().finish();

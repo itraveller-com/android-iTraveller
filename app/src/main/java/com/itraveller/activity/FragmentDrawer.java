@@ -1,14 +1,23 @@
 package com.itraveller.activity;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,23 +37,38 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.login.LoginManager;
 import com.itraveller.R;
 import com.itraveller.adapter.NavigationDrawerAdapter;
+import com.itraveller.constant.Constants;
 import com.itraveller.model.NavDrawerItem;
+import com.itraveller.volley.AppController;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class FragmentDrawer extends Fragment {
 
+    SharedPreferences preferences;
+    Fragment fragment;
+    String att;
     private static String TAG = FragmentDrawer.class.getSimpleName();
     ImageButton down_arrow;
     private RecyclerView recyclerView;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
+    public static ActionBarDrawerToggle mDrawerToggle;
+    public static DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
     public static String[] titles = null;
     private FragmentDrawerListener drawerListener;
     private TypedArray navMenuIcons;
+    String str1;
 
     public FragmentDrawer() {
 
@@ -60,11 +84,11 @@ public class FragmentDrawer extends Fragment {
         SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences",0);
         Log.d("After spp", String.valueOf(prefs.getInt("temp", 0)));
 
-
         //if user is already logged in then changing "Login" to "Logout"
         if(prefs.getInt("temp",0)==1)
         {
             titles[4]=titles[4].replace(""+titles[4],"Logout");
+        //    titles[4]=titles[4].replace(""+titles[4],"");
         }
 
 
@@ -99,6 +123,8 @@ public class FragmentDrawer extends Fragment {
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         down_arrow=(ImageButton) layout.findViewById(R.id.down_arrow_image);
 
+        down_arrow.setVisibility(View.INVISIBLE);
+
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -115,36 +141,9 @@ public class FragmentDrawer extends Fragment {
             }
         }));
 
-        down_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Hello user","Hello");
-
-//                down_arrow.setImageResource(R.drawable.up_arrow_img);
-
-                PopupMenu popup = new PopupMenu(getActivity(), down_arrow);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.nav_drawer_menu, popup.getMenu());
-
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-
- //                       down_arrow.setImageResource(R.drawable.down_arrow_img);
-
-                        Toast.makeText(getActivity(),"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-
-                popup.show();
-
-            }
-        });
 
         return layout;
     }
-
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);

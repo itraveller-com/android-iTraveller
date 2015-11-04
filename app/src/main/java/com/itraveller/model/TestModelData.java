@@ -7,6 +7,9 @@ public class TestModelData {
     private String mName;
     private String mDes;
     private int mThumbnail;
+    private String mTitle;
+    private String mNoOfNights;
+    private String mDestination;
 
     public String getName() {
         return mName;
@@ -32,4 +35,28 @@ public class TestModelData {
         this.mThumbnail = thumbnail;
     }
 
+    public String getTitle()
+    {
+        return mTitle;
+    }
+    public void setTitle(String title)
+    {
+        mTitle=title;
+    }
+    public String getNoOfNights()
+    {
+        return mNoOfNights;
+    }
+    public void setNoOfNights(String noOfNights)
+    {
+        mNoOfNights=noOfNights;
+    }
+    public String getDestination()
+    {
+        return mDestination;
+    }
+    public void setDestination(String dest)
+    {
+        mDestination=dest;
+    }
 }

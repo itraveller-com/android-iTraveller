@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<<<<<<< HEAD
         <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
                 <item name="android:windowNoTitle">true</item>
                 <item name="windowActionBar">false</item>
@@ -13,10 +12,8 @@
                 <item name="android:activatedBackgroundIndicator">@drawable/drawer_list_selector</item>
                 <item name="android:windowBackground">@color/windowBackground</item>
         </style>
-=======
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
->>>>>>> d3d7fe86c32a8f6b8a1b2fa5d649d7f0c9575111
 </resources>

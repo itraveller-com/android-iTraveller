@@ -9,13 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.itraveller.R;
 import com.itraveller.activity.MainActivity;
 
-public class SplashScreenActivity extends Activity {
+public class SplashScreenActivity extends Activity{
 
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
@@ -62,12 +64,13 @@ public class SplashScreenActivity extends Activity {
                 i.putExtra("AccessToken","x");
                 startActivity(i);
 
-
+            //    overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
 
                 // close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);
     }
+
 
 }

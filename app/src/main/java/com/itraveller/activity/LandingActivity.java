@@ -146,10 +146,10 @@ public class LandingActivity extends Fragment {
         });
 
         // load the animation
-        animSlidedown = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.slide_down);
-        animSlideup = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.slide_up);
+    //    animSlidedown = AnimationUtils.loadAnimation(getActivity(),
+    //            R.anim.slide_down);
+    //    animSlideup = AnimationUtils.loadAnimation(getActivity(),
+    //            R.anim.slide_up);
 
         // set animation listener
         animSlideup.setAnimationListener(new Animation.AnimationListener() {

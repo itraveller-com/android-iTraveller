@@ -407,28 +407,37 @@ public class RegionPlace extends ActionBarActivity {
         else
         {
      */       SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+            SharedPreferences.Editor editor=prefs.edit();
             Intent i=new Intent(getApplicationContext(),MainActivity.class);
             Log.d("Var value checking ",""+prefs.getString("var",null));
-            if(prefs.getInt("flag",0)==1) {
+            if(prefs.getInt("flag",0)==1)
+            {
                 if (("" + prefs.getString("var", null)).equals("y")) {
-                    i.putExtra("profile", "temp");
-                    i.putExtra("id", "temp");
+
+                    editor.putString("Profile","temp");
+                    editor.putString("ID","temp");
+                    editor.commit();
+
                     startActivity(i);
                     finish();
 
                 }
                 else
                 {
-                    i.putExtra("profile","login_from_server");
-                    i.putExtra("id","login_from_server");
+                    editor.putString("Profile","login_from_server");
+                    editor.putString("ID", "login_from_server");
+                    editor.commit();
+
                     startActivity(i);
                     finish();
                 }
             }
             else
             {
-                i.putExtra("profile","unregistered");
-                i.putExtra("id","unregistered");
+                editor.putString("Profile","unregistered");
+                editor.putString("ID","unregistered");
+                editor.commit();
+
                 startActivity(i);
                 finish();
             }

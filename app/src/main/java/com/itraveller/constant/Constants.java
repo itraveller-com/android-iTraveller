@@ -9,7 +9,7 @@ public class Constants {
 /*
     private static String API_domain = "http://stage.itraveller.com/backend";
 */
-    private static String API_domain = "http://itraveller.com/";
+    private static String API_domain = "http://itraveller.com";
 
     public static String API_ViewPagerAdapter_ImageURL = API_domain + "/images/hotels/";
 

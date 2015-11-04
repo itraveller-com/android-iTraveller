@@ -28,6 +28,7 @@ import com.itraveller.activity.HowItWorksFragment;
 import com.itraveller.activity.LandingActivity;
 import com.itraveller.activity.LoginFragment;
 import com.itraveller.activity.MainActivity;
+import com.itraveller.activity.MaterialLandingActivity;
 import com.itraveller.activity.MessagesFragment;
 import com.itraveller.model.NavDrawerItem;
 
@@ -119,7 +120,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                             {
                                 case 0:
 
-                                    fragment = new LandingActivity();
+                                    fragment = new MaterialLandingActivity();
                                     title = "Choose Destination";
                                     break;
 
@@ -148,42 +149,13 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
                                 case 4:
 
-                                /*    Log.d("AccessToken before if",""+att);
-                                    if(att.equals("unregistered")) {
-                                        Log.d("Inside at", "accesstoken is null");
-                                        LoginFragment fragment1 = new LoginFragment();
-                                        fragment1.setContextValue(context);
-                                        title = getString(R.string.title_login);
-                                        fragment = fragment1;
-                                    }
-                                    else if(att.equals("login_from_server") )
-                                    {
-                                        logout_from_server();
-                                    }
-                                    else
-                                    {
-                                        LoginManager.getInstance().logOut();
-
-                                        Bitmap icon1 = BitmapFactory.decodeResource(getResources(),R.drawable.ic_profile);
-
-                                        SharedPreferences.Editor editor=preferences.edit();
-                                        editor.clear();
-                                        editor.commit();
-                                        img1.setImageBitmap(getCroppedBitmap(icon1));
-                                        greeting.setText("Hello user");
-                                        displayView(5);
-                                    }
-                                    */
-                                    break;
-
-                                case 5:
-
                                     LoginFragment fragment1 = new LoginFragment();
                                     fragment1.setContextValue(context);
-                                    title = "Login";
                                     fragment = fragment1;
 
+
                                     break;
+
 
                                 default:
                                     break;

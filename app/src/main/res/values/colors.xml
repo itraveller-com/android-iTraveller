@@ -28,4 +28,7 @@
     <color name="ColorPrimaryButton">#FF5722</color>
     <color name="ColorPrimaryDarkButton">#E64A19</color>
     <color name="divider_color">#f7f7ed</color>
+
+    <color name="green">#00ff00</color>
+    <color name="lightgreen">#8000ff00</color>
 </resources>
