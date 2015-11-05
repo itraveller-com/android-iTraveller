@@ -65,6 +65,7 @@ import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.itraveller.R;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.materialadapter.CardAdapater;
@@ -416,7 +417,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                         int length = Filterregion_.get(i).getKey().trim().split("/").length;
                         Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length-1]));
 
-                        final Intent in = new Intent(getActivity(), RegionPlace.class);
+                        final Intent in = new Intent(getActivity(), MaterialRegionPlace.class);
                         in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
                         in.putExtra("RegionName", Filterregion_.get(i).getValue());
                         String flightBit="";

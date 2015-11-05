@@ -61,14 +61,5 @@
 
 </RelativeLayout>
 
-<<<<<<< HEAD
-=======
-    <include layout="@layout/travel_summary_data"
-        android:layout_marginTop="65dp"
-        android:layout_gravity="right"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"></include>
-
->>>>>>> md_choose_packages
 
     </android.support.v4.widget.DrawerLayout>

@@ -80,7 +80,7 @@ public class CardAdapaterLanding extends RecyclerView.Adapter<RecyclerView.ViewH
             viewHolder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final Intent i = new Intent(activity, RegionPlace.class);
+                    final Intent i = new Intent(activity, MaterialRegionPlace.class);
                     i.putExtra("RegionID", nature.getRegion_Id());
                     i.putExtra("RegionName", nature.getRegion_Name());
                     editor.putString("FlightBit", "" + nature.getHome_Page());
