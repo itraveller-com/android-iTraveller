@@ -3,6 +3,9 @@ package com.itraveller.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -80,10 +84,21 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
         View view = inflater.inflate(R.layout.hotel_viewpager_row, null);
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
+
+        TextView select_txt=(TextView) view.findViewById(R.id.myImageViewText);
+
+        select_txt.setVisibility(View.GONE);
+
         TextView itemText = (TextView) view.findViewById(R.id.title);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.thumbnail);
 
+        RelativeLayout rl=(RelativeLayout) view.findViewById(R.id.check);
+
+        rl.setVisibility(View.GONE);
+
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
+
+
 
 
 
@@ -91,19 +106,26 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
 
-            Log.d("hotel123456","hi");
-            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
+            Log.d("hotel123456", "hi");
+            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + arrayModelClasses.get(position).getHotel_Id() + ".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);
             Log.d("checkbox test",""+arrayModelClasses.get(position).isChecked());
-            if(arrayModelClasses.get(position).isChecked()){
-                if(check_bit == 0) {
+            if(arrayModelClasses.get(position).isChecked())
+            {
+                if(check_bit == 0)
+                {
+                    Log.d("Testing hotel page222", "hello");
                     checkBox.setChecked(true);
+
+                    image.setColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP);
+                    select_txt.setVisibility(View.VISIBLE);
                     Log.i("CheckedORNot", "checked" + position);
                 }
             }
-            else{
+            else
+            {
                 checkBox.setChecked(false);
                 Log.i("CheckedORNot", "Notchecked" + position);
             }

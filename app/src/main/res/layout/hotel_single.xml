@@ -11,6 +11,7 @@
         android:layout_gravity="center_vertical"
         android:weightSum="1"
         android:id="@+id/main"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center">

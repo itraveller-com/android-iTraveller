@@ -12,7 +12,7 @@
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY" />
 
@@ -75,7 +75,6 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:alpha=".87"
                 android:id="@+id/title"
                 android:layout_toLeftOf="@+id/duration"
                 android:layout_alignParentTop="true"
@@ -101,7 +100,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Free"
                 android:textColor="@color/black"
-                android:alpha=".87"
                 android:id="@+id/cost_activity"
                 android:layout_below="@+id/title"
                 android:layout_alignParentLeft="true"
