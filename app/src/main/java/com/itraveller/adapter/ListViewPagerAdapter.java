@@ -7,6 +7,7 @@ package com.itraveller.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +74,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         for(int index=0;index<navigationItems.size();index++){
             mHotelModels.put(""+index,new ArrayList<HotelModel>());
         }
+
 
         mPagerPositions= new HashMap<Integer, Integer>();
         //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
@@ -342,15 +344,19 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                             hotel_model.setDate(jsonarr.getString("Date"));
                             hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
                             String[] value = defaultHotelRoom.get(index).trim().split(",");
-                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
+                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id"))
+                                {
                                         hotel_model.setChecked(true);
+                                    Log.d("Testing hotel page1111", "hello1");
                                         hotel_model.setLunch(Integer.parseInt(value[4]));
                                         hotel_model.setDinner(Integer.parseInt(value[5]));
                                         swap_value = i;
                                         flag_bit = 1;
                                         CheckBoolean =1;
-                                    } else {
-                                        hotel_model.setChecked(false);
+                                }
+                                else
+                                {
+                                    hotel_model.setChecked(false);
                                     hotel_model.setLunch(0);
                                     hotel_model.setDinner(0);
                                     }
@@ -490,6 +496,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             for(int index =0 ; index<modelRow.size();index++) {
                 if(childPosition==index) {
                     modelRow.get(index).setChecked(isChecked);
+                    Log.d("Testing hotel page","hello");
                     mHotelModels.put("" + groupPosition, modelRow);
                 }
                 else
@@ -545,6 +552,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         hotel_model.setAdmin_Id("");
         if(checkvalue == 0) {
             hotel_model.setChecked(true);
+            Log.d("Testing hotel pageiii","helloii");
             swap_value = swapvalueat;
         }
         else

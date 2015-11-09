@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,8 +49,10 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.itraveller.R;
 
 import com.itraveller.adapter.HotelRoomAdapter;
@@ -1367,7 +1371,17 @@ public class  HotelActivity extends ActionBarActivity {
                                 Utility.setListViewHeightBasedOnChildren(listView);
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
 
+                                ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+                                NetworkImageView hotel_img=(NetworkImageView) findViewById(R.id.hotel_image);
 
+                                Log.d("Image fetch URL",""+Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
+
+                                hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg",imageLoader);
+                            //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
+                             //   hotel_img.setImageResource(R.drawable.fail);
+                                TextView hotel_name=(TextView) findViewById(R.id.hotel_name);
+
+                                hotel_name.setText(modelRow.get(childpostion).getHotel_Name());
 
                                 if(!modelRow.get(childpostion).isChecked()) {
                                     chk_lunch.setChecked(false);
@@ -1440,7 +1454,19 @@ public class  HotelActivity extends ActionBarActivity {
                                     }
                                 });*/
                             }
-                                else {
+                                else
+                                {
+
+
+                                    Log.d("Image fetch URL",""+Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
+
+                                    hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg",imageLoader);
+                                    //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
+                                    //   hotel_img.setImageResource(R.drawable.fail);
+
+                                    hotel_name.setText(modelRow.get(childpostion).getHotel_Name());
+
+
                                     Log.d("hotel1234",""+"http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
                                     MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition], groupPosition);
                                     Log.i("MealPlanURL", "" + "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
@@ -1541,6 +1567,9 @@ public class  HotelActivity extends ActionBarActivity {
                         lv1.setVisibility(View.GONE);
                         roomList = new ArrayList<HotelRoomModel>();
                         listView = (ListView) findViewById(R.id.room_type);
+
+
+
                         Utility.setListViewHeightBasedOnChildren(listView);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
