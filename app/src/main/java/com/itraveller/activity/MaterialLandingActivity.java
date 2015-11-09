@@ -65,10 +65,12 @@ import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.itraveller.R;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
-import com.itraveller.materialadapter.CardAdapater;
 import com.itraveller.materialadapter.CardAdapaterLanding;
+import com.itraveller.materialadapter.PopularAdapater;
+import com.itraveller.materialadapter.RecentAdapater;
 import com.itraveller.materialsearch.SearchAdapter;
 import com.itraveller.materialsearch.SharedPreference;
 import com.itraveller.materialsearch.Utils;
@@ -81,6 +83,8 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.solovyev.android.views.llm.DividerItemDecoration;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +100,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     FloatingActionButton fab;
     ProgressBar progessbar;
     private List<LandingModel> landingList = new ArrayList<LandingModel>();
+    private List<LandingModel> popularList = new ArrayList<LandingModel>();
+    private List<LandingModel> recentList = new ArrayList<LandingModel>();
     private ArrayList<String> region_;
     private ArrayList<SearchBarModel> Filterregion_;
     SearchAdapter searchAdapter;
@@ -128,8 +134,6 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                 toolbarSearch.setVisibility(View.GONE);
             }
         });
-
-
 
 
         vf=(ViewFlipper) rootView.findViewById(R.id.viewFlipper);
@@ -307,6 +311,30 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                             landing_model.setPopular(jsonarr.getString("Popular"));
                             landingList.add(landing_model);
                         }
+
+                        LandingModel popular_region = new LandingModel();
+                        if(jsonarr.getString("Popular").equalsIgnoreCase("1")) {
+
+                            popular_region.setRegion_Id(jsonarr.getInt("Region_Id"));
+                            popular_region.setRegion_Name(jsonarr.getString("Region_Name"));
+                            popular_region.setEnable_Flag(jsonarr.getString("Enable_Flag"));
+                            popular_region.setAlias(jsonarr.getString("Alias"));
+                            popular_region.setSlider(jsonarr.getInt("Slider"));
+                            popular_region.setHome_Page(jsonarr.getInt("Home_Page"));
+                            popular_region.setTourism_Story(jsonarr.getString("Tourism_Story"));
+                            popular_region.setRegion_Story(jsonarr.getString("Region_Story"));
+                            popular_region.setLeft_Alias(jsonarr.getString("Left_Alias"));
+                            popular_region.setPlaces_To_Visit(jsonarr.getString("Places_To_Visit"));
+                            popular_region.setPage_Title(jsonarr.getString("Page_Title"));
+                            popular_region.setPage_Description(jsonarr.getString("Page_Description"));
+                            popular_region.setPage_Heading(jsonarr.getString("Page_Heading"));
+                            popular_region.setAdvance(jsonarr.getInt("Advance"));
+                            popular_region.setIntermediate_Payment(jsonarr.getInt("Intermediate_Payment"));
+                            popular_region.setDate(jsonarr.getString("Date"));
+                            popular_region.setAdmin_Id(jsonarr.getString("admin_Id"));
+                            popular_region.setPopular(jsonarr.getString("Popular"));
+                            popularList.add(popular_region);
+                        }
                     }
                     mAdapter.notifyDataSetChanged();
                     HiddenControls();
@@ -368,7 +396,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
         // finally change the color
         window.setStatusBarColor(getActivity().getResources().getColor(R.color.orange));*/
-
+        ArrayList<String> countryStored = SharedPreference.loadList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES);
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.view_toolbar_search, null);
         LinearLayout parentToolbarSearch = (LinearLayout) view.findViewById(R.id.parent_toolbar_search);
@@ -377,6 +405,18 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
         ImageView imgToolMic = (ImageView) view.findViewById(R.id.img_tool_mic);
         final ListView listSearch = (ListView) view.findViewById(R.id.list_search);
         final TextView txtEmpty = (TextView) view.findViewById(R.id.txt_empty);
+        final RecyclerView popular_recycler = (RecyclerView) view.findViewById(R.id.popular_search);
+        final RecyclerView recent_recycler = (RecyclerView) view.findViewById(R.id.recent_search);
+        final TextView txtRecent = (TextView) view.findViewById(R.id.txt_recent);
+        final TextView txtPopular = (TextView) view.findViewById(R.id.txt_popular);
+        final LinearLayoutManager layoutManager = new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        popular_recycler.setLayoutManager(layoutManager);
+        popular_recycler.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        popular_recycler.setHasFixedSize(false);
+        final LinearLayoutManager layoutManager_one = new org.solovyev.android.views.llm.LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recent_recycler.setLayoutManager(layoutManager_one);
+        recent_recycler.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        recent_recycler.setHasFixedSize(false);
 
         Utils.setListViewHeightBasedOnChildren(listSearch);
 
@@ -392,10 +432,21 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
         toolbarSearchDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        searchAdapter = new SearchAdapter(getActivity(), region_, false);
+        PopularAdapater mAdapter = new PopularAdapater(popularList, getActivity());
 
-        listSearch.setVisibility(View.VISIBLE);
+        searchAdapter = new SearchAdapter(getActivity(), region_, false);
+        popular_recycler.setAdapter(mAdapter);
+
+        listSearch.setVisibility(View.GONE);
         listSearch.setAdapter(searchAdapter);
+
+        //Recent Selected Destinations
+        countryStored = (countryStored != null && countryStored.size() > 0) ? countryStored : new ArrayList<String>();
+        if(countryStored.size()==0){
+            txtRecent.setVisibility(View.GONE);
+        }
+        RecentAdapater recentAdapter = new RecentAdapater(countryStored, getActivity());
+        recent_recycler.setAdapter(recentAdapter);
 
         //Shared Preference for checking flight(Domestic or International)
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
@@ -405,6 +456,10 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Log.i("OnCLick", "Clicked" + searchAdapter.getItem(position));
+                String country = String.valueOf(adapterView.getItemAtPosition(position));
+                SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES,searchAdapter.getItem(position).toString());
+                edtToolSearch.setText(country);
+
                 int Filterregion__size=Filterregion_.size();
                 edtToolSearch.setText( searchAdapter.getItem(position).toString() );
                 for(int i=0;i<Filterregion__size;i++)
@@ -416,7 +471,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                         int length = Filterregion_.get(i).getKey().trim().split("/").length;
                         Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length-1]));
 
-                        final Intent in = new Intent(getActivity(), RegionPlace.class);
+                        final Intent in = new Intent(getActivity(), MaterialRegionPlace.class);
                         in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
                         in.putExtra("RegionName", Filterregion_.get(i).getValue());
                         String flightBit="";
@@ -434,19 +489,18 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                     }
                 }
                 listSearch.setVisibility(View.GONE);
-
-
             }
         });
         edtToolSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                //String[] country = getResources().getStringArray(R.array.countries_array);
-                //mCountries = new ArrayList<String>(Arrays.asList(country));
+                popular_recycler.setVisibility(View.GONE);
+                txtPopular.setVisibility(View.GONE);
+                recent_recycler.setVisibility(View.GONE);
+                txtRecent.setVisibility(View.GONE);
                 listSearch.setVisibility(View.VISIBLE);
-                searchAdapter.updateList(region_, true);
-
+                searchAdapter.updateList(getActivity(), region_, true);
 
             }
 
@@ -457,13 +511,12 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                 if (s.length() > 0) {
                     for (int i = 0; i < region_.size(); i++) {
 
-
                         if (region_.get(i).toLowerCase().startsWith(s.toString().trim().toLowerCase())) {
 
                             filterList.add(region_.get(i));
 
                             listSearch.setVisibility(View.VISIBLE);
-                            searchAdapter.updateList(filterList, true);
+                            searchAdapter.updateList(getActivity(), filterList, true);
                             isNodata = true;
                         }
                     }

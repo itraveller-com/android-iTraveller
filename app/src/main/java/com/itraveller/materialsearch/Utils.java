@@ -9,9 +9,9 @@ import android.widget.ListView;
 
 public class Utils {
 
-    public static final String PREFS_NAME = "TAKEOFFANDROID";
+    public static final String PREFS_NAME = "RECENTSEARCH";
 
-    public static final String KEY_COUNTRIES = "Countries";
+    public static final String KEY_COUNTRIES = "regions";
 
     public static final int REQUEST_CODE = 1234;
 

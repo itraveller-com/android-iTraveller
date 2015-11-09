@@ -73,17 +73,19 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="0dp"
             android:layout_below="@+id/container_toolbar"
-            android:layout_above="@+id/book_hotel">
+            android:layout_above="@+id/book_hotel"
+            android:weightSum="1">
 
-            <LinearLayout
+            <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@color/white"
-                android:weightSum="5">
+                android:weightSum="5"
+                android:layout_weight="0.50">
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/thumbnail"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:layout_weight="2"
@@ -91,296 +93,219 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical">
+                    android:gravity="bottom"
+                    android:paddingBottom="10dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Large Text"
                         android:id="@+id/duration_rp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@android:color/white" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Small Text"
                         android:id="@+id/title_rp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/scrollView" >
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:id="@+id/from_home_airport"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_destination"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="2.5dp">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_destination_left">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageView"
-                                android:background="@drawable/pin_mark" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="65dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="From"
-                                android:id="@+id/textView3" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginLeft="10dp"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:id="@+id/from_home_destination"
-                                android:textSize="13dp"
-                                android:textIsSelectable="true" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/from_travel_port"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_destination"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginBottom="2.5dp">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_destination_left" >
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageView3"
-                                android:background="@drawable/pin_mark" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp" >
-
-                            <TextView
-                                android:layout_width="65dp"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="Arrival"
-                                android:id="@+id/textView6" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/arrival_layout">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:id="@+id/from_travel_destination"
-                                android:textSize="13dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <com.mobeta.android.dslv.DragSortListView
-                        android:id="@+id/listview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:dividerHeight="2dp"
-                        android:paddingBottom="0dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="0dp"
-                        dslv:collapsed_height="2dp"
-                        dslv:drag_enabled="true"
-                        dslv:drag_handle_id="@id/drag_handle"
-                        dslv:drag_scroll_start="0.33"
-                        dslv:drag_start_mode="onLongPress"
-                        dslv:float_alpha="0.6"
-                        dslv:max_drag_scroll_speed="0.5"
-                        dslv:remove_enabled="true"
-                        dslv:remove_mode="flingRemove"
-                        dslv:slide_shuffle_speed="0.3"
-                        dslv:sort_enabled="true"
-                        dslv:track_drag_sort="false"
-                        dslv:use_default_controller="true"
-                        android:visibility="visible"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp" />
-
-                    <LinearLayout
-                        android:id="@+id/to_travel_port"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_destination"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="2.5dp">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_destination_left" >
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageView4"
-                                android:background="@drawable/pin_mark" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp" >
-
-                            <TextView
-                                android:layout_width="65dp"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="Departure"
-                                android:id="@+id/textView8" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginLeft="10dp" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:id="@+id/to_travel_destination"
-                                android:textSize="13dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/to_home_airport"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_destination"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="2.5dp">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_destination_left" >
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageView5"
-                                android:background="@drawable/pin_mark" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp" >
-
-                            <TextView
-                                android:layout_width="65dp"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="To"
-                                android:id="@+id/textView10" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginLeft="10dp" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:id="@+id/to_home_destination"
-                                android:textSize="13dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
             </ScrollView>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp"
+                    android:background="@color/white"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center"
+                        android:id="@+id/from_home_airport"
+                        android:layout_weight="1.5">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView11"
+                            android:background="@drawable/ic_location"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/from_home_destination"
+                            android:textSize="13dp"
+                            android:textIsSelectable="true"
+                            android:text="Mumbai"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/onward_icon"
+                        android:layout_weight="2"></LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/from_travel_port"
+                        android:layout_weight="1.5">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView12"
+                            android:background="@drawable/ic_location"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/from_travel_destination"
+                            android:textSize="13dp"
+                            android:text="Bangalore"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.mobeta.android.dslv.DragSortListView
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:dividerHeight="2dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="0dp"
+                    dslv:collapsed_height="2dp"
+                    dslv:drag_enabled="true"
+                    dslv:drag_handle_id="@id/drag_handle"
+                    dslv:drag_scroll_start="0.33"
+                    dslv:drag_start_mode="onLongPress"
+                    dslv:float_alpha="0.6"
+                    dslv:max_drag_scroll_speed="0.5"
+                    dslv:remove_enabled="true"
+                    dslv:remove_mode="flingRemove"
+                    dslv:slide_shuffle_speed="0.3"
+                    dslv:sort_enabled="true"
+                    dslv:track_drag_sort="false"
+                    dslv:use_default_controller="true"
+                    android:visibility="visible"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp"
+                    android:background="@color/white"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center"
+                        android:id="@+id/to_travel_port"
+                        android:layout_weight="1.5">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView"
+                            android:background="@drawable/ic_location" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/to_travel_destination"
+                            android:textSize="13dp"
+                            android:gravity="center"
+                            android:text="Bangalore" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/onward_icon"
+                        android:layout_weight="2.0" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/to_home_airport"
+                        android:focusable="false"
+                        android:layout_weight="1.5">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView3"
+                            android:background="@drawable/ic_location" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/to_home_destination"
+                            android:textSize="13dp"
+                            android:gravity="center"
+                            android:text="Mumbai" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -85,12 +87,12 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
         TextView time = (TextView) view.findViewById(R.id.time_activity);
 
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
+        final RelativeLayout selectBackground = (RelativeLayout) view.findViewById(R.id.select_background);
 
         try {
 
             temp_id=arrayModelClasses.get(position).getId();
             image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
-
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
 
             itemText.setText(arrayModelClasses.get(position).getTitle());
@@ -103,11 +105,13 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
             if(arrayModelClasses.get(position).isChecked()){
                 if(check_bit == 0) {
                     checkBox.setChecked(true);
+                    selectBackground.setVisibility(View.VISIBLE);
                     Log.i("CheckedORNot", "checked" + position);
                 }
             }
             else{
                 checkBox.setChecked(false);
+                selectBackground.setVisibility(View.GONE);
                 Log.i("CheckedORNot", "Notchecked" + position);
             }
 
@@ -129,6 +133,14 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (selectBackground.getVisibility() == View.GONE) {
+                        mPagerCheckBoxChangedListner.OnCheckedChangeListenerCustomPager(position, true);
+                        selectBackground.setVisibility(View.VISIBLE);
+                    } else {
+                        mPagerCheckBoxChangedListner.OnCheckedChangeListenerCustomPager(position, false);
+                        selectBackground.setVisibility(View.GONE);
+
+                    }
                     mPagerCheckBoxChangedListner.OnImageClickListenerCustomPager(position);
                 }
             });

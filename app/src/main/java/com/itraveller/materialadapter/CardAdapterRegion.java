@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.android.volley.toolbox.ImageLoader;
 import com.itraveller.R;
 import com.itraveller.model.TestModelData;
 import com.itraveller.volley.AppController;
-
 import java.util.List;
 
 /**

@@ -26,7 +26,8 @@ public class SearchAdapter extends BaseAdapter {
     }
 
 
-    public void updateList(ArrayList<String> filterList, boolean isFilterList) {
+    public void updateList(Context context, ArrayList<String> filterList, boolean isFilterList) {
+        this.mContext = context;
         this.mCountries = filterList;
         this.mIsFilterList = isFilterList;
         notifyDataSetChanged ();
