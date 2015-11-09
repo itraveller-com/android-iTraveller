@@ -39,7 +39,7 @@
                 </com.android.volley.toolbox.NetworkImageView>
 
 
-    <TextView
+            <TextView
                 android:id="@+id/tv_nature"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"

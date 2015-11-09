@@ -29,6 +29,41 @@
                 android:layout_alignParentStart="true"
                 android:visibility="gone">
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:id="@+id/hotel_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:scaleType="fitXY"/>
+
+
+                    <TextView
+                        android:id="@+id/hotel_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/hotel_image"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="left|center_vertical"
+                        android:text=""
+                        android:textSize="20sp"
+                        android:background="#000000"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -54,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/room_type"
                     android:layout_gravity="center_horizontal" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
