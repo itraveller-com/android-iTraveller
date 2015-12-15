@@ -125,11 +125,13 @@ public class RegionPlaceAdapter extends BaseAdapter implements Filterable{
                     i.putExtra("Destinations", Places.get(position).getDestination());
                     i.putExtra("DestinationsID", Places.get(position).getDestination_Key());
                     i.putExtra("DestinationsCount", Places.get(position).getDestination_Count());
-                    Log.d("No of nights region",""+Places.get(position).getDestination_Count());
+                    Log.d("No of nights region", "" + Places.get(position).getDestination_Count());
                     i.putExtra("ArrivalPort", Places.get(position).getArrival_Port_Id());
                     i.putExtra("DeparturePort", Places.get(position).getDeparture_Port_Id());
                     i.putExtra("ItineraryID", Places.get(position).getItinerary_Id());
                     i.putExtra("RegionID", bundle.getInt("RegionID"));
+                    i.putExtra("RegionString" , Places.get(position).getRegionString());
+                    Log.v("RegionStringClick", "" + Places.get(position).getRegionString());
                     activity.startActivity(i);
                 }
             });

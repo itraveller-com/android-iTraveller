@@ -7,14 +7,20 @@ public class RegionPlaceModel {
 
     private int Arrival_Port_Id, Departure_Port_Id, Itinerary_Id, Duration_Day, Price, Discount;
 
-    private String Title, Link, Image, Destination, Destination_Key, Destination_Count;
+    private String Title;
+    private String Link;
+    private String Image;
+    private String Destination;
+    private String Destination_Key;
+    private String Destination_Count;
+    private String RegionString;
 
     public RegionPlaceModel() {
 
 
     }
 
-    public RegionPlaceModel(int arrival_Port_Id, String destination_Count, int departure_Port_Id, int itinerary_Id, int duration_Day, int price, int discount, String destination_Key, String title, String link, String image, String destination) {
+    public RegionPlaceModel(int arrival_Port_Id, String regionString, String destination_Count, int departure_Port_Id, int itinerary_Id, int duration_Day, int price, int discount, String destination_Key, String title, String link, String image, String destination) {
         Arrival_Port_Id = arrival_Port_Id;
         Departure_Port_Id = departure_Port_Id;
         Itinerary_Id = itinerary_Id;
@@ -27,6 +33,7 @@ public class RegionPlaceModel {
         Image = image;
         Destination = destination;
         Destination_Count = destination_Count;
+        RegionString = regionString;
     }
     public String getDestination_Count() {
         return Destination_Count;
@@ -116,5 +123,13 @@ public class RegionPlaceModel {
 
     public void setDestination(String destination) {
         Destination = destination;
+    }
+
+    public String getRegionString() {
+        return RegionString;
+    }
+
+    public void setRegionString(String regionString) {
+        RegionString = regionString;
     }
 }

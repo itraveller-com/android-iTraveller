@@ -160,7 +160,7 @@ public class LoginFragment_Before_Payment extends Fragment {
 
             //initialise components of login form
             email_id_Edittext = (EditText) view.findViewById(R.id.email_id);
-            mobile_Edittext = (EditText) view.findViewById(R.id.mobile);
+            mobile_Edittext = (EditText) view.findViewById(R.id.confirm_password);
             server_loginButton = (Button) view.findViewById(R.id.submit);
 
             //TextView used as a link to registration form

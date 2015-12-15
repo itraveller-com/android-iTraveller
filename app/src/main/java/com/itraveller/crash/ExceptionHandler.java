@@ -7,7 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 
-import com.itraveller.core.SplashScreenActivity;
+import com.itraveller.activity.MainActivity;
 
 public class ExceptionHandler implements
         java.lang.Thread.UncaughtExceptionHandler {
@@ -52,7 +52,7 @@ public class ExceptionHandler implements
         errorReport.append(Build.VERSION.INCREMENTAL);
         errorReport.append(LINE_SEPARATOR);
 
-        Intent intent = new Intent(myContext, SplashScreenActivity.class);
+        Intent intent = new Intent(myContext, MainActivity.class);
         intent.putExtra("error", errorReport.toString());
         myContext.startActivity(intent);
 

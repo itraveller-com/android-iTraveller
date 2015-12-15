@@ -60,7 +60,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     int refresh_val = 0;
     private Context context;
     private ArrayList<String> navigationItems;
-    public static HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel;
     //  private int selectedIndex;
     private Map<Integer, Integer> mPagerPositions ;
     ProgressDialog pDialog;
@@ -69,7 +68,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
     ListViewPagerActivitiesAdapter listViewPagerAdapter;
     ArrayList<String> activitiesList;
     ArrayList<String> dayCount;
-    String activities_data;
 
     public ListViewPagerActivitiesAdapter(Context context, ArrayList<String> navigationItems, ArrayList<String> dayCount) {
         super(context, R.layout.view_pager_list_view, navigationItems);
@@ -77,9 +75,9 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
         pDialog = new ProgressDialog(context);
         this.navigationItems = navigationItems;
         this.dayCount = dayCount;
-        mActivitiesModel=new HashMap<>();
+        ActivitiesActivity.mActivitiesModel=new HashMap<>();
         for(int index=0;index<navigationItems.size();index++){
-            mActivitiesModel.put(""+index,new ArrayList<ActivitiesModel>());
+            ActivitiesActivity.mActivitiesModel.put("" + index, new ArrayList<ActivitiesModel>());
 
             Log.i("TestingRound","Test");
         }
@@ -125,8 +123,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hotel_pageviewer, null);
-            SharedPreferences prefs = context.getSharedPreferences("SavedData", context.MODE_PRIVATE);
-            activities_data = prefs.getString("Activities", "0");
+
             //activities_data.replace("/"/,"")
             // mPagerPositions.put(position,0);
 
@@ -135,7 +132,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
         }
         vp[position] = (ViewPager) convertView.findViewById(R.id.list_pager);
-        mViewPagerAdapter = new ViewPagerActivitiesAdapter(mActivitiesModel.get(""+position),new PagerCheckedChangeListnerCustom(position));
+        mViewPagerAdapter = new ViewPagerActivitiesAdapter(ActivitiesActivity.mActivitiesModel.get(""+position),new PagerCheckedChangeListnerCustom(position));
 
         vp[position].setAdapter(mViewPagerAdapter);
         TextView txtview = (TextView) convertView.findViewById(R.id.hotel_place_name);
@@ -158,18 +155,13 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
      /*   vp[position].setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             @Override
             public void onPageSelected(int childposition) {
                       Log.d("PAGER ", "PAGER SCROLL PARENT POSITION " + childposition + "parent position " + position);
-
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });*/
 
@@ -189,11 +181,10 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
             }
         });
 
-        if(mActivitiesModel.get(""+position).size()<1){
+        if(ActivitiesActivity.mActivitiesModel.get(""+position).size()<1){
             Log.i("TestingRound",""+navigationItems.get(position));
-            int ref_Val = airportJSONForText(navigationItems.get(position), position , Integer.parseInt(dayCount.get(position)));
-            ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
-            if(modelRow.size() == 0){
+            ArrayList<ActivitiesModel> modelRow=ActivitiesActivity.mActivitiesModel.get("" + position);
+            /*if(modelRow.size() == 0){
                 vp[position].setVisibility(View.GONE);
                 right_arrow[position].setVisibility(View.GONE);
                 left_arrow[position].setVisibility(View.GONE);
@@ -207,7 +198,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                 rel_left_arrow[position].setVisibility(View.GONE);
                 rel_right_arrow[position].setVisibility(View.GONE);
             }
-
+*/
 
 
 
@@ -254,7 +245,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 //        }
 //        Log.i("PagerPosition",""+pagerPosition);
         /*//Integer pagerPosition = selectedIndex;
-
         if (pagerPosition != null) {
             vp.setCurrentItem(pagerPosition);
         }*/
@@ -281,158 +271,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 //        }
 //    }
 
-    public int airportJSONForText (String url, final int position , final int dayCount)
-    {
 
-        Log.d("URL activity test",""+url);
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
-                url, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.i("Test", "Testing" + response);
-                    Log.d("Boolean", "" + response.getBoolean("success"));
-                    Log.d("Error", ""+response.getJSONObject("error"));
-                    Log.d("Payload", ""+response.getJSONArray("payload"));
-                    refresh_val = response.getJSONArray("payload").length();
-
-                    Log.d("Cost test test1233","hi");
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
-                    // Parsing json
-                    ArrayList activitiesList=new ArrayList();
-                    for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
-                        JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-
-                        ActivitiesModel activities_model = new ActivitiesModel();
-
-                        activities_model.setId(jsonarr.getInt("Id"));
-                        activities_model.setTitle(jsonarr.getString("Title"));
-                        activities_model.setCost(jsonarr.getInt("Cost"));
-                        Log.d("Cost test test", "" + jsonarr.getInt("Cost"));
-                        activities_model.setHotel_Id(jsonarr.getString("Hotel_Id"));
-                        activities_model.setMarkup(jsonarr.getInt("Markup"));
-                        activities_model.setDisplay(jsonarr.getInt("Display"));
-                        activities_model.setStatus(jsonarr.getInt("Status"));
-                        activities_model.setRegion_Id(jsonarr.getString("Region_Id"));
-                        activities_model.setDestination_Id(jsonarr.getInt("Destination_Id"));
-                        activities_model.setCompany_Id(jsonarr.getString("Company_Id"));
-                        activities_model.setDay(jsonarr.getString("Day"));
-                        activities_model.setDuration(jsonarr.getString("Duration"));
-                        activities_model.setImage(jsonarr.getString("Image"));
-                        activities_model.setFlag(jsonarr.getInt("Flag"));
-                        Log.d("Cost test test111", "" + jsonarr.getInt("Flag"));
-                        if(jsonarr.getInt("Flag")==1)
-                        {
-                            default_activity_id_str+=""+jsonarr.getInt("Id")+",";
-                        }
-                        Log.d("Cost test test123",""+default_activity_id_str);
-                        activities_model.setDescription(jsonarr.getString("Description"));
-                        activities_model.setNot_Available_Month(jsonarr.getString("Not_Available_Month"));
-                        activities_model.setNot_Available_Days(jsonarr.getString("Not_Available_Days"));
-                        activities_model.setDestination_Id_From(jsonarr.getString("Destination_Id_From"));
-                        activities_model.setBookable(jsonarr.getString("Bookable"));
-                        if(jsonarr.getInt("Flag")== 1){
-                            activities_model.setChecked(true);
-                        }
-                        activities_model.setChecked(false);
-
-                        if (!activities_data.equalsIgnoreCase("0") ) {
-                            JSONObject act = new JSONObject(activities_data);
-                            Log.i("JSON_Activities",""+act);
-
-                            JSONArray act_arr = act.getJSONArray("activities");
-                            for (int p = 0; p < act_arr.length(); p++) {
-                                JSONObject json_obj = act_arr.getJSONObject(p);
-                                if (Integer.parseInt(json_obj.getString("DestinationID")) == jsonarr.getInt("Destination_Id")) {
-                                    JSONArray json_array = json_obj.getJSONArray("ActivitiesID");
-                                    JSONObject json_object = json_array.getJSONObject(dayCount-1);
-                                    JSONArray json_a1 = json_object.getJSONArray("Day " + (dayCount-1));
-                                    for (int q = 0; q < json_a1.length(); q++) {
-                                        if (Integer.parseInt("" + json_a1.getInt(q)) == jsonarr.getInt("Id")) {
-                                            activities_model.setChecked(true);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        //Log.i("JSON_Activities",""+act.getJSONArray("activities"));
-
-                        if (response.getJSONArray("payload").length() != 0)
-                            activitiesList.add(activities_model);
-                    }
-                    // if(refresh_val != 0)
-                    mActivitiesModel.put(position+"",activitiesList);
-                    ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get("" + position);
-                    if(modelRow.size() == 0){
-                        vp[position].setVisibility(View.GONE);
-                        left_arrow[position].setVisibility(View.GONE);
-                        right_arrow[position].setVisibility(View.GONE);
-
-                        rel_left_arrow[position].setVisibility(View.GONE);
-                        rel_right_arrow[position].setVisibility(View.GONE);
-                    }
-                    else{
-                        vp[position].setVisibility(View.VISIBLE);
-                        left_arrow[position].setVisibility(View.VISIBLE);
-                        right_arrow[position].setVisibility(View.VISIBLE);
-
-                        rel_left_arrow[position].setVisibility(View.VISIBLE);
-                        rel_right_arrow[position].setVisibility(View.VISIBLE);
-                    }
-                    //// else {
-                    //vp[position].setVisibility(View.GONE);
-                    //listvw will crash below code used here
-                    //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
-                    //activitiesList.remove(position);
-                    //listViewPagerAdapter.remove(""+0);
-                    //listViewPagerAdapter.notifyDataSetChanged();
-                    // }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    VolleyLog.d("Volley Error", "Error: " + e.getMessage());
-                }
-                if(refresh_val!=0) {
-
-                    mViewPagerAdapter.notifyDataSetChanged();
-                    listViewPagerAdapter.notifyDataSetChanged();
-                }
-                else {
-                    //listViewPagerAdapter.remove(listViewPagerAdapter.getItem(position));
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //System.err.println(error);
-                // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
-                // For AuthFailure, you can re login with user credentials.
-                // For ClientError, 400 & 401, Errors happening on client side when sending api request.
-                // In this case you can check how client is forming the api and debug accordingly.
-                // For ServerError 5xx, you can do retry or handle accordingly.
-                if( error instanceof NetworkError) {
-
-                    // pDialog.hide();
-                    Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
-                } else if( error instanceof ServerError) {
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
-                    // pDialog.hide();
-                    Toast.makeText(context, "No Internet Connection" ,Toast.LENGTH_LONG).show();
-                } else if( error instanceof TimeoutError) {
-                }
-            }
-        }) {
-        };
-        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
-                5,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
-        AppController.getInstance().addToRequestQueue(strReq);
-        return refresh_val;
-    }
 
     public void SetAdapterListview(ListViewPagerActivitiesAdapter listViewPagerAdapter, ArrayList<String> activitiesList) {
         this.listViewPagerAdapter = listViewPagerAdapter;
@@ -494,7 +333,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
         @Override
         public void OnCheckedChangeListenerCustomPager(int childPosition,boolean isChecked) {
-            ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get(""+groupPosition);
+            ArrayList<ActivitiesModel> modelRow=ActivitiesActivity.mActivitiesModel.get(""+groupPosition);
             /*for(int index =0 ; index<modelRow.size();index++) {
                 if(childPosition==index) {
                     modelRow.get(index).setChecked(isChecked);
@@ -502,7 +341,6 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
                 }
                 else
                     modelRow.get(index).setChecked(false);
-
             }*/
             modelRow.get(childPosition).setChecked(isChecked);
 
@@ -510,7 +348,7 @@ public class ListViewPagerActivitiesAdapter extends ArrayAdapter<String> {
 
         @Override
         public void OnImageClickListenerCustomPager(int childpostion) {
-            ArrayList<ActivitiesModel> modelRow=mActivitiesModel.get(""+groupPosition);
+            ArrayList<ActivitiesModel> modelRow=ActivitiesActivity.mActivitiesModel.get(""+groupPosition);
             // listViewPagerAdapter.notifyDataSetChanged();
             //Log.i("PagerView Clicked",groupPosition+"Clicked"+childpostion+ " Check "+  modelRow.get(childpostion).getHotel_Name());
         }

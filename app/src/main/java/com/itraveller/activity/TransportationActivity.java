@@ -10,6 +10,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -81,23 +83,23 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
     SharedPreferences prfs,post_prefs;
     SharedPreferences prefs;
     String[] ActivityData;
-    public static int total_sum,activity_sum;
-    public static int count;
-    public static int transportation_cost;
-    public static String Destination_Value;
-    public static String Destination_Date;
+    public int total_sum,activity_sum;
+    public int count;
+    public int transportation_cost;
+    public String Destination_Value;
+    public String Destination_Date;
 
 
-    ArrayList<DiscountModel> Discount_list=new ArrayList<DiscountModel>();
+    //ArrayList<DiscountModel> Discount_list=new ArrayList<DiscountModel>();
     String[] HotelRoomData;
     private ArrayList<String> lowesthotelList;
     String Region_id;
-    public static String destination_id_arr[];
-    public static String destination_date_arr[];
-    static String trans_id;
+    public String destination_id_arr[];
+    public String destination_date_arr[];
+    String trans_id;
     String supplier_str="";
     String discount_str="";
-    public static int sum;
+    public int sum;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -105,14 +107,14 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
     int cost;
     JSONObject jsonarr;
-    static TransportationModel temp_model;
+    TransportationModel temp_model;
 
     private String url;// = "http://stage.itraveller.com/backend/api/v1/transportation?region=";
     private List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
     private TransportationAdapter adapter;
-    private ListView transportation_list;
+    private RecyclerView transportation_list;
     private Toolbar mToolbar;
-    public static final String MY_PREFS = "ScreenHeight";
+    public final String MY_PREFS = "ScreenHeight";
     private int _screen_height;
     private Button filter_btn;
     private LinearLayout filter_details;
@@ -150,12 +152,12 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
             }
         });
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        /*mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         setupDrawer();
+*/
 
-
-        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
+        /*preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
         prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         prfs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         post_prefs=getSharedPreferences("PostData",MODE_PRIVATE);
@@ -211,7 +213,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         roomDisplayText.setText("");
         departureText.setText(prefs.getString("DeparturePortString",null));
         transportationText.setText("Loading...");
-
+*/
 
 
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
@@ -282,8 +284,10 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         });
 
 
-        transportation_list = (ListView) findViewById(R.id.transportation_list);
+        transportation_list = (RecyclerView) findViewById(R.id.transportation_list);
         adapter = new TransportationAdapter(this, transportationList);
+        transportation_list.setLayoutManager(new LinearLayoutManager(this));
+        transportation_list.setHasFixedSize(false);
         transportation_list.setAdapter(adapter);
         pDialog = new ProgressDialog(TransportationActivity.this);
         pDialog.setMessage("Loading...");
@@ -295,10 +299,10 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         SynchronousFunction();
     }
 
-    private void setupDrawer() {
+   /* private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state. */
+            *//** Called when a drawer has settled in a completely open state. *//*
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
 
@@ -315,7 +319,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 destination_id_arr=new String[temp_destination_id_arr.length];
                 destination_date_arr=new String[temp_destination_date_arr.length];
 
-                Log.d("Destination date test111", "" + Destination_Date);
+                Log.d("Destination", "" + Destination_Date);
 
 
                 destination_id_arr=Destination_Value.split(",");
@@ -336,7 +340,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
+            *//** Called when a drawer has settled in a completely closed state. *//*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
 
@@ -364,9 +368,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         int menuToUse = R.menu.right_side_menu;
@@ -385,14 +389,14 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-/*        int id = item.getItemId();
+*//*        int id = item.getItemId();
 
 
         if(id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-*/
+*//*
 
         if (item != null && item.getItemId() == R.id.btnMyMenu) {
             if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
@@ -404,9 +408,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
 
 
         return false;
-    }
+    }*/
 
-    public void getHotelAndActivitySum()
+    /*public void getHotelAndActivitySum()
     {
         String Hotel_ID_arr[]=prefs.getString("HotelRooms",null).split("-");
         Log.d("Activity test testte",Hotel_ID_arr[0]);
@@ -534,9 +538,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 }
             }) {
             };
-        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
+        *//*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
                 5,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*//*
             AppController.getInstance().addToRequestQueue(strReq);
 
         }
@@ -621,9 +625,9 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         }) {
         };
 
-        /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
+        *//*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
                 5,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*//*
         AppController.getInstance().addToRequestQueue(strReq);
 
 
@@ -666,7 +670,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         editor.commit();
 
         ndDialog.hide();
-    }
+    }*/
 
 
     public void ShortName(String ShortnameURL, final String arr_dep)
@@ -913,7 +917,7 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
                 AppController.getInstance().addToRequestQueue(strReq);
     }
 
-    public void getUserSelectedTransportation()
+    /*public void getUserSelectedTransportation()
     {
         String tra_id=prefs.getString("TransportationID",null);
         String tra_name=prefs.getString("TransportationName",null);
@@ -925,8 +929,8 @@ public class TransportationActivity extends ActionBarActivity implements MyCallb
         sum+=Integer.parseInt(tra_cost);
         Log.d("Transportation test6",""+total_sum);
 
-        getSupplierDetails();
-    }
+       // getSupplierDetails();
+    }*/
 
 
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int last_index) {

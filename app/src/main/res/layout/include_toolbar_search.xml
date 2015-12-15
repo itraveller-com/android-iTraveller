@@ -40,7 +40,7 @@
             android:id="@+id/img_tool_mic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_black_24dp"/>
+            android:src="@drawable/ic_search_black"/>
     </LinearLayout>
 
 

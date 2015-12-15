@@ -81,7 +81,7 @@ public class SignupFragment extends Fragment {
 
         //initialise the components of signup form
         email_id_Edittext_=(EditText) view.findViewById(R.id.email_id);
-        mobile_Edittext_=(EditText) view.findViewById(R.id.mobile);
+        mobile_Edittext_=(EditText) view.findViewById(R.id.confirm_password);
 
 
         submit=(Button) view.findViewById(R.id.submit);

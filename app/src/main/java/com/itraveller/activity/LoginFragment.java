@@ -151,7 +151,7 @@ public class LoginFragment extends Fragment {
         {
 
             LinearLayout splash_screen=(LinearLayout) view.findViewById(R.id.splash_screen_id);
-            LinearLayout login_form=(LinearLayout) view.findViewById(R.id.login_form);
+            LinearLayout login_form=(LinearLayout) view.findViewById(R.id.signup_view);
 
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
@@ -199,7 +199,7 @@ public class LoginFragment extends Fragment {
         //if user is already logged in then redirect user to homepage of our app
         if(prefs.getInt("flag",0)==1)
         {
-            if (!(prefs.getString("u_name", null).equals("user")))
+            if (!(prefs.getString("u_name", "no user").equals("user")))
             {
                 fragment = new LandingActivity();
                 title = getString(R.string.title_home);
@@ -214,7 +214,7 @@ public class LoginFragment extends Fragment {
 
             //initialise components of login form
             email_id_Edittext = (EditText) view.findViewById(R.id.email_id);
-            mobile_Edittext = (EditText) view.findViewById(R.id.mobile);
+            mobile_Edittext = (EditText) view.findViewById(R.id.confirm_password);
             server_loginButton = (Button) view.findViewById(R.id.submit);
 
 
@@ -272,6 +272,7 @@ public class LoginFragment extends Fragment {
                         editor.putString("Profile","unregistered");
                         editor.putString("ID","unregistered");
                         editor.putInt("login_flag", 0);
+                        editor.putInt("temp",1);
                         editor.commit();
                     //    i.putExtra("profile", "unregistered");
                     //    i.putExtra("id", "unregistered");
@@ -487,7 +488,7 @@ public class LoginFragment extends Fragment {
         postParams.put("email", email_id_from_our_server);
         Log.d("Email server is:", "" + email_id_from_our_server);
         postParams.put("phone", mobile_number);
-        email_id_from_our_server=email_id_from_our_server.substring(0,email_id_from_our_server.indexOf("@"));
+        email_id_from_our_server=email_id_from_our_server.substring(0, email_id_from_our_server.indexOf("@"));
 
 
 
@@ -582,6 +583,7 @@ public class LoginFragment extends Fragment {
                                     editor.putInt("temp", 1);
                                     editor.putInt("login_flag",2);
                                     editor.putInt("flag",1);
+                                    editor.putInt("begin_flag",0);
                                     editor.commit();
 
 
@@ -819,6 +821,7 @@ public class LoginFragment extends Fragment {
             editor.putInt("flag", 1);
             editor.putInt("login_flag",2);
             editor.putInt("temp", 1);
+            editor.putInt("begin_flag",0);
             editor.commit();
 
             Log.d("LoginFragmentAT", "" + at);

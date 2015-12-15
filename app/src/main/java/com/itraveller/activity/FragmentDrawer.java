@@ -71,27 +71,27 @@ public class FragmentDrawer extends Fragment {
     String str1;
 
     public FragmentDrawer() {
-
     }
 
     public void setDrawerListener(FragmentDrawerListener listener) {
         this.drawerListener = listener;
     }
 
+    public FragmentDrawerListener getDrawerListener(){
+        return drawerListener;
+    }
     public List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
 
-        SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences",0);
-        Log.d("After spp", String.valueOf(prefs.getInt("temp", 0)));
-
+        SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences",Context.MODE_PRIVATE);
         //if user is already logged in then changing "Login" to "Logout"
-        if(prefs.getInt("temp",0)==1)
-        {
-            titles[4]=titles[4].replace(""+titles[4],"Logout");
-        //    titles[4]=titles[4].replace(""+titles[4],"");
+        Log.d("FragmentDrawer","Entering in it "+prefs.getString("skipbit","0"));
+        /*if(prefs.getString("skipbit","0").equalsIgnoreCase("0")) {
+            titles[4]=titles[4].replace(""+titles[4],"Login");
         }
-
-
+        else{
+            titles[4]=titles[4].replace(""+titles[4],"Logout");
+        }*/
         // preparing navigation drawer items
         for (int i = 0; i < titles.length; i++) {
             NavDrawerItem navItem = new NavDrawerItem();
@@ -113,6 +113,10 @@ public class FragmentDrawer extends Fragment {
         navMenuIcons=getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
     }
 
+    public void updateDrawer() {
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,13 +126,11 @@ public class FragmentDrawer extends Fragment {
         //mDrawerLayout.isDrawerOpen(Gravity.RIGHT);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         down_arrow=(ImageButton) layout.findViewById(R.id.down_arrow_image);
-
         down_arrow.setVisibility(View.INVISIBLE);
-
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+        /*recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
@@ -139,7 +141,8 @@ public class FragmentDrawer extends Fragment {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+
+        }));*/
 
 
         return layout;
@@ -154,11 +157,7 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
                 mDrawerLayout.setClickable(true);
-
-            /*    LandingActivity fragment=new LandingActivity();
-                View view=fragment.getView();
-                view.setVisibility(View.GONE);
-            */
+                updateDrawer();
             }
 
             @Override
@@ -166,19 +165,15 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
                 mDrawerLayout.setClickable(false);
-
-
-            /*    LandingActivity fragment=new LandingActivity();
-                View view=fragment.getView();
-                view.setVisibility(View.VISIBLE);
-            */
-
+                updateDrawer();
             }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 toolbar.setAlpha(1 - slideOffset / 2);
+                updateDrawer();
+
             }
         };
 

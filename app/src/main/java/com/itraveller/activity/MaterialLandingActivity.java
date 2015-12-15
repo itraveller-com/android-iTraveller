@@ -10,17 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,11 +25,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,11 +34,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -60,17 +47,15 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
-import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.itraveller.R;
 import com.itraveller.constant.Constants;
-import com.itraveller.constant.Utility;
 import com.itraveller.materialadapter.CardAdapaterLanding;
 import com.itraveller.materialadapter.PopularAdapater;
 import com.itraveller.materialadapter.RecentAdapater;
+import com.itraveller.model.RecentResults;
 import com.itraveller.materialsearch.SearchAdapter;
 import com.itraveller.materialsearch.SharedPreference;
 import com.itraveller.materialsearch.Utils;
@@ -84,10 +69,8 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.solovyev.android.views.llm.DividerItemDecoration;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -102,7 +85,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     private List<LandingModel> landingList = new ArrayList<LandingModel>();
     private List<LandingModel> popularList = new ArrayList<LandingModel>();
     private List<LandingModel> recentList = new ArrayList<LandingModel>();
-    private ArrayList<String> region_;
+    private ArrayList<SearchBarModel> region_;
     private ArrayList<SearchBarModel> Filterregion_;
     SearchAdapter searchAdapter;
     private int mBaseTranslationY;
@@ -135,68 +118,6 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
             }
         });
 
-
-        vf=(ViewFlipper) rootView.findViewById(R.id.viewFlipper);
-
-        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
-
-        SharedPreferences.Editor editor2=prefs.edit();
-        editor2.putString("Profile","Hi");
-        editor2.putString("ID","Hi");
-        editor2.commit();
-
-        Log.d("Flag testing2", "" + prefs.getInt("flag", 0) + " " + prefs.getInt("login_flag", 0));
-
-        if(prefs.getInt("flag",0)==1 && prefs.getInt("login_flag",0)==1)
-        {
-            ((MainActivity) getActivity()).getSupportActionBar().hide();
-
-            LinearLayout splash_screen=(LinearLayout) rootView.findViewById(R.id.splash_screen_id);
-            //    LinearLayout login_form=(LinearLayout) view.findViewById(R.id.login_form);
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
-            int height = size.y;
-
-            ImageView itr_logo=(ImageView) rootView.findViewById(R.id.itraveller_logo_);
-
-            TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
-                    height/8, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
-            animation.setDuration(2250);  // animation duration
-            //    animation.setRepeatCount(5);  // animation repeat count
-            animation.setRepeatMode(0);   // repeat animation (left to right, right to left )
-            animation.setFillAfter(true);
-
-
-            itr_logo.startAnimation(animation);
-
-
-            splash_screen.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    vf.showNext();
-                    ((MainActivity) getActivity()).getSupportActionBar().show();
-
-                }
-            }, 1200);
-
-        }
-        else if(prefs.getInt("flag",0)==1 && prefs.getInt("login_flag",0)==2)
-        {
-            SharedPreferences.Editor editor=prefs.edit();
-            editor.putInt("login_flag", 1);
-            editor.commit();
-            vf.showNext();
-        }
-        else
-        {
-            vf.showNext();
-        }
-
-
         progessbar = (ProgressBar) rootView.findViewById(R.id.progressBarLanding);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.activity_main_swipe_refresh_layout);
@@ -222,7 +143,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
         //For Search Bar
         Filterregion_ = new ArrayList<SearchBarModel>();
-        region_ = new ArrayList<String>();
+        region_ = new ArrayList<SearchBarModel>();
 
         //Adding RecyclerView Object
         mRecyclerView = (ObservableRecyclerView) rootView.findViewById(R.id.recycler_view);
@@ -248,6 +169,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
     private void refreshContent() {
         mSwipeRefreshLayout.setRefreshing(true);
+        popularList.clear();
+        landingList.clear();
         JsonCallForDestination();
     }
 
@@ -445,7 +368,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
         if(countryStored.size()==0){
             txtRecent.setVisibility(View.GONE);
         }
-        RecentAdapater recentAdapter = new RecentAdapater(countryStored, getActivity());
+        RecentAdapater recentAdapter = new RecentAdapater(countryStored, landingList, getActivity());
         recent_recycler.setAdapter(recentAdapter);
 
         //Shared Preference for checking flight(Domestic or International)
@@ -456,12 +379,12 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Log.i("OnCLick", "Clicked" + searchAdapter.getItem(position));
-                String country = String.valueOf(adapterView.getItemAtPosition(position));
-                SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES,searchAdapter.getItem(position).toString());
-                edtToolSearch.setText(country);
+                //String country = String.valueOf(adapterView.getItem(position));
+                SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES, searchAdapter.getItemKeyAndValue(position).toString());
+                //edtToolSearch.setText(""+country);
 
                 int Filterregion__size=Filterregion_.size();
-                edtToolSearch.setText( searchAdapter.getItem(position).toString() );
+                edtToolSearch.setText(""+searchAdapter.getItem(position));
                 for(int i=0;i<Filterregion__size;i++)
                 {
                     if(Filterregion_.get(i).getValue().equalsIgnoreCase(edtToolSearch.getText().toString()))
@@ -506,15 +429,14 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ArrayList<String> filterList = new ArrayList<String>();
+                ArrayList<SearchBarModel> filterList = new ArrayList<SearchBarModel>();
                 boolean isNodata = false;
                 if (s.length() > 0) {
                     for (int i = 0; i < region_.size(); i++) {
 
-                        if (region_.get(i).toLowerCase().startsWith(s.toString().trim().toLowerCase())) {
+                        if (region_.get(i).getValue().toLowerCase().startsWith(s.toString().trim().toLowerCase())) {
 
                             filterList.add(region_.get(i));
-
                             listSearch.setVisibility(View.VISIBLE);
                             searchAdapter.updateList(getActivity(), filterList, true);
                             isNodata = true;
@@ -576,7 +498,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                         search_bar.setValue(jsonarr.getString("value"));
                         search_bar.setKey(jsonarr.getString("key"));
                         Filterregion_.add(search_bar);
-                        region_.add(jsonarr.getString("value"));
+                        region_.add(search_bar);
                     }
 
                 } catch (JSONException e) {
@@ -599,7 +521,10 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-        //if (dragging) {
+        System.out.println("Value "+scrollY);
+        System.out.println("Value "+firstScroll);
+        System.out.println("Value "+dragging);
+        //if (!dragging) {
             int toolbarHeight = mToolbarView.getHeight();
             if (firstScroll) {
                 float currentHeaderTranslationY = ViewHelper.getTranslationY(mHeaderView);
@@ -610,7 +535,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
             float headerTranslationY = getFloat(-(scrollY - mBaseTranslationY), -toolbarHeight, 0);
             ViewPropertyAnimator.animate(mHeaderView).cancel();
             ViewHelper.setTranslationY(mHeaderView, headerTranslationY);
-       // }
+      // }
     }
 
     public static float getFloat(final float value, final float minValue, final float maxValue) {
@@ -626,7 +551,7 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
         mBaseTranslationY = 0;
 
         if (scrollState == ScrollState.DOWN) {
-            showToolbar();
+            //showToolbar();------------------------------------------Changed Code to Hide the Search bar from dragging down
         } else if (scrollState == ScrollState.UP) {
             int toolbarHeight = mToolbarView.getHeight();
             int scrollY = mRecyclerView.getCurrentScrollY();
@@ -668,5 +593,12 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
             ViewPropertyAnimator.animate(mHeaderView).cancel();
             ViewPropertyAnimator.animate(mHeaderView).translationY(-toolbarHeight).setDuration(200).start();
         }
+    }
+    public void onBackPressed() {
+        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("login_flag", 1);
+        editor.putInt("flag",0);
+        editor.commit();
     }
 }

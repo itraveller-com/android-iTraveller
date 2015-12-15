@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -32,7 +31,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -193,9 +191,9 @@ public class  HotelActivity extends ActionBarActivity {
         });
 
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        /*mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-        setupDrawer();
+        setupDrawer();*/
 
         tra_adapter=new TransportationAdapter(this,transportationList);
 
@@ -208,7 +206,7 @@ public class  HotelActivity extends ActionBarActivity {
 
         mealplanlayout = (LinearLayout) findViewById(R.id.meal_plan);
         mealhead = (TextView) findViewById(R.id.room);
-        nameText=(TextView) findViewById(R.id.name_value);
+        /*nameText=(TextView) findViewById(R.id.name_value);
         placesText=(TextView) findViewById(R.id.places_value);
         destinationText=(TextView) findViewById(R.id.destinations_value);
         arr_dateText=(TextView) findViewById(R.id.date_of_arrival_value);
@@ -228,12 +226,13 @@ public class  HotelActivity extends ActionBarActivity {
         roomDisplayText=(TextView) findViewById(R.id.room_type_display);
         departureText=(TextView) findViewById(R.id.departure_from_text_value);
         transportationText=(TextView) findViewById(R.id.transportation_text_value);
-
+*/
         preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
         prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
         post_prefs=getSharedPreferences("PostData",MODE_PRIVATE);
+        totalPersons = Integer.parseInt(prefs.getString("Adult", "2")) + Integer.parseInt( prefs.getString("Child", "0"));
 
-        Log.d("No of nights count", "" + preferences.getString("package_name", null));
+        /*Log.d("No of nights count", "" + preferences.getString("package_name", null));
 
         if(preferences.getInt("flag",0)==1)
         {
@@ -279,7 +278,7 @@ public class  HotelActivity extends ActionBarActivity {
         dept_port=prefs.getString("DeparturePortString",null);
         source_str=prefs.getString("ArrivalAirportString",null);
         dest_str=prefs.getString("DepartureAirportString",null);
-
+*/
         chk_breakfast = (CheckBox) findViewById(R.id.breakfast);
         chk_lunch = (CheckBox) findViewById(R.id.lunch);
         chk_dinner = (CheckBox) findViewById(R.id.dinner);
@@ -343,7 +342,7 @@ public class  HotelActivity extends ActionBarActivity {
         Region_ID= prfs.getString("RegionID", "");
 
         //Destination Count
-    //    Log.d("Hotel cost test",""+prfs.getInt("Total_Hotel_Cost",0));
+        //    Log.d("Hotel cost test",""+prfs.getInt("Total_Hotel_Cost",0));
 
         SharedPreferences prfs1 = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
         String preSavedHotelDestinationID = prfs1.getString("HotelDestinationID", "");
@@ -412,8 +411,8 @@ public class  HotelActivity extends ActionBarActivity {
                         ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
                         for(int k = 0;k< modelRow.size();k++) {
                             if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
-                               //if(k == 0)
-                                 hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner();
+                                //if(k == 0)
+                                hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner();
                                /* else
                                    hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                             }
@@ -439,7 +438,7 @@ public class  HotelActivity extends ActionBarActivity {
                     /*}
                     else{
                     set.add("" + HotelRoomData[i]);}*/
-                    //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
+                //Log.i("Hotel Room 123" + i, "" + set.toArray()[i]);
                 editor.putString("Hotels", hotel_string_main);
                 Log.d("Hotel test11", "" + hotel_string_main);
                 editor.putString("HotelRooms", itinerary_hotel);
@@ -474,13 +473,9 @@ public class  HotelActivity extends ActionBarActivity {
         Log.d("URL test test45", "" + sum);
         Log.d("URL test test24", "" + Discount_list.size());
         for(int i=0;i<Discount_list.size();i++)
-        Log.d("URL test test23",""+Discount_list.get(i).getCompany_ID()+"  "+Discount_list.get(i).getCompany_Discount()+" "+Discount_list.get(i).getCompany_Name());
+            Log.d("URL test test23",""+Discount_list.get(i).getCompany_ID()+"  "+Discount_list.get(i).getCompany_Discount()+" "+Discount_list.get(i).getCompany_Name());
 
-        int discount_val=Integer.parseInt("" + Discount_list.get(0).getCompany_Discount());
-        int discount_in_Rs=(sum*discount_val)/100;
-
-        discountPriceText.setText("\u20B9 "+""+discount_in_Rs);
-    //    discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
+        discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
 
         SharedPreferences.Editor editor=post_prefs.edit();
         editor.putInt("DiscountValue", Discount_list.get(0).getCompany_Discount());
@@ -489,7 +484,7 @@ public class  HotelActivity extends ActionBarActivity {
 
         remainingPriceText.setText("\u20B9 "+""+remaining_price);
 
-        int adv_price=(20*remaining_price)/100;
+        int adv_price = (20 * remaining_price) / 100;
 
         priceAdvanceText.setText("\u20B9 "+""+adv_price);
 
@@ -504,88 +499,87 @@ public class  HotelActivity extends ActionBarActivity {
         ndDialog.hide();
     }
 
-    public void getDiscount(String supplier_details)
-    {
+    public void getDiscount(String supplier_details) {
         Log.d("URL test test1",""+supplier_details);
 
         final String no_of_supplier[]=supplier_details.split(":-");
-        String supplier_data[]=new String[4];
+        String supplier_data[] = new String[4];
 
         Log.d("URL test test2",""+no_of_supplier.length);
         int temp;
         final DiscountModel discount_model=new DiscountModel();
 
 
-            supplier_data=no_of_supplier[0].split("::");
+        supplier_data=no_of_supplier[0].split("::");
 
-            String url = "http://m.itraveller.com/api/v1/supplier/discount?checkInDate="+supplier_data[3]+"&companyId=" + supplier_data[0];
+        String url = "http://m.itraveller.com/api/v1/supplier/discount?checkInDate="+supplier_data[3]+"&companyId=" + supplier_data[0];
 
-            Log.d("URL test test",""+url);
+        Log.d("URL test test",""+url);
 
-            JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
-                    url, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+                url, new Response.Listener<JSONObject>() {
 
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        Log.i("Test", "Testing7657" + response);
-                        Log.d("Boolean", "" + response.getBoolean("success"));
-                        Log.d("Error78", "" + response.getJSONObject("error"));
-                        Log.d("Payload78", "" + response.getJSONArray("payload"));
-                        // JSONObject jsonobj = response.getJSONObject("payload").get;
-                        // Parsing jso
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.i("Test", "Testing7657" + response);
+                    Log.d("Boolean", "" + response.getBoolean("success"));
+                    Log.d("Error78", "" + response.getJSONObject("error"));
+                    Log.d("Payload78", "" + response.getJSONArray("payload"));
+                    // JSONObject jsonobj = response.getJSONObject("payload").get;
+                    // Parsing jso
 
-                        JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(0);
+                    JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(0);
 
-                        discount_model.setCompany_ID("" + jsonarr.getString("Company_Id"));
-                        discount_model.setCompany_Name("" + jsonarr.getString("Company_Name"));
-                        discount_model.setCompany_Discount(Integer.parseInt("" + jsonarr.getString("Discount")));
-                        discount_model.setCompany_Address(""+jsonarr.getString("Company_Address"));
+                    discount_model.setCompany_ID("" + jsonarr.getString("Company_Id"));
+                    discount_model.setCompany_Name("" + jsonarr.getString("Company_Name"));
+                    discount_model.setCompany_Discount(Integer.parseInt("" + jsonarr.getString("Discount")));
+                    discount_model.setCompany_Address(""+jsonarr.getString("Company_Address"));
 
-                        Discount_list.add(discount_model);
+                    Discount_list.add(discount_model);
 
-                        Collections.sort(Discount_list, new DiscountComparison());
+                    Collections.sort(Discount_list, new DiscountComparison());
 
-                        discount_str+=""+jsonarr.getString("Company_Id")+","+""+jsonarr.getString("Company_Name")+","+jsonarr.getString("Discount")+"::";
+                    discount_str+=""+jsonarr.getString("Company_Id")+","+""+jsonarr.getString("Company_Name")+","+jsonarr.getString("Discount")+"::";
 
-                        CalculateDiscount();
+                    CalculateDiscount();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        VolleyLog.d("Volley Error", "Error: " + e.getMessage());
-                    }
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-            }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //System.err.println(error);
-                    // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
-                    // For AuthFailure, you can re login with user credentials.
-                    // For ClientError, 400 & 401, Errors happening on client side when sending api request.
-                    // In this case you can check how client is forming the api and debug accordingly.
-                    // For ServerError 5xx, you can do retry or handle accordingly.
-                    if (error instanceof NetworkError) {
+            }
+        }, new Response.ErrorListener() {
 
-                        // pDialog.hide();
-                        Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
-                    } else if (error instanceof ServerError) {
-                    } else if (error instanceof AuthFailureError) {
-                    } else if (error instanceof ParseError) {
-                    } else if (error instanceof NoConnectionError) {
-                        // pDialog.hide();
-                        Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
-                    } else if (error instanceof TimeoutError) {
-                    }
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //System.err.println(error);
+                // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
+                // For AuthFailure, you can re login with user credentials.
+                // For ClientError, 400 & 401, Errors happening on client side when sending api request.
+                // In this case you can check how client is forming the api and debug accordingly.
+                // For ServerError 5xx, you can do retry or handle accordingly.
+                if (error instanceof NetworkError) {
+
+                    // pDialog.hide();
+                    Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof ParseError) {
+                } else if (error instanceof NoConnectionError) {
+                    // pDialog.hide();
+                    Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof TimeoutError) {
                 }
-            }) {
-            };
+            }
+        }) {
+        };
 
         /*strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
                 5,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
-            AppController.getInstance().addToRequestQueue(strReq);
+        AppController.getInstance().addToRequestQueue(strReq);
 
 
     }
@@ -695,7 +689,7 @@ public class  HotelActivity extends ActionBarActivity {
             String url ="" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + destination_id_arr[i] + "&toDestination=" + destination_id_arr[i] + "&regionIds=" + region_id + "&day=" + No_of_Nights_arr[i] + "&hotelId=" + Hotel_Data_arr[0];
 
             Log.d("Welcome11",""+url);
-                    JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+            JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                     url, new Response.Listener<JSONObject>() {
 
                 @Override
@@ -826,7 +820,7 @@ public class  HotelActivity extends ActionBarActivity {
                 for(int k = 0;k< modelRow.size();k++) {
                     if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
                         //if(k == 0)
-                        hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner() +","+Utility.noRooms(3, totalPersons)+",0,0";
+                        hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner() +","+Utility.noRooms(2, totalPersons)+",0,0";
                                /* else
                               hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                     }
@@ -942,14 +936,13 @@ public class  HotelActivity extends ActionBarActivity {
         return day;
     }
 
-    public String getConvertedDate(String str)
-    {
+    public String getConvertedDate(String str) {
         String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
         String temp[]=str.split("-");
         int temp_month=Integer.parseInt(temp[2]);
 
         SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("Date_start_str",temp[1]+"-"+temp_month+"-"+temp[3]);
+        editor.putString("Date_start_str",temp[1]+"-" + temp_month+"-"+temp[3]);
         editor.commit();
 
         str=temp[0]+", "+temp[1]+" "+month[temp_month-1]+" "+temp[3];
@@ -981,7 +974,7 @@ public class  HotelActivity extends ActionBarActivity {
                 Log.d("Destination date te45",""+flag);
 
                 ndDialog.setMessage("Loading...");
-                ndDialog.setCancelable(true);
+                ndDialog.setCancelable(false);
                 ndDialog.show();
 
                 getUserSelectedHotelData();
@@ -1024,48 +1017,48 @@ public class  HotelActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-        @Override
-        protected void onPostCreate(Bundle savedInstanceState) {
-            super.onPostCreate(savedInstanceState);
-            // Sync the toggle state after onRestoreInstanceState has occurred.
-            mDrawerToggle.syncState();
-        }
+ /*   @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
 
-        @Override
-        public void onConfigurationChanged(Configuration newConfig) {
-            super.onConfigurationChanged(newConfig);
-            mDrawerToggle.onConfigurationChanged(newConfig);
-        }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-            int menuToUse = R.menu.right_side_menu;
+        int menuToUse = R.menu.right_side_menu;
 
-            MenuInflater inflater = getMenuInflater();
-
-
-            inflater.inflate(menuToUse, menu);
-
-            return super.onCreateOptionsMenu(menu);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
+        MenuInflater inflater = getMenuInflater();
 
 
-            if (item != null && item.getItemId() == R.id.btnMyMenu) {
-                if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                    mDrawerLayout.closeDrawer(Gravity.RIGHT);
-                } else {
-                    mDrawerLayout.openDrawer(Gravity.RIGHT);
-                }
+        inflater.inflate(menuToUse, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+
+        if (item != null && item.getItemId() == R.id.btnMyMenu) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
-            return false;
         }
+        return false;
+    }*/
     public interface RadiobuttonListener {
         public void RadioChangeListenerCustom(String position);
     }
@@ -1088,7 +1081,7 @@ public class  HotelActivity extends ActionBarActivity {
 
 
         for (int index = 0; index < hotel_destination.length; index++) {
-        //    hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
+            //    hotelList.add("http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
             hotelList.add(Constants.API_HotelActivity_HotelList + hotel_destination[index]);
             editor1.putInt("DestinationIDValue" + hotel_destination[index], Integer.parseInt("" + hotel_destination[index]));
             editor1.commit();
@@ -1143,9 +1136,9 @@ public class  HotelActivity extends ActionBarActivity {
                                 Log.d("Room_Type", "Test" + RoomObj.getJSONObject(inc).getString("Hotel_Room_Id"));
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
-                            //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
+                                //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
                                 String url_checkroom=Constants.API_HotelActivity_Checkroom+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
-                                Log.d("hotel123",""+url_checkroom);
+
                                 hotelRoomsCheck(url_checkroom, RoomObj.length(), inc);
                                 second.setVisibility(View.VISIBLE);
                                 activites.setVisibility(View.GONE);
@@ -1261,11 +1254,11 @@ public class  HotelActivity extends ActionBarActivity {
 
                         //com.itraveller.constant.Utility.setListViewHeightBasedOnChildren(listView);}
 
-                       // if(totalcount==(index-2)){
-                            Utility.setListViewHeightBasedOnChildren(listView);
-                            adapter.notifyDataSetChanged();
+                        // if(totalcount==(index-2)){
+                        Utility.setListViewHeightBasedOnChildren(listView);
+                        adapter.notifyDataSetChanged();
 
-                       // }
+                        // }
                     }
 
 
@@ -1292,10 +1285,9 @@ public class  HotelActivity extends ActionBarActivity {
 
     public void DefaultHotelRoomSet(String url, final int depth, final String hotel_dest) {
         Log.d("LowestHotelURL", "" + url);
-        Log.d("Hotel1234567","hi");
 
         if(depth==0){
-        pDialog.show();}
+            pDialog.show();}
         else{
             pDialog.hide();
         }
@@ -1316,19 +1308,19 @@ public class  HotelActivity extends ActionBarActivity {
                     }
 
                     int new_value =0;
-                        JSONObject jsonarr = response.getJSONObject("payload");
-                        Log.d("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +",1");
+                    JSONObject jsonarr = response.getJSONObject("payload");
+                    Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(2, totalPersons)+",0,0");
                     SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
                     String saved_details = sharedpreferences.getString("HotelDetails", "NoData");
                     String[] hotel_room_Data = saved_details.trim().split("-");
 
                     //for(int i =0 ; i < hotel_destination.length; i++){
-                        for(int j =0 ;j < pre_saved_hotel_destination_id.length ; j++) {
-                            if(hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])){
-                                lowesthotelList.add(hotel_room_Data[depth]);
-                                new_value =1;
-                            }
+                    for(int j =0 ;j < pre_saved_hotel_destination_id.length ; j++) {
+                        if(hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])){
+                            lowesthotelList.add(hotel_room_Data[depth]);
+                            new_value =1;
                         }
+                    }
                     //}
                    /* if(!saved_details.equalsIgnoreCase("NoData")) {
                         *//*for(int i = 0;i<hotel_room_Data.length;i++){
@@ -1345,12 +1337,12 @@ public class  HotelActivity extends ActionBarActivity {
                         lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + ",1");
                     }*/
                     if(new_value == 0){
-                        lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(3, totalPersons)+",0,0");
+                        lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(2, totalPersons)+",0,0");
                     }
-                        //roomList.add();
+                    //roomList.add();
                     //}
-                   // if(depth==(hotel_destination.length-1))
-                   {
+                    // if(depth==(hotel_destination.length-1))
+                    {
                         listViewPagerAdapter = new ListViewPagerAdapter(HotelActivity.this, hotelList, lowesthotelList, new pagerCheckBoxChangedListner1() {
                             @Override
                             public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked) {
@@ -1377,8 +1369,8 @@ public class  HotelActivity extends ActionBarActivity {
                                 Log.d("Image fetch URL",""+Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
 
                                 hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg",imageLoader);
-                            //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
-                             //   hotel_img.setImageResource(R.drawable.fail);
+                                //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
+                                //   hotel_img.setImageResource(R.drawable.fail);
                                 TextView hotel_name=(TextView) findViewById(R.id.hotel_name);
 
                                 hotel_name.setText(modelRow.get(childpostion).getHotel_Name());
@@ -1416,7 +1408,7 @@ public class  HotelActivity extends ActionBarActivity {
                                     modelRow.get(childpostion).setChecked(true);
                                     ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
                                     listViewPagerAdapter.notifyDataSetChanged();
-                                    lowesthotelList.set(groupPosition, "0,0,0," + Utility.noRooms(3, totalPersons) + ",0,0");
+                                    lowesthotelList.set(groupPosition, "0,0,0," + Utility.noRooms(2, totalPersons) + ",0,0");
                                     SaveData();
 
                                     /*if(modelRow.get(childpostion).isChecked()){
@@ -1443,7 +1435,6 @@ public class  HotelActivity extends ActionBarActivity {
                                     @Override
                                     public void onClick(View view) {
                                         Toast.makeText(HotelActivity.this, "Please select the room", Toast.LENGTH_LONG).show();
-
                                         if (!modelRow.get(childpostion).isChecked()) {
                                             Toast.makeText(HotelActivity.this, "Please select the room", Toast.LENGTH_LONG).show();
                                         }
@@ -1453,21 +1444,9 @@ public class  HotelActivity extends ActionBarActivity {
                                                 modelRow.get(childpostion).setLunch(0);*//*
                                     }
                                 });*/
-                            }
-                                else
-                                {
+                                }
+                                else {
 
-
-                                    Log.d("Image fetch URL",""+Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
-
-                                    hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg",imageLoader);
-                                    //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
-                                    //   hotel_img.setImageResource(R.drawable.fail);
-
-                                    hotel_name.setText(modelRow.get(childpostion).getHotel_Name());
-
-
-                                    Log.d("hotel1234",""+"http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
                                     MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition], groupPosition);
                                     Log.i("MealPlanURL", "" + "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
                                     //Added Apdater to Null Here
@@ -1505,7 +1484,6 @@ public class  HotelActivity extends ActionBarActivity {
                                     //    String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
                                     String url = Constants.API_HotelActivity_HOTEL_ROOMS + Region_ID + "&hotelIds=" + modelRow.get(childpostion).getHotel_Id() + "&checkInDate=" + destination_date[groupPosition];
                                     Log.i("URLForRooms", "" + groupPosition + " Url :" + url);
-                                    Log.d("Hotel11",""+url);
                                     hotelRooms(url, destination_date[groupPosition]);
                                 }
                                 check_bit=1;
@@ -1567,9 +1545,6 @@ public class  HotelActivity extends ActionBarActivity {
                         lv1.setVisibility(View.GONE);
                         roomList = new ArrayList<HotelRoomModel>();
                         listView = (ListView) findViewById(R.id.room_type);
-
-
-
                         Utility.setListViewHeightBasedOnChildren(listView);
                                 /*String meal_plan = modelRow.get(childpostion).getHotel_Meal_Plan();
                                 String[] meal_plan_data = meal_plan.split(",");
@@ -1615,14 +1590,14 @@ public class  HotelActivity extends ActionBarActivity {
 
 
                                 for(int index =0 ; index<modelRow.size();index++) {
-                                        if(index==cposition) {
-                                            modelRow.get(cposition).setChecked(true);
-                                            Log.d("Test test1","hi");
-                                        }
-                                        else {
-                                            modelRow.get(index).setChecked(false);
-                                        }
+                                    if(index==cposition) {
+                                        modelRow.get(cposition).setChecked(true);
+                                        Log.d("Test test1","hi");
                                     }
+                                    else {
+                                        modelRow.get(index).setChecked(false);
+                                    }
+                                }
 
 
                                 ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
@@ -1692,25 +1667,16 @@ public class  HotelActivity extends ActionBarActivity {
     public void CalculateSum()
     {
         Log.d("Destination date te771", "" + sum);
-        Log.d("Destination date te778", "" + transportationList.get(0).getCost());
-        Log.d("Destination date te779", "" + transportationList.get(0).getTitle());
-
+        Log.d("Destination date te772", "" + transportationList.get(1).getCost());
         Log.d("Destination date te773", "" + transportationList.size());
-    //    Log.d("Destination date te772", "" + transportationList.get(1).getCost());
 
         SharedPreferences.Editor editor=prfs.edit();
 
         if(count==0)
         {
 
-            if(transportationList.size()>1) {
+            sum += transportationList.get(1).getCost();
 
-                sum += transportationList.get(1).getCost();
-            }
-            else if(transportationList.size()==1)
-            {
-                sum+=transportationList.get(0).getCost();
-            }
             if(chk_lunch.isChecked())
             {
                 sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
@@ -1720,61 +1686,31 @@ public class  HotelActivity extends ActionBarActivity {
                 sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
             }
 
-            if(transportationList.size()>1) {
-                transportation_cost += transportationList.get(1).getCost();
-            }
-            else if(transportationList.size()==1)
-            {
-                transportation_cost+=transportationList.get(0).getCost();
-            }
+            transportation_cost+=transportationList.get(1).getCost();
+
 
             Log.d("Destination date te77", "" + sum);
-        //    Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
-        //    Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
+            Log.d("Destination date tt77", "" + transportationList.get(1).getTitle());
+            Log.d("Destination date tt87", "" + transportationList.get(1).getCost());
 
-            String transportation_title;
-            if(transportationList.size()>1)
-            {
-                transportationText.setText("" + transportationList.get(1).getTitle());
-            }
-            else if(transportationList.size()==1){
-                transportationText.setText("" + transportationList.get(0).getTitle());
-
-            }
 
             totalPriceText.setText("\u20B9 " + "" + sum);
+            transportationText.setText("" + transportationList.get(1).getTitle());
 
-            if(transportationList.size()>1) {
-
-                editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
-                editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
-                editor.putString("TransportationCostOld", "" + transportation_cost);
-                Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
-                Log.d("Destination date tt97", "" + transportation_cost);
-
-
-                editor.putInt("TotalCost", sum);
-                editor.commit();
-
-                trans_id = "" + transportationList.get(1).getId();
-            }else if(transportationList.size()==1)
-            {
-                editor.putString("TransportaionTitle", "" + transportationList.get(0).getTitle());
-                editor.putString("TransportationIDV", "" + transportationList.get(0).getId());
-                editor.putString("TransportationCostOld", "" + transportation_cost);
-                Log.d("Destination date tt89", "" + transportationList.get(0).getCost());
-                Log.d("Destination date tt97", "" + transportation_cost);
+            editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
+            editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
+            editor.putString("TransportationCostOld",""+transportation_cost);
+            Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
+            Log.d("Destination date tt97", "" + transportation_cost);
 
 
-                editor.putInt("TotalCost", sum);
-                editor.commit();
+            editor.putInt("TotalCost", sum);
+            editor.commit();
 
-                trans_id = "" + transportationList.get(0).getId();
+            trans_id=""+transportationList.get(1).getId();
+            count++;
 
-            }
-                count++;
-
-        //    Log.d("TransporatationID test",""+transportationList.get(1).getId());
+            Log.d("TransporatationID test",""+transportationList.get(1).getId());
 
             getSupplierDetails();
 
@@ -1956,8 +1892,8 @@ public class  HotelActivity extends ActionBarActivity {
         }
         else
         {
-           lv1.setVisibility(View.VISIBLE);
-          activites.setVisibility(View.VISIBLE);
+            lv1.setVisibility(View.VISIBLE);
+            activites.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
             check_bit=0;
             SaveData();
@@ -2004,18 +1940,18 @@ public class  HotelActivity extends ActionBarActivity {
                             else{
                                 mealplanList.add(index,mealplan);*/
                             mealplanList.add(mealplan);
-                                if (jsonObj.getInt("Lunch") == 0) {
-                                    chk_lunch.setEnabled(false);
-                                }
-                                else{
-                                    chk_lunch.setEnabled(true);
-                                }
-                                if (jsonObj.getInt("Dinner") == 0) {
-                                    chk_dinner.setEnabled(false);
-                                }
-                                else{
-                                    chk_dinner.setEnabled(true);
-                                }
+                            if (jsonObj.getInt("Lunch") == 0) {
+                                chk_lunch.setEnabled(false);
+                            }
+                            else{
+                                chk_lunch.setEnabled(true);
+                            }
+                            if (jsonObj.getInt("Dinner") == 0) {
+                                chk_dinner.setEnabled(false);
+                            }
+                            else{
+                                chk_dinner.setEnabled(true);
+                            }
                             //}
                         }
                     }
@@ -2041,12 +1977,12 @@ public class  HotelActivity extends ActionBarActivity {
                             mealplanList.add(mealplan);
                           }
                         else{*/
-                            //mealplanList.add(index,mealplan);
+                        //mealplanList.add(index,mealplan);
                         mealplanList.add(mealplan);
-                            chk_lunch.setEnabled(false);
-                            chk_dinner.setEnabled(false);
+                        chk_lunch.setEnabled(false);
+                        chk_dinner.setEnabled(false);
                         //}
-                        }
+                    }
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
                 }
@@ -2101,7 +2037,7 @@ public class  HotelActivity extends ActionBarActivity {
             }
 
             Log.d("Lowest_Value1",""+ lowesthotelList.get(i));
-           // Log.d("Lowest_Value",""+ lowesthotelList.get(i));
+            // Log.d("Lowest_Value",""+ lowesthotelList.get(i));
             //if(datas.equalsIgnoreCase("null")) {
             //set.add("" + lowesthotelList.get(i));
             String[] lowest_value = lowesthotelList.get(i).trim().split(",");

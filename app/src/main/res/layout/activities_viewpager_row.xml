@@ -38,17 +38,6 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/select_background">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Selected"
-                android:id="@+id/txt_selected"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
             <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -58,6 +47,17 @@
                 android:background="@color/black"
                 android:alpha="0.6">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Selected"
+                    android:id="@+id/txt_selected"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingBottom="60dp" />
             </RelativeLayout>
 
             <CheckBox

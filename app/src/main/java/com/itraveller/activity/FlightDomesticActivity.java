@@ -105,9 +105,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
             }
         });
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+       /* mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-        setupDrawer();
+        setupDrawer();*/
 
 
         SharedPreferences prefs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
@@ -137,9 +137,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
                 "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                 "&departDate=" + prefs.getString("TravelDate", null) +
                 "&returnDate=" + prefs.getString("EndDate", null) +
-                "&adults=" + prefs.getString("Adults", "0") +
-                "&children=" + prefs.getString("Children_12_5", "0") +
-                "&infants=" + prefs.getString("Children_5_2", "0") +
+                "&adults=" + prefs.getString("Adult", "0") +
+                "&children=" + prefs.getString("Child", "0") +
+                "&infants=" + prefs.getString("Infants", "0") +
                 "&departurePort=" + prefs.getString("TravelTo", null) +
                 "&travelTo=" + prefs.getString("DepartureAirport", null);
         Log.i("Domestic URL",""+url);
@@ -154,14 +154,14 @@ public class FlightDomesticActivity extends ActionBarActivity{
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.textColorPrimary);
+                return getResources().getColor(R.color.white);
             }
         });
+
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
@@ -169,17 +169,17 @@ public class FlightDomesticActivity extends ActionBarActivity{
 
     }
 
-    private void setupDrawer() {
+    /*private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state. */
+            *//** Called when a drawer has settled in a completely open state. *//*
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle("Summary Data");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
+            *//** Called when a drawer has settled in a completely closed state. *//*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle("Flights");
@@ -198,9 +198,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
@@ -217,9 +217,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
         inflater.inflate(menuToUse, menu);
 
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -236,7 +236,7 @@ public class FlightDomesticActivity extends ActionBarActivity{
 
 
         return false;
-    }
+    }*/
 
 
 

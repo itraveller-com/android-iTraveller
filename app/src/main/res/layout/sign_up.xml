@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/login_form"
+            android:id="@+id/signup_view"
             android:gravity="center"
             android:layout_gravity="center">
 
@@ -121,7 +121,7 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_call_black_24dp"
-                        android:layout_alignTop="@+id/mobile"
+                        android:layout_alignTop="@+id/confirm_password"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
 
@@ -134,7 +134,7 @@
                         android:inputType="number"
                         android:singleLine="true"
                         android:maxLength="15"
-                        android:id="@+id/mobile"
+                        android:id="@+id/confirm_password"
                         android:paddingLeft="8dp"
                         android:textColor="@color/orange"
                         android:textColorHint="@color/orange"

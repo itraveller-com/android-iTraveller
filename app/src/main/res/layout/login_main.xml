@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/collage_img"
+        android:id="@+id/main"
+        android:gravity="center"
+        android:foregroundGravity="center">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_view"
+            android:padding="15dp"
+            android:visibility="visible"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:id="@+id/logo_id"
+                android:layout_above="@+id/signup_view"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/itraveller_logo_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/itraveller_logo_" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Your Trip. Your Way"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="420dp"
+                android:id="@+id/flipper_view"
+                android:gravity="center">
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:id="@+id/loading_snackbar"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                android:layout_width="568dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView5"
+                android:background="#323232"
+                android:adjustViewBounds="true"
+                android:maxWidth="568dp"
+                android:minWidth="288dp" />
+
+            <ProgressBar
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:id="@+id/progressBar6"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/imageView5"
+                android:layout_alignStart="@+id/imageView5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Loading"
+                android:id="@+id/textView3"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/progressBar6"
+                android:layout_toEndOf="@+id/progressBar6"
+                android:layout_marginLeft="15dp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

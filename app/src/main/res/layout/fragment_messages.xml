@@ -62,7 +62,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:maxLength="15"
-            android:id="@+id/mobile"
+            android:id="@+id/confirm_password"
             android:paddingLeft="8dp"
             android:textColor="@color/orangeStatus"
             android:textColorHint="@color/orangeStatus"

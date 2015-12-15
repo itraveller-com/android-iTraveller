@@ -83,6 +83,7 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         TextView itemText = (TextView) view.findViewById(R.id.title);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.thumbnail);
+        image.setErrorImageResId(R.drawable.default_img);
         TextView cost = (TextView) view.findViewById(R.id.cost_activity);
         TextView time = (TextView) view.findViewById(R.id.time_activity);
 

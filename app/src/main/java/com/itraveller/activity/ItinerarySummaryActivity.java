@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -37,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import com.itraveller.R;
 import com.itraveller.constant.Utility;
@@ -64,8 +68,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class ItinerarySummaryActivity extends ActionBarActivity {
-/* When using Appcombat support library
-   you need to extend Main Activity to ActionBarActivity.*/
+    /* When using Appcombat support library
+       you need to extend Main Activity to ActionBarActivity.*/
     ProgressDialog ndDialog;
     TextView nameText,placesText,destinationText,arr_dateText,dep_dateText,daysText,adultsText,child_5_12_Text,child_below_5_Text;
     TextView nameSellerText,addressSellerText,arrAtText,dateDisplayText,roomDisplayText,totalPriceText;
@@ -73,14 +77,14 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
     SharedPreferences prfs;
     SharedPreferences prefs;
     SharedPreferences preferences;
-    ScrollView sc;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    String package_name_str;
 
     String destination_arr[];
-
+    ScrollView sc;
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
 
@@ -113,70 +117,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-
-        setupDrawer();
-
-
-
-        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
-        prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
-        prfs=getSharedPreferences("Itinerary",MODE_PRIVATE);
-
-
-        nameText=(TextView) findViewById(R.id.name_value);
-        placesText=(TextView) findViewById(R.id.places_value);
-        destinationText=(TextView) findViewById(R.id.destinations_value);
-        arr_dateText=(TextView) findViewById(R.id.date_of_arrival_value);
-        dep_dateText=(TextView) findViewById(R.id.date_of_departure_value);
-        daysText=(TextView) findViewById(R.id.no_of_days_value);
-        adultsText=(TextView) findViewById(R.id.no_of_adults_value);
-        child_5_12_Text=(TextView) findViewById(R.id.no_of_children_5_12_value);
-        child_below_5_Text=(TextView) findViewById(R.id.no_of_children_below_5_value);
-        totalPriceText=(TextView) findViewById(R.id.total_price_value);
-        discountPriceText=(TextView) findViewById(R.id.disount_value);
-        remainingPriceText=(TextView) findViewById(R.id.price_after_discount_value);
-        priceAdvanceText=(TextView) findViewById(R.id.booking_advance_value);
-        nameSellerText=(TextView) findViewById(R.id.name_of_seller_value);
-        addressSellerText=(TextView) findViewById(R.id.address_of_seller_value);
-        arrAtText=(TextView) findViewById(R.id.arrival_at_value);
-        dateDisplayText=(TextView) findViewById(R.id.date_of_arrival_display);
-        roomDisplayText=(TextView) findViewById(R.id.room_type_display);
-        departureText=(TextView) findViewById(R.id.departure_from_text_value);
-        transportationText=(TextView) findViewById(R.id.transportation_text_value);
-
-        Log.d("No of nights count", "" + preferences.getString("package_name", null));
-
-        if(preferences.getInt("flag",0)==1)
-        {
-            String str=""+preferences.getString("f_name", null);
-            nameText.setText(str.substring(0,1).toUpperCase()+str.substring(1));
-        }
-        else
-        {
-            nameText.setText("User");
-        }
-
-        placesText.setText("" + preferences.getString("package_name", null));
-        destinationText.setText("" + prefs.getString("DestinationName", null));
-        arr_dateText.setText(getConvertedDate("" + preferences.getString("Date_str", null)));
-        dep_dateText.setText(getNextConvertedDate("" + preferences.getString("Date_str", null)));
-        daysText.setText("" + prefs.getInt("Duration", 0));
-        adultsText.setText("" + prefs.getString("Adults", null));
-        child_5_12_Text.setText("" + prefs.getString("Children_12_5",null));
-        child_below_5_Text.setText("" + prefs.getString("Children_5_2",null));
-        totalPriceText.setText("Calculating...");
-        discountPriceText.setText("Calculating...");
-        remainingPriceText.setText("Calculating...");
-        priceAdvanceText.setText("Calculating...");
-        addressSellerText.setText("");
-        arrAtText.setText(prefs.getString("ArrivalPortString",null));
-        dateDisplayText.setText("");
-        roomDisplayText.setText("");
-        departureText.setText(prefs.getString("DeparturePortString",null));
-        transportationText.setText("Loading...");
-
-        ndDialog=new ProgressDialog(ItinerarySummaryActivity.this);
-
+        //setupDrawer();
 
         TextView fromhome = (TextView) findViewById(R.id.from_home);
         TextView totravel = (TextView) findViewById(R.id.to_travel);
@@ -191,18 +132,18 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (preferencess.getInt("flag", 0) == 1) {
+               // if (preferencess.getInt("flag", 0) == 1) {
                     Intent in = new Intent(ItinerarySummaryActivity.this, SummaryActivity.class);
                     startActivity(in);
-                } else {
-                    LoginFragment_Before_Payment fragment = new LoginFragment_Before_Payment();
+                //} else {
+                   /* LoginFragment_Before_Payment fragment = new LoginFragment_Before_Payment();
                     getSupportFragmentManager().beginTransaction()
                             .add(android.R.id.content, fragment).commit();
 
-                }
+                }*/
             }
         });
-        
+
         int TotalCountDays = 0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
         fromhome.setText("" + prefs.getString("ArrivalAirportString", null));
@@ -221,7 +162,6 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
         // Getting Map for the SupportMapFragment
         map = fm.getMap();
-
 
         map = ((WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -254,7 +194,6 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 /*            String source_arr[];
             if(source.contains(" ")) {
                 source_arr = source.split(" ")
-
                 for(int i=0;i<source_arr.length;i++)
                 source_str+=""+source_arr[i];
             }
@@ -268,7 +207,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
 
             if (destination.contains(",")) {
-            String destination_arr_temp[] = destination.split(",");
+                String destination_arr_temp[] = destination.split(",");
                 Log.d("Test finally 9",""+destination_arr_temp.length);
                 destination_arr = new String[destination_arr_temp.length];
                 destination_arr=destination.split(",");
@@ -286,7 +225,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 if (!destination_arr[i].equals(null)) {
                     destination_arr[i] = destination_arr[i].replace(" ", "");
                     Log.d("Test finally 5", "" + destination_arr[i]);
-
+                    package_name_str=destination_arr[i];
                 }
                 else
                 {
@@ -300,7 +239,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             String url="https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination_arr[0];
             //String url ="https://maps.googleapis.com/maps/api/directions/json?origin=Bengaluru&destination=Mumbai";
             if(source.contains(" "))
-            Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
+                Log.d("Test finally","https://maps.googleapis.com/maps/api/directions/json?origin="+source+"&destination="+destination);
 
             DownloadTask downloadTask = new DownloadTask();
 
@@ -452,17 +391,32 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         count++;
         main_lay.addView(view);
 
-
+        PackagePrice();
         ///////////////////////////////////////////////////////////////////////////////////
         //////////////////////////Itinerary Email JSON ///////////////////////////////////
+       //Travel ID making///////////////////////
+        //Mon Nov 16 17:12:28 GMT+05:30 2015
+        Date date = new Date();
+        System.out.println(date.toString());
+        String dateString = "Fri, 09 Nov 2012 23:40:18 GMT";
+        DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM hh:mm:ss z yyyy");
+        try {
+            date = dateFormat.parse(date.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long unixTime = (long)date.getTime()/1000;
 
+        System.out.println("A_"+ new SimpleDateFormat("MMM").format(date.getMonth()) + unixTime);
+        String travelId = "A_"+ new SimpleDateFormat("MMM").format(date.getMonth()) + unixTime;
         SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         try {
             JSONObject itinerary_obj = new JSONObject();
 
-            itinerary_obj.put("email", "" + pref.getInt("ItineraryID", 0));
-            itinerary_obj.put("phone", "" + pref.getString("TravelDate",null));
+            itinerary_obj.put("email", "" + pref.getInt("vishak.kumar@itraveller.com", 0));
+            itinerary_obj.put("phone", "" + pref.getString("TravelDate", null));
             itinerary_obj.put("itineraryId", "" + pref.getInt("ItineraryID", 0));
+            itinerary_obj.put("travelId", travelId );
             itinerary_obj.put("dateOfTravel", "" + pref.getString("TravelDate",null));
             itinerary_obj.put("adult", "" + pref.getString("Adults", "0"));
             itinerary_obj.put("child-above-5", "" + pref.getString("Children_12_5", "0"));
@@ -473,13 +427,21 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             itinerary_obj.put("masterTransportation",  pref.getString("MasterID", "0"));
             itinerary_obj.put("selectedTransportation",  pref.getString("TransportationID", "0"));
 
-            itinerary_obj.put("travellingFrom", "MUMBAI");
-            itinerary_obj.put("arrivalPort", "Cochin International Airport");
-            itinerary_obj.put("departurePort", "Cochin International Airport");
-            itinerary_obj.put("travelTo", "MUMBAI");
+            SharedPreferences packagePrice = getSharedPreferences("PackagePrice", MODE_PRIVATE);
+
+            itinerary_obj.put("packageValue",  packagePrice.getInt("Packageprice", 0));
+            itinerary_obj.put("flightPrice",  packagePrice.getInt("Flightprice", 0));
+            itinerary_obj.put("serviceTax",  packagePrice.getInt("3.5", 0));
+            itinerary_obj.put("discount",  packagePrice.getInt("", 0));
+            itinerary_obj.put("advancePrice",  packagePrice.getInt("DiscountValue", 0));
+
+            itinerary_obj.put("travellingFrom", pref.getString("ArrivalAirportString", "0"));
+            itinerary_obj.put("arrivalPort", pref.getString("DepartureAirportString", "0"));
+            itinerary_obj.put("departurePort", pref.getString("ArrivalPortString", "0"));
+            itinerary_obj.put("travelTo", pref.getString("DeparturePortString", "0"));
             if(Integer.parseInt(pref.getString("FlightBit", "0")) == 0){
 
-            itinerary_obj.put("flight", "International");}
+                itinerary_obj.put("flight", "International");}
             else{
                 itinerary_obj.put("flight", "Domestic");
             }
@@ -507,41 +469,52 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
             pref.getString("Hotels", "0");
 //            pref.getStringSet("HotelRooms", null);
-            pref.getString("ItineraryHotelRooms", "0");
+            Log.i("HotelDetails", "" + pref.getString("ItineraryHotelRooms", "0"));
+            String[] hotels = pref.getString("ItineraryHotelRooms", "0").trim().split("-");
 
-            for(int j = 0 ; j < 3 ; j++)
-            {
+/////////Hotel String contain HotelID, RoomID, Tariff, No of Rooms, Lunch Price and Dinner Price
+
+            //DestinationDate
+            String Dates[] = pref.getString("DestinationDate", "0").trim().split(",");
+
+            for(int j = 0 ; j < hotels.length ; j++)
+            {   Log.i("HotelDetailsSingle", "" + hotels[j]);
+
+                String[] hotelsDetails = hotels[j].trim().split(",");
                 JSONObject itinerary_hotel_obj = new JSONObject();
-                itinerary_hotel_obj.put("Destination_Id","101");
-                itinerary_hotel_obj.put("Rooms","1");
+                itinerary_hotel_obj.put("Destination_Id",""+ des_id[j]);
+                itinerary_hotel_obj.put("Rooms",hotelsDetails[3]);
                 itinerary_hotel_obj.put("Breakfast","1");
-                itinerary_hotel_obj.put("Lunch","0");
-                itinerary_hotel_obj.put("Dinner","0");
-                itinerary_hotel_obj.put("Nights","1");
-                itinerary_hotel_obj.put("Hotel_Id","387");
-                itinerary_hotel_obj.put("Hotel_Room_Id","1122");
-                itinerary_hotel_obj.put("Display_Tariff","9310");
+                itinerary_hotel_obj.put("Lunch",hotelsDetails[4]);
+                itinerary_hotel_obj.put("Dinner",hotelsDetails[5]);
+                itinerary_hotel_obj.put("Nights",""+ des_count[j]);
+                itinerary_hotel_obj.put("Hotel_Id",hotelsDetails[0]);
+                itinerary_hotel_obj.put("Hotel_Room_Id",hotelsDetails[1]);
+                itinerary_hotel_obj.put("Display_Tariff",hotelsDetails[2]);
                 //hotel_date.put(itinerary_hotel_obj);
-                hotel_date_obj.put("10-09-2015"+j,itinerary_hotel_obj);
+                hotel_date_obj.put( Dates[j],itinerary_hotel_obj);
                 //hotel_date.put(hotel_date_obj);
             }
             itinerary_obj.put("hotels", hotel_date_obj);
 
-            pref.getStringSet("ActivitiesData", null);
-            pref.getString("ActivitiesDataString", "0");
-
+            Log.i("ActivityDetails", "" + pref.getStringSet("ActivitiesData", null));
+            Log.i("Activities", "" + pref.getString("ActivitiesDataString", "0"));
+            int totalCount = Integer.parseInt(pref.getString("TotalNightCount", "0"));
             JSONArray activites_date = new JSONArray();
             JSONObject activites_date_obj = new JSONObject();
 
-        for(int k=0;k<3;k++){
-                JSONArray itinerary_activites = new JSONArray();
+            String[] activities = pref.getString("ActivitiesDataString", "0").trim().split("/");
+
+            for(int k=0;k<activities.length;k++){
+                String[] activityDay = activities[k].trim().split(",");
+                JSONObject itinerary_activites = new JSONObject();
                 for(int l =0 ;l<2;l++){
-                    itinerary_activites.put("1254");
+                    itinerary_activites.put(activityDay[1],activityDay[1]);
                 }
-                activites_date_obj.put("10-09-2015"+k,itinerary_activites);
-                activites_date.put(activites_date_obj);
+                activites_date_obj.put(Utility.addDays(pref.getString("TravelDate", null), k, "yyyy-MM-dd", "yyyy-MM-dd"),itinerary_activites);
+                //activites_date.put(activites_date_obj);
             }
-            itinerary_obj.put("activities", activites_date);
+            itinerary_obj.put("activities", activites_date_obj);
 //////////////////////////////////////////////////////////////////////////////////////////////
             ///////////Domestic Flight///////////////
             int x = 1;
@@ -689,176 +662,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
     }
 
-    public String getNextConvertedDate(String str)
-    {
-        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov", "Dec"};
-        String nights_count="" + prefs.getString("DestinationCount", null);
-        Log.d("URL test test46",""+nights_count);
-        String nights_count_arr[]=nights_count.split(",");
-        int no_of_nights=0;
 
-        for(int i=0;i<nights_count_arr.length;i++)
-        {
-            no_of_nights+=Integer.parseInt(nights_count_arr[i]);
-        }
-
-
-        //rohan
-        String dateInString = str; // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-        Calendar c = Calendar.getInstance();
-
-        try {
-            c.setTime(sdf.parse(dateInString));
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        c.add(Calendar.DATE, (no_of_nights+1));//insert the number of days you want to be added to the current date
-        sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date resultdate = new Date(c.getTimeInMillis());
-        dateInString = sdf.format(resultdate);
-
-        Log.d("Calendar test test455", "" + dateInString);
-
-        String temp[]=dateInString.split("-");
-
-
-        int day=Integer.parseInt(temp[0]);
-        Log.d("URL test test47",""+day);
-        int temp_month = Integer.parseInt(temp[1]);
-        Log.d("URL test test48",""+temp_month);
-        int year = Integer.parseInt(temp[2]);
-        Log.d("URL test test49",""+no_of_nights);
-
-
-
-        String day_str = getDay(temp[0] + "-" + temp[1]+"-"+temp[2]);
-
-        Log.d("URL test test50",temp[0] + "-" + temp[1]+"-"+temp[2]);
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("Date_end_str",temp[0] + "-" + temp[1]+"-"+temp[2]);
-        editor.commit();
-
-        day_str=day_str.substring(0, 3);
-
-        str=day_str+", "+day+" "+month[temp_month-1]+" "+temp[2];
-
-        return str;
-    }
-
-    private String getDay(String dateStr){
-        //dateStr must be in DD-MM-YYYY Formate
-        Date date = null;
-        String day=null;
-
-        try {
-            date = new SimpleDateFormat("DD-MM-yyyy").parse(dateStr);
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-            //System.out.println("DAY "+simpleDateFormat.format(date).toUpperCase());
-            day = simpleDateFormat.format(date);
-
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-
-        return day;
-    }
-
-    public String getConvertedDate(String str)
-    {
-        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-        String temp[]=str.split("-");
-        int temp_month=Integer.parseInt(temp[2]);
-        str=temp[0]+", "+temp[1]+" "+month[temp_month-1]+" "+temp[3];
-        return str;
-    }
-
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-/*                ndDialog.setMessage("Loading...");
-                ndDialog.setCancelable(false);
-                ndDialog.show();
-
-                totalPriceText.setText("Calculating...");
-                discountPriceText.setText("Calculating...");
-                remainingPriceText.setText("Calculating...");
-                priceAdvanceText.setText("Calculating...");
-                nameSellerText.setText("Loading...");
-                addressSellerText.setText("Loading...");
-                transportationText.setText("Loading...");
-
-*/
-                getSupportActionBar().setTitle("Summary Data");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("Itinerary Summary");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        int menuToUse = R.menu.right_side_menu;
-
-        MenuInflater inflater = getMenuInflater();
-
-
-        inflater.inflate(menuToUse, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-
-        if (item != null && item.getItemId() == R.id.btnMyMenu) {
-            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                mDrawerLayout.closeDrawer(Gravity.RIGHT);
-            } else {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        }
 
 
         return false;
@@ -894,7 +704,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             br.close();
 
         }catch(Exception e){
-            Log.d("Exception while downloading url", e.toString());
+            Log.d("Exception while", e.toString());
         }finally{
             iStream.close();
             urlConnection.disconnect();
@@ -956,25 +766,31 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             }
             return routes;
         }
-
         // Executes in UI thread, after the parsing process
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions lineOptions = null;
+            ArrayList<LatLng> points = new ArrayList<LatLng>();;
+            PolylineOptions lineOptions = new PolylineOptions();
+
             MarkerOptions markerOptions = new MarkerOptions();
             ArrayList<LatLng> position=new ArrayList<>();
             //    LatLng position = null;
             // Traversing through all the routes
-            for(int i=0;i<result.size();i++){
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
+            Log.d("Map test3","hi"+result.size());
 
+            for(int i=0;i<result.size();i++)
+            {
+
+                Log.d("Map test1","hi");
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
 
                 // Fetching all the points in i-th route
-                for(int j=0;j<path.size();j++){
+                for(int j=0;j<path.size();j++)
+                {
+
+                    Log.d("Map test2","helllo");
+
                     HashMap<String,String> point = path.get(j);
 
                     double lat = Double.parseDouble(point.get("lat"));
@@ -1005,15 +821,55 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             // Drawing polyline in the Google Map for the i-th route
 //            map.addMarker(markerOptions);
             map.addPolyline(lineOptions);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position.get(0),3));
+
+            String lat_long=getLatitudeAndLongitude(package_name_str);
+            String lat_long_arr[]=lat_long.split(" ");
+
+            LatLng tmp=new LatLng(Double.parseDouble(lat_long_arr[0]), Double.parseDouble(lat_long_arr[1]));
+
+            if(position.size()>0)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(position.get(0),3));
+            else
+            {
+                map.addMarker(new MarkerOptions().position(tmp).title("Source"));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(tmp, 3));
+
+            }
             map.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+
 
         }
     }
 
+    public String getLatitudeAndLongitude(String searchedAddress){
 
+        String lat_long="";
 
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        try
+        {
+            address = coder.getFromLocationName(searchedAddress,5);
+            if (address == null) {
+                Log.d("Map testing","############Address not correct #########");
+            }
+            Address location = address.get(0);
 
+            Log.d("Map testing 12","Address Latitude : "+ location.getLatitude()+ "Address Longitude : "+ location.getLongitude());
+
+            lat_long+=""+location.getLatitude()+" "+location.getLongitude();
+
+            return lat_long;
+        //     return true;
+
+        }
+        catch(Exception e)
+        {
+            Log.d("Map testing 11", "MY_ERROR : ############Address Not Found");
+            return " ";
+        //    return false;
+        }
+    }
 
     public void onBackPressed()
     {
@@ -1036,5 +892,105 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         }
         finish();
     }
-}
 
+    public void PackagePrice()
+    {
+        int total_price;
+        SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
+
+        //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
+        Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
+        String transportation_rate = prefs.getString("TransportationCost", null);
+
+
+        String F_bit = ""+prefs.getString("FlightBit",null);
+        int flightBit = Integer.parseInt("" + F_bit);
+        if(flightBit == 0)
+        {
+            String flight_dom = prefs.getString("FlightPrice", "0");
+            if(!flight_dom.equals("0"))
+                flight_rate = Integer.parseInt(flight_dom);
+        }
+        else{
+            onward_flight_rate = prefs.getString("OnwardFlightPrice", null);
+            return_flight_rate = prefs.getString("ReturnFlightPrice", null);
+
+
+            if(!((onward_flight_rate.equals("0"))&&(return_flight_rate.equals("0")))){
+                flight_rate = Integer.parseInt(onward_flight_rate) + Integer.parseInt(return_flight_rate);
+            }
+            else if(!onward_flight_rate.equals("0"))
+                flight_rate = Integer.parseInt(onward_flight_rate);
+            else if(!return_flight_rate.equals("0"))
+                flight_rate = Integer.parseInt(return_flight_rate);
+
+
+        }
+
+        String HotelData = prefs.getString("HotelRooms",null);
+        String[] HotelDataArray = HotelData.trim().split("-");
+        //String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
+        String[] ActivitiesDataArray = ActivitiesData.toArray(new String[ActivitiesData.size()]);
+
+        String DayCount = prefs.getString("DestinationCount", null);
+        String[] destination_day_count = DayCount.trim().split(",");
+        int rate_of_rooms =0;
+        for (int index = 0; index < HotelDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+            String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
+            //no fo rooms and price
+            int no_room_price = Integer.parseInt("" + hotel_room_Data[3]) * Integer.parseInt("" + hotel_room_Data[2]);
+            int room_rate = Integer.parseInt("" + destination_day_count[index]) * no_room_price;
+            if(index == 0)
+            {
+                rate_of_rooms = room_rate;
+            }
+            else{
+                rate_of_rooms = rate_of_rooms + room_rate;
+            }
+            Log.i("RoomRates","" +rate_of_rooms);
+        }
+
+
+        int activities_rate =0;
+        int count_bit= 0;
+        for (int index = 0; index < ActivitiesDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+
+
+            if(!ActivitiesDataArray[index].toString().equalsIgnoreCase("null")) {
+
+                String[] activities_Data = ActivitiesDataArray[index].trim().split(",");
+                Log.i("ActivityData","" +activities_Data);
+                try{
+                    if (count_bit == 0) {
+                        activities_rate = Integer.parseInt("" + activities_Data[1]);
+                        count_bit ++;
+                    } else {
+                        activities_rate = activities_rate + Integer.parseInt("" + activities_Data[1]);
+                    }}
+                catch(Exception e){
+
+                }
+            }
+        }
+
+        // Log.i("ActvitiesRates","" +activities_rate);
+        //Log.i("TransportationRates","" +transportation_rate);
+
+
+        if(flight_rate == 0)
+        {
+            total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate);
+        }
+        else{
+            total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate) + Integer.parseInt("" +flight_rate);
+        }
+        SharedPreferences packagePrice = getSharedPreferences("PackagePrice", MODE_PRIVATE);
+        SharedPreferences.Editor editor = packagePrice.edit();
+        editor.putInt("Packageprice", total_price);
+        editor.putInt("Flightprice", Integer.parseInt(""+flight_rate));
+        double discount_val = 0.2;
+        Double total_discount = Double.parseDouble("" + total_price) * discount_val ;
+        editor.putInt("DiscountValue", total_discount.intValue());
+        editor.commit();
+    }
+}

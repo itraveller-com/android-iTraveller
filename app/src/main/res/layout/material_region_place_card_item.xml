@@ -17,6 +17,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:background="?android:attr/selectableItemBackground"
         android:focusable="true"
+        android:id="@+id/card_view"
         android:layout_marginBottom="1dp">
         <RelativeLayout
             android:id="@+id/top_layout"
@@ -24,10 +25,17 @@
             android:layout_height="200dp">
 
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar3"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="250dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop" />
 
@@ -39,6 +47,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:background="#000"
+                android:alpha="0.7"
                 android:layout_gravity="bottom"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -80,13 +89,6 @@
                     android:textSize="16sp"
                     android:textColor="#fff"
                     android:id="@+id/destination" />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="2.5dp"
-                android:layout_gravity="bottom"
-                android:background="@android:color/white">
             </LinearLayout>
 
         </RelativeLayout>

@@ -249,7 +249,8 @@ public class RegionPlace extends ActionBarActivity {
                            region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                            region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
                            region_adp.setDuration_Day(jsonobj.getJSONObject("Master").getInt("Duration_Day"));
-                           Log.d("No of nights testing in package",""+jsonobj.getJSONObject("Master").getInt("Duration_Day"));
+                           region_adp.setRegionString(jsonobj.getJSONObject("Master").getString("Region_String"));
+                           Log.d("No of night",""+jsonobj.getJSONObject("Master").getInt("Duration_Day"));
                            region_adp.setPrice(jsonobj.getJSONObject("Master").getInt("Price"));
 
                            SharedPreferences.Editor editor2=prefss.edit();

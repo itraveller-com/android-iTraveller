@@ -10,7 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.itraveller.R.id.btn_confirm_payment;
+import static com.itraveller.R.id.total_price;
 
 
 public class SummaryActivity extends ActionBarActivity{
@@ -48,13 +53,15 @@ public class SummaryActivity extends ActionBarActivity{
     String onward_flight_rate="";
     String return_flight_rate="";
     int flight_rate = 0;
+    int total_price =0;
+    Double total_discount;
 
     //Button btn_buy;
     Double amount;
     //EditText ed_quantity, ed_totalamount;
 
     private static String HOST_NAME = "";
-
+    CoordinatorLayout coordinatorLayout;
 	/*For Live*/
     //private static final int ACC_ID = 5128; // Provided by EBS
     //private static final String SECRET_KEY = "ebskey2";
@@ -99,155 +106,41 @@ public class SummaryActivity extends ActionBarActivity{
             final EditText mobileEditText=(EditText) findViewById(R.id.customer_mobile_number);
             final EditText emailEditText=(EditText) findViewById(R.id.customer_email);
             final EditText postalEdiText=(EditText) findViewById(R.id.customer_postal_code);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
 
+        SharedPreferences preferences = getSharedPreferences("Preferences",MODE_PRIVATE);
+        nameEditText.setText("" + preferences.getString("name", ""));
+        mobileEditText.setText("" + preferences.getString("phone", ""));
+        emailEditText.setText("" + preferences.getString("email", ""));
             Button confirm = (Button) findViewById(R.id.btn_confirm_payment);
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
 
                     user_name=nameEditText.getText().toString();
                     user_mobile_number=mobileEditText.getText().toString();
                     user_email=emailEditText.getText().toString();
                     user_postal_code=postalEdiText.getText().toString();
 
-                    if(user_name.trim().length()>0 && user_mobile_number.trim().length()>9 && user_email.trim().length()>0 && isValidEmail(user_email) && user_postal_code.trim().length()>5)
-                    {
-
+                    if(!Utility.isNetworkConnected(getApplication())){
+                        RetryInternet();
+                    } else if(user_email.equalsIgnoreCase("") || user_name.equalsIgnoreCase("") || user_mobile_number.equalsIgnoreCase("") || user_postal_code.equalsIgnoreCase("")){
+                        HideKeyboard();
+                        CustomField("Please fill all fields");
+                    } else if(!validatePhoneNumber(user_mobile_number)) {
+                        HideKeyboard();
+                        CustomField("Enter valid phone number");
+                    } else if(!isValidEmail(user_email)){
+                        HideKeyboard();
+                        CustomField("Enter valid email");
+                    } else if(!validatePhoneNumber(user_postal_code)){
+                        HideKeyboard();
+                        CustomField("Enter valid pincode");
+                    } else {
+                        callEbsKit();
                     }
-                    else if(user_name.trim().length()==0 &&  user_mobile_number.trim().length()>9 && user_email.trim().length()>0 && isValidEmail(user_email) &&  user_postal_code.trim().length()>5)
-                    {
-                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Invalid Details");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Please enter user name ");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.drawable.fail);
-
-                        // Setting OK Button
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-                                nameEditText.setText("");
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-                    }
-                    else if(user_name.trim().length()>0 && (user_mobile_number.trim().length()==0 || user_mobile_number.trim().length()<10)  && user_email.trim().length()>0 && isValidEmail(user_email) &&  user_postal_code.trim().length()>5)
-                    {
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Invalid Details");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Please enter mobile number ");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.drawable.fail);
-
-                        // Setting OK Button
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-                                mobileEditText.setText("");
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-                    }
-                    else if(user_name.trim().length()>0 && (user_mobile_number.trim().length()>9)  && (user_email.trim().length()==0 || !isValidEmail(user_email)) &&  user_postal_code.trim().length()>5)
-                    {
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Invalid Details");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Please enter valid email id ");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.drawable.fail);
-
-                        // Setting OK Button
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-                                emailEditText.setText("");
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-                    }
-                    else if(user_name.trim().length()>0 &&  (user_mobile_number.trim().length()>9)  && (user_email.trim().length()>0 && isValidEmail(user_email)) && (user_postal_code.trim().length()==0 || user_postal_code.trim().length()<6))
-                    {
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Invalid Details");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Please enter valid postal code ");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.drawable.fail);
-
-                        // Setting OK Button
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-                                postalEdiText.setText("");
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-                    }
-                    else
-                    {
-                        AlertDialog alertDialog = new AlertDialog.Builder(SummaryActivity.this).create();
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Invalid Details");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Please enter all valid details ");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.drawable.fail);
-
-                        // Setting OK Button
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-                    }
-
-
-
-                    //Intent in = new Intent(SummaryActivity.this, BuyProduct.class);
-                    //startActivity(in);
-                   // callEbsKit();
                 }
             });
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
@@ -329,39 +222,24 @@ public class SummaryActivity extends ActionBarActivity{
 
            // Log.i("ActvitiesRates","" +activities_rate);
             //Log.i("TransportationRates","" +transportation_rate);
-            int total_price = 0;
+
 
             if(flight_rate == 0)
             {
-                total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate);
+                total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" +transportation_rate) * ActivitiesDataArray.length);//no fo days;
             }
             else{
-                 total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate) + Integer.parseInt("" +flight_rate);
+                 total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" +transportation_rate) * ActivitiesDataArray.length) + Integer.parseInt("" +flight_rate);
             }
 
             double discount_val = 0.2;
-            Double total_discount = Double.parseDouble("" + total_price) * discount_val ;
+            total_discount = Double.parseDouble("" + total_price) * discount_val ;
             TextView package_v = (TextView) findViewById(R.id.price_txt);
             TextView total = (TextView) findViewById(R.id.total_p_txt);
             TextView total_dis = (TextView) findViewById(R.id.booking_price_txt);
             package_v.setText("Rs " + total_price);
             total.setText("Rs " + total_price);
             total_dis.setText("Rs " + total_discount.intValue());
-
-        SharedPreferences preferencess=getSharedPreferences("Preferences",MODE_PRIVATE);
-        Log.d("Name test4", "" + preferencess);
-        nameEditText.setText("" + preferencess.getString("f_name", null));
-        if(("" + preferencess.getString("mobile_number1", null)).equals(null) || ("" + preferencess.getString("mobile_number1", null)).equals("0"))
-        mobileEditText.setText("");
-        else
-        mobileEditText.setText("" + preferencess.getString("mobile_number1", null));
-        Log.d("email in summary", ""+preferencess.getString("email_id1", null));
-        Log.d("Email id in summary",""+preferencess.getString("email_id1",null));
-        if((""+preferencess.getString("email_id1",null)).equals("null"))
-            emailEditText.setText("");
-        else
-            emailEditText.setText(""+preferencess.getString("email_id1",null));
-
 
     }
 
@@ -375,7 +253,21 @@ public class SummaryActivity extends ActionBarActivity{
         }
     }
 
-        @Override
+    private static boolean validatePhoneNumber(String phoneNo) {
+        //validate phone numbers of format "1234567890"
+        if (phoneNo.matches("\\d{10}")) return true;
+            //validating phone number with -, . or spaces
+        else if(phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+            //validating phone number with extension length from 3 to 5
+        else if(phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
+            //validating phone number where area code is in braces ()
+        else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+            //return false if nothing matches the input
+        else return false;
+
+    }
+
+    @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
             //getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -388,12 +280,6 @@ public class SummaryActivity extends ActionBarActivity{
             // automatically handle clicks on the Home/Up button, so long
             // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-           /* if (id == R.id.action_settings) {
-                return true;
-            }*/
-
             return super.onOptionsItemSelected(item);
         }
 
@@ -401,21 +287,53 @@ public class SummaryActivity extends ActionBarActivity{
     private void callEbsKit() {
 
         /** Payment Amount Details */
-
         /** Mandatory */
         // Total Amount
-        totalamount =1;
-        PaymentRequest.getInstance().setTransactionAmount(totalamount);
-
+        totalamount = Math.round( total_discount * 100.0 ) / 100.0;
+        PaymentRequest.getInstance().setTransactionAmount(Math.round( total_discount * 100.0 ) / 100.0);
         /** Mandatory */
         // Reference No
         PaymentRequest.getInstance().setReferenceNo("223");
         //PaymentRequest.getInstance().
-
         /** Initializing the EBS Gateway */
         EBSPayment.getInstance().init(SummaryActivity.this, ACC_ID, SECRET_KEY, Config.Mode.ENV_LIVE, Config.Encryption.ALGORITHM_MD5, HOST_NAME);
     }
 
+
+    public void RetryInternet(){
+        final Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+        // Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
+    }
+
+    public void CustomField(String message){
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, message, Snackbar.LENGTH_SHORT);
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+        View sbView = snackbar.getView();
+        sbView.bringToFront();
+    }
+
+    public void HideKeyboard(){
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
 
 }

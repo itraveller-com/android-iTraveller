@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/imgMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
 
@@ -26,53 +26,34 @@
                 android:id="@+id/myImageViewText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/thumbnail"
-                android:layout_alignTop="@+id/thumbnail"
-                android:layout_alignRight="@+id/thumbnail"
-                android:layout_alignBottom="@+id/thumbnail"
-                android:layout_margin="1dp"
-                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Selected"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="30sp"
-                android:textColor="#ffffff" />
+                android:paddingBottom="60dp"  />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/check"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="60dp"
-            android:layout_marginLeft="35dp"
-            android:layout_gravity="bottom">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:visibility="visible">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:id="@+id/checkBox"
-                    android:checked="false"
-                    android:clickable="false"
-                    android:padding="10dp"
-                    android:layout_marginTop="20dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:orientation="vertical"
-                android:id="@+id/h">
-
-            </LinearLayout>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:id="@+id/checkBox"
+                android:checked="false"
+                android:clickable="false"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -101,13 +82,6 @@
                 android:alpha=".87"
                 android:id="@+id/title" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="2.5dp"
-            android:layout_gravity="bottom"
-            android:background="@android:color/white">
         </LinearLayout>
 
     </FrameLayout>

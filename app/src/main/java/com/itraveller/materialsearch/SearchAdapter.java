@@ -9,46 +9,54 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.itraveller.R;
+import com.itraveller.model.RecentResults;
+import com.itraveller.model.SearchBarModel;
 
 import java.util.ArrayList;
 
 public class SearchAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<String> mCountries;
+    private ArrayList<SearchBarModel> mCountries;
     private LayoutInflater mLayoutInflater;
     private boolean mIsFilterList;
 
-    public SearchAdapter(Context context, ArrayList<String> countries, boolean isFilterList) {
+    public SearchAdapter(Context context, ArrayList<SearchBarModel> countries, boolean isFilterList) {
         this.mContext = context;
         this.mCountries =countries;
         this.mIsFilterList = isFilterList;
     }
 
 
-    public void updateList(Context context, ArrayList<String> filterList, boolean isFilterList) {
+    public void updateList(Context context, ArrayList<SearchBarModel> filterList, boolean isFilterList) {
         this.mContext = context;
         this.mCountries = filterList;
         this.mIsFilterList = isFilterList;
         notifyDataSetChanged ();
     }
 
-    @Override
     public int getCount() {
         return mCountries.size();
     }
 
     @Override
-    public String getItem(int position) {
-        return mCountries.get(position);
+    public Object getItem(int i) {
+        return mCountries.get(i).getValue();
+    }
+    public Object getItemKeyAndValue(int i) {
+        return mCountries.get(i).getValue() + ":" + mCountries.get(i).getKey();
     }
 
-    @Override
+
+    /*@Override
+    public String getItem(int position) {
+        return mCountries.get(position);
+    }*/
+
     public long getItemId(int i) {
         return 0;
     }
 
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         ViewHolder holder = null;
@@ -66,7 +74,7 @@ public class SearchAdapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.txtCountry.setText(mCountries.get(position));
+        holder.txtCountry.setText(mCountries.get(position).getValue());
 
         Drawable searchDrawable,recentDrawable;
 

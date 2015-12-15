@@ -76,6 +76,7 @@ public class LandingActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.landing_listview, container, false);
 
         String url = Constants.API_LandingActivity_Region; //"http://stage.itraveller.com/backend/api/v1/region";
@@ -144,6 +145,8 @@ public class LandingActivity extends Fragment {
                 getActivity().finish();
             }
         });
+
+
 
         // load the animation
     //    animSlidedown = AnimationUtils.loadAnimation(getActivity(),
@@ -279,7 +282,8 @@ public class LandingActivity extends Fragment {
 
     public void searchJson(String url)
     {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
+        // Defined Array values to show in ListView
+         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
 
             @Override
@@ -336,6 +340,8 @@ public class LandingActivity extends Fragment {
         super.onStop();
         //EasyTracker.getInstance(this).activityStop(this);
     }
+
+
 
 
 

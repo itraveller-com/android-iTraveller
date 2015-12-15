@@ -36,6 +36,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     public static int temp_hotel_id;
 
+    public static int count=0;
     int check_bit=0;
     ArrayList<HotelModel> arrayModelClasses = new ArrayList<HotelModel>();
 
@@ -76,6 +77,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
     @Override
     public Object instantiateItem(View collection, final int position) {
+
         Log.d("PageSelection", "PageSelectionViewPager instatntiate " + position);
         // Inflating layout
         LayoutInflater inflater = (LayoutInflater) collection.getContext()
@@ -91,6 +93,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         TextView itemText = (TextView) view.findViewById(R.id.title);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.thumbnail);
+        image.setErrorImageResId(R.drawable.default_img);
 
         RelativeLayout rl=(RelativeLayout) view.findViewById(R.id.check);
 
@@ -145,9 +148,12 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if(count==0)
                     mPagerCheckBoxChangedListner.OnImageClickListenerCustomPager(position);
                     //mPagerCheckBoxChangedListner1.OnImageClickListenerCustomPager(position);
 
+                    count++;
                 }
             });
 
@@ -156,6 +162,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
             e1.printStackTrace();
         }
         ((ViewPager) collection).addView(view, 0);
+       // notifyDataSetChanged();
         return view;
 
     }

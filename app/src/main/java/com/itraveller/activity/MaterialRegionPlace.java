@@ -98,15 +98,6 @@ public class MaterialRegionPlace extends ActionBarActivity {
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setRefreshing(true);
 
-        //Fab Floating Button
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fab.hide();
-            }
-        });
 
         //Adding RecyclerView Object
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -123,50 +114,12 @@ public class MaterialRegionPlace extends ActionBarActivity {
 
 
     public void onBackPressed() {
-    /*    if(filter_btn.getText().toString().equalsIgnoreCase("Apply Filter"))
-        {
-            filter_details.setVisibility(View.GONE);
-            filter_btn.setText("Filter");
-        }
-        else
-        {
-     */       SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+        SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
         SharedPreferences.Editor editor=prefs.edit();
+        editor.putString("back","1").commit();
         Intent i=new Intent(getApplicationContext(),MainActivity.class);
-        Log.d("Var value checking ",""+prefs.getString("var",null));
-        if(prefs.getInt("flag",0)==1)
-        {
-            if (("" + prefs.getString("var", null)).equals("y")) {
-
-                editor.putString("Profile","temp");
-                editor.putString("ID","temp");
-                editor.commit();
-
-                startActivity(i);
-                finish();
-
-            }
-            else
-            {
-                editor.putString("Profile","login_from_server");
-                editor.putString("ID", "login_from_server");
-                editor.commit();
-
-                startActivity(i);
-                finish();
-            }
-        }
-        else
-        {
-            editor.putString("Profile","unregistered");
-            editor.putString("ID","unregistered");
-            editor.commit();
-
-            startActivity(i);
-            finish();
-        }
-
-        //    }
+        startActivity(i);
+        finish();
     }
 
 
@@ -184,6 +137,7 @@ public class MaterialRegionPlace extends ActionBarActivity {
 
     private void refreshContent() {
         mSwipeRefreshLayout.setRefreshing(true);
+        regionList.clear();
         JsonCallForRegion();
     }
 
@@ -198,6 +152,7 @@ public class MaterialRegionPlace extends ActionBarActivity {
                     int index =0;
                     //Log.d("Boolean", "" + response.getJSONObject("Itinerary"));
                     JSONObject resobj = response.getJSONObject("Itinerary");
+                    Log.v("ItineraryData","" + resobj);
                     Iterator<?> keys = resobj.keys();
                     while(keys.hasNext() ) {
                         String key = (String)keys.next();
@@ -219,7 +174,9 @@ public class MaterialRegionPlace extends ActionBarActivity {
                             region_adp.setDeparture_Port_Id(jsonobj.getJSONObject("Master").getInt("Departure_Port_Id"));
                             region_adp.setItinerary_Id(jsonobj.getJSONObject("Master").getInt("Itinerary_Id"));
                             region_adp.setDuration_Day(jsonobj.getJSONObject("Master").getInt("Duration_Day"));
-                            Log.d("No of nights testing in package",""+jsonobj.getJSONObject("Master").getInt("Duration_Day"));
+                            region_adp.setRegionString(jsonobj.getJSONObject("Master").getString("Region_String"));
+                            Log.v("RegionStringFromJSON",""+jsonobj.getJSONObject("Master").getString("Region_String"));
+                            Log.d("No of Nights",""+jsonobj.getJSONObject("Master").getInt("Duration_Day"));
                             region_adp.setPrice(jsonobj.getJSONObject("Master").getInt("Price"));
 
                             SharedPreferences.Editor editor2=prefss.edit();
@@ -256,9 +213,6 @@ public class MaterialRegionPlace extends ActionBarActivity {
                                     JSONObject destobj = jsonobj.getJSONObject("Destination").getJSONObject(destinationKey);
                                     destinationValue = destobj.getString("name");
                                     destinationCount = destobj.getString("count");
-
-                                    Log.d("Rohan test test",""+destobj.getString("count"));
-
                                     i++;
                                 }
                                 else{
@@ -266,9 +220,6 @@ public class MaterialRegionPlace extends ActionBarActivity {
                                     JSONObject destobj = jsonobj.getJSONObject("Destination").getJSONObject(destinationKey);
                                     destinationValue = destinationValue + "," + destobj.getString("name").toString();
                                     destinationCount = destinationCount + "," + destobj.getString("count").toString();
-
-                                    Log.d("Rohan test test1",""+destobj.getString("count"));
-                                    Log.d("Rohan test test2",""+destobj.getString("count").toString());
 
 
                                 }

@@ -7,7 +7,6 @@ package com.itraveller.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +41,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     int swap_value = 0;
     //ImageView left_arrow,right_arrow;
     int single_loop_bit =0;
-   //ViewPagerAdapter viewpageradapter;
+    //ViewPagerAdapter viewpageradapter;
     SharedPreferences user_selected_data;
     SharedPreferences mysettings;
     ImageView[] left_arrow,right_arrow;
@@ -50,7 +49,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
     int checkbit = 0;
     int CheckBoolean = 0;
 
-  HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
+    HotelActivity.pagerCheckBoxChangedListner1 ListviewChangedListener;
 
     private Context context;
     private ArrayList<String> navigationItems;
@@ -74,7 +73,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         for(int index=0;index<navigationItems.size();index++){
             mHotelModels.put(""+index,new ArrayList<HotelModel>());
         }
-
 
         mPagerPositions= new HashMap<Integer, Integer>();
         //mViewPagerAdapter=new ViewPagerAdapter[navigationItems.size()];
@@ -108,15 +106,15 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView( final int position, View convertView, ViewGroup parent) {
-       // ViewPager vp;
+        // ViewPager vp;
 
         if (convertView == null) {
-          // setSelectedIndex(position);
+            // setSelectedIndex(position);
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hotel_pageviewer, null);
 
-           // mPagerPositions.put(position,0);
+            // mPagerPositions.put(position,0);
 
         }else{
 
@@ -146,51 +144,50 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         vp[position].setOnClickListener(new ViewPagerClickListner(position));
         vp[position].setOnPageChangeListener(new ViewPageChangeListner(position));
         if(mPagerPositions.get(position)!=null){
-          //  Log.e("Pager position ", "parent " + position + "child position " + mPagerPositions.get(position));
-             vp[position].setCurrentItem(mPagerPositions.get(position));
+            //  Log.e("Pager position ", "parent " + position + "child position " + mPagerPositions.get(position));
+            vp[position].setCurrentItem(mPagerPositions.get(position));
         }
      /*   vp[position].setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             @Override
             public void onPageSelected(int childposition) {
                       Log.d("PAGER ", "PAGER SCROLL PARENT POSITION " + childposition + "parent position " + position);
-
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });*/
 
-     if(mHotelModels.get(""+position).size()<1){
+        if(mHotelModels.get(""+position).size()<1){
 
-        left_arrow[position].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Left arrow", "hi");
-                vp[position].setCurrentItem(vp[position].getCurrentItem() - 1);
-            }
-        });
+            left_arrow[position].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("Left arrow", "hi");
+                    vp[position].setCurrentItem(vp[position].getCurrentItem() - 1);
 
-        right_arrow[position].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Right arrow", "bye");
-                vp[position].setCurrentItem(vp[position].getCurrentItem() + 1);
-            }
-        });
+                    ViewPagerAdapter.count=0;
+                }
+            });
 
-        Log.d("Hotel12345", "" + navigationItems.get(position));
-         airportJSONForText(navigationItems.get(position), position);
+            right_arrow[position].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("Right arrow", "bye");
+                    vp[position].setCurrentItem(vp[position].getCurrentItem() + 1);
+
+                    ViewPagerAdapter.count=0;
+                }
+            });
+
+
+            airportJSONForText(navigationItems.get(position), position);
             ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
-         Log.i("TestingRound","Testing123" + modelRow.size());
+            Log.i("TestingRound","Testing123" + modelRow.size());
 
-         if(modelRow.size() == 0){
+            if(modelRow.size() == 0){
                 vp[position].setVisibility(View.GONE);
                 right_arrow[position].setVisibility(View.GONE);
                 left_arrow[position].setVisibility(View.GONE);
@@ -226,25 +223,25 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 //             }
 //         });
 
-     }else{
-        // mViewPagerAdapter[position] = new ViewPagerAdapter(mHotelModels.get(""+position));
-        // vp[position].setAdapter(mViewPagerAdapter[position]);
-        // for(int index=0;index<navigationItems.size();index++) {
-          //   if(mViewPagerAdapter[index]!=null) {
-                //mViewPagerAdapter[position].notifyDataSetChanged();
-                // vp[position].setAdapter(mViewPagerAdapter[position]);
+        }else{
+            // mViewPagerAdapter[position] = new ViewPagerAdapter(mHotelModels.get(""+position));
+            // vp[position].setAdapter(mViewPagerAdapter[position]);
+            // for(int index=0;index<navigationItems.size();index++) {
+            //   if(mViewPagerAdapter[index]!=null) {
+            //mViewPagerAdapter[position].notifyDataSetChanged();
+            // vp[position].setAdapter(mViewPagerAdapter[position]);
             // }
 //             if (mPagerPositions.get(position) != null)
 //                 vp[position].setCurrentItem(mPagerPositions.get(position));
-         //}
-     }
+            //}
+        }
 
         //Log.i("PageSelection" , "PageSelection" + position);
 
-       // vp[position].setTag(position);
+        // vp[position].setTag(position);
 
 
-       // if(mViewPagerAdapter[position]==null)
+        // if(mViewPagerAdapter[position]==null)
 
 //        Integer pagerPosition = mPagerPositions.get(position);
 //        if (pagerPosition != null) {
@@ -252,7 +249,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
 //        }
 //        Log.i("PagerPosition",""+pagerPosition);
         /*//Integer pagerPosition = selectedIndex;
-
         if (pagerPosition != null) {
             vp.setCurrentItem(pagerPosition);
         }*/
@@ -309,62 +305,58 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         HotelModel hotel_model = new HotelModel();
                         for(int index = 0;index < defaultHotelRoom.size();index++) {
                             if(flag_bit  == 0) {
-                            hotel_model.setHotel_Id(jsonarr.getInt("Hotel_Id"));
-                            hotel_model.setRegion_Id(jsonarr.getString("Region_Id"));
-                            hotel_model.setDestination_Id(jsonarr.getString("Destination_Id"));
-                            hotel_model.setHotel_Name(jsonarr.getString("Hotel_Name"));
-                            hotel_model.setHotel_Email(jsonarr.getString("Hotel_Email"));
-                            hotel_model.setHotel_Description(jsonarr.getString("Hotel_Description"));
-                            hotel_model.setHotel_Tripadvisor(jsonarr.getString("Hotel_Tripadvisor"));
-                            hotel_model.setHotel_Meal_Plan(jsonarr.getString("Hotel_Meal_Plan"));
-                            hotel_model.setHotel_Image(jsonarr.getString("Hotel_Image"));
-                            hotel_model.setHotel_Status(jsonarr.getInt("Hotel_Status"));
-                            hotel_model.setHotel_Star_Rating(jsonarr.getString("Hotel_Star_Rating"));
-                            hotel_model.setHotel_Address(jsonarr.getString("Hotel_Address"));
-                            hotel_model.setHotel_Latitude(jsonarr.getString("Hotel_Latitude"));
-                            hotel_model.setHotel_Longitude(jsonarr.getString("Hotel_Longitude"));
-                            hotel_model.setHotel_URL(jsonarr.getString("Hotel_URL"));
-                            hotel_model.setHotel_Number(jsonarr.getString("Hotel_Number"));
-                            hotel_model.setDistrict(jsonarr.getString("District"));
-                            hotel_model.setState(jsonarr.getString("State"));
-                            hotel_model.setCountry(jsonarr.getString("Country"));
-                            hotel_model.setPincode(jsonarr.getString("Pincode"));
-                            hotel_model.setDinner(jsonarr.getInt("Dinner"));
-                            hotel_model.setLunch(jsonarr.getInt("Lunch"));
-                            hotel_model.setExtra_Adult(jsonarr.getInt("Extra_Adult"));
-                            hotel_model.setVisibility(jsonarr.getInt("Visibility"));
-                            hotel_model.setWebsite(jsonarr.getString("Website"));
-                            hotel_model.setB2C_Flag(jsonarr.getInt("B2C_Flag"));
-                            hotel_model.setTrip_Image(jsonarr.getString("Trip_Image"));
-                            hotel_model.setTrip_Script(jsonarr.getString("Trip_Script"));
-                            hotel_model.setAccount_Holder(jsonarr.getString("Account_Holder"));
-                            hotel_model.setAccount_Number(jsonarr.getString("Account_Number"));
-                            hotel_model.setBank(jsonarr.getString("Bank"));
-                            hotel_model.setIFSC_Code(jsonarr.getString("IFSC_Code"));
-                            hotel_model.setDate(jsonarr.getString("Date"));
-                            hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
-                            String[] value = defaultHotelRoom.get(index).trim().split(",");
-                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id"))
-                                {
-                                        hotel_model.setChecked(true);
-                                    Log.d("Testing hotel page1111", "hello1");
-                                        hotel_model.setLunch(Integer.parseInt(value[4]));
-                                        hotel_model.setDinner(Integer.parseInt(value[5]));
-                                        swap_value = i;
-                                        flag_bit = 1;
-                                        CheckBoolean =1;
-                                }
-                                else
-                                {
+                                hotel_model.setHotel_Id(jsonarr.getInt("Hotel_Id"));
+                                hotel_model.setRegion_Id(jsonarr.getString("Region_Id"));
+                                hotel_model.setDestination_Id(jsonarr.getString("Destination_Id"));
+                                hotel_model.setHotel_Name(jsonarr.getString("Hotel_Name"));
+                                hotel_model.setHotel_Email(jsonarr.getString("Hotel_Email"));
+                                hotel_model.setHotel_Description(jsonarr.getString("Hotel_Description"));
+                                hotel_model.setHotel_Tripadvisor(jsonarr.getString("Hotel_Tripadvisor"));
+                                hotel_model.setHotel_Meal_Plan(jsonarr.getString("Hotel_Meal_Plan"));
+                                hotel_model.setHotel_Image(jsonarr.getString("Hotel_Image"));
+                                hotel_model.setHotel_Status(jsonarr.getInt("Hotel_Status"));
+                                hotel_model.setHotel_Star_Rating(jsonarr.getString("Hotel_Star_Rating"));
+                                hotel_model.setHotel_Address(jsonarr.getString("Hotel_Address"));
+                                hotel_model.setHotel_Latitude(jsonarr.getString("Hotel_Latitude"));
+                                hotel_model.setHotel_Longitude(jsonarr.getString("Hotel_Longitude"));
+                                hotel_model.setHotel_URL(jsonarr.getString("Hotel_URL"));
+                                hotel_model.setHotel_Number(jsonarr.getString("Hotel_Number"));
+                                hotel_model.setDistrict(jsonarr.getString("District"));
+                                hotel_model.setState(jsonarr.getString("State"));
+                                hotel_model.setCountry(jsonarr.getString("Country"));
+                                hotel_model.setPincode(jsonarr.getString("Pincode"));
+                                hotel_model.setDinner(jsonarr.getInt("Dinner"));
+                                hotel_model.setLunch(jsonarr.getInt("Lunch"));
+                                hotel_model.setExtra_Adult(jsonarr.getInt("Extra_Adult"));
+                                hotel_model.setVisibility(jsonarr.getInt("Visibility"));
+                                hotel_model.setWebsite(jsonarr.getString("Website"));
+                                hotel_model.setB2C_Flag(jsonarr.getInt("B2C_Flag"));
+                                hotel_model.setTrip_Image(jsonarr.getString("Trip_Image"));
+                                hotel_model.setTrip_Script(jsonarr.getString("Trip_Script"));
+                                hotel_model.setAccount_Holder(jsonarr.getString("Account_Holder"));
+                                hotel_model.setAccount_Number(jsonarr.getString("Account_Number"));
+                                hotel_model.setBank(jsonarr.getString("Bank"));
+                                hotel_model.setIFSC_Code(jsonarr.getString("IFSC_Code"));
+                                hotel_model.setDate(jsonarr.getString("Date"));
+                                hotel_model.setAdmin_Id(jsonarr.getString("admin_Id"));
+                                String[] value = defaultHotelRoom.get(index).trim().split(",");
+                                if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
+                                    hotel_model.setChecked(true);
+                                    hotel_model.setLunch(Integer.parseInt(value[4]));
+                                    hotel_model.setDinner(Integer.parseInt(value[5]));
+                                    swap_value = i;
+                                    flag_bit = 1;
+                                    CheckBoolean =1;
+                                } else {
                                     hotel_model.setChecked(false);
                                     hotel_model.setLunch(0);
                                     hotel_model.setDinner(0);
-                                    }
+                                }
                             }
                             //hotel_model.setChecked(true);
 
                         }
-                      //
+                        //
 
 
                         if(i == (response.getJSONArray("payload").length() - 1)){
@@ -374,23 +366,23 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                         }
                         else{
                             //if(checkbit == 0) {
-                                hotelList.add(hotel_model);
-                                checkbit = 1;
+                            hotelList.add(hotel_model);
+                            checkbit = 1;
                             //}
                         }
                         flag_bit =0;
                     }
- //                   Collections.swap(hotelList, 0, swap_value);  //error line
+                    //                   Collections.swap(hotelList, 0, swap_value);  //error line
 
                     if(response.getJSONArray("payload").length()!=0){
                         HotelModel hotel_model = new HotelModel();
                         hotelList.add(OwnAccomadation(hotel_model, CheckBoolean, hotelList.size()));
-                     Collections.swap(hotelList, 0, swap_value);
+                        Collections.swap(hotelList, 0, swap_value);
 
                         swap_value = 0;
-                    //added on 12/08/2015
-                    //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
-                    mViewPagerAdapter.notifyDataSetChanged();
+                        //added on 12/08/2015
+                        //HotelActivity.listViewPagerAdapter.notifyDataSetChanged();
+                        mViewPagerAdapter.notifyDataSetChanged();
                     }
                     mHotelModels.put(position + "", hotelList);
                     ArrayList<HotelModel> modelRow=mHotelModels.get("" + position);
@@ -447,7 +439,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         @Override
         public void onClick(View view) {
 
-          Log.e("Pager position ", "parent " + postionClicked + "child position " + mPagerPositions.get(postionClicked) + "Viewpager.Currentpostion" +vp[postionClicked].getCurrentItem());
+            Log.e("Pager position ", "parent " + postionClicked + "child position " + mPagerPositions.get(postionClicked) + "Viewpager.Currentpostion" +vp[postionClicked].getCurrentItem());
             vp[postionClicked].getCurrentItem();
 
         }
@@ -476,9 +468,9 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         }
     }
 
-     interface pagerCheckBoxChangedListner{
+    interface pagerCheckBoxChangedListner{
         public void OnCheckedChangeListenerCustomPager(int childPosition, boolean isChecked);
-         public  void OnImageClickListenerCustomPager(int childpostion);
+        public  void OnImageClickListenerCustomPager(int childpostion);
     }
 
 
@@ -496,7 +488,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             for(int index =0 ; index<modelRow.size();index++) {
                 if(childPosition==index) {
                     modelRow.get(index).setChecked(isChecked);
-                    Log.d("Testing hotel page","hello");
                     mHotelModels.put("" + groupPosition, modelRow);
                 }
                 else
@@ -510,7 +501,7 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
             ListviewChangedListener.OnImageClickListenerCustomPager(childpostion, groupPosition );
             //ArrayList<HotelModel> modelRow=mHotelModels.get(""+groupPosition);
 
-          //  Log.i("PagerView Clicked",groupPosition+"Clicked"+childpostion+ " Check "+  modelRow.get(childpostion).getHotel_Name());
+            //  Log.i("PagerView Clicked",groupPosition+"Clicked"+childpostion+ " Check "+  modelRow.get(childpostion).getHotel_Name());
 
 
         }
@@ -552,7 +543,6 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
         hotel_model.setAdmin_Id("");
         if(checkvalue == 0) {
             hotel_model.setChecked(true);
-            Log.d("Testing hotel pageiii","helloii");
             swap_value = swapvalueat;
         }
         else

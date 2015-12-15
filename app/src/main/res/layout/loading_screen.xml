@@ -19,14 +19,6 @@
             android:layout_gravity="center_horizontal"
             android:animationResolution="@android:integer/status_bar_notification_info_maxnum" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Loading..."
-            android:id="@+id/textView16"
-            android:layout_gravity="center"
-            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>

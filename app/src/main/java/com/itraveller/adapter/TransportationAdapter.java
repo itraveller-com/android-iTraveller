@@ -3,6 +3,8 @@ package com.itraveller.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,7 @@ import com.itraveller.constant.Constants;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
-public class TransportationAdapter extends BaseAdapter {
+public class TransportationAdapter extends RecyclerView.Adapter<TransportationAdapter.ViewHolder> {
     private Activity activity;
     private LayoutInflater inflater;
     private List<TransportationModel> TransportationItems;
@@ -33,67 +35,43 @@ public class TransportationAdapter extends BaseAdapter {
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
-
     int flag_bit =0;
 
     public TransportationAdapter(Activity activity, List<TransportationModel> TransportationItems) {
         this.activity = activity;
         this.TransportationItems = TransportationItems;
     }
- 
-    @Override
+
     public int getCount() {
         return TransportationItems.size();
     }
- 
-    @Override
+
     public Object getItem(int location) {
         return TransportationItems.get(location);
     }
- 
+
     @Override
-    public long getItemId(int position) {
-        return position;
+    public ViewHolder onCreateViewHolder(ViewGroup convertView, final int position) {
+        View v = LayoutInflater.from(convertView.getContext()).inflate(R.layout.transportation_row, convertView, false);
+        return new ViewHolder(v);
     }
- 
+
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder = null;
- 
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.transportation_row, null);
-            holder.radioButton = (RadioButton) convertView.findViewById(R.id.radio_btn);
-            holder.title = (TextView) convertView.findViewById(R.id.title);
-            holder.textView_persons = (TextView) convertView.findViewById(R.id.textView_persons);
-            holder.textView_Km = (TextView) convertView.findViewById(R.id.textView_Km);
-            convertView.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder)convertView.getTag();
-        }
-
-        if (imageLoader == null)
+    public void onBindViewHolder(ViewHolder holder,  final int position) {
+        /*if (imageLoader == null) {
             imageLoader = AppController.getInstance().getImageLoader();
+        }*/
 
 
-        SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-            _screen_height = prefs.getInt("Screen_Height", 0)-
-                            (prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
-            Log.i("iTraveller", "Screen Height: "+_screen_height);
-            int width = prefs.getInt("Screen_Width", 0); //0 is the default value.
+        /*SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        _screen_height = prefs.getInt("Screen_Height", 0)-
+                (prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
+        Log.i("iTraveller", "Screen Height: " + _screen_height);
+        int width = prefs.getInt("Screen_Width", 0); //0 is the default value.
 
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.thumbnail);
-
-        FrameLayout frame_lay = (FrameLayout) convertView.findViewById(R.id.imgMain);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,_screen_height/2);
-        frame_lay.setLayoutParams(lp);
+        holder.frame_lay.setLayoutParams(lp); */
+
         SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
 
         final SharedPreferences prefsData = activity.getSharedPreferences("SavedData", activity.MODE_PRIVATE);
@@ -103,11 +81,12 @@ public class TransportationAdapter extends BaseAdapter {
         // getting data for the row
         final TransportationModel m = TransportationItems.get(position);
 
-        // thumbnail image
-    //    thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
-        thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , imageLoader);
+        //thumbnail image
+        //thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
+        holder.thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , imageLoader);
+        holder.thumbNail.setErrorImageResId(R.drawable.no_transportation);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
-        // title
+        //title
         holder.title.setText(m.getTitle());
         holder.textView_persons.setText("Ideal for upto " + m.getMax_Person() + "persons");
         holder.textView_Km.setText("\u20B9"+"" + m.getCost());
@@ -121,7 +100,6 @@ public class TransportationAdapter extends BaseAdapter {
                 editor.putString("TransportationName", "" + m.getTitle());
                 editor.putString("TransportationCost", "" + m.getCost());
                 editor.commit();
-
 
                 holder.radioButton.setChecked(true);
                 mSelectedPosition = position;
@@ -139,10 +117,8 @@ public class TransportationAdapter extends BaseAdapter {
                 editor.putString("TransportationID", "" + m.getTransportation_Id());
                 editor.putString("TransportationName", "" + m.getTitle());
                 editor.putString("TransportationCost", "" + m.getCost());
-                Log.d("Transportation test3",""+m.getCost());
                 editor.commit();
 
-                Log.d("TransportationTest1","hi");
                 prefsData.edit().putString("TransportationID", "" + m.getTransportation_Id()).commit();
                 if(position != mSelectedPosition && mSelectedRB != null){
                     mSelectedRB.setChecked(false);
@@ -169,15 +145,37 @@ public class TransportationAdapter extends BaseAdapter {
             holder.radioButton.setChecked(false);
         }*/
 
-       // notifyDataSetChanged();
-        return convertView;
-
+        // notifyDataSetChanged();
     }
 
-    private class ViewHolder {
-        RadioButton radioButton;
-        TextView title;
-        TextView textView_persons;
-        TextView textView_Km;
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return TransportationItems.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        public RadioButton radioButton;
+        public TextView title;
+        public TextView textView_persons;
+        public TextView textView_Km;
+        public NetworkImageView thumbNail;
+        public FrameLayout frame_lay;
+        public CardView cardView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            radioButton = (RadioButton) itemView.findViewById(R.id.radio_btn);
+            title = (TextView) itemView.findViewById(R.id.title);
+            textView_persons = (TextView) itemView.findViewById(R.id.textView_persons);
+            textView_Km = (TextView) itemView.findViewById(R.id.textView_Km);
+            thumbNail = (NetworkImageView) itemView.findViewById(R.id.thumbnail);
+            frame_lay = (FrameLayout) itemView.findViewById(R.id.imgMain);
+            cardView = (CardView) itemView.findViewById(R.id.card_view);
+        }
     }
 }

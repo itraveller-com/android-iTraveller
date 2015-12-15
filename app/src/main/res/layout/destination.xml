@@ -9,17 +9,7 @@
     android:layout_height="match_parent"
     android:background="@color/filterButtonBG"
     tools:context=".DragAndSort" >
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:elevation="4dp"
-        android:src="@drawable/ic_action_search"
-        fab:fab_colorNormal="@color/green"
-        fab:fab_colorPressed="@color/filterbtn"
-        fab:fab_colorRipple="@color/lightgreen" />
+
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -50,7 +40,8 @@
             android:gravity="center"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/container_toolbar"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:visibility="gone">
 
             <ImageButton
                 android:layout_width="40dp"
@@ -79,235 +70,264 @@
             <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:background="@color/white"
-                android:weightSum="5"
-                android:layout_weight="0.50">
+                android:weightSum="5">
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/thumbnail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:layout_weight="2"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="fitXY"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/duration_rp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/black"
+                    android:alpha="0.7"></LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="5 nights Kerala Package"
+                    android:id="@+id/duration_rp"
+                    android:textSize="30sp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:layout_above="@+id/title_rp"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Cochin - Munnar - Wayanad - Alleppey"
+                    android:id="@+id/title_rp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView" >
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="bottom"
-                    android:paddingBottom="10dp">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Large Text"
-                        android:id="@+id/duration_rp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@android:color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:padding="5dp"
+                        android:background="@color/white"
+                        android:weightSum="5">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Small Text"
-                        android:id="@+id/title_rp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@android:color/white" />
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            android:id="@+id/from_home_airport"
+                            android:layout_weight="1.5">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView11"
+                                android:background="@drawable/ic_location"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:id="@+id/from_home_destination"
+                                android:textSize="13dp"
+                                android:textIsSelectable="true"
+                                android:text="Mumbai"
+                                android:gravity="center"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/onward_icon"
+                            android:layout_weight="2"></LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/from_travel_port"
+                            android:layout_weight="1.5">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView12"
+                                android:background="@drawable/ic_location"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:id="@+id/from_travel_destination"
+                                android:textSize="13dp"
+                                android:text="Bangalore"
+                                android:gravity="center"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.mobeta.android.dslv.DragSortListView
+                        android:id="@+id/listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:dividerHeight="2dp"
+                        android:paddingBottom="0dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="0dp"
+                        dslv:collapsed_height="2dp"
+                        dslv:drag_enabled="true"
+                        dslv:drag_handle_id="@id/drag_handle"
+                        dslv:drag_scroll_start="0.33"
+                        dslv:drag_start_mode="onLongPress"
+                        dslv:float_alpha="0.6"
+                        dslv:max_drag_scroll_speed="0.5"
+                        dslv:remove_enabled="true"
+                        dslv:remove_mode="flingRemove"
+                        dslv:slide_shuffle_speed="0.3"
+                        dslv:sort_enabled="true"
+                        dslv:track_drag_sort="false"
+                        dslv:use_default_controller="true"
+                        android:visibility="visible"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:padding="5dp"
+                        android:background="@color/white"
+                        android:weightSum="5">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            android:id="@+id/to_travel_port"
+                            android:layout_weight="1.5">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView"
+                                android:background="@drawable/ic_location" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:id="@+id/to_travel_destination"
+                                android:textSize="13dp"
+                                android:gravity="center"
+                                android:text="Bangalore" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/onward_icon"
+                            android:layout_weight="2.0" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/to_home_airport"
+                            android:focusable="false"
+                            android:layout_weight="1.5">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView3"
+                                android:background="@drawable/ic_location" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:id="@+id/to_home_destination"
+                                android:textSize="13dp"
+                                android:gravity="center"
+                                android:text="Mumbai" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
-            </RelativeLayout>
-
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/scrollView" >
-
             </ScrollView>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:padding="5dp"
-                    android:background="@color/white"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center"
-                        android:id="@+id/from_home_airport"
-                        android:layout_weight="1.5">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView11"
-                            android:background="@drawable/ic_location"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:id="@+id/from_home_destination"
-                            android:textSize="13dp"
-                            android:textIsSelectable="true"
-                            android:text="Mumbai"
-                            android:gravity="center"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/onward_icon"
-                        android:layout_weight="2"></LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:id="@+id/from_travel_port"
-                        android:layout_weight="1.5">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView12"
-                            android:background="@drawable/ic_location"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:id="@+id/from_travel_destination"
-                            android:textSize="13dp"
-                            android:text="Bangalore"
-                            android:gravity="center"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <com.mobeta.android.dslv.DragSortListView
-                    android:id="@+id/listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:dividerHeight="2dp"
-                    android:paddingBottom="0dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="0dp"
-                    dslv:collapsed_height="2dp"
-                    dslv:drag_enabled="true"
-                    dslv:drag_handle_id="@id/drag_handle"
-                    dslv:drag_scroll_start="0.33"
-                    dslv:drag_start_mode="onLongPress"
-                    dslv:float_alpha="0.6"
-                    dslv:max_drag_scroll_speed="0.5"
-                    dslv:remove_enabled="true"
-                    dslv:remove_mode="flingRemove"
-                    dslv:slide_shuffle_speed="0.3"
-                    dslv:sort_enabled="true"
-                    dslv:track_drag_sort="false"
-                    dslv:use_default_controller="true"
-                    android:visibility="visible"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:padding="5dp"
-                    android:background="@color/white"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center"
-                        android:id="@+id/to_travel_port"
-                        android:layout_weight="1.5">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView"
-                            android:background="@drawable/ic_location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:id="@+id/to_travel_destination"
-                            android:textSize="13dp"
-                            android:gravity="center"
-                            android:text="Bangalore" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/onward_icon"
-                        android:layout_weight="2.0" />
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:id="@+id/to_home_airport"
-                        android:focusable="false"
-                        android:layout_weight="1.5">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView3"
-                            android:background="@drawable/ic_location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:id="@+id/to_home_destination"
-                            android:textSize="13dp"
-                            android:gravity="center"
-                            android:text="Mumbai" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
         </LinearLayout>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:elevation="4dp"
+            android:src="@drawable/ic_add_black_24dp"
+            fab:fab_colorNormal="@color/green"
+            fab:fab_colorPressed="@color/filterbtn"
+            fab:fab_colorRipple="@color/lightgreen"
+            android:layout_marginRight="15dp"
+            android:layout_above="@+id/book_hotel"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="15dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -348,7 +368,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:id="@+id/searchView"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search"
+                    android:elevation="4dp" />
             </LinearLayout>
 
             <ListView

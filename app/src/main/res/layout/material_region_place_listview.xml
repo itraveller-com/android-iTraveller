@@ -27,17 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/container_toolbar">
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_action_search"
-            android:elevation="4dp"
-            fab:fab_colorNormal="@color/green"
-            fab:fab_colorPressed="@color/filterbtn"
-            fab:fab_colorRipple="@color/lightgreen"/>
 
         <ProgressBar
             android:layout_width="wrap_content"

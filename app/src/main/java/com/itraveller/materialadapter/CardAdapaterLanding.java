@@ -140,8 +140,8 @@ public class CardAdapaterLanding extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
                 cardview = (CardView) itemView.findViewById(R.id.cardView);
                 imgThumbnail = (NetworkImageView) itemView.findViewById(R.id.img_thumbnail);
-                //imgThumbnail.setDefaultImageResId(R.drawable.itraveller_logo);
-                imgThumbnail.setErrorImageResId(R.drawable.ic_launcher);
+                //imgThumbnail.setDefaultImageResId(R.drawable.default_img);
+                imgThumbnail.setErrorImageResId(R.drawable.default_img);
                 tvNature = (TextView) itemView.findViewById(R.id.tv_nature);
                 //tvDesNature = (TextView)itemView.findViewById(R.id.tv_des_nature);
         }

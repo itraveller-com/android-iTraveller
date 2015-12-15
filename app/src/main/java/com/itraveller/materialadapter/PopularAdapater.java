@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.itraveller.R;
@@ -54,6 +55,7 @@ public class PopularAdapater extends RecyclerView.Adapter<PopularAdapater.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         final LandingModel nature = mItems.get(i);
         viewHolder.tvNature.setText(nature.getRegion_Name());
+        viewHolder.tvimageIcon.setImageResource(R.drawable.ic_star);
         viewHolder.tvNature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,10 +78,12 @@ public class PopularAdapater extends RecyclerView.Adapter<PopularAdapater.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView tvNature;
+        public ImageView tvimageIcon;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvNature = (TextView) itemView.findViewById(R.id.edt_tool_search);
+            tvimageIcon = (ImageView) itemView.findViewById(R.id.img_tool_back);
             //tvDesNature = (TextView)itemView.findViewById(R.id.tv_des_nature);
         }
     }

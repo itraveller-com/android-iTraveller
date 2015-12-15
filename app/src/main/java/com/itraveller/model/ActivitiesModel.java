@@ -5,7 +5,18 @@ package com.itraveller.model;
  */
 public class ActivitiesModel {
 
-    int Id, Cost, Markup, Display, Status, Destination_Id, Flag;
+    int Id;
+   int Cost;
+   int Markup;
+
+   public int getDisplay() {
+      return Display;
+   }
+
+   int Display;
+   int Status;
+   int Destination_Id;
+   int Flag;
 
     String  Hotel_Id, Region_Id, Company_Id, Title, Day, Duration, Image,Description, Not_Available_Month, Not_Available_Days, Destination_Id_From, Bookable;
     boolean checked=false;

@@ -53,11 +53,16 @@ public class Constants {
 
     public static String API_Domestic_Flights= API_domain + "/api/v1/domesticflight?" ;
 
-    public static String API_International_Flights= API_domain + "/api/v1/internationalflight?" ;
+    public static String API_International_Flights= API_domain + "/api/v1/internationalflight?Trip=ROUND&" ;
 
-    public static String API_login= API_domain + "/api/v1/users/auth?email="   ;
+    public static String API_login= API_domain + "/api/v1/users/auth"   ;
 
-    public static String API_signup= API_domain + "/api/v1/users/ -d  email=" ;
+    public static String API_signup= API_domain + "/api/v1/users/" ;
 
     public static String API_logout= API_domain + "/api/v1/users/";
+
+    public static String API_forgot= API_domain + "/api/v1/forgotpassword";
+
+    public static String API_CustomerPackage = API_domain + "/api/v1/customerpackages?email=bsk0292@gmail.com&booked=1";
+
 }

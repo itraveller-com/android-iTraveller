@@ -355,6 +355,7 @@ public class FlightAdapter extends BaseAdapter {
 
                 editor = prefs.edit();
                 editor.putInt("Skip_Flight_Bit", 0);
+                editor.putInt("No_Flights",1);
                 editor.commit();
 
                 activity.startActivity(in);

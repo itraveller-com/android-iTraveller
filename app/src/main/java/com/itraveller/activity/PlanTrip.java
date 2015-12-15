@@ -90,6 +90,7 @@ public class PlanTrip extends ActionBarActivity{
         TextView duration_sp = (TextView) findViewById(R.id.duration_rp);
         Bundle bundle = getIntent().getExtras();
         img.setImageUrl(bundle.getString("Image"), imageLoader);
+        img.setErrorImageResId(R.drawable.default_img);
         duration_sp.setText((bundle.getInt("Duration") - 1) + " Nights / " + bundle.getInt("Duration") + " Days");
         title_sp.setText(bundle.getString("Title"));
 
@@ -107,6 +108,7 @@ public class PlanTrip extends ActionBarActivity{
         final int arrival_port = bundle.getInt("ArrivalPort");
         final int dep_port = bundle.getInt("DeparturePort");
         final int itinerary_id = bundle.getInt("ItineraryID");
+        final String regionString = bundle.getString("RegionString");
 
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
@@ -146,6 +148,8 @@ public class PlanTrip extends ActionBarActivity{
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("RegionID", "" + region_id);
+                editor.putString("RegionString", "" + regionString);
+                Log.v("RegionString",""+regionString);
 
                 //editor.putString("DestinationID", destination_value_id);
                 //editor.putString("DestinationCount", destination_value_count);

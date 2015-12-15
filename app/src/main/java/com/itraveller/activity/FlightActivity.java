@@ -92,9 +92,9 @@ public class FlightActivity extends ActionBarActivity {
                 }
             });
 
-            mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+            /*mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-            setupDrawer();
+            setupDrawer();*/
 
 
             CustomLoading.LoadingScreen(FlightActivity.this, false);
@@ -110,9 +110,9 @@ public class FlightActivity extends ActionBarActivity {
                     "&arrivalPort=" + prefs.getString("TravelFrom", null) +
                     "&departDate=" + prefs.getString("TravelDate", null) +
                     "&returnDate=" + prefs.getString("EndDate", null) +
-                    "&adults=" + prefs.getString("Adults", "0") +
-                    "&children=" + prefs.getString("Children_12_5", "0") +
-                    "&infants=" + prefs.getString("Children_5_2", "0") +
+                    "&adults=" + prefs.getString("Adult", "0") +
+                    "&children=" + prefs.getString("Child", "0") +
+                    "&infants=" + prefs.getString("Infants", "0") +
                     "&departurePort=" + prefs.getString("TravelTo", null) +
                     "&travelTo=" + prefs.getString("DepartureAirport", null);
 
@@ -342,74 +342,6 @@ public class FlightActivity extends ActionBarActivity {
 
         }
 
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Summary Data");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("Flights");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        int menuToUse = R.menu.right_side_menu;
-
-        MenuInflater inflater = getMenuInflater();
-
-
-        inflater.inflate(menuToUse, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-
-        if (item != null && item.getItemId() == R.id.btnMyMenu) {
-            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                mDrawerLayout.closeDrawer(Gravity.RIGHT);
-            } else {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        }
-
-
-        return false;
-    }
 
     class PriceComparison implements Comparator<OnwardFlightModel>{
 

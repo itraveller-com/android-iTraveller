@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,7 +66,8 @@ public class CardAdapterRegionPlace extends RecyclerView.Adapter<CardAdapterRegi
 
         //viewHolder.tvDesNature.setText(""+nature.getPage_Title());
         holder.imgThumbnail.setImageUrl(nature.getImage(),imageLoader);
-        holder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
+        holder.imgThumbnail.setErrorImageResId(R.drawable.default_img);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -82,6 +84,7 @@ public class CardAdapterRegionPlace extends RecyclerView.Adapter<CardAdapterRegi
                 i.putExtra("DeparturePort", nature.getDeparture_Port_Id());
                 i.putExtra("ItineraryID", nature.getItinerary_Id());
                 i.putExtra("RegionID", bundle.getInt("RegionID"));
+                i.putExtra("RegionString",nature.getRegionString());
                 activity.startActivity(i);
             }
         });
@@ -100,6 +103,7 @@ public class CardAdapterRegionPlace extends RecyclerView.Adapter<CardAdapterRegi
         public TextView tvTitle;
         public TextView tvNoOfNights;
         public TextView tvDestination;
+        public CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -107,6 +111,7 @@ public class CardAdapterRegionPlace extends RecyclerView.Adapter<CardAdapterRegi
             tvTitle = (TextView)itemView.findViewById(R.id.title);
             tvNoOfNights=(TextView) itemView.findViewById(R.id.no_of_nights_txt);
             tvDestination=(TextView) itemView.findViewById(R.id.destination);
+            cardView = (CardView) itemView.findViewById(R.id.card_view);
             //tvDesNature = (TextView)itemView.findViewById(R.id.tv_des_nature);
         }
     }
