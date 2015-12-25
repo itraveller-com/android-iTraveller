@@ -24,6 +24,7 @@ public class HowItWorksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("How it works?");
         return inflater.inflate(R.layout.how_it_works, container, false);
     }
 

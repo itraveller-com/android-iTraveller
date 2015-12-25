@@ -1,8 +1,8 @@
 package com.itraveller.activity;
 
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -30,29 +30,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.itraveller.R;
-import com.itraveller.constant.Constants;
 import com.itraveller.core.LoginScreenActivity;
-import com.itraveller.volley.AppController;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.URL;
 
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.itraveller.dashboard.MyTravelActivity;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -64,7 +55,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     public static String u_id, at;
 
-    private Toolbar mToolbar;
+    public static boolean active;
+
+    public static Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private DrawerLayout mDrawerlayout;
     private SharedPreferences.Editor editor;
@@ -157,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
 
     //this method is used to convert image into circular form
-    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+    public static Bitmap getCroppedBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -184,12 +177,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onStart() {
         super.onStart();
+        active=true;
         EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        active=false;
         EasyTracker.getInstance(this).activityStop(this);
     }
 
@@ -293,8 +288,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new MaterialLandingActivity();
-                title = getString(R.string.title_home);
+                fragment=new Home_Fragment();
+                //fragment = new MaterialLandingActivity();
+                title = "Welcome To itraveller";
                 if (SharedPreferenceRetrive().getString("serverCheck","User").equalsIgnoreCase("facebook")) {
                     //profilepic.setImageResource(R.drawable.ic_profile_pic);
                     FacebookImage();
@@ -305,24 +301,29 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 break;
 
             case 1:
-                fragment = new HowItWorksFragment();
+                fragment = new MaterialLandingActivity();
                 title = "How it works";
                 break;
 
             case 2:
-                fragment = new FriendsFragment();
-                title = getString(R.string.title_friends);
+
+
+                Intent i=new Intent(getApplicationContext(),MyTravelActivity.class);
+                startActivity(i);
+                finish();
+            //    fragment = new MyTravelFragment();
+            //    title = getString(R.string.title_friends);
                 break;
 
             case 3:
-                fragment = new MessagesFragment();
+                fragment = new ContactUsFragment();
                 title = getString(R.string.title_messages);
                 break;
 
             case 4:
 
                 LoginScreenActivity fragment1 = new LoginScreenActivity();
-                title = getString(R.string.title_login);
+                title =""; //getString(R.string.title_login);
                 fragment = fragment1;
                 break;
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="0.5">
+
+        <ImageView
+            android:id="@+id/my_explore_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/my_explore"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/my_explore_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Explorer"
+            android:textSize="30dp"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_shadow"
+            android:padding="25dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"></LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="0.5">
+
+        <ImageView
+            android:id="@+id/my_travel_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/my_travel"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+
+        <Button
+            android:id="@+id/my_travel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Travel"
+            android:textSize="30dp"
+            android:shadowColor="#000000"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_shadow"
+            android:padding="25dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

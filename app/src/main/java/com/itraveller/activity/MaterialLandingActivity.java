@@ -105,6 +105,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.material_landing_listview, container, false);
+
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Choose Destination");
         //Destination fetching URL
         mHeaderView = rootView.findViewById(R.id.header);
         mToolbarView = rootView.findViewById(R.id.toolbarnew);

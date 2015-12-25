@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -14,24 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import android.support.v4.app.FragmentManager;
-
 import com.android.volley.toolbox.ImageLoader;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import com.itraveller.R;
 import com.itraveller.activity.ItinerarySummaryActivity;
-import com.itraveller.activity.LoginFragment_Before_Payment;
-import com.itraveller.activity.SummaryActivity;
 import com.itraveller.model.FlightModel;
 import com.itraveller.volley.AppController;
 

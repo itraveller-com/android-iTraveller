@@ -1,19 +1,10 @@
 package com.itraveller.activity;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,36 +12,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.itraveller.R;
+import com.itraveller.adapter.NavigationDrawerAdapter;
+import com.itraveller.chat.ChatMain;
+import com.itraveller.core.LoginScreenActivity;
+import com.itraveller.model.NavDrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.facebook.login.LoginManager;
-import com.itraveller.R;
-import com.itraveller.adapter.NavigationDrawerAdapter;
-import com.itraveller.constant.Constants;
-import com.itraveller.model.NavDrawerItem;
-import com.itraveller.volley.AppController;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class FragmentDrawer extends Fragment {
@@ -59,7 +39,6 @@ public class FragmentDrawer extends Fragment {
     Fragment fragment;
     String att;
     private static String TAG = FragmentDrawer.class.getSimpleName();
-    ImageButton down_arrow;
     private RecyclerView recyclerView;
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
@@ -69,6 +48,7 @@ public class FragmentDrawer extends Fragment {
     private FragmentDrawerListener drawerListener;
     private TypedArray navMenuIcons;
     String str1;
+    Button chatBtn;
 
     public FragmentDrawer() {
     }
@@ -125,11 +105,11 @@ public class FragmentDrawer extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         //mDrawerLayout.isDrawerOpen(Gravity.RIGHT);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        down_arrow=(ImageButton) layout.findViewById(R.id.down_arrow_image);
-        down_arrow.setVisibility(View.INVISIBLE);
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
         /*recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -146,6 +126,11 @@ public class FragmentDrawer extends Fragment {
 
 
         return layout;
+    }
+
+    public SharedPreferences SharedPreferenceRetrive() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        return preferences;
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {

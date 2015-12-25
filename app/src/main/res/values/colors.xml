@@ -71,4 +71,9 @@
     <color name="green_theme">#017C67</color>
     <color name="green_theme_dark">#00715C</color>
     <color name="green_theme_pink">#AF3F3F</color>
+
+    <color name="view_background">#e8ecfa</color>
+    <color name="btn_bg">#277bec</color>
+    <color name="txt_font">#4e5572</color>
+
 </resources>

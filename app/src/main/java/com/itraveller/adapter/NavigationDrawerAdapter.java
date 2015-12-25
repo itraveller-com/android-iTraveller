@@ -1,13 +1,14 @@
 package com.itraveller.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +16,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.itraveller.R;
+import com.itraveller.activity.ContactUsFragment;
+import com.itraveller.activity.Home_Fragment;
+import com.itraveller.activity.MaterialLandingActivity;
+import com.itraveller.dashboard.MyTravelActivity;
+import com.itraveller.core.LoginScreenActivity;
+import com.itraveller.model.NavDrawerItem;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.itraveller.R;
-import com.itraveller.activity.FriendsFragment;
-import com.itraveller.activity.HowItWorksFragment;
-import com.itraveller.activity.LoginFragment;
-import com.itraveller.activity.MainActivity;
-import com.itraveller.activity.MaterialLandingActivity;
-import com.itraveller.activity.MessagesFragment;
-import com.itraveller.core.LoginScreenActivity;
-import com.itraveller.model.NavDrawerItem;
 
 
 /**
@@ -79,27 +78,30 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                 title = "iTraveller";
                 switch (position) {
                     case 0:
-
-                        fragment = new MaterialLandingActivity();
+                        fragment=new Home_Fragment();
+                    //    fragment = new MaterialLandingActivity();
                         title = "Choose Destination";
                         break;
 
 
                     case 1:
 
-                        fragment = new HowItWorksFragment();
+                        fragment = new MaterialLandingActivity();
                         title = "How it works";
                         break;
 
                     case 2:
 
-                        fragment = new FriendsFragment();
+                        Intent i=new Intent(context,MyTravelActivity.class);
+                        context.startActivity(i);
+                        ((Activity)context).finish();
+                    //      fragment = new MyTravelFragment();
                         title = "About Us";
                         break;
 
                     case 3:
 
-                        fragment = new MessagesFragment();
+                        fragment = new ContactUsFragment();
                         title = "Contact Us";
                         break;
 

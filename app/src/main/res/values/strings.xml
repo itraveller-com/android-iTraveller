@@ -1,5 +1,14 @@
 <resources>
 
+    <string name="btnTakePicture">Capture Image</string>
+    <string name="btnRecordVideo">Record Video</string>
+    <string name="or">(or)</string>
+    <string name="folder">Folder</string>
+    <string name="parentDirectory">Parent Directory</string>
+    <string name="fileSize">File Size</string>
+    <string name="currentDir">Current Dir</string>
+
+
     <string name="action_home">Home</string>
 
     <string name="search">Search your destination</string>
@@ -10,8 +19,8 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_how_it_works">How it Works?</string>
-    <string name="nav_item_about_us">About Us</string>
+    <string name="nav_item_explore">Explore</string>
+    <string name="nav_item_my_travel">My Travel</string>
     <string name="nav_item_contact_us">Contact Us</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
@@ -21,8 +30,8 @@
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
-        <item>@string/nav_item_how_it_works</item>
-        <item>@string/nav_item_about_us</item>
+        <item>@string/nav_item_explore</item>
+        <item>@string/nav_item_my_travel</item>
         <item>@string/nav_item_contact_us</item>
         <item>@string/nav_item_login</item>
     </string-array>
@@ -35,6 +44,42 @@
         <item>@drawable/ic_action_name7</item>
         <item>@drawable/ic_action_name8</item>
     </array>
+
+    <!--new NAV_DRAWER code -->
+
+    <string name="nav_item_home_">Home</string>
+    <string name="nav_item_booked">Booked Trips</string>
+    <string name="nav_item_created">Created Trips</string>
+    <string name="nav_item_profile">Profile</string>
+    <string name="nav_item_help">Help/Support</string>
+    <string name="nav_item_gallery">Gallery</string>
+    <string name="nav_item_logout_">Logout</string>
+
+    <string name="nav_name_">Welcome to iTraveller.com</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels_">
+        <item>@string/nav_item_home_</item>
+        <item>@string/nav_item_booked</item>
+        <item>@string/nav_item_created</item>
+        <item>@string/nav_item_profile</item>
+        <item>@string/nav_item_help</item>
+        <item>@string/nav_item_gallery</item>
+        <item>@string/nav_item_login</item>
+    </string-array>
+
+
+    <array name="nav_drawer_icons_">
+        <item>@drawable/ic_action_name4</item>
+        <item>@drawable/ic_action_name3</item>
+        <item>@drawable/ic_action_name2</item>
+        <item>@drawable/ic_action_name7</item>
+        <item>@drawable/ic_action_name8</item>
+        <item>@drawable/ic_action_name8</item>
+        <item>@drawable/ic_action_name8</item>
+    </array>
+
+
 
     <string name="title_messages">Contact Us</string>
     <string name="title_friends">About Us</string>
@@ -115,5 +160,7 @@ We are not a travel agent and we don\'t charge any commissions from you. The ide
         travelers to create their own customized itineraries, automate the bookings and also able to fulfill
         each and every promise given to travelers at the time of booking by having efficient back end automation
         with the hotels, transportation etc. </string>
+
+    <string name="gcm_deleted">GCM: server deleted %1$d pending messages!</string>
 
 </resources>

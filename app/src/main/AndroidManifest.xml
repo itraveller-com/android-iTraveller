@@ -5,6 +5,17 @@
     android:versionName="1.1">
 
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission
+        android:name="com.itraveller.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.itraveller.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="myapp.permission.MAPS_RECEIVE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -43,6 +54,10 @@
             android:name="com.itraveller.activity.TestActionBar"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".dashboard.MyTravelActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
             android:name="com.itraveller.activity.ItinerarySummaryActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -73,6 +88,22 @@
             android:name="com.itraveller.activity.HotelActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".dashboard.ViewDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".dashboard.MyTravelUploadActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.itraveller.chat.FileChooser"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.itraveller.chat.UploadActivity"
+            android:screenOrientation="portrait"></activity>
+
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -87,6 +118,46 @@
             android:exported="true"/>
 
         <uses-library android:name="com.google.android.maps"/>
+
+        <!--chat -->
+        <activity android:name="com.itraveller.chat.GridViewScreen" android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.itraveller.chat.ChatMain" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.DELETE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="com.itraveller" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name="com.itraveller.chat.GCMRegistrationActivity" android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.itraveller.chat.ShowMessage" android:screenOrientation="portrait"></activity>
+
+        <receiver
+            android:name="com.itraveller.gcm.chat_files.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.itraveller" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service android:name="com.itraveller.gcm.chat_files.GCMIntentService" android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -43,20 +43,17 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.itraveller.R;
 import com.itraveller.activity.FragmentDrawer;
-import com.itraveller.activity.LandingActivity;
 import com.itraveller.activity.MainActivity;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
 import com.itraveller.volley.AppController;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -87,7 +84,12 @@ public class LoginScreenActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
+
+    //    if(MainActivity.active==true)
+    //        ((MainActivity) getActivity()).getSupportActionBar().hide();
+    //    else if(MyTravelActivity.isActive==true)
+    //        ((MyTravelActivity) getActivity()).getSupportActionBar().hide();
+
         //setting layout of screen to login.xml file
         viewItem = inflater.inflate(R.layout.login_main, container, false);
         //creating threads for facebook login
@@ -128,19 +130,6 @@ public class LoginScreenActivity extends Fragment {
         facebookLogin.setReadPermissions(Arrays
                 .asList("public_profile, email, user_birthday, user_friends"));
 
-        //profileTracker is used to keep track of user profile
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                //update UI if there is some change in user profile
-                //if (Utility.isNetworkConnected(getActivity())) {
-                    updateUI();
-                //} else {
-                //    RetryInternet();
-                //}
-
-            }
-        };
         //code for handling event when user clicks login button provided by facebook
         facebookLogin.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -174,6 +163,9 @@ public class LoginScreenActivity extends Fragment {
         registerUser = (TextView) loginView.findViewById(R.id.link_to_register);
         final TextView forgotPassword = (TextView) loginView.findViewById(R.id.forgot_password);
         final TextView skipButton = (TextView) loginView.findViewById(R.id.btnunreg);
+
+        skipButton.setVisibility(View.INVISIBLE);
+
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -378,7 +370,7 @@ public class LoginScreenActivity extends Fragment {
                                 editor.commit();
                                 //userDetails.getString("facebook_id");
                                 //userDetails.getString("phone");
-                                ((MainActivity) getActivity()).onDrawerItemSelected(viewItem, 0);
+                                    ((MainActivity) getActivity()).onDrawerItemSelected(viewItem, 0);
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
                                 JSONObject validationobj = errorobj.getJSONObject("validation");
@@ -634,25 +626,6 @@ public class LoginScreenActivity extends Fragment {
 
     }
 
-
-    //for updating UI  if there is some change detected
-    public void updateUI()
-    {
-       /* SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();*/
-        boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
-        Profile profile = Profile.getCurrentProfile();
-        if (enableButtons && profile != null)
-        {
-            //After this only it will fetch data from JSON
-            /*editor.putString("name", "" + profile.getFirstName());
-            editor.putString("id", "" + profile.getId());
-            editor.putString("serverCheck", "facebook");
-            editor.putString("skipbit", "1");
-            editor.commit();*/
-           // handler.sendEmptyMessage(0);
-        }
-    }
 
     public boolean PasswordLength(String password) {
         return password.length() > 7;
