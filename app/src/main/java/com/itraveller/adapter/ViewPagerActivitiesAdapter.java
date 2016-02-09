@@ -33,6 +33,9 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
     int check_bit=0;
 
     static int temp;
+
+    public static int count=0;
+
     public static int temp_id;
     ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
 
@@ -92,7 +95,11 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
 
         try {
 
+
             temp_id=arrayModelClasses.get(position).getId();
+
+            Log.d("Activity No Test",""+position);
+
             image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
 
@@ -100,7 +107,8 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
             if(arrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");
             else
-            cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getCost());
+                cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getDisplay());
+
             time.setText("" + arrayModelClasses.get(position).getDuration() + " HRS");
 
             if(arrayModelClasses.get(position).isChecked()){

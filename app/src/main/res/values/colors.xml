@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <color name="red_800">#C62828</color>
+
+    <color name="yellow_100">#FFF9C4</color>
+
+    <color name="nav_row_color">#ff9c00</color>
     <color name="primary_dark">#87CEFA</color>
     <color name="primary">#ff0000</color>
     <color name="background_light">#80F9A825</color>
@@ -8,9 +14,9 @@
     <color name="arrow_color">#80404040</color>
     <color name="orangeStatus">#F9A825</color>
     <color name="orange">#F9A825</color>
-<!--
-    <color name="colorPrimary">#F9A825</color>
--->
+    <!--
+        <color name="colorPrimary">#F9A825</color>
+    -->
     <color name="colorPrimary">#000000</color>
 
     <color name="colorPrimaryDark">#000000</color>
@@ -76,4 +82,6 @@
     <color name="btn_bg">#277bec</color>
     <color name="txt_font">#4e5572</color>
 
+    <color name="blue_700">#1976D2</color>
+    <color name="red_600">#E53935</color>
 </resources>

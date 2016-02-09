@@ -26,7 +26,7 @@ public class HelpFragment extends Fragment {
         View view=inflater.inflate(R.layout.help, container, false);
 
 
-        ((MyTravelActivity) getActivity()).getSupportActionBar().setTitle("Welcome");
+        ((MyTravelActivity) getActivity()).getSupportActionBar().setTitle("Itraveller Support Chat");
 
         return view;
     }

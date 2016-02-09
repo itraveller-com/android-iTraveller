@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/filterButtonBG"
     android:orientation="vertical"
-    android:id="@+id/main_container">
+    android:id="@+id/coordinatorLayout">
     <LinearLayout
         android:id="@+id/container_toolbar"
         android:layout_width="match_parent"
@@ -16,34 +16,15 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar"
             />
-
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DADADA"
-        android:id="@+id/shadow"></LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DADADA" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="455dp"
+            android:layout_height="wrap_content"
             android:id="@+id/scrollView"
             android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="55dp">
             <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -52,17 +33,18 @@
 
 
                 <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:id="@+id/package_price"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_marginTop="15dp">
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:elevation="2dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center_vertical"
+                    android:id="@+id/package_price"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="15dp">
 
 
                 <TextView
@@ -104,8 +86,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-
                     android:text="Rs. 0"
                     android:id="@+id/dis_price_txt"
                     android:gravity="right"
@@ -313,7 +293,6 @@
                         android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -338,9 +317,9 @@
 
             </LinearLayout>
 
-
         </ScrollView>
 
-    </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

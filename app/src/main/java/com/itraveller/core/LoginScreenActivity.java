@@ -4,6 +4,7 @@ package com.itraveller.core;
  * Created by VNK on 8/16/2015.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,20 +49,56 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.itraveller.R;
 import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.activity.MainActivity;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
+import com.itraveller.moxtraChat.AccessTokenModel;
+import com.itraveller.moxtraChat.AddUserResponse;
+import com.itraveller.moxtraChat.CreateBinderRequest;
+import com.itraveller.moxtraChat.CreateBinderResponse;
+import com.itraveller.moxtraChat.PreferenceUtil;
 import com.itraveller.volley.AppController;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXChatManager;
+import com.moxtra.sdk.MXSDKConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class LoginScreenActivity extends Fragment {
+
+    //MoXTRA data start
+    private static final String TAG = "LoginScreenActivity";
+    private View mProgressView;
+
+
+    private String regid;
+    private AccessTokenModel agentAccessTokenModel=null,userAccessToken;
+    private CreateBinderResponse createBinderResponse=null;
+    private AddUserResponse addUserResponse=null;
+
+    private String SENDER_ID = "132433516320";
+    private GoogleCloudMessaging gcm;
+    String username="User_ItRaveller1";
+    private GoogleApiClient client;
+    //MOXTRA data end
 
     EditText emailId;
     EditText phoneNumber;
@@ -89,7 +127,7 @@ public class LoginScreenActivity extends Fragment {
     //        ((MainActivity) getActivity()).getSupportActionBar().hide();
     //    else if(MyTravelActivity.isActive==true)
     //        ((MyTravelActivity) getActivity()).getSupportActionBar().hide();
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         //setting layout of screen to login.xml file
         viewItem = inflater.inflate(R.layout.login_main, container, false);
         //creating threads for facebook login
@@ -102,6 +140,7 @@ public class LoginScreenActivity extends Fragment {
 
         FragmentDrawer.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(false);
+
 
         //shared preferences object for storing data in "Preferences"
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
@@ -208,6 +247,7 @@ public class LoginScreenActivity extends Fragment {
                         } else if (!isValidEmail(_emailIdForget)) {
                             CustomField("Invalid Email Address");
                         } else if (!Utility.isNetworkConnected(getActivity())) {
+
                             RetryInternet();
                         } else {
                             ServerRequestForget(_emailIdForget);
@@ -329,6 +369,7 @@ public class LoginScreenActivity extends Fragment {
                     RetryInternet();
                 } else {
                     ServerRequest();
+
                     loadingSnackBar.setVisibility(View.VISIBLE);
                 }
             }
@@ -365,20 +406,25 @@ public class LoginScreenActivity extends Fragment {
                                 editor.putString("name", "" + userDetails.getString("name"));
                                 editor.putString("phone", "" + userDetails.getString("phone"));
                                 editor.putString("email", "" + emailId.getText().toString().trim());
+
                                 editor.putString("serverCheck", "server");
                                 editor.putString("skipbit", "1");
                                 editor.commit();
                                 //userDetails.getString("facebook_id");
                                 //userDetails.getString("phone");
+
                                     ((MainActivity) getActivity()).onDrawerItemSelected(viewItem, 0);
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
                                 JSONObject validationobj = errorobj.getJSONObject("validation");
                                 CustomField("" + validationobj.getString("message"));
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+
                     }
                 }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -487,6 +533,8 @@ public class LoginScreenActivity extends Fragment {
                                 JSONObject payload_object = jobj.getJSONObject("payload");
                                 //store user_id and access_token received from our server
                                 //payload_object.getString("user_id");
+
+
                                 CustomField("Successfully created");
                             } else{
                                 /*JSONObject errorobj = jobj.getJSONObject("error");
@@ -540,6 +588,7 @@ public class LoginScreenActivity extends Fragment {
                                 userDetails.getString("name");
                                 userDetails.getString("facebook_id");
                                 userDetails.getString("phone");*/
+
                                 CustomField("Email send successfully");
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
@@ -641,9 +690,10 @@ public class LoginScreenActivity extends Fragment {
     // Define the Handler that receives messages from the thread and update the progress
     private final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+
+            Log.d("Facebook login test","hello rohan");
             ((MainActivity) getActivity()).onDrawerItemSelected(viewItem,0);
         }
     };
-
 }
 

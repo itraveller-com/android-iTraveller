@@ -342,8 +342,10 @@ public class ListViewPagerAdapter extends ArrayAdapter<String> {
                                 String[] value = defaultHotelRoom.get(index).trim().split(",");
                                 if (Integer.parseInt("" + value[0]) == jsonarr.getInt("Hotel_Id")) {
                                     hotel_model.setChecked(true);
-                                    hotel_model.setLunch(Integer.parseInt(value[4]));
-                                    hotel_model.setDinner(Integer.parseInt(value[5]));
+                                    if(value.length>4) {
+                                        hotel_model.setLunch(Integer.parseInt(value[4]));
+                                        hotel_model.setDinner(Integer.parseInt(value[5]));
+                                    }
                                     swap_value = i;
                                     flag_bit = 1;
                                     CheckBoolean =1;

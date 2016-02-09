@@ -9,15 +9,15 @@ import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 
 /**
- * Class that starts and stops item drags on a {@link DragSortListView}
+ * Class that starts and stops item drags on a {@link DragNDropSortListView}
  * based on touch gestures. This class also inherits from
  * {@link SimpleFloatViewManager}, which provides basic float View
  * creation.
  *
  * An instance of this class is meant to be passed to the methods
- * {@link DragSortListView#setTouchListener()} and
- * {@link DragSortListView#setFloatViewManager()} of your
- * {@link DragSortListView} instance.
+ * {@link DragNDropSortListView#setTouchListener()} and
+ * {@link DragNDropSortListView#setFloatViewManager()} of your
+ * {@link DragNDropSortListView} instance.
  */
 public class DragSortController extends SimpleFloatViewManager implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
@@ -78,26 +78,26 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
     private int mFlingHandleId;
     private boolean mCanDrag;
 
-    private DragSortListView mDslv;
+    private DragNDropSortListView mDslv;
     private int mPositionX;
 
     /**
-     * Calls {@link #DragSortController(DragSortListView, int)} with a
+     * Calls {@link #DragSortController(DragNDropSortListView, int)} with a
      * 0 drag handle id, FLING_RIGHT_REMOVE remove mode,
      * and ON_DOWN drag init. By default, sorting is enabled, and
      * removal is disabled.
      *
      * @param dslv The DSLV instance
      */
-    public DragSortController(DragSortListView dslv) {
+    public DragSortController(DragNDropSortListView dslv) {
         this(dslv, 0, ON_DOWN, FLING_REMOVE);
     }
 
-    public DragSortController(DragSortListView dslv, int dragHandleId, int dragInitMode, int removeMode) {
+    public DragSortController(DragNDropSortListView dslv, int dragHandleId, int dragInitMode, int removeMode) {
         this(dslv, dragHandleId, dragInitMode, removeMode, 0);
     }
 
-    public DragSortController(DragSortListView dslv, int dragHandleId, int dragInitMode, int removeMode, int clickRemoveId) {
+    public DragSortController(DragNDropSortListView dslv, int dragHandleId, int dragInitMode, int removeMode, int clickRemoveId) {
         this(dslv, dragHandleId, dragInitMode, removeMode, clickRemoveId, 0);
     }
 
@@ -108,7 +108,7 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
      * @param dragHandleId The resource id of the View that represents
      * the drag handle in a list item.
      */
-    public DragSortController(DragSortListView dslv, int dragHandleId, int dragInitMode,
+    public DragSortController(DragNDropSortListView dslv, int dragHandleId, int dragInitMode,
             int removeMode, int clickRemoveId, int flingHandleId) {
         super(dslv);
         mDslv = dslv;
@@ -222,11 +222,11 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
 
         int dragFlags = 0;
         if (mSortEnabled && !mIsRemoving) {
-            dragFlags |= DragSortListView.DRAG_POS_Y | DragSortListView.DRAG_NEG_Y;
+            dragFlags |= DragNDropSortListView.DRAG_POS_Y | DragNDropSortListView.DRAG_NEG_Y;
         }
         if (mRemoveEnabled && mIsRemoving) {
-            dragFlags |= DragSortListView.DRAG_POS_X;
-            dragFlags |= DragSortListView.DRAG_NEG_X;
+            dragFlags |= DragNDropSortListView.DRAG_POS_X;
+            dragFlags |= DragNDropSortListView.DRAG_NEG_X;
         }
 
         mDragging = mDslv.startDrag(position - mDslv.getHeaderViewsCount(), dragFlags, deltaX,

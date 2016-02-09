@@ -1,5 +1,17 @@
 <resources>
 
+    <!--MOXTRA strings-->
+    <string name="client_id">suX9RdU28hs</string>
+    <string name="client_secret">vAqboIlJ9yo</string>
+    <string name="selectUserTitle">Select User</string>
+    <string name="Delete">Delete</string>
+    <string name="delete_confirm">Are you sure to delete the chat?</string>
+    <string name="delete_confirm_title">Delete Chat</string>
+    <string name="Meet">Meet</string>
+    <!-- -->
+
+
+
     <string name="btnTakePicture">Capture Image</string>
     <string name="btnRecordVideo">Record Video</string>
     <string name="or">(or)</string>
@@ -20,7 +32,7 @@
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_explore">Explore</string>
-    <string name="nav_item_my_travel">My Travel</string>
+    <string name="nav_item_my_travel">My Trips</string>
     <string name="nav_item_contact_us">Contact Us</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
@@ -49,8 +61,6 @@
 
     <string name="nav_item_home_">Home</string>
     <string name="nav_item_booked">Booked Trips</string>
-    <string name="nav_item_created">Created Trips</string>
-    <string name="nav_item_profile">Profile</string>
     <string name="nav_item_help">Help/Support</string>
     <string name="nav_item_gallery">Gallery</string>
     <string name="nav_item_logout_">Logout</string>
@@ -61,9 +71,6 @@
     <string-array name="nav_drawer_labels_">
         <item>@string/nav_item_home_</item>
         <item>@string/nav_item_booked</item>
-        <item>@string/nav_item_created</item>
-        <item>@string/nav_item_profile</item>
-        <item>@string/nav_item_help</item>
         <item>@string/nav_item_gallery</item>
         <item>@string/nav_item_login</item>
     </string-array>
@@ -72,10 +79,7 @@
     <array name="nav_drawer_icons_">
         <item>@drawable/ic_action_name4</item>
         <item>@drawable/ic_action_name3</item>
-        <item>@drawable/ic_action_name2</item>
-        <item>@drawable/ic_action_name7</item>
-        <item>@drawable/ic_action_name8</item>
-        <item>@drawable/ic_action_name8</item>
+        <item>@drawable/ic_collections_black_24dp</item>
         <item>@drawable/ic_action_name8</item>
     </array>
 
@@ -88,7 +92,7 @@
 
 
     <!--Facebook code-->
-    <string name="app_id">413312058876692</string>
+    <string name="app_id">1699899676905365</string>
     <string name="hello_user">Hello %1$s!</string>
 
     <string name="facebook_app_name">HelloFBSample</string>
@@ -146,11 +150,15 @@ We are not a travel agent and we don\'t charge any commissions from you. The ide
 
     <string name="contact_us_message">Our sales and support teams are available via phone, live chat, Twitter and email.</string>
 
-    <string name="office_address">2nd Floor, Suite # 2CE, Neil Rao Towers, EPIP Phase-1,
-    Plot No 118, Road No.3, Whitefield,
-    Bangalore - 560066.
-    inquiry@itraveller.com
-    080 9514 1515 </string>
+    <string name="office_address">2984, 12th Main Rd, HAL 2nd Stage,
+    Indiranagar,
+    Bengaluru,
+    Karnataka. 560038.
+    <br/>
+    Mail Us to : inquiry@itraveller.com
+    <br/>
+        Phone : 080 9514 1515
+    </string>
 
 
     <string name="how_it_works_text">&#8226; iTraveller has done the best possible use of technology in automating

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -101,17 +103,27 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkBox);
 
+        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.MyRating);
+        //Background rate bar color
+        Drawable drawable = ratingBar.getProgressDrawable();
+        drawable.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
 
-
+        //Foreground rate bar color
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.parseColor("#ffff00"), PorterDuff.Mode.SRC_ATOP);
 
 
         try {
 
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
 
-            Log.d("hotel123456", "hi");
             image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + arrayModelClasses.get(position).getHotel_Id() + ".jpg", imageLoader);
             itemText.setText(arrayModelClasses.get(position).getHotel_Name());
+
+            String rate_arr[]=(""+arrayModelClasses.get(position).getHotel_Star_Rating()).split(" ");
+
+            ratingBar.setRating(Float.parseFloat(rate_arr[0]));
+
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);
             Log.d("checkbox test",""+arrayModelClasses.get(position).isChecked());
@@ -119,7 +131,6 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
             {
                 if(check_bit == 0)
                 {
-                    Log.d("Testing hotel page222", "hello");
                     checkBox.setChecked(true);
 
                     image.setColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP);

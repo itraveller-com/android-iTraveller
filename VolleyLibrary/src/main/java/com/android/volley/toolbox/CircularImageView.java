@@ -80,8 +80,8 @@ public class CircularImageView extends NetworkImageView
 		// Set border properties if enabled
 		if(hasBorder) {
 			int defaultBorderSize = (int) (2 * context.getResources().getDisplayMetrics().density + 0.5f);
-			setBorderWidth(attributes.getDimensionPixelOffset(R.styleable.CircularImageView_border_width, defaultBorderSize));
-			setBorderColor(attributes.getColor(R.styleable.CircularImageView_border_color, Color.WHITE));
+//			setBorderWidth(attributes.getDimensionPixelOffset(R.styleable.CircularImageView_border_width, defaultBorderSize));
+//			setBorderColor(attributes.getColor(R.styleable.CircularImageView_border_color, Color.WHITE));
 		}
 		
 		// Set selector properties if enabled

@@ -37,6 +37,8 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
     final SharedPreferences.Editor editor;
+    public static int count=0;
+    public static int base_flight_price;
 
 
     public FlightDomesticOnwardAdapter(Activity activity, List<OnwardDomesticFlightModel> flightitems) {
@@ -172,7 +174,36 @@ public class FlightDomesticOnwardAdapter extends BaseAdapter {
         holder.fl_arr.setText(arr_date[0] + "\n" + arr_date[1]);
         holder.fl_dep.setTextAppearance(activity, R.style.font_size_1);
         holder.fl_dep.setText(dep_date[0]+"\n"+dep_date[1]);
-        holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
+
+
+        ++count;
+        if(count==1)
+        {
+            base_flight_price=Total_flight_fare;
+
+        }
+
+        int diff=(Total_flight_fare-base_flight_price);
+
+        if(diff==0)
+        {
+            //displaying flight price
+            //    flight_txt.setText("Price: " + "\u20B9" + Total_price + "\t");
+            holder.fl_price.setText("At Same Price"+ "\t");
+        }
+        else if(diff>0)
+        {
+            holder.fl_price.setText("\u20B9"+diff+" more" + "\t");
+        }
+        else
+        {
+            diff=-diff;
+            holder.fl_price.setText("\u20B9" + (diff) + " less" + "\t");
+        }
+
+
+
+    //    holder.fl_price.setText("\u20B9"+" "+Total_flight_fare);
         Log.v("DepatureTime", ""+m.getDepartureDateTime());
         /*String originalString = m.getDepartureDateTime();
         Date date = null;

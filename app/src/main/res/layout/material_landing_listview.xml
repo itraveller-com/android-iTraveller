@@ -59,7 +59,7 @@
                     android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="@drawable/banner_image">
+                    android:background="@drawable/itraveller">
 
                     <RelativeLayout
                         android:id="@+id/toolbarnew"

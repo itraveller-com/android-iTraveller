@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.itraveller.R;
 import com.itraveller.adapter.NavigationDrawerAdapter;
-import com.itraveller.chat.ChatMain;
 import com.itraveller.core.LoginScreenActivity;
 import com.itraveller.model.NavDrawerItem;
 

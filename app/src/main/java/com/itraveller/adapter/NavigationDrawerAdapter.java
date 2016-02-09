@@ -9,20 +9,26 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itraveller.R;
 import com.itraveller.activity.ContactUsFragment;
+import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.activity.Home_Fragment;
 import com.itraveller.activity.MaterialLandingActivity;
 import com.itraveller.dashboard.MyTravelActivity;
 import com.itraveller.core.LoginScreenActivity;
 import com.itraveller.model.NavDrawerItem;
+import com.itraveller.moxtraChat.PreferenceUtil;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXSDKConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,11 +38,13 @@ import java.util.List;
 /**
  * Created by Ravi Tamada on 12-03-2015.
  */
-public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
+public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> implements MXAccountManager.MXAccountUnlinkListener{
     List<NavDrawerItem> data = Collections.emptyList();
     List<MyViewHolder> holders = new ArrayList<MyViewHolder>();
     private LayoutInflater inflater;
     private Context context;
+    private static final String TAG = "NavigationDrawerAdapter";
+
 
     public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
         this.context = context;
@@ -78,9 +86,11 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                 title = "iTraveller";
                 switch (position) {
                     case 0:
-                        fragment=new Home_Fragment();
-                    //    fragment = new MaterialLandingActivity();
+                        fragment = new Home_Fragment();
+                        //    fragment = new MaterialLandingActivity();
                         title = "Choose Destination";
+                        FragmentDrawer.mDrawerLayout.closeDrawers();
+
                         break;
 
 
@@ -88,14 +98,15 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
                         fragment = new MaterialLandingActivity();
                         title = "How it works";
+                        FragmentDrawer.mDrawerLayout.closeDrawers();
                         break;
 
                     case 2:
 
-                        Intent i=new Intent(context,MyTravelActivity.class);
+                        Intent i = new Intent(context, MyTravelActivity.class);
                         context.startActivity(i);
-                        ((Activity)context).finish();
-                    //      fragment = new MyTravelFragment();
+                        ((Activity) context).finish();
+                        //      fragment = new MyTravelFragment();
                         title = "About Us";
                         break;
 
@@ -103,17 +114,17 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
                         fragment = new ContactUsFragment();
                         title = "Contact Us";
+                        FragmentDrawer.mDrawerLayout.closeDrawers();
                         break;
 
                     case 4:
 
                         LoginScreenActivity fragment1 = new LoginScreenActivity();
                         title = "Login";
-                        if(holder.title.getText().toString().equalsIgnoreCase("Logout")){
-                            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.clear();
-                            editor.commit();
+                        if (holder.title.getText().toString().equalsIgnoreCase("Logout")) {
+
+                            logout();
+
                         }
                         fragment = fragment1;
                         break;
@@ -136,6 +147,33 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     }
 
 
+    protected void logout() {
+        PreferenceUtil.removeUser(context);
+
+        boolean ret = MXAccountManager.getInstance().unlinkAccount(this);
+        if (!ret) {
+
+            Log.e(TAG, "Can't logout: the unlinkAccount return false.");
+            Toast.makeText(context, "unlink failed.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.commit();
+        }
+    }
+    @Override
+    public void onUnlinkAccountDone(MXSDKConfig.MXUserInfo mxUserInfo) {
+
+        Log.i(TAG, "Unlinked moxtra account: " + mxUserInfo);
+        if (mxUserInfo == null) {
+            Log.e(TAG, "Can't logout: the mxUserInfo is null.");
+            Toast.makeText(context, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void delete(int position) {
         data.remove(position);
         notifyItemRemoved(position);
@@ -150,6 +188,8 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     public int getItemCount() {
         return data.size();
     }
+
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;

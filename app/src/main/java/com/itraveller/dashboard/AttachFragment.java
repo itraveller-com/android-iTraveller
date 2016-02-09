@@ -7,17 +7,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.itraveller.R;
-import com.itraveller.chat.FileChooser;
-import com.itraveller.chat.UploadActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,8 +43,10 @@ public class AttachFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), FileChooser.class);
-                startActivityForResult(intent, REQUEST_PICK_FILE);
+        //        Intent i=new Intent(getActivity(),AttachDownloadActivity.class);
+        //        startActivity(i);
+        //        Intent intent = new Intent(getActivity(), FileChooser.class);
+        //        startActivityForResult(intent, REQUEST_PICK_FILE);
 
             }
         });
@@ -80,9 +77,9 @@ public class AttachFragment extends Fragment {
     }
 
     private void launchUploadActivity(boolean isImage){
-        Intent i = new Intent(getActivity(), MyTravelUploadActivity.class);
+    /*    Intent i = new Intent(getActivity(), AttachUploadActivity.class);
         i.putExtra("filePath", fileUri.getPath());
         i.putExtra("isImage", isImage);
-        startActivity(i);
+        startActivity(i); */
     }
 }

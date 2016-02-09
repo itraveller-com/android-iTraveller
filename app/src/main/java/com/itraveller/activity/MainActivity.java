@@ -137,11 +137,19 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if(SharedPreferenceRetrive().getString("back","0").equalsIgnoreCase("0")) {
             if (SharedPreferenceRetrive().getString("skipbit", "0").equalsIgnoreCase("0")) {
                 displayView(4);
-            } else {
+            }
+            else
+            {
                 displayView(0);
             }
-        } else {
-            displayView(0);
+        }
+        else
+        {
+            if(SharedPreferenceRetrive().getString("back","0").equalsIgnoreCase("1"))
+                displayView(1);
+            else
+                displayView(0);
+
             SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
             SharedPreferences.Editor editor=prefs.edit();
             editor.putString("back", "0").commit();
@@ -306,7 +314,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 break;
 
             case 2:
-
 
                 Intent i=new Intent(getApplicationContext(),MyTravelActivity.class);
                 startActivity(i);

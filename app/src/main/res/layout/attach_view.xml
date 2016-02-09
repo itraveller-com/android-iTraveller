@@ -8,7 +8,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select File"
+        android:text="View Attachments"
         android:padding="30dp"
         android:textSize="25dp"
         android:id="@+id/attach_file_btn"

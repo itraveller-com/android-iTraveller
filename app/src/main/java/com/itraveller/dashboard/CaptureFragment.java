@@ -13,12 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itraveller.R;
-import com.itraveller.chat.Config;
-import com.itraveller.chat.UploadActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -116,10 +113,10 @@ public class CaptureFragment extends Fragment {
     }
 
     private void launchUploadActivity(boolean isImage){
-        Intent i = new Intent(getActivity(), MyTravelUploadActivity.class);
+    /*    Intent i = new Intent(getActivity(), CameraUploadActivity.class);
         i.putExtra("filePath", fileUri.getPath());
         i.putExtra("isImage", isImage);
-        startActivity(i);
+        startActivity(i); */
     }
 
     /**
@@ -147,7 +144,6 @@ public class CaptureFragment extends Fragment {
                 return null;
             }
         }
-
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());

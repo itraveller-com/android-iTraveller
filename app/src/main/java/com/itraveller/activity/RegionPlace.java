@@ -475,7 +475,7 @@ public class RegionPlace extends ActionBarActivity {
 
             Log.v("Interface","CalledInMainFunction" +count);
             if(count == 0)
-            no_data_lay.setVisibility(View.VISIBLE);
+                no_data_lay.setVisibility(View.VISIBLE);
             else
                 no_data_lay.setVisibility(View.INVISIBLE);
         }

@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.itraveller.R;
-import com.itraveller.chat.ChatMain;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,8 +33,8 @@ public class ChatFragment extends Fragment {
         chat_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i= new Intent(getActivity(), ChatMain.class);
-                startActivity(i);
+                //Intent i= new Intent(getActivity(), ChatMain.class);
+                //startActivity(i);
             }
         });
 

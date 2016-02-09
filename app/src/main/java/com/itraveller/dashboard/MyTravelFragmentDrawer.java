@@ -28,7 +28,6 @@ import com.itraveller.R;
 import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.adapter.MyTravelNavigationDrawerAdapter;
 import com.itraveller.adapter.NavigationDrawerAdapter;
-import com.itraveller.chat.ChatMain;
 import com.itraveller.model.NavDrawerItem;
 
 import java.util.ArrayList;

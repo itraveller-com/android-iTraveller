@@ -20,12 +20,12 @@ import android.support.v4.widget.CursorAdapter;
  * returns the reordered list of Cursor positions.
  *
  * An instance of this class is passed
- * to {@link DragSortListView#setAdapter(ListAdapter)} and, since
- * this class implements the {@link DragSortListView.DragSortListener}
+ * to {@link DragNDropSortListView#setAdapter(ListAdapter)} and, since
+ * this class implements the {@link DragNDropSortListView.DragSortListener}
  * interface, it is automatically set as the DragSortListener for
  * the DragSortListView instance.
  */
-public abstract class DragSortCursorAdapter extends CursorAdapter implements DragSortListView.DragSortListener {
+public abstract class DragSortCursorAdapter extends CursorAdapter implements DragNDropSortListView.DragSortListener {
 
     public static final int REMOVED = -1;
 
@@ -109,7 +109,7 @@ public abstract class DragSortCursorAdapter extends CursorAdapter implements Dra
      * and ListView positions. The Cursor is unchanged. Retrieve
      * the current mapping with {@link getCursorPositions()}.
      *
-     * @see DragSortListView.DropListener#drop(int, int)
+     * @see DragNDropSortListView.DropListener#drop(int, int)
      */
     @Override
     public void drop(int from, int to) {
@@ -137,7 +137,7 @@ public abstract class DragSortCursorAdapter extends CursorAdapter implements Dra
      * and ListView positions. The Cursor is unchanged. Retrieve
      * the current mapping with {@link getCursorPositions()}.
      *
-     * @see DragSortListView.RemoveListener#remove(int)
+     * @see DragNDropSortListView.RemoveListener#remove(int)
      */
     @Override
     public void remove(int which) {

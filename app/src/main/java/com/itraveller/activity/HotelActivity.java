@@ -232,8 +232,9 @@ public class  HotelActivity extends ActionBarActivity {
         post_prefs=getSharedPreferences("PostData",MODE_PRIVATE);
         totalPersons = Integer.parseInt(prefs.getString("Adult", "2")) + Integer.parseInt( prefs.getString("Child", "0"));
 
-        /*Log.d("No of nights count", "" + preferences.getString("package_name", null));
+        Log.d("No of nights count", "" + totalPersons+"  ,  "+Utility.noRooms(2,totalPersons) );
 
+        /*
         if(preferences.getInt("flag",0)==1)
         {
             String str=""+preferences.getString("f_name", null);
@@ -435,6 +436,7 @@ public class  HotelActivity extends ActionBarActivity {
 
                 }
 
+                SaveData();
                     /*}
                     else{
                     set.add("" + HotelRoomData[i]);}*/
@@ -444,15 +446,17 @@ public class  HotelActivity extends ActionBarActivity {
                 editor.putString("HotelRooms", itinerary_hotel);
                 Log.d("Hotel test12", "" + itinerary_hotel);
                 editor.putString("ItineraryHotelRooms", itinerary_hotel);
+                Log.d("Hotel test13", "" + itinerary_hotel);
                 editor.commit();
 
-                if(error_bit != 1) {
+                if(error_bit != 1)
+                {
                     Intent intent = new Intent(HotelActivity.this, ActivitiesActivity.class);
                     startActivity(intent);
                 }
-                else{
+                else
+                {
                     Toast.makeText(HotelActivity.this, "Please remove the destinations without hotels/rooms" ,Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -977,7 +981,7 @@ public class  HotelActivity extends ActionBarActivity {
                 ndDialog.setCancelable(false);
                 ndDialog.show();
 
-                getUserSelectedHotelData();
+                //getUserSelectedHotelData();
 
                 totalPriceText.setText("Calculating...");
                 discountPriceText.setText("Calculating...");
@@ -1318,6 +1322,9 @@ public class  HotelActivity extends ActionBarActivity {
                     for(int j =0 ;j < pre_saved_hotel_destination_id.length ; j++) {
                         if(hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])){
                             lowesthotelList.add(hotel_room_Data[depth]);
+
+                            Log.d("Hotel test rohan1",""+hotel_room_Data[depth]);
+
                             new_value =1;
                         }
                     }
@@ -1336,8 +1343,10 @@ public class  HotelActivity extends ActionBarActivity {
                         //here no of rooms add defaul
                         lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + ",1");
                     }*/
-                    if(new_value == 0){
+                    if(new_value == 0)
+                    {
                         lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(2, totalPersons)+",0,0");
+                        Log.i("DefaultData1", "" + jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + "," + Utility.noRooms(2, totalPersons) + ",0,0");
                     }
                     //roomList.add();
                     //}
@@ -2041,6 +2050,10 @@ public class  HotelActivity extends ActionBarActivity {
             //if(datas.equalsIgnoreCase("null")) {
             //set.add("" + lowesthotelList.get(i));
             String[] lowest_value = lowesthotelList.get(i).trim().split(",");
+
+
+
+            Log.d("Hotel test rohan",""+lowest_value[0]+" "+lowest_value[1]+" "+lowest_value[2]+" "+lowest_value[3]+" "+hotel_string);
 
             if(i == 0) {
                 itinerary_hotel = "" + lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," + hotel_string;

@@ -195,18 +195,22 @@
         </TableLayout>
 
 
-        <Button
-            android:id="@+id/btn_select"
-            android:layout_width="match_parent"
+
+        <RadioButton
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:id="@+id/btn_select"
+            android:button="@null"
+            android:background="@drawable/button_select"
             android:layout_gravity="center"
+            android:checked="false"
+            android:gravity="center"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/style_filterbutton"
-            android:text="Select >>"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:layout_weight="0.1"
+            android:layout_alignParentTop="true"
+        />
 
 
     </LinearLayout>

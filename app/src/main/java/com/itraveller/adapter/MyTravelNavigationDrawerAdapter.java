@@ -13,33 +13,36 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itraveller.R;
 import com.itraveller.dashboard.BookedTripsFragment;
-import com.itraveller.dashboard.CreatedTripsFragment;
-import com.itraveller.dashboard.HelpFragment;
-import com.itraveller.dashboard.HomeFragment_;
 import com.itraveller.activity.MainActivity;
-import com.itraveller.dashboard.ProfileFragment;
-import com.itraveller.dashboard.ViewDetailsActivity;
+import com.itraveller.dashboard.MyTravelFragmentDrawer;
 import com.itraveller.model.NavDrawerItem;
+import com.itraveller.moxtraChat.PreferenceUtil;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXSDKConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTravelNavigationDrawerAdapter.MyViewHolder> {
+public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTravelNavigationDrawerAdapter.MyViewHolder> implements MXAccountManager.MXAccountUnlinkListener{
     List<NavDrawerItem> data = Collections.emptyList();
     List<MyViewHolder> holders = new ArrayList<MyViewHolder>();
     private LayoutInflater inflater;
     private Context context;
+    private static final String TAG = "MyTravelNavigationDrawerAdapter";
+
 
     public MyTravelNavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
         this.context = context;
@@ -60,7 +63,7 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
         final NavDrawerItem current = data.get(position);
 
         holder.imgIcon.setImageResource(current.getIcon());
-        if(position==6){
+        if(position==3){
             if(SharedPreferenceRetrive().getString("skipbit","0").equalsIgnoreCase("0")){
                 holder.title.setText("Login");
             } else {
@@ -81,9 +84,10 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
                 title = "iTraveller";
                 switch (position) {
                     case 0:
-                        fragment=new HomeFragment_();
-                        //    fragment = new MaterialLandingActivity();
-                        title = "Choose Destination";
+                        Intent intent= new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
+                        ((Activity)context).finish();
+
                         break;
 
 
@@ -91,48 +95,27 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
 
                         fragment = new BookedTripsFragment();
                         title = "How it works";
+                        MyTravelFragmentDrawer.mDrawerLayout.closeDrawers();
                         break;
 
                     case 2:
 
-                        fragment = new CreatedTripsFragment();
-                        title = "About Us";
+                    //    Intent i2=new Intent(context,CameraDownloadActivity.class);
+                    //    context.startActivity(i2);
+                        //    fragment = new ProfileFragment();
+                        title = "Contact Us";
+                        MyTravelFragmentDrawer.mDrawerLayout.closeDrawers();
+
                         break;
+
 
                     case 3:
 
-                        fragment = new ProfileFragment();
-                        title = "Contact Us";
-                        break;
-
-
-                    case 4:
-
-                        fragment = new HelpFragment();
-                        title = "Contact Us";
-                        break;
-
-                    case 5:
-
-                        Intent i1=new Intent(context,ViewDetailsActivity.class);
-                        context.startActivity(i1);
-                    //    fragment = new GalleryFragment();
-                        title = "Contact Us";
-                        break;
-
-                    case 6:
-
-                        Intent i=new Intent(context,MainActivity.class);
 
                         title = "Login";
                         if(holder.title.getText().toString().equalsIgnoreCase("Logout")){
-                            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.clear();
-                            editor.commit();
 
-                            context.startActivity(i);
-                            ((Activity)context).finish();
+                            logout();
                         }
                         break;
 
@@ -181,5 +164,37 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
             nav_row = (RelativeLayout) itemView.findViewById(R.id.nav_drawer_row);
         }
     }
+
+    protected void logout() {
+        PreferenceUtil.removeUser(context);
+
+        boolean ret = MXAccountManager.getInstance().unlinkAccount(this);
+        if (!ret) {
+
+            Log.e(TAG, "Can't logout: the unlinkAccount return false.");
+            Toast.makeText(context, "unlink failed.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.commit();
+
+            Intent i=new Intent(context,MainActivity.class);
+            context.startActivity(i);
+            ((Activity)context).finish();
+        }
+    }
+    @Override
+    public void onUnlinkAccountDone(MXSDKConfig.MXUserInfo mxUserInfo) {
+
+        Log.i(TAG, "Unlinked moxtra account: " + mxUserInfo);
+        if (mxUserInfo == null) {
+            Log.e(TAG, "Can't logout: the mxUserInfo is null.");
+            Toast.makeText(context, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
 

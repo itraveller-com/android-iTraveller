@@ -34,7 +34,7 @@ public class HotelRoomAdapter extends BaseAdapter {
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
-    private int adults;
+    private int adults,children;
     private int groupPosition;
     SharedPreferences preferences,post_data;
     SharedPreferences prefs;
@@ -90,7 +90,9 @@ public class HotelRoomAdapter extends BaseAdapter {
 
             prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
             post_data=activity.getSharedPreferences("PostData",activity.MODE_PRIVATE);
-            adults = Integer.parseInt(prefs.getString("Adults", "0"));
+
+            adults = Integer.parseInt(prefs.getString("Adult", "0"));
+            children=Integer.parseInt(prefs.getString("Child","0"));
         }
         else
         {
@@ -99,11 +101,9 @@ public class HotelRoomAdapter extends BaseAdapter {
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
-
         //holder.radioButton.setChecked(false);
         // getting data for the row
         final HotelRoomModel m = HotelRooms.get(position);
-
 
         //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
@@ -113,7 +113,40 @@ public class HotelRoomAdapter extends BaseAdapter {
 
         try {
             String[] hotel_room_Data = lowesthotelList.get(groupPosition).trim().split(",");
-            holder.btn_count.setText("" + hotel_room_Data[3]);
+
+            int min_capacity=m.getDefault_Number();
+            int max_capacity=m.getMaximum_Number();
+            int no_of_rooms;
+
+
+            Log.d("No of rooms adul",""+adults);
+
+            Log.d("No of rooms min",""+min_capacity);
+
+
+            Log.d("No of rooms max",""+max_capacity);
+
+        /*    if(adults%max_capacity==0)
+            {
+                no_of_rooms=adults/max_capacity;
+            }
+            else
+            {
+                if(adults==min_capacity)
+                    no_of_rooms=(adults/min_capacity);
+                else
+                    no_of_rooms=(adults/min_capacity)+1;
+            }
+        */
+
+            if((adults+children)%min_capacity==0)
+                no_of_rooms=(adults/min_capacity);
+            else
+                no_of_rooms=(adults/min_capacity)+1;
+
+            Log.d("No of rooms or",""+no_of_rooms);
+
+            holder.btn_count.setText("" +no_of_rooms);
             //holder.rate.setText(""+m.getDisplay_Tariff());
            if (Integer.parseInt(hotel_room_Data[2]) == m.getDisplay_Tariff()){
                 //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
@@ -125,12 +158,13 @@ public class HotelRoomAdapter extends BaseAdapter {
             else {
                 holder.rate.setText((m.getDisplay_Tariff() - Integer.parseInt(hotel_room_Data[2])) + " more");
             }
-        }catch (Exception e){
+        }
+        catch (Exception e)
+        {
 
         }
 
         //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
-
 
         final ViewHolder finalHolder = holder;
         holder.btn_plus.setOnClickListener(new View.OnClickListener() {

@@ -56,6 +56,8 @@ public class SummaryActivity extends ActionBarActivity{
     int total_price =0;
     Double total_discount;
 
+
+    int totalPersons;
     //Button btn_buy;
     Double amount;
     //EditText ed_quantity, ed_totalamount;
@@ -106,14 +108,23 @@ public class SummaryActivity extends ActionBarActivity{
             final EditText mobileEditText=(EditText) findViewById(R.id.customer_mobile_number);
             final EditText emailEditText=(EditText) findViewById(R.id.customer_email);
             final EditText postalEdiText=(EditText) findViewById(R.id.customer_postal_code);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+            coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+        Log.d("Summary", "" + coordinatorLayout);
 
 
         SharedPreferences preferences = getSharedPreferences("Preferences",MODE_PRIVATE);
         nameEditText.setText("" + preferences.getString("name", ""));
         mobileEditText.setText("" + preferences.getString("phone", ""));
         emailEditText.setText("" + preferences.getString("email", ""));
-            Button confirm = (Button) findViewById(R.id.btn_confirm_payment);
+
+        SharedPreferences prefs1=getSharedPreferences("Itinerary",Context.MODE_PRIVATE);
+
+        totalPersons = Integer.parseInt(prefs1.getString("Adult", "2")) + Integer.parseInt( prefs1.getString("Child", "0"));
+
+        Log.d("Price Adult",""+prefs1.getString("Adult", "2")+" "+prefs1.getString("Child", "0"));
+
+        Button confirm = (Button) findViewById(R.id.btn_confirm_payment);
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -129,13 +140,14 @@ public class SummaryActivity extends ActionBarActivity{
                     } else if(user_email.equalsIgnoreCase("") || user_name.equalsIgnoreCase("") || user_mobile_number.equalsIgnoreCase("") || user_postal_code.equalsIgnoreCase("")){
                         HideKeyboard();
                         CustomField("Please fill all fields");
-                    } else if(!validatePhoneNumber(user_mobile_number)) {
+                    }
+                    else if(user_mobile_number.length()<9){//else if(!validatePhoneNumber(user_mobile_number)) {
                         HideKeyboard();
                         CustomField("Enter valid phone number");
                     } else if(!isValidEmail(user_email)){
                         HideKeyboard();
                         CustomField("Enter valid email");
-                    } else if(!validatePhoneNumber(user_postal_code)){
+                    } else if(user_postal_code.length()<5){
                         HideKeyboard();
                         CustomField("Enter valid pincode");
                     } else {
@@ -147,8 +159,9 @@ public class SummaryActivity extends ActionBarActivity{
 
             //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
             Set<String> ActivitiesData = prefs.getStringSet("ActivitiesData", null);
-            String transportation_rate = prefs.getString("TransportationCost", null);
+            String transportation_rate = ""+prefs.getString("TransportationCost", "0");
 
+            Log.d("Price test","Transportation"+transportation_rate);
 
             String F_bit = ""+prefs.getString("FlightBit",null);
             int flightBit = Integer.parseInt("" + F_bit);
@@ -157,11 +170,15 @@ public class SummaryActivity extends ActionBarActivity{
                 String flight_dom = prefs.getString("FlightPrice", "0");
                 if(!flight_dom.equals("0"))
                 flight_rate = Integer.parseInt(flight_dom);
+
+                Log.d("Price test",""+flight_rate);
             }
-            else{
+            else
+            {
                 onward_flight_rate = prefs.getString("OnwardFlightPrice", null);
                 return_flight_rate = prefs.getString("ReturnFlightPrice", null);
 
+                Log.d("Price test",""+onward_flight_rate+"Flight"+return_flight_rate);
 
                 if(!((onward_flight_rate.equals("0"))&&(return_flight_rate.equals("0")))){
                 flight_rate = Integer.parseInt(onward_flight_rate) + Integer.parseInt(return_flight_rate);
@@ -170,11 +187,15 @@ public class SummaryActivity extends ActionBarActivity{
                     flight_rate = Integer.parseInt(onward_flight_rate);
                 else if(!return_flight_rate.equals("0"))
                     flight_rate = Integer.parseInt(return_flight_rate);
-
-
             }
 
-             String HotelData = prefs.getString("HotelRooms",null);
+        //     String HotelData = prefs.getString("HotelRooms",null);
+
+            SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
+            String HotelData=sharedpreferences.getString("HotelDetails","");
+
+            Log.d("Price test HD",""+HotelData);
+
              String[] HotelDataArray = HotelData.trim().split("-");
             //String[] HotelDataArray = HotelData.toArray(new String[HotelData.size()]);
             String[] ActivitiesDataArray = ActivitiesData.toArray(new String[ActivitiesData.size()]);
@@ -182,11 +203,16 @@ public class SummaryActivity extends ActionBarActivity{
             String DayCount = prefs.getString("DestinationCount", null);
             String[] destination_day_count = DayCount.trim().split(",");
             int rate_of_rooms =0;
-            for (int index = 0; index < HotelDataArray.length; index++) {   //Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
+            for (int index = 0; index < HotelDataArray.length; index++) {
+                Log.i("Hoteldataaaaaa",""+ HotelDataArray[index]);
                 String[] hotel_room_Data = HotelDataArray[index].trim().split(",");
                 //no fo rooms and price
+
+                Log.d("Price test", "" + hotel_room_Data[2] + " hotel " + hotel_room_Data[3] + "Destination" + "" + destination_day_count[index]);
+
                 int no_room_price = Integer.parseInt("" + hotel_room_Data[3]) * Integer.parseInt("" + hotel_room_Data[2]);
                 int room_rate = Integer.parseInt("" + destination_day_count[index]) * no_room_price;
+
                 if(index == 0)
                 {
                     rate_of_rooms = room_rate;
@@ -194,7 +220,7 @@ public class SummaryActivity extends ActionBarActivity{
                 else{
                     rate_of_rooms = rate_of_rooms + room_rate;
                 }
-                Log.i("RoomRates","" +rate_of_rooms);
+                Log.d("Price test","Room Rate" +rate_of_rooms);
             }
 
 
@@ -207,6 +233,9 @@ public class SummaryActivity extends ActionBarActivity{
 
                     String[] activities_Data = ActivitiesDataArray[index].trim().split(",");
                     Log.i("ActivityData","" +activities_Data);
+
+                    Log.d("Price test"," Activity "+activities_Data[1]);
+
                     try{
                     if (count_bit == 0) {
                         activities_rate = Integer.parseInt("" + activities_Data[1]);
@@ -226,23 +255,32 @@ public class SummaryActivity extends ActionBarActivity{
 
             if(flight_rate == 0)
             {
-                total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" +transportation_rate) * ActivitiesDataArray.length);//no fo days;
+                    total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" +transportation_rate) * ActivitiesDataArray.length);//no fo days;
+                    Log.d("Price test","Total1"+total_price);
+
             }
-            else{
-                 total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" +transportation_rate) * ActivitiesDataArray.length) + Integer.parseInt("" +flight_rate);
+            else
+            {
+                    total_price = rate_of_rooms + activities_rate + (Integer.parseInt("" + transportation_rate) * ActivitiesDataArray.length) + Integer.parseInt("" + flight_rate);
+                Log.d("Price test","Total2"+total_price);
             }
 
             double discount_val = 0.2;
             total_discount = Double.parseDouble("" + total_price) * discount_val ;
+
             TextView package_v = (TextView) findViewById(R.id.price_txt);
-            TextView total = (TextView) findViewById(R.id.total_p_txt);
-            TextView total_dis = (TextView) findViewById(R.id.booking_price_txt);
+            TextView discount_v=(TextView) findViewById(R.id.dis_price_txt);
+            TextView total_p = (TextView) findViewById(R.id.total_p_txt);
+            TextView adv_payment = (TextView) findViewById(R.id.booking_price_txt);
+
             package_v.setText("Rs " + total_price);
-            total.setText("Rs " + total_price);
-            total_dis.setText("Rs " + total_discount.intValue());
+            discount_v.setText("Percentage "+ "5 %");
+            int temp_price=total_price-(5*total_price/100);
+            total_p.setText("Rs " + temp_price);
 
+            int adv_price=(20*temp_price)/100;
+            adv_payment.setText("Rs " + adv_price);
     }
-
 
     //function to check if entered email is valid or not
     public final static boolean isValidEmail(CharSequence target) {
@@ -289,6 +327,9 @@ public class SummaryActivity extends ActionBarActivity{
         /** Payment Amount Details */
         /** Mandatory */
         // Total Amount
+
+        Log.d("Payment",""+"called kit ii");
+
         totalamount = Math.round( total_discount * 100.0 ) / 100.0;
         PaymentRequest.getInstance().setTransactionAmount(Math.round( total_discount * 100.0 ) / 100.0);
         /** Mandatory */
@@ -319,6 +360,8 @@ public class SummaryActivity extends ActionBarActivity{
     }
 
     public void CustomField(String message){
+
+        Log.d("Summary",""+coordinatorLayout);
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, message, Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.GREEN);

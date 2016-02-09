@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,6 +96,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     private LinearLayout toolbarSearch;
     ViewFlipper vf;
     SharedPreferences.Editor editor;
+    View rootView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,9 +107,30 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.material_landing_listview, container, false);
+        rootView = inflater.inflate(R.layout.material_landing_listview, container, false);
 
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Choose Destination");
+
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+
+                    // handle back button
+                    ((MainActivity) getActivity()).onDrawerItemSelected(rootView, 0);
+
+                    return true;
+
+                }
+
+                return false;
+            }
+        });
+
+
         //Destination fetching URL
         mHeaderView = rootView.findViewById(R.id.header);
         mToolbarView = rootView.findViewById(R.id.toolbarnew);
@@ -600,7 +624,16 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("login_flag", 1);
-        editor.putInt("flag",0);
+        editor.putInt("flag", 0);
         editor.commit();
+
+        Log.d("Back testing", "hello");
+
+        (getActivity()).finish();//onDrawerItemSelected(rootView, 0);
+
+        Intent i=new Intent(getActivity(),MainActivity.class);
+        startActivity(i);
+
+
     }
 }

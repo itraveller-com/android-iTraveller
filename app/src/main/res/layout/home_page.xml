@@ -13,26 +13,25 @@
             android:id="@+id/my_explore_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/my_explore"
+            android:src="@drawable/home_page_f"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/my_explore_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Explorer"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
             android:textSize="30dp"
             android:textColor="@android:color/white"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_shadow"
+            android:background="@drawable/xplore_button_transperant"
             android:padding="25dp"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"></LinearLayout>
+        android:layout_height="1dp"></LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,21 +43,20 @@
             android:id="@+id/my_travel_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/my_travel"
+            android:src="@drawable/home_page_s"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"/>
 
         <Button
             android:id="@+id/my_travel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Travel"
+            android:layout_width="400dp"
+            android:layout_height="240dp"
             android:textSize="30dp"
             android:shadowColor="#000000"
             android:textColor="@android:color/white"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_shadow"
+            android:background="@drawable/tripsbutton_transperant"
             android:padding="25dp"/>
     </RelativeLayout>
 

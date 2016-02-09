@@ -60,9 +60,6 @@
                 android:layout_height="420dp"
                 android:id="@+id/flipper_view"
                 android:gravity="center">
-
-
-
             </LinearLayout>
 
         </LinearLayout>

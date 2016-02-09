@@ -68,6 +68,8 @@ public class FlightDomesticActivity extends ActionBarActivity{
        you need to extend Main Activity to ActionBarActivity.*/
     public static Activity fda;
 
+    public static Object volley_obj;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -113,6 +115,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
         SharedPreferences prefs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         prefs.edit().putString("OnwardFlightPrice","0").commit();
         prefs.edit().putString("ReturnFlightPrice", "0").commit();
+
+        prefs.edit().putString("Flight_flag","0").commit();
+
         CustomLoading.LoadingScreen(FlightDomesticActivity.this, false);
         next = (Button) findViewById(R.id.button);
         next.setOnClickListener(new View.OnClickListener() {
@@ -462,6 +467,9 @@ public class FlightDomesticActivity extends ActionBarActivity{
         strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
                 5,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+        volley_obj=strReq;
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq);
 

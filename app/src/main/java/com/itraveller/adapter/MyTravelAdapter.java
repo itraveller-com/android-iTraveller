@@ -26,7 +26,9 @@ public class MyTravelAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<MyTravelModel> LandingItems;
+    TextView date_text,id_text;
 
+    
     public MyTravelAdapter(Activity activity, List<MyTravelModel> LandingItems) {
         this.activity = activity;
         this.LandingItems = LandingItems;
@@ -59,11 +61,18 @@ public class MyTravelAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.my_trips_item, null);
 
-        TextView title = (TextView) convertView.findViewById(R.id.title);
+        date_text = (TextView) convertView.findViewById(R.id.date_text);
+        id_text= (TextView) convertView.findViewById(R.id.id_text);
 
         MyTravelModel m = LandingItems.get(position);
 
-        title.setText(m.getTravelDate());
+        id_text.setText(""+m.getItinerary_Main_Id());
+
+        String dateF=m.getTravelDate();
+        String dateA[]=dateF.split("-");
+
+        dateF=""+dateA[2]+"-"+dateA[1]+"-"+dateA[0];
+        date_text.setText(dateF);
 
         return convertView;
     }

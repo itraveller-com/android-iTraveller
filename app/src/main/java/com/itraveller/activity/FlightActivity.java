@@ -65,6 +65,8 @@ public class FlightActivity extends ActionBarActivity {
     int Total_Price;
 
     public static Activity fa;
+    public static Object volley_obj;
+
 
     private Toolbar mtoolbar; // Declaring the Toolbar Object
     private ArrayList<FlightModel> flight_model = new ArrayList<FlightModel>();
@@ -99,10 +101,16 @@ public class FlightActivity extends ActionBarActivity {
 
             CustomLoading.LoadingScreen(FlightActivity.this, false);
             listview = (ListView) findViewById(R.id.flights_listview);
+
+            listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
             adapter = new FlightAdapter(this, flight_model);
             listview.setAdapter(adapter);
 
             SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
+
+            prefs.edit().putString("Flight_flag","1").commit();
+
             //String url = "http://stage.itraveller.com/backend/api/v1/internationalflight?travelFrom=BOM&arrivalPort=MRU&departDate=2015-07-26&returnDate=2015-08-01&adults=2&children=0&infants=0&departurePort=MRU&travelTo=BOM";
         //    String url ="http://stage.itraveller.com/backend/api/v1/internationalflight?" +
             String url= Constants.API_International_Flights +
@@ -116,9 +124,9 @@ public class FlightActivity extends ActionBarActivity {
                     "&departurePort=" + prefs.getString("TravelTo", null) +
                     "&travelTo=" + prefs.getString("DepartureAirport", null);
 
-            Log.i("Flight URL","" + Constants.API_International_Flights);
+            Log.i("Flight URL","" + url);
 
-            Log.i("Transportation_Cost","" + prefs.getString("TransportationCost", null));
+            Log.i("Transportation_Cost", "" + prefs.getString("TransportationCost", null));
 
             JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                     url, new Response.Listener<JSONObject>() {
@@ -336,9 +344,10 @@ public class FlightActivity extends ActionBarActivity {
             strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
                     5,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            volley_obj=strReq;
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq);
-
 
         }
 
@@ -370,4 +379,3 @@ public class FlightActivity extends ActionBarActivity {
     }
 
 }
-

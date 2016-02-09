@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -44,12 +45,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import com.itraveller.R;
+import com.itraveller.adapter.FlightAdapter;
+import com.itraveller.adapter.FlightDomesticOnwardAdapter;
+import com.itraveller.adapter.FlightDomesticReturnAdapter;
 import com.itraveller.constant.Utility;
 import com.itraveller.map.DirectionsJSONParser;
 import com.itraveller.map.WorkaroundMapFragment;
@@ -216,7 +221,9 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 destination_arr=new String[1];
                 destination_arr[0] = "" + destination;
 
-            }String dest;
+            }
+
+            String dest;
             Log.d("Test finally 6",""+destination_arr.length);
 
             Log.d("Test finally 3",""+destination);
@@ -397,9 +404,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
        //Travel ID making///////////////////////
         //Mon Nov 16 17:12:28 GMT+05:30 2015
         Date date = new Date();
-        System.out.println(date.toString());
+
+        Log.d("Date test",""+date.toString());
         String dateString = "Fri, 09 Nov 2012 23:40:18 GMT";
-        DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM hh:mm:ss z yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy");
         try {
             date = dateFormat.parse(date.toString());
         } catch (ParseException e) {
@@ -764,7 +772,13 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             }catch(Exception e){
                 e.printStackTrace();
             }
-            return routes;
+
+            if(routes==null) {
+                Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_SHORT).show();
+                return Collections.emptyList();
+            }
+            else
+                return routes;
         }
         // Executes in UI thread, after the parsing process
         @Override
@@ -788,8 +802,6 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
                 // Fetching all the points in i-th route
                 for(int j=0;j<path.size();j++)
                 {
-
-                    Log.d("Map test2","helllo");
 
                     HashMap<String,String> point = path.get(j);
 
@@ -883,10 +895,19 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             Log.d("Flight Bit testing",""+prefs.getString("FlightBit",null).equals("1"));
             if((""+prefs.getString("FlightBit",null)).equals("1"))
             {
+
+                FlightDomesticOnwardAdapter.base_flight_price=0;
+                FlightDomesticReturnAdapter.base_flight_price=0;
+                FlightDomesticOnwardAdapter.count=0;
+                FlightDomesticReturnAdapter.count=0;
+
                 FlightDomesticActivity.fda.finish();
             }
             else
             {
+                FlightAdapter.base_flight_price=0;
+                FlightAdapter.count=0;
+
                 FlightActivity.fa.finish();
             }
         }
@@ -895,7 +916,7 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
 
     public void PackagePrice()
     {
-        int total_price;
+        int total_price=0;
         SharedPreferences prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
 
         //Set<String> HotelData = prefs.getStringSet("HotelRooms", null);
@@ -977,12 +998,19 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
         //Log.i("TransportationRates","" +transportation_rate);
 
 
-        if(flight_rate == 0)
-        {
-            total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate);
+        if(flight_rate == 0) {
+            if (("" + transportation_rate).equals(null)) {
+                transportation_rate="0";
+                total_price = rate_of_rooms + activities_rate + Integer.parseInt("" + transportation_rate);
+
+            }
         }
         else{
-            total_price = rate_of_rooms + activities_rate + Integer.parseInt("" +transportation_rate) + Integer.parseInt("" +flight_rate);
+            if (("" + transportation_rate).equals(null))
+            {
+                transportation_rate = "0";
+                total_price = rate_of_rooms + activities_rate + Integer.parseInt("" + transportation_rate) + Integer.parseInt("" + flight_rate);
+            }
         }
         SharedPreferences packagePrice = getSharedPreferences("PackagePrice", MODE_PRIVATE);
         SharedPreferences.Editor editor = packagePrice.edit();

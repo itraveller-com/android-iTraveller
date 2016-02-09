@@ -49,8 +49,10 @@ import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
 import com.itraveller.model.TransportationModel;
 import com.melnykov.fab.FloatingActionButton;
+
+import com.mobeta.android.dslv.DragNDropSortListView;
 import com.mobeta.android.dslv.DragSortController;
-import com.mobeta.android.dslv.DragSortListView;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +76,7 @@ public class DragAndSort extends ActionBarActivity
     public static String Destination_Date;
 
     SharedPreferences sharedpreferences;
-    DragSortListView listView;
+    DragNDropSortListView listView;
     String[] names;
    // ArrayAdapter<String> adapter;
     Toolbar mToolbar;
@@ -108,7 +110,7 @@ public class DragAndSort extends ActionBarActivity
     private LinearLayout destination_page;
     private RelativeLayout airportlist_page;
 
-   private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
+   private DragNDropSortListView.DropListener onDrop = new DragNDropSortListView.DropListener()
     {
         @Override
         public void drop(int from, int to)
@@ -123,11 +125,12 @@ public class DragAndSort extends ActionBarActivity
         }
     };
 
-    private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener()
+    private DragNDropSortListView.RemoveListener onRemove = new DragNDropSortListView.RemoveListener()
     {
         @Override
         public void remove(int which)
         {
+            Log.i("TestData2","Test");
             adapter_rearrange.remove(adapter_rearrange.getList().get(which));
          //   LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rearrangeList.size()* (dpToPx(70)));
           //  listView.setLayoutParams(lp);
@@ -241,7 +244,7 @@ public class DragAndSort extends ActionBarActivity
 
             airportJSONForText("http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1", bundle.getInt("ArrivalPort"), bundle.getInt("DeparturePort"));
 
-        listView = (DragSortListView) findViewById(R.id.listview);
+        listView = (DragNDropSortListView) findViewById(R.id.listview);
         names = TestValue.trim().split(",");
         destination_ID = Destination_Id.trim().split(",");
         destination_Count = Destination_Count.trim().split(",");

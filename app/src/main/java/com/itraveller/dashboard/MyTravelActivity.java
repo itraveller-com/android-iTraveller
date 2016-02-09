@@ -92,24 +92,12 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
     }
 
 
-    public void FacebookImage() {
-        try {
-            Log.d("FacebookImg", "" + "https://graph.facebook.com/" + SharedPreferenceRetrive().getString("id", "") + "/picture");
-            URL imgUrl = new URL("https://graph.facebook.com/" + SharedPreferenceRetrive().getString("id", "") + "/picture");
-            InputStream in = (InputStream) imgUrl.getContent();
-            Bitmap bitmap = BitmapFactory.decodeStream(in);
-            profilepic.setImageBitmap(getCroppedBitmap(bitmap));
-            greeting.setText("Hello " + SharedPreferenceRetrive().getString("name", "User").toString());
-        } catch (Exception e){
-
-        }
+    public void onBackPressed() {
+        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
+        finish();
     }
-    public void ServerImage(){
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
-        profilepic.setImageBitmap(getCroppedBitmap(icon));
-        greeting.setText("Hello " + SharedPreferenceRetrive().getString("name", "User"));
 
-    }
 
     private void displayView(int position) {
 
@@ -117,18 +105,11 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 //        title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment=new HomeFragment_();
-                //fragment = new MaterialLandingActivity();
-                title = getString(R.string.title_home);
-                if (SharedPreferenceRetrive().getString("serverCheck","User").equalsIgnoreCase("facebook")) {
-                    //profilepic.setImageResource(R.drawable.ic_profile_pic);
-                    FacebookImage();
-                } else {
-                    //profilepic.setImageResource(R.drawable.ic_profile);
-                    ServerImage();
-                }
-                break;
 
+                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
 
             case 1:
 
@@ -138,32 +119,14 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 
             case 2:
 
-                fragment = new CreatedTripsFragment();
-                title = "Your Created Trips";
+                //Intent i2=new Intent(getApplicationContext(),CameraDownloadActivity.class);
+                //startActivity(i2);
+                //    fragment = new ProfileFragment();
+                title = "Gallery";
                 break;
+
 
             case 3:
-
-                fragment = new ProfileFragment();
-                title = "Your Profile";
-                break;
-
-
-            case 4:
-
-                fragment = new HelpFragment();
-                title = "Help and Support";
-                break;
-
-            case 5:
-
-                Intent i1=new Intent(getApplicationContext(),ViewDetailsActivity.class);
-                startActivity(i1);
-            //    fragment = new GalleryFragment();
-                title = "Your Gallery";
-                break;
-
-            case 6:
 
                 Intent i=new Intent(getApplicationContext(),MainActivity.class);
                 title = "Login";
@@ -197,13 +160,13 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
     @Override
     public void onStart() {
         super.onStart();
-        isActive=true;
+//        isActive=true;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        isActive=false;
+//        isActive=false;
     }
 
     @Override
