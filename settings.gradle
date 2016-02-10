@@ -1,1 +1,2 @@
-include ":moxtra",':facebook', ':rangeseekbar', ':app', ':VolleyLibrary', ':dragsortlistview', ':EBS'
+include ":moxtra", ':app', ':dragsortlistview', ':EBS'
+include ':TimeSquareLibrary'

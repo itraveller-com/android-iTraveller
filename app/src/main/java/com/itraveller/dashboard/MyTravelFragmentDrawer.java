@@ -179,7 +179,7 @@ public class MyTravelFragmentDrawer extends Fragment {
         public void onLongClick(View view, int position);
     }
 
-    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+    static abstract class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;
         private ClickListener clickListener;

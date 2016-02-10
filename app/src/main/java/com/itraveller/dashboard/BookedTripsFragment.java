@@ -28,18 +28,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.itraveller.R;
-import com.itraveller.adapter.LandingAdapter;
 import com.itraveller.adapter.MyTravelAdapter;
-import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
-import com.itraveller.model.LandingModel;
 import com.itraveller.model.MyTravelModel;
 import com.itraveller.moxtraChat.AgentLoginActivity;
 import com.itraveller.moxtraChat.MoxtraActivity;
-import com.itraveller.moxtraChat.MoxtraMainActivity;
 import com.itraveller.volley.AppController;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
