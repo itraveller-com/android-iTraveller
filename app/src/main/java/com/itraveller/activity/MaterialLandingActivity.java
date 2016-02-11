@@ -7,6 +7,7 @@ package com.itraveller.activity;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -378,6 +379,20 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
         toolbarSearchDialog.getWindow().setGravity(Gravity.BOTTOM);
         toolbarSearchDialog.show();
 
+//        toolbarSearchDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+//
+//            @Override
+//            public boolean onKey(DialogInterface arg0, int keyCode,
+//                                 KeyEvent event) {
+//                // TODO Auto-generated method stub
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//
+//                    toolbarSearchDialog.dismiss();
+//                    toolbarSearch.setVisibility(View.VISIBLE);
+//                }
+//                return true;
+//            }
+//        });
 
         toolbarSearchDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
@@ -409,26 +424,23 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
                 SharedPreference.addList(getActivity(), Utils.PREFS_NAME, Utils.KEY_COUNTRIES, searchAdapter.getItemKeyAndValue(position).toString());
                 //edtToolSearch.setText(""+country);
 
-                int Filterregion__size=Filterregion_.size();
-                edtToolSearch.setText(""+searchAdapter.getItem(position));
-                for(int i=0;i<Filterregion__size;i++)
-                {
-                    if(Filterregion_.get(i).getValue().equalsIgnoreCase(edtToolSearch.getText().toString()))
-                    {
+                int Filterregion__size = Filterregion_.size();
+                edtToolSearch.setText("" + searchAdapter.getItem(position));
+                for (int i = 0; i < Filterregion__size; i++) {
+                    if (Filterregion_.get(i).getValue().equalsIgnoreCase(edtToolSearch.getText().toString())) {
                         //Log.i("OnCLick", "Clicked" + Filterregion_.get(i).getKey());
                         String[] Region_id = Filterregion_.get(i).getKey().trim().split("/");
                         int length = Filterregion_.get(i).getKey().trim().split("/").length;
-                        Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length-1]));
+                        Log.i("OnCLick", "Clicked" + Integer.parseInt(Region_id[length - 1]));
 
                         final Intent in = new Intent(getActivity(), MaterialRegionPlace.class);
-                        in.putExtra("RegionID", Integer.parseInt(Region_id[length-1]));
+                        in.putExtra("RegionID", Integer.parseInt(Region_id[length - 1]));
                         in.putExtra("RegionName", Filterregion_.get(i).getValue());
-                        String flightBit="";
-                        int landingList_size=landingList.size();
-                        for(int index = 0; index < landingList_size ; index ++)
-                        {
-                            if(Integer.parseInt(Region_id[length-1]) == landingList.get(index).getRegion_Id()){
-                                flightBit = ""+landingList.get(index).getHome_Page();
+                        String flightBit = "";
+                        int landingList_size = landingList.size();
+                        for (int index = 0; index < landingList_size; index++) {
+                            if (Integer.parseInt(Region_id[length - 1]) == landingList.get(index).getRegion_Id()) {
+                                flightBit = "" + landingList.get(index).getHome_Page();
                             }
                         }
                         editor.putString("FlightBit", flightBit);
@@ -484,6 +496,8 @@ public class MaterialLandingActivity extends Fragment implements ObservableScrol
 
             }
         });
+
+
 
         imgToolBack.setOnClickListener(new View.OnClickListener() {
             @Override

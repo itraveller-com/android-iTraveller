@@ -18,7 +18,6 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.ImageLoader;
 import com.itraveller.R;
 import com.itraveller.activity.PlanTrip;
-import com.itraveller.activity.RegionPlace;
 import com.itraveller.model.RegionPlaceModel;
 import com.itraveller.volley.AppController;
 

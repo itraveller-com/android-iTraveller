@@ -23,7 +23,6 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.itraveller.R;
 import com.itraveller.activity.MaterialRegionPlace;
-import com.itraveller.activity.RegionPlace;
 import com.itraveller.constant.Constants;
 import com.itraveller.model.LandingModel;
 import com.itraveller.volley.AppController;
