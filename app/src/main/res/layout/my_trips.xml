@@ -17,33 +17,22 @@
             android:gravity="center">
         <Button
             android:id="@+id/group_chat_btn"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="60dp"
             android:text="Ground Support"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:textSize="12dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/style_filterbutton"
             android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/single_chat_btn"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:text="Documents"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:textSize="12dp"
-                android:background="@drawable/style_filterbutton"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/snaps_btn"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:text="Snaps"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:textSize="12dp"

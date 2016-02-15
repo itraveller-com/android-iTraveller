@@ -98,7 +98,8 @@ public class AgentLoginActivity extends Activity  implements  MXAccountUnlinkLis
 
     @Override
     public void onOpenChatFailed(int i, String s) {
-        Toast.makeText(AgentLoginActivity.this,"OnOPenChatFailed",Toast.LENGTH_LONG).show();
+        Toast.makeText(AgentLoginActivity.this,"Please try again",Toast.LENGTH_LONG).show();
+        //Toast.makeText(AgentLoginActivity.this,"OnOPenChatFailed",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -427,10 +428,10 @@ public class AgentLoginActivity extends Activity  implements  MXAccountUnlinkLis
             protected String doInBackground(Void... params) {
                 String msg = "";
                 try {
-//                    if (gcm == null) {
-//                        gcm = GoogleCloudMessaging.getInstance(AgentLoginActivity.this);
-//                    }
-//                    regid = gcm.register(SENDER_ID);
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(AgentLoginActivity.this);
+                    }
+                    regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
 
                     // Save the regid in Moxtra so we can get the GCM notification.
@@ -461,6 +462,11 @@ public class AgentLoginActivity extends Activity  implements  MXAccountUnlinkLis
             protected void onPostExecute(String msg) {
                 if (mProgressView != null) {
                     mProgressView.setVisibility(View.GONE);
+                }
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 Log.d(TAG, "Reg done: " + msg);
             }

@@ -42,6 +42,7 @@ public class PreferenceUtil {
         SharedPreferences.Editor ed = sp.edit();
         ed.remove(PHONE).commit();
         ed.remove(BINDERID).commit();
+        ed.remove(TOKEN).commit();
     }
 
     public static void saveUser(Context context, String phone) {

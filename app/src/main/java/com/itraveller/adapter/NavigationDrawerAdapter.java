@@ -158,6 +158,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         }
         else
         {
+            PreferenceUtil.removeUser(context);
             SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();

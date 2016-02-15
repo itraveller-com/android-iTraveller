@@ -62,7 +62,6 @@
     <string name="nav_item_home_">Home</string>
     <string name="nav_item_booked">Booked Trips</string>
     <string name="nav_item_help">Help/Support</string>
-    <string name="nav_item_gallery">Gallery</string>
     <string name="nav_item_logout_">Logout</string>
 
     <string name="nav_name_">Welcome to iTraveller.com</string>
@@ -71,7 +70,6 @@
     <string-array name="nav_drawer_labels_">
         <item>@string/nav_item_home_</item>
         <item>@string/nav_item_booked</item>
-        <item>@string/nav_item_gallery</item>
         <item>@string/nav_item_login</item>
     </string-array>
 

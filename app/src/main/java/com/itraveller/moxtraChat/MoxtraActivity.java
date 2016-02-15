@@ -1,5 +1,6 @@
 package com.itraveller.moxtraChat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -49,7 +52,7 @@ import java.util.List;
 /**
  * Created by blade on 5/13/15.
  */
-public class MoxtraActivity extends FragmentActivity implements MXChatManager.OnOpenChatForFragmentListener,View.OnClickListener,MXAccountManager.MXAccountLinkListener ,MXAccountManager.MXAccountUnlinkListener, MXChatManager.OnOpenChatListener {
+public class MoxtraActivity extends Activity implements MXChatManager.OnCreateChatListener,MXAccountManager.MXAccountLinkListener ,MXAccountManager.MXAccountUnlinkListener, MXChatManager.OnOpenChatListener {
 
     private FloatingActionButton fab;
 
@@ -76,8 +79,6 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
         setContentView(R.layout.moxtra_activity);
 
         fab=(FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(this);
 
         fab.setVisibility(View.GONE);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -110,38 +111,24 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    protected void logout() {
+        PreferenceUtil.removeUser(getApplicationContext());
+
+        boolean ret = MXAccountManager.getInstance().unlinkAccount(this);
+        if (!ret) {
+
+            Log.e(TAG, "Can't logout: the unlinkAccount return false.");
+            Toast.makeText(getApplicationContext(), "unlink failed.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "unlink done.", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    public void onOpenChatForFragmentSuccess(String s, android.support.v4.app.Fragment fragment) {
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.chatFragment,fragment);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onOpenChatForFragmentFailed(int i, String s) {
-            Log.i("onOpenChatForFragment", s);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
-            new MaterialDialog.Builder(this)
-                    .title(R.string.selectUserTitle)
-                    .items(getUserList())
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-
-                        }
-                    })
-                    .show();
-        }
     }
 
 
@@ -212,11 +199,14 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
             @Override
             protected void onPostExecute(AddUserResponse msg) {
 
-                if (msg.getCode().equalsIgnoreCase("RESPONSE_SUCCESS")){
-                    setupMoxtraUser();
-                }
-                else{
-                    Log.d("MOXTRA","Hello");
+                if(msg.getCode()==null){
+    setupMoxtraUser();
+                }else {
+                    if (msg.getCode().equalsIgnoreCase("RESPONSE_SUCCESS")) {
+                        setupMoxtraUser();
+                    } else if (msg.getCode().equalsIgnoreCase("RESPONSE_ERROR_INVALID_REQUEST")) {
+                        Log.d("MOXTRA", "Hello");
+                    }
                 }
 //                if (mProgressView != null) {
 //                    mProgressView.setVisibility(View.GONE);
@@ -254,6 +244,7 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
             }
         }
     }
+
 
     public AccessTokenModel getAccessToken(AccessTokenModel accessTokenModel,String firtName,String usrName)
     {
@@ -337,9 +328,7 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
 
             Log.d(TAG, "Binder ID================: " + binderData.getId());
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e(TAG, "Error when register of binder.", e);
         }
         return  createBinderResponse;
@@ -378,14 +367,16 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
 
             String result = responseEntity.getBody();
 
+
+
 /**
  * Gson Lib for serialize the object
  */
-            Gson gson = new GsonBuilder().serializeNulls().create();
-            gson = new GsonBuilder().serializeNulls().create();
-            //Parse the user response
-            addUserResponse = gson.fromJson(result,
-                    AddUserResponse.class);
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                gson = new GsonBuilder().serializeNulls().create();
+                //Parse the user response
+                addUserResponse = gson.fromJson(result,
+                        AddUserResponse.class);
 
 
             return addUserResponse;
@@ -400,7 +391,7 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
     private void setupMoxtraUser() {
         if (MXAccountManager.getInstance().isLinked()) {
             Log.i(TAG, "Moxtra user is already linked.");
-            startChatListActivity();
+            registerInBackgroundDelay();
         }
         else
         {
@@ -476,6 +467,42 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
         }.execute(null, null, null);
     }
 
+    private void registerInBackgroundDelay() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+//                if (mProgressView != null) {
+//                    mProgressView.setVisibility(View.VISIBLE);
+//                }
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception ex) {
+                    msg = "Error :" + ex.getMessage();
+                    Log.e(TAG, "Error when register on GCM.", ex);
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+//                if (mProgressView != null) {
+//                    mProgressView.setVisibility(View.GONE);
+//                }
+                startChatListActivity();
+                Log.d(TAG, "Reg done: " + msg);
+            }
+        }.execute(null, null, null);
+    }
+
     private String getRegistrationId(Context context) {
         String registrationId = PreferenceUtil.getUserGcmRegId(context);
         if (TextUtils.isEmpty(registrationId)) {
@@ -512,7 +539,7 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
         if (success) {
             Log.i(TAG, "Linked to moxtra account successfully.");
 
-            startChatListActivity();
+            registerInBackgroundDelay();
         } else {
             Toast.makeText(this, "Failed to setup moxtra user.", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to setup moxtra user.");
@@ -543,6 +570,16 @@ public class MoxtraActivity extends FragmentActivity implements MXChatManager.On
 
     @Override
     public void onOpenChatFailed(int i, String s) {
+
+    }
+
+    @Override
+    public void onCreateChatSuccess(String s) {
+
+    }
+
+    @Override
+    public void onCreateChatFailed(int i, String s) {
 
     }
 }

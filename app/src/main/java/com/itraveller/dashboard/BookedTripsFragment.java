@@ -27,13 +27,20 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.itraveller.R;
 import com.itraveller.adapter.MyTravelAdapter;
 import com.itraveller.constant.Utility;
 import com.itraveller.model.MyTravelModel;
+import com.itraveller.moxtraChat.AccessTokenModel;
+import com.itraveller.moxtraChat.AddUserResponse;
 import com.itraveller.moxtraChat.AgentLoginActivity;
+import com.itraveller.moxtraChat.CreateBinderResponse;
 import com.itraveller.moxtraChat.MoxtraActivity;
 import com.itraveller.volley.AppController;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXSDKConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +55,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BookedTripsFragment extends Fragment {
+public class BookedTripsFragment extends Fragment implements MXAccountManager.MXAccountUnlinkListener{
 
     Button group_btn,single_btn,snap_btn;
     SharedPreferences prefs;
@@ -64,10 +71,48 @@ public class BookedTripsFragment extends Fragment {
     String curr_date_time;
     String curr_date_str,fetched_date_str;
 
+    //Moxtra code start
+
+    private static final String Binder_ID="BdVZvNgCvTXHzO7klSsivTC";
+    private static final String TAG = "BookedTripsFragment";
+
+    private String regid;
+    private AccessTokenModel agentAccessTokenModel=null,userAccessToken;
+    private CreateBinderResponse createBinderResponse=null;
+    private AddUserResponse addUserResponse=null;
+
+    private String SENDER_ID = "132433516320";
+    private GoogleCloudMessaging gcm;
+    private GoogleApiClient client;
+    //Moxtra code end
+
+
     public BookedTripsFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Sample Code
+     * @param mxUserInfo
+     */
+
+    @Override
+    public void onUnlinkAccountDone(MXSDKConfig.MXUserInfo mxUserInfo) {
+
+
+       //Toast
+
+    }
+
+    public boolean logout(){
+        boolean ret=MXAccountManager.getInstance().unlinkAccount(this);
+
+        if(!ret){
+            //Toast
+        }
+
+        return ret;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +127,6 @@ public class BookedTripsFragment extends Fragment {
 
         group_btn=(Button) view.findViewById(R.id.group_chat_btn);
         single_btn=(Button) view.findViewById(R.id.single_chat_btn);
-        snap_btn=(Button) view.findViewById(R.id.snaps_btn);
 
         upcoming_trips=(ListView) view.findViewById(R.id.upcoming_trips_list);
         past_trips=(ListView) view.findViewById(R.id.past_trips_list);
@@ -94,31 +138,34 @@ public class BookedTripsFragment extends Fragment {
         pastAdapter = new MyTravelAdapter(getActivity(), pastList);
         past_trips.setAdapter(pastAdapter);
 
+
+    /*    if(upcomingAdapter.getCount()>0)
+        {
+            group_btn.setVisibility(View.VISIBLE);
+            single_btn.setVisibility(View.VISIBLE);
+
+
+        }
+    */
+
         group_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(getActivity(), MoxtraActivity.class);
-                startActivity(i);
-
+                    Intent i = new Intent(getActivity(), MoxtraActivity.class);
+                    startActivity(i);
             }
+
+
         });
 
         single_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i=new Intent(getActivity(),AgentLoginActivity.class);
-                startActivity(i);
+                    Intent i = new Intent(getActivity(), AgentLoginActivity.class);
+                    startActivity(i);
             }
         });
 
-        snap_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         upcoming_trips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -369,5 +416,15 @@ public class BookedTripsFragment extends Fragment {
             AppController.getInstance().addToRequestQueue(strReq);
 
             return view;
+    }
+
+    public void registerForGroupChat()
+    {
+
+    }
+
+    public void registerForOneToOneChat()
+    {
+
     }
 }
