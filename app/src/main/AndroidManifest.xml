@@ -109,18 +109,6 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".dashboard.ViewDetailsActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
-            android:name=".dashboard.ImageGridView"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
-            android:name=".dashboard.ViewImage"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
             android:name=".dashboard.TripSummary"
             android:screenOrientation="portrait"></activity>
 

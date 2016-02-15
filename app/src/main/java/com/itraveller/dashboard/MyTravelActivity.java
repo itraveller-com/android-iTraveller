@@ -34,14 +34,13 @@ import java.net.URL;
  */
 public class MyTravelActivity extends AppCompatActivity implements MyTravelFragmentDrawer.FragmentDrawerListener {
 
-    public static boolean isActive;
-    public static TextView greeting;
-    public static ImageView profilepic;
+
+    public static TextView sGreeting;
+    public static ImageView sProfilePic;
     Toolbar mToolbar;
-    ListView upcoming_list, past_list;
-    private MyTravelFragmentDrawer drawerFragment;
-    Fragment fragment;
-    String title;
+    private MyTravelFragmentDrawer mDrawerFragment;
+    Fragment mFragment;
+    String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +49,17 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
         setContentView(R.layout.activity_travel);
 
         //Textview used as greeting means for displaying "hello user_name"
-        greeting = (TextView) findViewById(R.id.greeting);
-        profilepic = (ImageView) findViewById(R.id.image);
+        sGreeting = (TextView) findViewById(R.id.greeting);
+        sProfilePic = (ImageView) findViewById(R.id.image);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().show();
 
-        drawerFragment = (MyTravelFragmentDrawer)
+        mDrawerFragment = (MyTravelFragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
 
         displayView(1);
 
@@ -101,7 +100,7 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 
     private void displayView(int position) {
 
-        fragment = null;
+        mFragment = null;
 //        title = getString(R.string.app_name);
         switch (position) {
             case 0:
@@ -113,32 +112,8 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 
             case 1:
 
-                fragment = new BookedTripsFragment();
-                title = "Your Booked Trips";
-                break;
-
-            case 2:
-
-                //Intent i2=new Intent(getApplicationContext(),CameraDownloadActivity.class);
-                //startActivity(i2);
-                //    fragment = new ProfileFragment();
-                title = "Gallery";
-                break;
-
-
-            case 3:
-
-                Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                title = "Login";
-
-                    SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();
-                    editor.commit();
-
-                    startActivity(i);
-                    finish();
-
+                mFragment = new BookedTripsFragment();
+                mTitle = "Your Booked Trips";
                 break;
 
             default:
@@ -146,14 +121,14 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 
         }
 
-        if (fragment != null) {
+        if (mFragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.replace(R.id.container_body, mFragment);
             fragmentTransaction.commit();
 
             // set the toolbar title
-            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setTitle(mTitle);
         }
     }
 

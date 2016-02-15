@@ -110,22 +110,6 @@ public class MyTravelFragmentDrawer extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-        /*recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                drawerListener.onDrawerItemSelected(view, position);
-                mDrawerLayout.closeDrawer(containerView);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-
-        }));*/
-
-
         return layout;
     }
 

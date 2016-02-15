@@ -63,7 +63,7 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
         final NavDrawerItem current = data.get(position);
 
         holder.imgIcon.setImageResource(current.getIcon());
-        if(position==3){
+        if(position==2){
             if(SharedPreferenceRetrive().getString("skipbit","0").equalsIgnoreCase("0")){
                 holder.title.setText("Login");
             } else {
