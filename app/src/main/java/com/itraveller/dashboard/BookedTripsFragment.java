@@ -357,7 +357,7 @@ public class BookedTripsFragment extends Fragment {
             }
         });
 
-        //TODO: Never use magic numbers
+        //TODO: Never use magic numbers, declare constants with relative names.
         mJSONReq.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(mJSONReq);
