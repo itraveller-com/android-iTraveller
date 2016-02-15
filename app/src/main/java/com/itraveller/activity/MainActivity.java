@@ -1,7 +1,6 @@
 package com.itraveller.activity;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -13,6 +12,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -31,51 +31,57 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.itraveller.R;
 import com.itraveller.core.LoginScreenActivity;
+import com.itraveller.dashboard.MyTravelActivity;
 
 import java.io.InputStream;
 import java.net.URL;
 
-
-import com.google.analytics.tracking.android.EasyTracker;
-import com.itraveller.dashboard.MyTravelActivity;
+//import com.google.analytics.tracking.android.EasyTracker;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
-    private static String TAG = MainActivity.class.getSimpleName();
-
     SharedPreferences preferences;
-
-
-    public static String u_id, at;
+    public static String at;
 
     public static boolean active;
 
     public static Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    private DrawerLayout mDrawerlayout;
     private SharedPreferences.Editor editor;
     public static final String MY_PREFS = "ScreenHeight";
-    //private MaterialMenuDrawable materialMenu;
     public static TextView greeting;
-    private ProfileTracker profileTracker;
     public static ImageView profilepic;
-    Context context;
-    public static String att, str1, str2, str3, str4;
     Fragment fragment;
     String title;
-    private CallbackManager callbackManager;
 
+    private enum AttachView {
+        HOME(0), MATERIAL_LANDING(1), MY_TRAVEL(2), CONTACT_US(3), LOGIN(4);
 
-     public void MainActivity(){
+        private int position;
 
-     }
+        AttachView(int position) {
+            this.position = position;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -88,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
-        callbackManager = CallbackManager.Factory.create();
 
         //setting the layout of screen
         setContentView(R.layout.activity_main);
@@ -108,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-       if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             // Set the status bar to dark-semi-transparentish
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -130,31 +135,28 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
-        //drawerFragment.setContextValue(this);
-        //display the first navigation drawer view on app launch
-        //if((att.equals("unregistered") || att.equals("login_from_server") || !str1.equals("unregistered") || !str1.equals("login_from_server") || preferences.getInt("flag",0)==1 || preferences.getInt("temp",0)==1)  && !str1.equals("x") )
-        //Log.d("String test test111", "" + preferences.getInt("login_flag", 0) + " " + preferences.getInt("flag", 0) + " " + str1 + " " + str3);
-        if(SharedPreferenceRetrive().getString("back","0").equalsIgnoreCase("0")) {
-            if (SharedPreferenceRetrive().getString("skipbit", "0").equalsIgnoreCase("0")) {
-                displayView(4);
-            }
-            else
-            {
-                displayView(0);
-            }
-        }
-        else
-        {
-            if(SharedPreferenceRetrive().getString("back","0").equalsIgnoreCase("1"))
-                displayView(1);
-            else
-                displayView(0);
 
-            SharedPreferences prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
-            SharedPreferences.Editor editor=prefs.edit();
+        if (SharedPreferenceRetrive().getString("back", "0").equalsIgnoreCase("0")) {
+            if (SharedPreferenceRetrive().getString("skipbit", "0").equalsIgnoreCase("0")) {
+                displayView(AttachView.LOGIN);
+            } else {
+                displayView(AttachView.HOME);
+            }
+        } else {
+            if (SharedPreferenceRetrive().getString("back", "0").equalsIgnoreCase("1"))
+                displayView(AttachView.MATERIAL_LANDING);
+            else
+                displayView(AttachView.HOME);
+
+            SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
             editor.putString("back", "0").commit();
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
 
 
     //this method is used to convert image into circular form
@@ -185,15 +187,47 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onStart() {
         super.onStart();
-        active=true;
-        EasyTracker.getInstance(this).activityStart(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        active = true;
+//        EasyTracker.getInstance(this).activityStart(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.itraveller.activity/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        active=false;
-        EasyTracker.getInstance(this).activityStop(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.itraveller.activity/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        active = false;
+//        EasyTracker.getInstance(this).activityStop(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
     @Override
@@ -205,15 +239,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         AppEventsLogger.deactivateApp(this);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            profileTracker.stopTracking();
-        } catch (Exception e) {
-        }
-
-    }
 
     public int getStatusBarHeight() {
         int result = 0;
@@ -286,20 +311,27 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-       displayView(position);
+        for (AttachView attachView : AttachView.values()) {
+            if (position == attachView.getPosition()) {
+                displayView(attachView);
+                break;
+            }
+        }
+
     }
 
 
-    private void displayView(int position) {
+
+    private void displayView(AttachView view) {
 
         fragment = null;
         title = getString(R.string.app_name);
-        switch (position) {
-            case 0:
-                fragment=new Home_Fragment();
+        switch (view) {
+            case HOME:
+                fragment = new Home_Fragment();
                 //fragment = new MaterialLandingActivity();
                 title = "Welcome To itraveller";
-                if (SharedPreferenceRetrive().getString("serverCheck","User").equalsIgnoreCase("facebook")) {
+                if (SharedPreferenceRetrive().getString("serverCheck", "User").equalsIgnoreCase("facebook")) {
                     //profilepic.setImageResource(R.drawable.ic_profile_pic);
                     FacebookImage();
                 } else {
@@ -308,29 +340,29 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 }
                 break;
 
-            case 1:
+            case MATERIAL_LANDING:
                 fragment = new MaterialLandingActivity();
                 title = "How it works";
                 break;
 
-            case 2:
+            case MY_TRAVEL:
 
-                Intent i=new Intent(getApplicationContext(),MyTravelActivity.class);
+                Intent i = new Intent(getApplicationContext(), MyTravelActivity.class);
                 startActivity(i);
                 finish();
-            //    fragment = new MyTravelFragment();
-            //    title = getString(R.string.title_friends);
+                //    fragment = new MyTravelFragment();
+                //    title = getString(R.string.title_friends);
                 break;
 
-            case 3:
+            case CONTACT_US:
                 fragment = new ContactUsFragment();
                 title = getString(R.string.title_messages);
                 break;
 
-            case 4:
+            case LOGIN:
 
                 LoginScreenActivity fragment1 = new LoginScreenActivity();
-                title =""; //getString(R.string.title_login);
+                title = ""; //getString(R.string.title_login);
                 fragment = fragment1;
                 break;
 
@@ -354,7 +386,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         return preferences;
     }
-    public void setActionBarNavDrawer(){
+
+    public void setActionBarNavDrawer() {
         FragmentDrawer.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(true);
         getSupportActionBar().show();
@@ -376,14 +409,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             profilepic.setImageBitmap(getCroppedBitmap(bitmap));
             greeting.setText("Hello " + SharedPreferenceRetrive().getString("name", "User").toString());
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-    public void ServerImage(){
-            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
-            profilepic.setImageBitmap(getCroppedBitmap(icon));
-            greeting.setText("Hello " + SharedPreferenceRetrive().getString("name", "User"));
+
+    public void ServerImage() {
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
+        profilepic.setImageBitmap(getCroppedBitmap(icon));
+        greeting.setText("Hello " + SharedPreferenceRetrive().getString("name", "User"));
 
     }
 }
