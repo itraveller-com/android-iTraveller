@@ -4,6 +4,7 @@ package com.itraveller.core;
  * Created by VNK on 8/16/2015.
  */
 
+//TODO: Avoid the use of unused import statements to prevent unwanted dependencies
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -89,15 +90,25 @@ public class LoginScreenActivity extends Fragment {
     private EditText mEmailId;
     private EditText mPhoneNumber;
     private CoordinatorLayout mCoordinatorLayout;
+    //TODO: Perhaps 'mEmail' could be replaced by a local variable
     private String mEmail;
+
+    //TODO: Perhaps 'mPhone' could be replaced by a local variable
     private String mPhone;
+
+    //TODO: Perhaps 'mAnimSlideUp' could be replaced by a local variable
     private Animation mAnimSlideUp;
     private RelativeLayout mLoadingSnackBar;
+
+    //TODO: Perhaps 'mRegisterUser' could be replaced by a local variable
     private TextView mRegisterUser;
     private LinearLayout mItem;
     private View mSignUpView;
     private View mForgotPasswordView;
+
+    //TODO: Perhaps 'mFacebookLogin' could be replaced by a local variable
     private LoginButton mFacebookLogin;
+
     private CallbackManager mCallbackManager;
     private View mViewItem;
     private EditText mEmailIdForgot;
@@ -105,6 +116,7 @@ public class LoginScreenActivity extends Fragment {
     public static final int INITIAL_TIMEOUT_MS = 8000;
     public static final int MAX_NUM_RETRIES=0;
 
+    //TODO: When methods are excessively long this usually indicates that the method is doing more than its name/signature might suggest. They also become challenging for others to digest since excessive scrolling causes readers to lose focus. Try to reduce the method length by creating helper methods and removing any copy/pasted code
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -123,8 +135,10 @@ public class LoginScreenActivity extends Fragment {
         FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(false);
 
 
+        //TODO: Code containing duplicate String literals can usually be improved by declaring the String as a constant field.
         //shared preferences object for storing data in "Preferences"
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
+        //TODO: local variable is declared, but not used
         SharedPreferences.Editor editor = prefs.edit();
         LoginManager.getInstance().logOut();
 
@@ -265,6 +279,7 @@ public class LoginScreenActivity extends Fragment {
                     @Override
                     public void onClick(View view) {
 
+                        //TODO: Java allows the use of several variables declaration of the same type on one line. However, it can lead to quite messy code. follow the naming convention.
                         String _emailIdSignUp, _phoneNumberSignUp, _passwordSignUp, _confirmPasswordSignUp;
                         _emailIdSignUp = emailIdSignUp.getText().toString().trim();
                         _phoneNumberSignUp = phoneNumberSignUp.getText().toString().trim();
@@ -373,6 +388,7 @@ public class LoginScreenActivity extends Fragment {
                             }
 
                         } catch (JSONException e) {
+                            //TODO: Avoid printStackTrace(); use a logger call instead and Handle exception properly.
                             e.printStackTrace();
                         }
 
@@ -395,6 +411,7 @@ public class LoginScreenActivity extends Fragment {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
+    //TODO: Method names should always begin with a lower case character, and should not contain underscores
     public void RetryInternet(){
         final Snackbar snackbar = Snackbar
                 .make(mCoordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT)
@@ -413,6 +430,7 @@ public class LoginScreenActivity extends Fragment {
         snackbar.show();
     }
 
+    //TODO: Method names should always begin with a lower case character, and should not contain underscores
     public void CustomField(String message){
         Snackbar snackbar = Snackbar
                 .make(mCoordinatorLayout, message, Snackbar.LENGTH_SHORT);
@@ -449,6 +467,9 @@ public class LoginScreenActivity extends Fragment {
         v.setAnimation(animSlideup);
     }
 
+
+    //TODO : Avoid using if..else statements without using surrounding braces. If the code formatting or indentation is lost then it becomes difficult to separate the code being controlled from the rest.
+    //TODO: Avoid unnecessary if-then-else statements when returning a boolean. The result of the conditional test can be returned instead.
     private static boolean validatePhoneNumber(String phoneNo) {
         //validate phone numbers of format "1234567890"
         if (phoneNo.matches("\\d{10}")) return true;
@@ -561,6 +582,7 @@ public class LoginScreenActivity extends Fragment {
         ToLeftAnimation(removeView);
     }
 
+    //TODO: To avoid mistakes if we want that a Method, Field or Nested class have a default access modifier we must add a comment at the beginning of the Method, Field or Nested class. By default the comment must be /* default */, if you want another, you have to provide.
     //for facebook login
     class fblogin extends AsyncTask<AccessToken, String, String> {
 
@@ -613,7 +635,7 @@ public class LoginScreenActivity extends Fragment {
 
     }
 
-
+//TODO: Method names should always begin with a lower case character, and should not contain underscores
     public boolean PasswordLength(String password) {
         return password.length() > 7;
     }
