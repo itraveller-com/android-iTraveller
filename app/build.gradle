@@ -90,7 +90,7 @@ dependencies {
     //    compile project(':facebook')
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile project(':EBS')
-    compile files('d://ItravellerApp/android-iTraveller/libs/GoogleAnalyticsServices.jar')
+    compile files('F://Itraveller/libs/GoogleAnalyticsServices.jar')
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'

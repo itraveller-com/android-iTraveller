@@ -84,59 +84,40 @@ import java.util.HashMap;
 
 public class LoginScreenActivity extends Fragment {
 
-    //MoXTRA data start
-    private static final String TAG = "LoginScreenActivity";
-    private View mProgressView;
 
 
-    private String regid;
-    private AccessTokenModel agentAccessTokenModel=null,userAccessToken;
-    private CreateBinderResponse createBinderResponse=null;
-    private AddUserResponse addUserResponse=null;
+    private EditText mEmailId;
+    private EditText mPhoneNumber;
+    private CoordinatorLayout mCoordinatorLayout;
+    private String mEmail;
+    private String mPhone;
+    private Animation mAnimSlideUp;
+    private RelativeLayout mLoadingSnackBar;
+    private TextView mRegisterUser;
+    private LinearLayout mItem;
+    private View mSignUpView;
+    private View mForgotPasswordView;
+    private LoginButton mFacebookLogin;
+    private CallbackManager mCallbackManager;
+    private View mViewItem;
+    private EditText mEmailIdForgot;
 
-    private String SENDER_ID = "132433516320";
-    private GoogleCloudMessaging gcm;
-    String username="User_ItRaveller1";
-    private GoogleApiClient client;
-    //MOXTRA data end
-
-    EditText emailId;
-    EditText phoneNumber;
-    CoordinatorLayout coordinatorLayout;
-    Button btnSimpleSnackbar;
-    String _emailId, _phoneNumber;
-    Animation animSlideup;
-    // Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
-    RelativeLayout loadingSnackBar;
-    TextView registerUser;
-    private LinearLayout item;
-    private View signUpView;
-    private View forgotPasswordView;
-    private View loginView;
-    private LoginButton facebookLogin;
-    private CallbackManager callbackManager;
-    View viewItem;
-    ProfileTracker profileTracker;
-    EditText emailIdForgot;
+    public static final int INITIAL_TIMEOUT_MS = 8000;
+    public static final int MAX_NUM_RETRIES=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    //    if(MainActivity.active==true)
-    //        ((MainActivity) getActivity()).getSupportActionBar().hide();
-    //    else if(MyTravelActivity.isActive==true)
-    //        ((MyTravelActivity) getActivity()).getSupportActionBar().hide();
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         //setting layout of screen to login.xml file
-        viewItem = inflater.inflate(R.layout.login_main, container, false);
+        mViewItem = inflater.inflate(R.layout.login_main, container, false);
         //creating threads for facebook login
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         //Initialise facebook SDK
         FacebookSdk.sdkInitialize(getActivity());
-        callbackManager = CallbackManager.Factory.create();
+        mCallbackManager = CallbackManager.Factory.create();
 
         FragmentDrawer.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(false);
@@ -146,37 +127,32 @@ public class LoginScreenActivity extends Fragment {
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         LoginManager.getInstance().logOut();
-        //Remove title bar
-        //getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //Remove notification bar
-        //getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Adding Main View
-        item = (LinearLayout) viewItem.findViewById(R.id.flipper_view);
-        final ImageView itraveller = (ImageView) viewItem.findViewById(R.id.itraveller_logo_ic);
+        mItem = (LinearLayout) mViewItem.findViewById(R.id.flipper_view);
+
 
         final View loginView = getActivity().getLayoutInflater().inflate(R.layout.login_md, null);
-        signUpView = getActivity().getLayoutInflater().inflate(R.layout.signup_md, null);
-        forgotPasswordView = getActivity().getLayoutInflater().inflate(R.layout.forgetpassword_md, null);
+        mSignUpView = getActivity().getLayoutInflater().inflate(R.layout.signup_md, null);
+        mForgotPasswordView = getActivity().getLayoutInflater().inflate(R.layout.forgetpassword_md, null);
 
-        item.addView(loginView);
+        mItem.addView(loginView);
 
         //LoginButton provided by Facebook
-        facebookLogin = (LoginButton) loginView.findViewById(R.id.login_button);
-        facebookLogin.setFragment(LoginScreenActivity.this);
+        mFacebookLogin = (LoginButton) loginView.findViewById(R.id.login_button);
+        mFacebookLogin.setFragment(LoginScreenActivity.this);
 
         //Setting permissions for accessing data from facebook
-        facebookLogin.setReadPermissions(Arrays
+        mFacebookLogin.setReadPermissions(Arrays
                 .asList("public_profile, email, user_birthday, user_friends"));
 
         //code for handling event when user clicks login button provided by facebook
-        facebookLogin.registerCallback(callbackManager,
+        mFacebookLogin.registerCallback(mCallbackManager,
                 new FacebookCallback<LoginResult>() {
 
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         //if user successfully redirected to facebook page
-//                            getActivity().finish();
                         Log.v("Facebook","API calling");
                         new fblogin().execute(loginResult.getAccessToken());
                     }
@@ -195,11 +171,11 @@ public class LoginScreenActivity extends Fragment {
                 });
 
 
-        emailId = (EditText) loginView.findViewById(R.id.mail_id);
-        phoneNumber = (EditText) loginView.findViewById(R.id.confirm_password);
+        mEmailId = (EditText) loginView.findViewById(R.id.mail_id);
+        mPhoneNumber = (EditText) loginView.findViewById(R.id.confirm_password);
         Button submit = (Button) loginView.findViewById(R.id.submit);
-        loadingSnackBar = (RelativeLayout) viewItem.findViewById(R.id.loading_snackbar);
-        registerUser = (TextView) loginView.findViewById(R.id.link_to_register);
+        mLoadingSnackBar = (RelativeLayout) mViewItem.findViewById(R.id.loading_snackbar);
+        mRegisterUser = (TextView) loginView.findViewById(R.id.link_to_register);
         final TextView forgotPassword = (TextView) loginView.findViewById(R.id.forgot_password);
         final TextView skipButton = (TextView) loginView.findViewById(R.id.btnunreg);
 
@@ -211,39 +187,37 @@ public class LoginScreenActivity extends Fragment {
                 SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("skipbit","0").commit();
-                /*Intent intent = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent);*/
-                ((MainActivity) getActivity()).onDrawerItemSelected(viewItem, 0);
+                ((MainActivity) getActivity()).onDrawerItemSelected(mViewItem, 0);
             }
         });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                emailId.setText("");
-                phoneNumber.setText("");
-                item.addView(forgotPasswordView);
+                mEmailId.setText("");
+                mPhoneNumber.setText("");
+                mItem.addView(mForgotPasswordView);
                 ToLeftAnimation(loginView);
-                item.removeView(loginView);
-                FromRightAnimation(forgotPasswordView);
+                mItem.removeView(loginView);
+                FromRightAnimation(mForgotPasswordView);
 
-                emailIdForgot = (EditText) forgotPasswordView.findViewById(R.id.mail_id);
-                TextView backToLogin = (TextView) forgotPasswordView.findViewById(R.id.back_button);
+                mEmailIdForgot = (EditText) mForgotPasswordView.findViewById(R.id.mail_id);
+                TextView backToLogin = (TextView) mForgotPasswordView.findViewById(R.id.back_button);
                 backToLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        BackButtonAnimation(loginView, forgotPasswordView);
-                        emailIdForgot.setText("");
+                        BackButtonAnimation(loginView, mForgotPasswordView);
+                        mEmailIdForgot.setText("");
                     }
                 });
-                Button forgotBtn = (Button) forgotPasswordView.findViewById(R.id.forgot);
+                Button forgotBtn = (Button) mForgotPasswordView.findViewById(R.id.forgot);
                 forgotBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final String _emailIdForget = emailIdForgot.getText().toString().trim();
+                        final String _emailIdForget = mEmailIdForgot.getText().toString().trim();
 
                         if (_emailIdForget.equalsIgnoreCase("")) {
-                            emailIdForgot.setError("Required");
+                            mEmailIdForgot.setError("Required");
                         } else if (!isValidEmail(_emailIdForget)) {
                             CustomField("Invalid Email Address");
                         } else if (!Utility.isNetworkConnected(getActivity())) {
@@ -251,7 +225,7 @@ public class LoginScreenActivity extends Fragment {
                             RetryInternet();
                         } else {
                             ServerRequestForget(_emailIdForget);
-                            loadingSnackBar.setVisibility(View.VISIBLE);
+                            mLoadingSnackBar.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -259,43 +233,34 @@ public class LoginScreenActivity extends Fragment {
 
             }
         });
-        new Handler().postDelayed(new Runnable() {
 
-            /* Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company*/
-            @Override
-            public void run() {
-                //itraveller.setAnimation(animSlideup);
-            }
-        }, SPLASH_TIME_OUT);
-
-        registerUser.setOnClickListener(new View.OnClickListener() {
+        mRegisterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                phoneNumber.setText("");
-                item.addView(signUpView);
+                mPhoneNumber.setText("");
+                mItem.addView(mSignUpView);
                 ToLeftAnimation(loginView);
-                item.removeView(loginView);
+                mItem.removeView(loginView);
 
-                FromRightAnimation(signUpView);
+                FromRightAnimation(mSignUpView);
 
-                final EditText emailIdSignUp = (EditText) signUpView.findViewById(R.id.mail_id);
-                final EditText phoneNumberSignUp = (EditText) signUpView.findViewById(R.id.mobile);
-                final EditText passwordSignUp = (EditText) signUpView.findViewById(R.id.password);
-                final EditText confirmPasswordSignUp = (EditText) signUpView.findViewById(R.id.confirm_password);
+                final EditText emailIdSignUp = (EditText) mSignUpView.findViewById(R.id.mail_id);
+                final EditText phoneNumberSignUp = (EditText) mSignUpView.findViewById(R.id.mobile);
+                final EditText passwordSignUp = (EditText) mSignUpView.findViewById(R.id.password);
+                final EditText confirmPasswordSignUp = (EditText) mSignUpView.findViewById(R.id.confirm_password);
 
-                TextView backToLogin = (TextView) signUpView.findViewById(R.id.back_button);
+                TextView backToLogin = (TextView) mSignUpView.findViewById(R.id.back_button);
                 backToLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        BackButtonAnimation(loginView, signUpView);
+                        BackButtonAnimation(loginView, mSignUpView);
                         emailIdSignUp.setText("");
                         phoneNumberSignUp.setText("");
                         passwordSignUp.setText("");
                         confirmPasswordSignUp.setText("");
                     }
                 });
-                Button register = (Button) signUpView.findViewById(R.id.register);
+                Button register = (Button) mSignUpView.findViewById(R.id.register);
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -331,7 +296,7 @@ public class LoginScreenActivity extends Fragment {
                         } else {
                             HideKeyboard();
                             ServerRequestSignUp(_emailIdSignUp, _phoneNumberSignUp, _passwordSignUp);
-                            loadingSnackBar.setVisibility(View.VISIBLE);
+                            mLoadingSnackBar.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -339,49 +304,39 @@ public class LoginScreenActivity extends Fragment {
             }
         });
 
-        //Displaying TextInputLayout Error
-        final TextInputLayout lEmailLayout = (TextInputLayout) viewItem.findViewById(R.id
-                .lEmailLayout);
-        //lEmailLayout.setError("Please enter Email");
 
-        final TextInputLayout lPhoneLayout = (TextInputLayout) viewItem.findViewById(R.id
-                .lMobileLayout);
-        //lPhoneLayout.setError("Please enter Phone Number");
-
-        coordinatorLayout = (CoordinatorLayout) viewItem.findViewById(R.id.coordinatorLayout);
+        mCoordinatorLayout = (CoordinatorLayout) mViewItem.findViewById(R.id.coordinatorLayout);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HideKeyboard();
-                _emailId = emailId.getText().toString().trim();
-                _phoneNumber = phoneNumber.getText().toString().trim();
-                //Displaying EditText Error
-                //RetryInternet();
-                if (_emailId.equalsIgnoreCase("")) {
-                    emailId.setError("Required");
-                } else if (_phoneNumber.equalsIgnoreCase("")) {
-                    phoneNumber.setError("Required");
-                } else if (!isValidEmail(_emailId)) {
-                    CustomField("Invalid Email Address");
-                } else if (!PasswordLength(_phoneNumber)){
-                    phoneNumber.setError("Minimum 8 Characters");
+                mEmail = mEmailId.getText().toString().trim();
+                mPhone = mPhoneNumber.getText().toString().trim();
+                if (mEmail.equalsIgnoreCase("")) {
+                    mEmailId.setError(getString(R.string.required_field));
+                } else if (mPhone.equalsIgnoreCase("")) {
+                    mPhoneNumber.setError(getString(R.string.required_field));
+                } else if (!isValidEmail(mEmail)) {
+                    CustomField(getString(R.string.err_invalid_email));
+                } else if (!PasswordLength(mPhone)){
+                    mPhoneNumber.setError(getString(R.string.err_min_characters));
                 } else if (!Utility.isNetworkConnected(getActivity())) {
                     RetryInternet();
                 } else {
                     ServerRequest();
 
-                    loadingSnackBar.setVisibility(View.VISIBLE);
+                    mLoadingSnackBar.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        return viewItem;
+        return mViewItem;
     }
 
     public void ServerRequest() {
         HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("email", emailId.getText().toString().trim());
-        postParams.put("password", phoneNumber.getText().toString().trim());
+        postParams.put("email", mEmailId.getText().toString().trim());
+        postParams.put("password", mPhoneNumber.getText().toString().trim());
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 Constants.API_login, new JSONObject(postParams),
@@ -394,26 +349,23 @@ public class LoginScreenActivity extends Fragment {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
                             //if user enters valid details
-                            loadingSnackBar.setVisibility(View.GONE);
+                            mLoadingSnackBar.setVisibility(View.GONE);
                             if (success.equals("true")) {
                                 JSONObject payload_object = jobj.getJSONObject("payload");
                                 //store user_id and access_token received from our server
-                                //payload_object.getString("user_id");
                                 JSONObject userDetails = payload_object.getJSONObject("user");
                                 SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putString("id", "" + userDetails.getString("user_id"));
                                 editor.putString("name", "" + userDetails.getString("name"));
                                 editor.putString("phone", "" + userDetails.getString("phone"));
-                                editor.putString("email", "" + emailId.getText().toString().trim());
+                                editor.putString("email", "" + mEmailId.getText().toString().trim());
 
                                 editor.putString("serverCheck", "server");
                                 editor.putString("skipbit", "1");
                                 editor.commit();
-                                //userDetails.getString("facebook_id");
-                                //userDetails.getString("phone");
 
-                                    ((MainActivity) getActivity()).onDrawerItemSelected(viewItem, 0);
+                                    ((MainActivity) getActivity()).onDrawerItemSelected(mViewItem, 0);
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
                                 JSONObject validationobj = errorobj.getJSONObject("validation");
@@ -438,14 +390,14 @@ public class LoginScreenActivity extends Fragment {
             }
         };
 
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(8000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(INITIAL_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
     public void RetryInternet(){
         final Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT)
+                .make(mCoordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT)
                 .setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -463,7 +415,7 @@ public class LoginScreenActivity extends Fragment {
 
     public void CustomField(String message){
         Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, message, Snackbar.LENGTH_SHORT);
+                .make(mCoordinatorLayout, message, Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.GREEN);
         snackbar.show();
         View sbView = snackbar.getView();
@@ -488,8 +440,8 @@ public class LoginScreenActivity extends Fragment {
    }
 
     private void FromRightAnimation(View v){
-        animSlideup = AnimationUtils.loadAnimation(getActivity() , R.anim.move);
-        v.setAnimation(animSlideup);
+        mAnimSlideUp = AnimationUtils.loadAnimation(getActivity() , R.anim.move);
+        v.setAnimation(mAnimSlideUp);
     }
 
     private void ToLeftAnimation(View v){
@@ -528,18 +480,13 @@ public class LoginScreenActivity extends Fragment {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
                             //if user enters valid details
-                            loadingSnackBar.setVisibility(View.GONE);
+                            mLoadingSnackBar.setVisibility(View.GONE);
                             if (success.equals("true")) {
                                 JSONObject payload_object = jobj.getJSONObject("payload");
-                                //store user_id and access_token received from our server
-                                //payload_object.getString("user_id");
 
 
                                 CustomField("Successfully created");
                             } else{
-                                /*JSONObject errorobj = jobj.getJSONObject("error");
-                                JSONObject validationobj = errorobj.getJSONObject("validation");
-                                JSONArray message = validationobj.getJSONArray("email")*/;
                                 CustomField("Email already registered");
                             }
                         } catch (JSONException e) {
@@ -558,7 +505,7 @@ public class LoginScreenActivity extends Fragment {
             }
         };
 
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(8000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(INITIAL_TIMEOUT_MS, MAX_NUM_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
@@ -578,17 +525,8 @@ public class LoginScreenActivity extends Fragment {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
                             //if user enters valid details
-                            loadingSnackBar.setVisibility(View.GONE);
+                            mLoadingSnackBar.setVisibility(View.GONE);
                             if (success.equals("true")) {
-                                JSONObject payload_object = jobj.getJSONObject("payload");
-                                //store user_id and access_token received from our server
-                                //payload_object.getString("user_id");
-                                /*JSONObject userDetails = payload_object.getJSONObject("user");
-                                userDetails.getString("user_id");
-                                userDetails.getString("name");
-                                userDetails.getString("facebook_id");
-                                userDetails.getString("phone");*/
-
                                 CustomField("Email send successfully");
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
@@ -617,9 +555,9 @@ public class LoginScreenActivity extends Fragment {
     }
 
     public  void BackButtonAnimation(View addView, View removeView){
-        item.addView(addView);
+        mItem.addView(addView);
         FromRightAnimation(addView);
-        item.removeView(removeView);
+        mItem.removeView(removeView);
         ToLeftAnimation(removeView);
     }
 
@@ -631,7 +569,7 @@ public class LoginScreenActivity extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.v("Facebook","PreExecute Function");
-            loadingSnackBar.setVisibility(View.VISIBLE);
+            mLoadingSnackBar.setVisibility(View.VISIBLE);
         }
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
@@ -670,7 +608,7 @@ public class LoginScreenActivity extends Fragment {
 
         //after feching data  from facebook close the message "Please wait"
         protected void onPostExecute(String file_url) {
-            loadingSnackBar.setVisibility(View.GONE);
+            mLoadingSnackBar.setVisibility(View.GONE);
         }
 
     }
@@ -683,16 +621,14 @@ public class LoginScreenActivity extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 
     // Define the Handler that receives messages from the thread and update the progress
     private final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-
-            Log.d("Facebook login test","hello rohan");
-            ((MainActivity) getActivity()).onDrawerItemSelected(viewItem,0);
+            ((MainActivity) getActivity()).onDrawerItemSelected(mViewItem,0);
         }
     };
 }
