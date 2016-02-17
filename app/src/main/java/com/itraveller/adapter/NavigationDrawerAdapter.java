@@ -24,7 +24,7 @@ import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.activity.Home_Fragment;
 import com.itraveller.activity.MaterialLandingActivity;
 import com.itraveller.dashboard.MyTravelActivity;
-import com.itraveller.core.LoginScreenActivity;
+import com.itraveller.core.LoginScreenFragment;
 import com.itraveller.model.NavDrawerItem;
 import com.itraveller.moxtraChat.PreferenceUtil;
 import com.moxtra.sdk.MXAccountManager;
@@ -119,7 +119,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
                     case 4:
 
-                        LoginScreenActivity fragment1 = new LoginScreenActivity();
+                        LoginScreenFragment fragment1 = new LoginScreenFragment();
                         title = "Login";
                         if (holder.title.getText().toString().equalsIgnoreCase("Logout")) {
 

@@ -4,7 +4,6 @@ package com.itraveller.core;
  * Created by VNK on 8/16/2015.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +27,6 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,65 +42,41 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.itraveller.R;
 import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.activity.MainActivity;
 import com.itraveller.constant.Constants;
 import com.itraveller.constant.Utility;
-import com.itraveller.moxtraChat.AccessTokenModel;
-import com.itraveller.moxtraChat.AddUserResponse;
-import com.itraveller.moxtraChat.CreateBinderRequest;
-import com.itraveller.moxtraChat.CreateBinderResponse;
-import com.itraveller.moxtraChat.PreferenceUtil;
 import com.itraveller.volley.AppController;
-import com.moxtra.sdk.MXAccountManager;
-import com.moxtra.sdk.MXChatManager;
-import com.moxtra.sdk.MXSDKConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class LoginScreenActivity extends Fragment {
+public class LoginScreenFragment extends Fragment {
 
 
 
     private EditText mEmailId;
     private EditText mPhoneNumber;
     private CoordinatorLayout mCoordinatorLayout;
-    private String mEmail;
-    private String mPhone;
-    private Animation mAnimSlideUp;
     private RelativeLayout mLoadingSnackBar;
-    private TextView mRegisterUser;
     private LinearLayout mItem;
     private View mSignUpView;
     private View mForgotPasswordView;
-    private LoginButton mFacebookLogin;
     private CallbackManager mCallbackManager;
     private View mViewItem;
     private EditText mEmailIdForgot;
+    private final static String PREF = "Preferences";
 
-    public static final int INITIAL_TIMEOUT_MS = 8000;
-    public static final int MAX_NUM_RETRIES=0;
+    private static final int INITIAL_TIMEOUT_MS = 8000;
+    private static final int MAX_NUM_RETRIES=0;
+    private  static final String TAG =LoginScreenFragment.class.getName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -122,10 +95,6 @@ public class LoginScreenActivity extends Fragment {
         FragmentDrawer.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         FragmentDrawer.mDrawerToggle.setDrawerIndicatorEnabled(false);
 
-
-        //shared preferences object for storing data in "Preferences"
-        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
         LoginManager.getInstance().logOut();
 
         //Adding Main View
@@ -139,8 +108,8 @@ public class LoginScreenActivity extends Fragment {
         mItem.addView(loginView);
 
         //LoginButton provided by Facebook
-        mFacebookLogin = (LoginButton) loginView.findViewById(R.id.login_button);
-        mFacebookLogin.setFragment(LoginScreenActivity.this);
+        LoginButton mFacebookLogin = (LoginButton) loginView.findViewById(R.id.login_button);
+        mFacebookLogin.setFragment(LoginScreenFragment.this);
 
         //Setting permissions for accessing data from facebook
         mFacebookLogin.setReadPermissions(Arrays
@@ -153,7 +122,7 @@ public class LoginScreenActivity extends Fragment {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         //if user successfully redirected to facebook page
-                        Log.v("Facebook","API calling");
+                        Log.v(TAG,"API calling");
                         new fblogin().execute(loginResult.getAccessToken());
                     }
 
@@ -163,9 +132,9 @@ public class LoginScreenActivity extends Fragment {
 
                     @Override
                     public void onError(FacebookException e) {
-                        Log.v("Facebook","Error- "+e.getMessage());
+                        Log.v(TAG,"Error- "+e.getMessage());
                         if (e.getMessage().equalsIgnoreCase("CONNECTION_FAILURE: CONNECTION_FAILURE")) {
-                            RetryInternet();
+                            retryInternet();
                         }
                     }
                 });
@@ -175,7 +144,7 @@ public class LoginScreenActivity extends Fragment {
         mPhoneNumber = (EditText) loginView.findViewById(R.id.confirm_password);
         Button submit = (Button) loginView.findViewById(R.id.submit);
         mLoadingSnackBar = (RelativeLayout) mViewItem.findViewById(R.id.loading_snackbar);
-        mRegisterUser = (TextView) loginView.findViewById(R.id.link_to_register);
+        TextView mRegisterUser = (TextView) loginView.findViewById(R.id.link_to_register);
         final TextView forgotPassword = (TextView) loginView.findViewById(R.id.forgot_password);
         final TextView skipButton = (TextView) loginView.findViewById(R.id.btnunreg);
 
@@ -184,7 +153,7 @@ public class LoginScreenActivity extends Fragment {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
+                SharedPreferences prefs = getActivity().getSharedPreferences(PREF, getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("skipbit","0").commit();
                 ((MainActivity) getActivity()).onDrawerItemSelected(mViewItem, 0);
@@ -197,16 +166,16 @@ public class LoginScreenActivity extends Fragment {
                 mEmailId.setText("");
                 mPhoneNumber.setText("");
                 mItem.addView(mForgotPasswordView);
-                ToLeftAnimation(loginView);
+                toLeftAnimation(loginView);
                 mItem.removeView(loginView);
-                FromRightAnimation(mForgotPasswordView);
+                fromRightAnimation(mForgotPasswordView);
 
                 mEmailIdForgot = (EditText) mForgotPasswordView.findViewById(R.id.mail_id);
                 TextView backToLogin = (TextView) mForgotPasswordView.findViewById(R.id.back_button);
                 backToLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        BackButtonAnimation(loginView, mForgotPasswordView);
+                        backButtonAnimation(loginView, mForgotPasswordView);
                         mEmailIdForgot.setText("");
                     }
                 });
@@ -219,12 +188,12 @@ public class LoginScreenActivity extends Fragment {
                         if (_emailIdForget.equalsIgnoreCase("")) {
                             mEmailIdForgot.setError("Required");
                         } else if (!isValidEmail(_emailIdForget)) {
-                            CustomField("Invalid Email Address");
+                            customField("Invalid Email Address");
                         } else if (!Utility.isNetworkConnected(getActivity())) {
 
-                            RetryInternet();
+                            retryInternet();
                         } else {
-                            ServerRequestForget(_emailIdForget);
+                            serverRequestForget(_emailIdForget);
                             mLoadingSnackBar.setVisibility(View.VISIBLE);
                         }
                     }
@@ -239,10 +208,10 @@ public class LoginScreenActivity extends Fragment {
             public void onClick(View view) {
                 mPhoneNumber.setText("");
                 mItem.addView(mSignUpView);
-                ToLeftAnimation(loginView);
+                toLeftAnimation(loginView);
                 mItem.removeView(loginView);
 
-                FromRightAnimation(mSignUpView);
+                fromRightAnimation(mSignUpView);
 
                 final EditText emailIdSignUp = (EditText) mSignUpView.findViewById(R.id.mail_id);
                 final EditText phoneNumberSignUp = (EditText) mSignUpView.findViewById(R.id.mobile);
@@ -253,7 +222,7 @@ public class LoginScreenActivity extends Fragment {
                 backToLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        BackButtonAnimation(loginView, mSignUpView);
+                        backButtonAnimation(loginView, mSignUpView);
                         emailIdSignUp.setText("");
                         phoneNumberSignUp.setText("");
                         passwordSignUp.setText("");
@@ -265,37 +234,40 @@ public class LoginScreenActivity extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        String _emailIdSignUp, _phoneNumberSignUp, _passwordSignUp, _confirmPasswordSignUp;
-                        _emailIdSignUp = emailIdSignUp.getText().toString().trim();
-                        _phoneNumberSignUp = phoneNumberSignUp.getText().toString().trim();
-                        _passwordSignUp = passwordSignUp.getText().toString().trim();
-                        _confirmPasswordSignUp = confirmPasswordSignUp.getText().toString().trim();
+                        String emailSignUp;
+                        String phoneSignUp;
+                        String pwdSignUp;
+                        String confirmPwdSignUp;
+                        emailSignUp = emailIdSignUp.getText().toString().trim();
+                        phoneSignUp = phoneNumberSignUp.getText().toString().trim();
+                        pwdSignUp = passwordSignUp.getText().toString().trim();
+                        confirmPwdSignUp = confirmPasswordSignUp.getText().toString().trim();
 
-                        if (_emailIdSignUp.equalsIgnoreCase("")) {
+                        if (emailSignUp.equalsIgnoreCase("")) {
                             emailIdSignUp.setError("Required");
-                        } else if (_phoneNumberSignUp.equalsIgnoreCase("")) {
+                        } else if (phoneSignUp.equalsIgnoreCase("")) {
                             phoneNumberSignUp.setError("Required");
-                        } else if (!validatePhoneNumber(_phoneNumberSignUp)) {
-                            HideKeyboard();
-                            CustomField("Check the PhoneNumber");
-                        } else if (_passwordSignUp.equalsIgnoreCase("")) {
+                        } else if (!validatePhoneNumber(phoneSignUp)) {
+                            hideKeyboard();
+                            customField("Check the PhoneNumber");
+                        } else if (pwdSignUp.equalsIgnoreCase("")) {
                             passwordSignUp.setError("Required");
-                        } else if(!PasswordLength(_passwordSignUp)) {
+                        } else if(!passwordLength(pwdSignUp)) {
                             passwordSignUp.setError("Minimum 8 Character");
-                        } else if (_confirmPasswordSignUp.equalsIgnoreCase("")) {
+                        } else if (confirmPwdSignUp.equalsIgnoreCase("")) {
                             confirmPasswordSignUp.setError("Required");
-                        } else if (!_passwordSignUp.equalsIgnoreCase(_confirmPasswordSignUp)) {
-                            HideKeyboard();
-                            CustomField("Password Incorrect");
-                        } else if (!isValidEmail(_emailIdSignUp)) {
-                            HideKeyboard();
-                            CustomField("Invalid Email Address");
+                        } else if (!pwdSignUp.equalsIgnoreCase(confirmPwdSignUp)) {
+                            hideKeyboard();
+                            customField("Password Incorrect");
+                        } else if (!isValidEmail(emailSignUp)) {
+                            hideKeyboard();
+                            customField("Invalid Email Address");
                         } else if (!Utility.isNetworkConnected(getActivity())) {
-                            HideKeyboard();
-                            RetryInternet();
+                            hideKeyboard();
+                            retryInternet();
                         } else {
-                            HideKeyboard();
-                            ServerRequestSignUp(_emailIdSignUp, _phoneNumberSignUp, _passwordSignUp);
+                            hideKeyboard();
+                            serverRequestSignUp(emailSignUp, phoneSignUp, pwdSignUp);
                             mLoadingSnackBar.setVisibility(View.VISIBLE);
                         }
                     }
@@ -309,21 +281,21 @@ public class LoginScreenActivity extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HideKeyboard();
-                mEmail = mEmailId.getText().toString().trim();
-                mPhone = mPhoneNumber.getText().toString().trim();
-                if (mEmail.equalsIgnoreCase("")) {
+                hideKeyboard();
+                 String email = mEmailId.getText().toString().trim();
+                 String mPhone = mPhoneNumber.getText().toString().trim();
+                if (email.equalsIgnoreCase("")) {
                     mEmailId.setError(getString(R.string.required_field));
                 } else if (mPhone.equalsIgnoreCase("")) {
                     mPhoneNumber.setError(getString(R.string.required_field));
-                } else if (!isValidEmail(mEmail)) {
-                    CustomField(getString(R.string.err_invalid_email));
-                } else if (!PasswordLength(mPhone)){
+                } else if (!isValidEmail(email)) {
+                    customField(getString(R.string.err_invalid_email));
+                } else if (!passwordLength(mPhone)){
                     mPhoneNumber.setError(getString(R.string.err_min_characters));
                 } else if (!Utility.isNetworkConnected(getActivity())) {
-                    RetryInternet();
+                    retryInternet();
                 } else {
-                    ServerRequest();
+                    serverRequest();
 
                     mLoadingSnackBar.setVisibility(View.VISIBLE);
                 }
@@ -333,7 +305,7 @@ public class LoginScreenActivity extends Fragment {
         return mViewItem;
     }
 
-    public void ServerRequest() {
+    public void serverRequest() {
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("email", mEmailId.getText().toString().trim());
         postParams.put("password", mPhoneNumber.getText().toString().trim());
@@ -344,7 +316,7 @@ public class LoginScreenActivity extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
+                        Log.d(TAG, response.toString());
                         try {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
@@ -354,7 +326,7 @@ public class LoginScreenActivity extends Fragment {
                                 JSONObject payload_object = jobj.getJSONObject("payload");
                                 //store user_id and access_token received from our server
                                 JSONObject userDetails = payload_object.getJSONObject("user");
-                                SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
+                                SharedPreferences prefs = getActivity().getSharedPreferences(PREF, getActivity().MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putString("id", "" + userDetails.getString("user_id"));
                                 editor.putString("name", "" + userDetails.getString("name"));
@@ -369,7 +341,7 @@ public class LoginScreenActivity extends Fragment {
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
                                 JSONObject validationobj = errorobj.getJSONObject("validation");
-                                CustomField("" + validationobj.getString("message"));
+                                customField("" + validationobj.getString("message"));
                             }
 
                         } catch (JSONException e) {
@@ -395,7 +367,7 @@ public class LoginScreenActivity extends Fragment {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void RetryInternet(){
+    public void retryInternet(){
         final Snackbar snackbar = Snackbar
                 .make(mCoordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT)
                 .setAction("RETRY", new View.OnClickListener() {
@@ -413,7 +385,7 @@ public class LoginScreenActivity extends Fragment {
         snackbar.show();
     }
 
-    public void CustomField(String message){
+    public void customField(String message){
         Snackbar snackbar = Snackbar
                 .make(mCoordinatorLayout, message, Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.GREEN);
@@ -431,7 +403,7 @@ public class LoginScreenActivity extends Fragment {
         }
     }
 
-    public void HideKeyboard(){
+    public void hideKeyboard(){
        View view = getActivity().getCurrentFocus();
        if (view != null) {
            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -439,31 +411,37 @@ public class LoginScreenActivity extends Fragment {
        }
    }
 
-    private void FromRightAnimation(View v){
-        mAnimSlideUp = AnimationUtils.loadAnimation(getActivity() , R.anim.move);
-        v.setAnimation(mAnimSlideUp);
+    private void fromRightAnimation(View v){
+        Animation animSlideUp = AnimationUtils.loadAnimation(getActivity() , R.anim.move);
+        v.setAnimation(animSlideUp);
     }
 
-    private void ToLeftAnimation(View v){
+    private void toLeftAnimation(View v){
         Animation animSlideup = AnimationUtils.loadAnimation(getActivity() , R.anim.moveright);
         v.setAnimation(animSlideup);
     }
 
     private static boolean validatePhoneNumber(String phoneNo) {
         //validate phone numbers of format "1234567890"
-        if (phoneNo.matches("\\d{10}")) return true;
+        if (phoneNo.matches("\\d{10}")) {
+            return true;
             //validating phone number with -, . or spaces
-        else if(phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+        } else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) {
+            return true;
             //validating phone number with extension length from 3 to 5
-        else if(phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
-            //validating phone number where area code is in braces ()
-        else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+        } else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {
+            return true;
+        //validating phone number where area code is in braces ()
+        }else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {
+            return true;
             //return false if nothing matches the input
-        else return false;
+        }else {
+            return false;
+        }
 
     }
 
-    public void ServerRequestSignUp(String _emailIdValue, String _phoneNumberValue, String _passwordValue){
+    public void serverRequestSignUp(String _emailIdValue, String _phoneNumberValue, String _passwordValue){
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("email", _emailIdValue);
         postParams.put("phone", _phoneNumberValue);
@@ -475,7 +453,7 @@ public class LoginScreenActivity extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
+                        Log.d(TAG, response.toString());
                         try {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
@@ -485,9 +463,9 @@ public class LoginScreenActivity extends Fragment {
                                 JSONObject payload_object = jobj.getJSONObject("payload");
 
 
-                                CustomField("Successfully created");
+                                customField("Successfully created");
                             } else{
-                                CustomField("Email already registered");
+                                customField("Email already registered");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -510,7 +488,7 @@ public class LoginScreenActivity extends Fragment {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void ServerRequestForget(String _emailIdValue){
+    public void serverRequestForget(String _emailIdValue){
         HashMap<String, String> postParams = new HashMap<String, String>();
         postParams.put("email", _emailIdValue);
 
@@ -520,18 +498,18 @@ public class LoginScreenActivity extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
+                        Log.d(TAG, response.toString());
                         try {
                             JSONObject jobj = new JSONObject(response.toString());
                             String success = jobj.getString("success");
                             //if user enters valid details
                             mLoadingSnackBar.setVisibility(View.GONE);
                             if (success.equals("true")) {
-                                CustomField("Email send successfully");
+                                customField("Email send successfully");
                             } else{
                                 JSONObject errorobj = jobj.getJSONObject("error");
                                 JSONObject validationobj = errorobj.getJSONObject("validation");
-                                CustomField("" + validationobj.getString("message"));                            }
+                                customField("" + validationobj.getString("message"));                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -554,27 +532,28 @@ public class LoginScreenActivity extends Fragment {
 
     }
 
-    public  void BackButtonAnimation(View addView, View removeView){
+    public  void backButtonAnimation(View addView, View removeView){
         mItem.addView(addView);
-        FromRightAnimation(addView);
+        fromRightAnimation(addView);
         mItem.removeView(removeView);
-        ToLeftAnimation(removeView);
+        toLeftAnimation(removeView);
     }
 
-    //for facebook login
+    /* for  login using facbook */
     class fblogin extends AsyncTask<AccessToken, String, String> {
 
-        //Before fetching data from facebook "Please wait" mesasge is shown to user
+        /* Before fetching data from facebook "Please wait" message is shown to user*/
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.v("Facebook","PreExecute Function");
+            Log.v(TAG, "PreExecute Function");
             mLoadingSnackBar.setVisibility(View.VISIBLE);
         }
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", getActivity().MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences(PREF, getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        //fetching data from facebook in background and parsing it
+        /* Fetching data from facebook in background and parsing it */
+
         protected String doInBackground(AccessToken... params) {
             GraphRequest request = GraphRequest.newMeRequest(params[0],
 
@@ -583,7 +562,7 @@ public class LoginScreenActivity extends Fragment {
                         public void onCompleted(JSONObject object,
                                                 GraphResponse response) {
 
-                            Log.v("Response", response.toString());
+                            Log.v(TAG, response.toString());
                             try {
                                 editor.putString("email", "" + object.getString("email"));
                                 editor.putString("name", "" + object.getString("first_name"));
@@ -606,7 +585,7 @@ public class LoginScreenActivity extends Fragment {
             return null;
         }
 
-        //after feching data  from facebook close the message "Please wait"
+        /* After fetching data  from facebook close the message "Please wait"*/
         protected void onPostExecute(String file_url) {
             mLoadingSnackBar.setVisibility(View.GONE);
         }
@@ -614,7 +593,7 @@ public class LoginScreenActivity extends Fragment {
     }
 
 
-    public boolean PasswordLength(String password) {
+    public boolean passwordLength(String password) {
         return password.length() > 7;
     }
 
@@ -625,7 +604,7 @@ public class LoginScreenActivity extends Fragment {
 
     }
 
-    // Define the Handler that receives messages from the thread and update the progress
+    /* Define the Handler that receives messages from the thread and update the progress*/
     private final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             ((MainActivity) getActivity()).onDrawerItemSelected(mViewItem,0);

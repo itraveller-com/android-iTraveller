@@ -36,13 +36,13 @@ import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.itraveller.R;
-import com.itraveller.core.LoginScreenActivity;
+import com.itraveller.core.LoginScreenFragment;
 
 import java.io.InputStream;
 import java.net.URL;
 
-
 import com.google.analytics.tracking.android.EasyTracker;
+
 import com.itraveller.dashboard.MyTravelActivity;
 
 
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             case 4:
 
-                LoginScreenActivity fragment1 = new LoginScreenActivity();
+                LoginScreenFragment fragment1 = new LoginScreenFragment();
                 title =""; //getString(R.string.title_login);
                 fragment = fragment1;
                 break;

@@ -1,13 +1,9 @@
 package com.itraveller.volley;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.os.PowerManager;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
-import android.util.Config;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -17,17 +13,6 @@ import com.android.volley.toolbox.Volley;
 import com.itraveller.R;
 import com.moxtra.sdk.MXAccountManager;
 import com.moxtra.sdk.MXSDKException;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
 public class AppController extends MultiDexApplication {
 

@@ -20,6 +20,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.itraveller.R;
+import com.itraveller.adapter.AirportAdapter;
+import com.itraveller.model.AirportModel;
+import com.itraveller.volley.AppController;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,22 +32,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itraveller.R;
-import com.itraveller.adapter.AirportAdapter;
-import com.itraveller.model.AirportModel;
-import com.itraveller.volley.AppController;
 
 
 public class AirportList extends Activity {
 
-    private List<AirportModel> airportList = new ArrayList<AirportModel>();
-    private AirportAdapter adapter;
-    private ListView listview;
-    private SearchView search_airport;
-    String url = "";
-    private SharedPreferences.Editor editor;
-    public static final String MY_PREFS = "Destination";
-    private int click_btn;
+    private List<AirportModel> mAirportList = new ArrayList<AirportModel>();
+    private AirportAdapter mAdapter;
+    private String mUrl = "";
+    private SharedPreferences.Editor mEditor;
+    private static final String MY_PREFS = "Destination";
+    private int mClick_btn;
+    private static final String TAG =AirportList.class.getName();
+    private static  final String FROM_HOME_DESINATION = "From_Home_Destination";
+    private static  final String TO_HOME_DESTINATION="To_Home_Destination";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +52,14 @@ public class AirportList extends Activity {
         setContentView(R.layout.airport_listview);
 
         Bundle bundle = getIntent().getExtras();
-        //Print
-        System.out.println("url: " + bundle.getString("Url"));
-        url= bundle.getString("Url");
-        click_btn = bundle.getInt("Place");
+        mUrl= bundle.getString("Url");
+        mClick_btn = bundle.getInt("Place");
 
-        listview = (ListView) findViewById(R.id.list);
-        search_airport = (SearchView) findViewById(R.id.searchView);
-        adapter = new AirportAdapter(this,airportList);
-        listview.setAdapter(adapter);
-        search_airport.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        ListView listView = (ListView) findViewById(R.id.list);
+        SearchView searchAirport = (SearchView) findViewById(R.id.searchView);
+        mAdapter = new AirportAdapter(this,mAirportList);
+        listView.setAdapter(mAdapter);
+        searchAirport.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -67,21 +67,20 @@ public class AirportList extends Activity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+                mAdapter.getFilter().filter(s);
                 return false;
             }
         });
         airportJSON();
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                editor = getSharedPreferences(MY_PREFS, MODE_PRIVATE).edit();
-               if(click_btn == 1)
-               {
-                   editor.putString("From_Home_Destination", airportList.get(position).getValue().toString());
-                   editor.putString("To_Home_Destination",airportList.get(position).getValue().toString());
-               }
-                editor.commit();
+                mEditor = getSharedPreferences(MY_PREFS, MODE_PRIVATE).edit();
+                if (mClick_btn == 1) {
+                    mEditor.putString(FROM_HOME_DESINATION, mAirportList.get(position).getValue().toString());
+                    mEditor.putString(TO_HOME_DESTINATION, mAirportList.get(position).getValue().toString());
+                }
+                mEditor.commit();
             }
         });
     }
@@ -101,22 +100,21 @@ public class AirportList extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void airportJSON ()
+    private void airportJSON()
     {
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
-                url, new Response.Listener<JSONObject>() {
+                mUrl, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.i("Test", "Testing" + response);
-                    Log.d("Boolean", "" + response.getBoolean("success"));
-                    Log.d("Error", ""+response.getJSONObject("error"));
-                    Log.d("Payload", ""+response.getJSONArray("payload"));
+                    Log.i(TAG, "Testing" + response);
+                    Log.d(TAG, "" + response.getBoolean("success"));
+                    Log.d(TAG, ""+response.getJSONObject("error"));
+                    Log.d(TAG, ""+response.getJSONArray("payload"));
 
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
-                    // Parsing json
+
                     int response_JSON_arr_length=response.getJSONArray("payload").length();
                     for (int i = 0; i < response_JSON_arr_length; i++) {
 
@@ -125,22 +123,15 @@ public class AirportList extends Activity {
 
                         airport_model.setKey(jsonarr.getString("key"));
                         airport_model.setValue(jsonarr.getString("value"));
-                       /* airport_model.setName(jsonarr.getString("Name"));
-                        airport_model.setLat(jsonarr.getString("Lat"));
-                        airport_model.setLong(jsonarr.getString("Long"));
-                        airport_model.setTimezone(jsonarr.getString("Timezone"));
-                        airport_model.setCity(jsonarr.getString("City"));
-                        airport_model.setCountry(jsonarr.getString("Country"));
-                        airport_model.setCountry_Code(jsonarr.getString("Country_Code"));
-                        airport_model.setStatus(jsonarr.getInt("Status"));*/
-                        airportList.add(airport_model);
+
+                        mAirportList.add(airport_model);
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
 
 
 

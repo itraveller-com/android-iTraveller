@@ -1,31 +1,24 @@
 package com.itraveller.dragsort;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -41,22 +34,6 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
-import com.itraveller.adapter.HotelRoomAdapter;
-import com.itraveller.adapter.ListViewPagerAdapter;
-import com.itraveller.adapter.TransportationAdapter;
-import com.itraveller.constant.Constants;
-import com.itraveller.model.HotelModel;
-import com.itraveller.model.HotelRoomModel;
-import com.itraveller.model.TransportationModel;
-import com.melnykov.fab.FloatingActionButton;
-
-import com.mobeta.android.dslv.DragNDropSortListView;
-import com.mobeta.android.dslv.DragSortController;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.itraveller.R;
 import com.itraveller.activity.HotelActivity;
 import com.itraveller.adapter.AirportAdapter;
@@ -67,48 +44,66 @@ import com.itraveller.model.AirportModel;
 import com.itraveller.model.PortAndLocModel;
 import com.itraveller.model.RearrangePlaceModel;
 import com.itraveller.volley.AppController;
+import com.melnykov.fab.FloatingActionButton;
+import com.mobeta.android.dslv.DragNDropSortListView;
+import com.mobeta.android.dslv.DragSortController;
 
-public class DragAndSort extends ActionBarActivity
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DragAndSort extends AppCompatActivity
 {
 
     public Intent intent;
-    public static String Destination_Value;
-    public static String Destination_Date;
+    public static String sDestinationValue;
+    public static String sDestinationDate;
 
-    SharedPreferences sharedpreferences;
-    DragNDropSortListView listView;
-    String[] names;
-   // ArrayAdapter<String> adapter;
-    Toolbar mToolbar;
-    FloatingActionButton fab;
+    private SharedPreferences mSharedPreferences;
+    private DragNDropSortListView mListView;
+    private FloatingActionButton mFab;
 
-    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    private ImageLoader mImageLoader = AppController.getInstance().getImageLoader();
     ////// New Page
-    private List<AirportModel> airportList = new ArrayList<AirportModel>();
-    private AirportAdapter adapter_airport;
+    private List<AirportModel> mAirportList = new ArrayList<AirportModel>();
+    private AirportAdapter mAdapterAirport;
     //Adapter for port and locations
-    private List<PortAndLocModel> portandLocList = new ArrayList<PortAndLocModel>();
-    private PortAndLocAdapter adapter_portandLoc;
+    private List<PortAndLocModel> mPortandLocList = new ArrayList<PortAndLocModel>();
+    private PortAndLocAdapter mAdapterPortandLoc;
     //Adapter for places and rearrange
-    private List<RearrangePlaceModel> rearrangeList = new ArrayList<RearrangePlaceModel>();
-    private RearrangePlaceAdapter adapter_rearrange;
+    private List<RearrangePlaceModel> mRearrangeList = new ArrayList<RearrangePlaceModel>();
+    private RearrangePlaceAdapter mAdapterRearrange;
 
-    public static ListView listview;
-    private SearchView search_airport;
-    private TextView from_home , from_travel , to_home ,to_travel;
-    public String url;
-    public static String region_id;
-    private int check_bit_new = 0;
-    private ScrollView scroll;
-    private Button hotelBook;
-    private String[] destination_ID;
-    private String[] destination_Count;
-    private int arrival_id,departure_id;
-    private String travelfrom , travelto;
-    private View include_loading;
 
-    private LinearLayout destination_page;
-    private RelativeLayout airportlist_page;
+    public static ListView sListView;
+    private TextView mFromHome;
+    private TextView mFromTravel;
+    private TextView mToHome;
+    private TextView mToTravel;
+    public String mUrl;
+    public static String sRegionId;
+    private int mCheckBitNew = 0;
+    private Button mHotelBook;
+    private int mArrivalId;
+    private int mDepartureId;
+    private String mTravelFrom ;
+    private String mTravelTo;
+    private View mIncludeLoading;
+    private LinearLayout mDestinationPage;
+    private RelativeLayout mAirportListPage;
+
+    private static final String TAG =DragAndSort.class.getName();
+    private static final String ITINERARY="Itinerary";
+    private static final String REGION_ID= "RegionID";
+    private static final String SAVED_DATA= "SavedData";
+    private static final String REGION_STRING="RegionString";
+    private static final String TRAVEL_DATE="TravelDate";
+    private static final String DATE_FORMAT="yyyy-MM-dd";
+    private static final String DATE_FORMAT2="dd-MM-yyyy";
+    private static  final String  ACTIVITIES="Activities";
+    private static  final String TRANSPORTATION_ID="TransportationID";
 
    private DragNDropSortListView.DropListener onDrop = new DragNDropSortListView.DropListener()
     {
@@ -117,10 +112,11 @@ public class DragAndSort extends ActionBarActivity
         {
             if (from != to)
             {
-                Log.i("TestData1","Test");
-                RearrangePlaceModel item = adapter_rearrange.getList().get(from);
-                adapter_rearrange.remove(item);
-                adapter_rearrange.insert(item, to);
+
+                RearrangePlaceModel item = mAdapterRearrange
+                        .getList().get(from);
+                mAdapterRearrange.remove(item);
+                mAdapterRearrange.insert(item, to);
             }
         }
     };
@@ -130,11 +126,8 @@ public class DragAndSort extends ActionBarActivity
         @Override
         public void remove(int which)
         {
-            Log.i("TestData2","Test");
-            adapter_rearrange.remove(adapter_rearrange.getList().get(which));
-         //   LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rearrangeList.size()* (dpToPx(70)));
-          //  listView.setLayoutParams(lp);
-            Utility.setListViewHeightBasedOnChildren(listView);
+            mAdapterRearrange.remove(mAdapterRearrange.getList().get(which));
+            Utility.setListViewHeightBasedOnChildren(mListView);
         }
     };
 
@@ -146,13 +139,13 @@ public class DragAndSort extends ActionBarActivity
         setContentView(R.layout.destination);
 
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Travel Destinations");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -160,236 +153,199 @@ public class DragAndSort extends ActionBarActivity
         });
 
         //Saving the data for previous use
-        SharedPreferences prefsSaved = getSharedPreferences("SavedData", MODE_PRIVATE);
+        SharedPreferences prefsSaved = getSharedPreferences(SAVED_DATA, MODE_PRIVATE);
         SharedPreferences.Editor editorSaved = prefsSaved.edit();
-        editorSaved.putString("Activities", null);
-        editorSaved.putString("TransportationID", null);
+        editorSaved.putString(ACTIVITIES, null);
+        editorSaved.putString(TRANSPORTATION_ID, null);
         editorSaved.commit();
 
         //Loading Layout View
-        include_loading = findViewById(R.id.include_loading);
-        include_loading.setVisibility(View.GONE);
+        mIncludeLoading = findViewById(R.id.include_loading);
+        mIncludeLoading.setVisibility(View.GONE);
 
         //Main Layout
-        destination_page = (LinearLayout) findViewById(R.id.destination_page);
-        airportlist_page = (RelativeLayout) findViewById(R.id.airport_listview);
+        mDestinationPage = (LinearLayout) findViewById(R.id.destination_page);
+        mAirportListPage = (RelativeLayout) findViewById(R.id.airport_listview);
 
         LinearLayout from_airport_sp = (LinearLayout) findViewById(R.id.from_home_airport);
         LinearLayout from_port_sp = (LinearLayout) findViewById(R.id.from_travel_port);
         LinearLayout to_port_sp = (LinearLayout) findViewById(R.id.to_travel_port);
         LinearLayout to_airport_sp = (LinearLayout) findViewById(R.id.to_home_airport);
-        ImageButton add_new = (ImageButton) findViewById(R.id.imageButton);
 
-        sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-        region_id = "" + sharedpreferences.getString("RegionID", null);
+        mSharedPreferences = getSharedPreferences(ITINERARY, Context.MODE_PRIVATE);
+        sRegionId = "" + mSharedPreferences.getString(REGION_ID, null);
 
 
         //Fab Floating Button
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                include_loading.setVisibility(View.VISIBLE);
-                destination_page.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                String regionString = sharedpreferences.getString("RegionString","");
+                mIncludeLoading.setVisibility(View.VISIBLE);
+                mDestinationPage.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                mAirportListPage.setVisibility(View.VISIBLE);
+                mHotelBook.setVisibility(View.GONE);
+                String regionString = mSharedPreferences.getString(REGION_STRING,"");
                 if(regionString.equalsIgnoreCase("") || regionString.equalsIgnoreCase(null) || regionString.length()==0) {
-                    url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=0";
-                    Log.v("RegionString","" +region_id);
+                    mUrl = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + sRegionId + "&port=0";
+                    Log.v(TAG,"" +sRegionId);
                 } else {
-                    url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + regionString + "&port=0";
-                    Log.v("RegionString", "" + regionString);
+                    mUrl = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + regionString + "&port=0";
+                    Log.v(TAG, "" + regionString);
                 }
-             //   url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=0";
-                Log.d("Add dest url test",""+url);
-                airportJSON(url, false);
-                check_bit_new = 5;
+                Log.d(TAG,""+mUrl);
+                airportJSON(mUrl, false);
+                mCheckBitNew = 5;
             }
         });
 
         NetworkImageView img = (NetworkImageView) findViewById(R.id.thumbnail);
         TextView title_sp = (TextView) findViewById(R.id.title_rp);
         TextView duration_sp = (TextView) findViewById(R.id.duration_rp);
-        scroll = (ScrollView) findViewById(R.id.scrollView);
-        from_home = (TextView) findViewById(R.id.from_home_destination);
-        from_travel = (TextView) findViewById(R.id.from_travel_destination);
-        to_home = (TextView) findViewById(R.id.to_home_destination);
-        to_travel = (TextView) findViewById(R.id.to_travel_destination);
+        mFromHome = (TextView) findViewById(R.id.from_home_destination);
+        mFromTravel = (TextView) findViewById(R.id.from_travel_destination);
+        mToHome = (TextView) findViewById(R.id.to_home_destination);
+        mToTravel = (TextView) findViewById(R.id.to_travel_destination);
 
-        hotelBook = (Button) findViewById(R.id.book_hotel);
+        mHotelBook = (Button) findViewById(R.id.book_hotel);
 
         //Default value set
-        from_home.setText("MUMBAI");
-        travelfrom = "BOM";
-        to_home.setText("MUMBAI");
-        travelto = "BOM";
+
+        mFromHome.setText("MUMBAI");
+        mTravelFrom = "BOM";
+        mToHome.setText("MUMBAI");
+        mTravelTo = "BOM";
         Bundle bundle = getIntent().getExtras();
-        img.setImageUrl(bundle.getString("Image"), imageLoader);
+        img.setImageUrl(bundle.getString("Image"), mImageLoader);
         img.setErrorImageResId(R.drawable.default_img);
         duration_sp.setText((bundle.getInt("Duration") - 1) + " Nights / " + bundle.getInt("Duration") + " Days");
         title_sp.setText(bundle.getString("Title"));
-        //region_id = bundle.getInt("RegionID");
+
 
 
         String TestValue = bundle.getString("Destinations");
         final String Destination_Id = bundle.getString("DestinationsID");
         final String Destination_Count = bundle.getString("DestinationsCount");
 
-        url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
+        mUrl = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + sRegionId + "&port=1";
 
-        Log.i("PortID",""+bundle.getInt("ArrivalPort"));
-        Log.i("PortID",""+bundle.getInt("DeparturePort"));
+        Log.i(TAG,""+bundle.getInt("ArrivalPort"));
+        Log.i(TAG,""+bundle.getInt("DeparturePort"));
 
-            airportJSONForText("http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1", bundle.getInt("ArrivalPort"), bundle.getInt("DeparturePort"));
+            airportJSONForText("http://stage.itraveller.com/backend/api/v1/destination?regionId=" + sRegionId + "&port=1", bundle.getInt("ArrivalPort"), bundle.getInt("DeparturePort"));
 
-        listView = (DragNDropSortListView) findViewById(R.id.listview);
-        names = TestValue.trim().split(",");
-        destination_ID = Destination_Id.trim().split(",");
-        destination_Count = Destination_Count.trim().split(",");
+        mListView = (DragNDropSortListView) findViewById(R.id.listview);
+        String[] names = TestValue.trim().split(",");
+        String[] destinationId = Destination_Id.trim().split(",");
+        String[] mDestinationCount = Destination_Count.trim().split(",");
 
-        adapter_rearrange = new RearrangePlaceAdapter(this,rearrangeList);
-        listView.setAdapter(adapter_rearrange);
-        fab.attachToListView(listView);
+        mAdapterRearrange = new RearrangePlaceAdapter(this,mRearrangeList);
+        mListView.setAdapter(mAdapterRearrange);
+        mFab.attachToListView(mListView);
 
-        /*SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedpreferences.edit();*/
-
-
-        //listView.setAdapter(adapter);
-
-        for(int i = 0; i<names.length ; i++)
+        for(int i = 0; i< names.length ; i++)
         {
             RearrangePlaceModel m = new RearrangePlaceModel();
             m.setPlace(names[i].toString().replace("\n"," "));
-            m.setPlaceID(Integer.parseInt(destination_ID[i]) );
-            m.setNights(destination_Count[i]);
-            rearrangeList.add(m);
+            m.setPlaceID(Integer.parseInt(destinationId[i]) );
+            m.setNights(mDestinationCount[i]);
+            mRearrangeList.add(m);
         }
-      /*  add_new.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                include_loading.setVisibility(View.VISIBLE);
-                destination_page.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=0";
-                Log.d("Add dest url test",""+url);
-                airportJSON(url, false);
-                check_bit_new = 5;
-            }
-        });
-*/
-        //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rearrangeList.size()* (dpToPx(70)) );
-        //listView.setLayoutParams(lp);
-        Utility.setListViewHeightBasedOnChildren(listView);
 
-        adapter_rearrange.notifyDataSetChanged();
+        Utility.setListViewHeightBasedOnChildren(mListView);
 
-        listView.setDropListener(onDrop);
-        listView.setRemoveListener(onRemove);
-        final DragSortController controller = new DragSortController(listView);
+        mAdapterRearrange.notifyDataSetChanged();
+
+        mListView.setDropListener(onDrop);
+        mListView.setRemoveListener(onRemove);
+        final DragSortController controller = new DragSortController(mListView);
         controller.setDragHandleId(R.id.drag_handle);
-        //controller.setClickRemoveId(R.id.);
         controller.setRemoveEnabled(true);
         controller.setSortEnabled(true);
         controller.setDragInitMode(1);
+        mListView.setFloatViewManager(controller);
 
-        //controller.setRemoveMode(removeMode);
 
-        listView.setFloatViewManager(controller);
-        //listView.setOnTouchListener(controller);
-        //listView.setOnLongClickListener(controller);
-        //listView.setDragEnabled(false);
-       /* listView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                controller.onLongPress(motionEvent);
-                return false;
-            }
-        });*/
-        hotelBook.setEnabled(false);
-        hotelBook.setOnClickListener(new View.OnClickListener() {
+        mHotelBook.setEnabled(false);
+        mHotelBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Destination_Count = null;
                 String Destination_Name = null;
                 String CheckDate = null;
                 int TotalCount = 0;
-                SharedPreferences prefsData = getSharedPreferences("Itinerary", MODE_PRIVATE);
+                SharedPreferences prefsData = getSharedPreferences(ITINERARY, MODE_PRIVATE);
 
                 String no_of_nights_str="";
 
-                int rearrangeList_size=rearrangeList.size();
+                int rearrangeList_size=mRearrangeList.size();
                 for(int i = 0; i< rearrangeList_size;i++) {
-                   /* Log.v("TestData","Data :"+rearrangeList.get(i).getPlace());
-                    Log.v("TestData","Data :"+rearrangeList.get(i).getPlaceID());*/
                     if(i==0) {
-                        Destination_Value = "" + rearrangeList.get(i).getPlaceID();
-                        Destination_Count = "" + rearrangeList.get(i).getNights();
-                        TotalCount = Integer.parseInt(Destination_Count.toString());
-                        Destination_Name = "" + rearrangeList.get(i).getPlace();
-                        CheckDate = Utility.addDays(prefsData.getString("DefaultDate", null).toString(), 0,"dd-MM-yyyy","yyyy-MM-dd");
-                        Destination_Date = "" + CheckDate ;
+                        sDestinationValue = "" + mRearrangeList.get(i).getPlaceID();
+                        Destination_Count = "" + mRearrangeList.get(i).getNights();
+                        TotalCount = Integer.parseInt(Destination_Count);
+                        Destination_Name = "" + mRearrangeList.get(i).getPlace();
+                        CheckDate = Utility.addDays(prefsData.getString("DefaultDate", null).toString(), 0,DATE_FORMAT2,DATE_FORMAT);
+                        sDestinationDate = "" + CheckDate ;
                     }
                     else
                     {
-                        String Date_ = Utility.addDays(CheckDate,0,"yyyy-MM-dd","dd-MM-yyyy");
-                        CheckDate  = Utility.addDays(Date_, Integer.parseInt(rearrangeList.get(i-1).getNights()),"dd-MM-yyyy","yyyy-MM-dd");
-                        Destination_Date = Destination_Date + "," + CheckDate ;
-                        TotalCount = TotalCount + Integer.parseInt(rearrangeList.get(i).getNights());
-                        Destination_Value = Destination_Value + "," + rearrangeList.get(i).getPlaceID();
-                        Destination_Count = Destination_Count + "," + rearrangeList.get(i).getNights();
-                        Destination_Name = Destination_Name + "," + rearrangeList.get(i).getPlace();
+                        String Date_ = Utility.addDays(CheckDate,0,DATE_FORMAT,DATE_FORMAT2);
+                        CheckDate  = Utility.addDays(Date_, Integer.parseInt(mRearrangeList.get(i-1).getNights()),DATE_FORMAT2,DATE_FORMAT);
+                        sDestinationDate = sDestinationDate + "," + CheckDate ;
+                        TotalCount = TotalCount + Integer.parseInt(mRearrangeList.get(i).getNights());
+                        sDestinationValue = sDestinationValue + "," + mRearrangeList.get(i).getPlaceID();
+                        Destination_Count = Destination_Count + "," + mRearrangeList.get(i).getNights();
+                        Destination_Name = Destination_Name + "," + mRearrangeList.get(i).getPlace();
                     }
-                    Log.v("TestDataDate", "Date :" + Destination_Date);
-                    Log.d("No of nights test", "" + rearrangeList.get(i).getNights());
-                    no_of_nights_str+=""+rearrangeList.get(i).getNights()+",";
+                    Log.v(TAG, "Date :" + sDestinationDate);
+                    Log.d(TAG, "" + mRearrangeList.get(i).getNights());
+                    no_of_nights_str+=""+mRearrangeList.get(i).getNights()+",";
 
                 }
 
-                Log.d("No of nights test1", "" + no_of_nights_str);
+                Log.d(TAG, "" + no_of_nights_str);
 
 
-                if(adapter_rearrange.getCount() != 0) {
-                    SharedPreferences sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+                if(mAdapterRearrange.getCount() != 0) {
+                    SharedPreferences sharedpreferences = getSharedPreferences(ITINERARY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                    String no_of_dest[]=Destination_Value.split(",");
+                    String no_of_dest[]=sDestinationValue.split(",");
 
                     editor.putInt("No_of_Destinations", no_of_dest.length);
-                    editor.putString("DestinationID", Destination_Value);
+                    editor.putString("DestinationID", sDestinationValue);
                     editor.putString("DestinationCount", Destination_Count);
                     editor.putString("DestinationName", Destination_Name);
-                    editor.putString("DestinationDate", Destination_Date);
-                    editor.putString("EndDate", Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount, "yyyy-MM-dd", "yyyy-MM-dd"));
-                    Log.i("EndDate", "" + Utility.addDays(sharedpreferences.getString("TravelDate", null), TotalCount, "yyyy-MM-dd", "yyyy-MM-dd"));
-                    editor.putString("ArrivalAirport", "" + travelfrom);
-                    editor.putString("DepartureAirport", "" + travelto);
-                    editor.putString("ArrivalPort", "" + arrival_id);
-                    editor.putString("DeparturePort", "" + departure_id);
+                    editor.putString("DestinationDate", sDestinationDate);
+                    editor.putString("EndDate", Utility.addDays(sharedpreferences.getString(TRAVEL_DATE, null), TotalCount, DATE_FORMAT, DATE_FORMAT));
+                    Log.i(TAG, "" + Utility.addDays(sharedpreferences.getString(TRAVEL_DATE, null), TotalCount, DATE_FORMAT, DATE_FORMAT));
+                    editor.putString("ArrivalAirport", "" + mTravelFrom);
+                    editor.putString("DepartureAirport", "" + mTravelTo);
+                    editor.putString("ArrivalPort", "" + mArrivalId);
+                    editor.putString("DeparturePort", "" + mDepartureId);
                     editor.putString("TotalNightCount", "" + TotalCount);
 
                     //For Itinerary Summaray
-                    editor.putString("ArrivalAirportString", "" + from_home.getText().toString().replace("\n"," "));
-                    editor.putString("DepartureAirportString", "" + to_home.getText().toString().replace("\n", " "));
-                    editor.putString("ArrivalPortString", "" + from_travel.getText().toString().replace("\n", " "));
-                    editor.putString("DeparturePortString", "" + to_travel.getText().toString().replace("\n"," "));
+                    editor.putString("ArrivalAirportString", "" + mFromHome.getText().toString().replace("\n"," "));
+                    editor.putString("DepartureAirportString", "" + mToHome.getText().toString().replace("\n", " "));
+                    editor.putString("ArrivalPortString", "" + mFromTravel.getText().toString().replace("\n", " "));
+                    editor.putString("DeparturePortString", "" + mToTravel.getText().toString().replace("\n", " "));
 
                     editor.commit();
 
-                    Log.d("Test dest",""+to_home.getText());
-                    Log.d("Test dest1",""+from_travel.getText());
-                    if(  !(""+from_travel.getText()).equals("")) {
+                    Log.d(TAG, "" + mToHome.getText());
+                    Log.d(TAG,""+ mFromTravel.getText());
+                    if(  !(""+ mFromTravel.getText()).equals("")) {
                         intent = new Intent(DragAndSort.this, HotelActivity.class);
-                        intent.putExtra("DestinationsIDs", Destination_Value);
+                        intent.putExtra("DestinationsIDs", sDestinationValue);
 
                         editor.putString("No_of_nights_dest", "" + no_of_nights_str);
-                        Log.d("Test dest", "" + no_of_nights_str);
+                        Log.d(TAG, "" + no_of_nights_str);
 
                         editor.commit();
-                        Log.d("Destination Date test", "" + region_id);
+                        Log.d(TAG, "" + sRegionId);
 
                         startActivity(intent);
 
@@ -407,75 +363,68 @@ public class DragAndSort extends ActionBarActivity
         from_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("ValueData", "" + rearrangeList.get(0).getPlace());
-                /*final Intent i = new Intent(DragAndSort.this, AirportList.class);
-                i.putExtra("Url", "http://stage.itraveller.com/backend/api/v1/airport");
-                i.putExtra("Place" , 1);
-                startActivity(i);*/
-                include_loading.setVisibility(View.VISIBLE);
-                listview.setAdapter(null);
-                destination_page.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                url = "http://stage.itraveller.com/backend/api/v1/airport";
-                airportJSON(url, true);
-                check_bit_new = 1;
+                mIncludeLoading.setVisibility(View.VISIBLE);
+                sListView.setAdapter(null);
+                mDestinationPage.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                mAirportListPage.setVisibility(View.VISIBLE);
+                mHotelBook.setVisibility(View.GONE);
+                mUrl = "http://stage.itraveller.com/backend/api/v1/airport";
+                airportJSON(mUrl, true);
+                mCheckBitNew = 1;
             }
         });
         from_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                include_loading.setVisibility(View.VISIBLE);
-                listview.setAdapter(null);
-                destination_page.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
-                airportJSON(url, false);
-                check_bit_new = 2;
+                mIncludeLoading.setVisibility(View.VISIBLE);
+                sListView.setAdapter(null);
+                mDestinationPage.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                mAirportListPage.setVisibility(View.VISIBLE);
+                mHotelBook.setVisibility(View.GONE);
+                mUrl = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + sRegionId + "&port=1";
+                airportJSON(mUrl, false);
+                mCheckBitNew = 2;
             }
         });
         to_port_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                include_loading.setVisibility(View.VISIBLE);
-                listview.setAdapter(null);
-                destination_page.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                url = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + region_id + "&port=1";
-                airportJSON(url, false);
-                check_bit_new = 3;
+                mIncludeLoading.setVisibility(View.VISIBLE);
+                sListView.setAdapter(null);
+                mDestinationPage.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                mAirportListPage.setVisibility(View.VISIBLE);
+                mHotelBook.setVisibility(View.GONE);
+                mUrl = "http://stage.itraveller.com/backend/api/v1/destination?regionId=" + sRegionId + "&port=1";
+                airportJSON(mUrl, false);
+                mCheckBitNew = 3;
             }
         });
         to_airport_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                include_loading.setVisibility(View.VISIBLE);
-                listview.setAdapter(null);
-                destination_page.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                airportlist_page.setVisibility(View.VISIBLE);
-                hotelBook.setVisibility(View.GONE);
-                url = "http://stage.itraveller.com/backend/api/v1/airport";
-                airportJSON(url,true);
-                check_bit_new = 4;
+                mIncludeLoading.setVisibility(View.VISIBLE);
+                sListView.setAdapter(null);//2
+                mDestinationPage.setVisibility(View.GONE);
+                mFab.setVisibility(View.GONE);
+                mAirportListPage.setVisibility(View.VISIBLE);
+                mHotelBook.setVisibility(View.GONE);
+                mUrl = "http://stage.itraveller.com/backend/api/v1/airport";
+                airportJSON(mUrl,true);
+                mCheckBitNew = 4;
             }
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         // PLACE FIND ACTIVITY//////////////////////////////////////////////////////////////////////////////
-        listview = (ListView) findViewById(R.id.list);
-        search_airport = (SearchView) findViewById(R.id.searchView);
-        adapter_airport = new AirportAdapter(this,airportList);
-        adapter_portandLoc = new PortAndLocAdapter(this, portandLocList);
+        sListView = (ListView) findViewById(R.id.list);/////1
+        SearchView searchAirport = (SearchView) findViewById(R.id.searchView);
+        mAdapterAirport = new AirportAdapter(this,mAirportList);
+        mAdapterPortandLoc = new PortAndLocAdapter(this, mPortandLocList);
 
-        //search_airport.setIconifiedByDefault(false);
-        //search_airport.setIconified(false);
-        search_airport.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchAirport.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -483,65 +432,62 @@ public class DragAndSort extends ActionBarActivity
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if ((check_bit_new == 1) || (check_bit_new == 4))
-                    adapter_airport.getFilter().filter(s);
+                if ((mCheckBitNew == 1) || (mCheckBitNew == 4))
+                    mAdapterAirport.getFilter().filter(s);
                 else
-                    adapter_portandLoc.getFilter().filter(s);
+                    mAdapterPortandLoc.getFilter().filter(s);
 
                 return false;
             }
         });
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        sListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                //view.getId();
-                Log.i("Hellon","Test "+check_bit_new);
-             if(check_bit_new == 1) {
-                 from_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
-                 travelfrom = "" +AirportAdapter.AirportItems.get(position).getKey();
-                 to_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ", "\n"));
-                 travelto = "" +AirportAdapter.AirportItems.get(position).getKey();
+                Log.i(TAG,"Test "+mCheckBitNew);
+             if(mCheckBitNew == 1) {
+                 mFromHome.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
+                 mTravelFrom = "" +AirportAdapter.AirportItems.get(position).getKey();
+                 mToHome.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ", "\n"));
+                 mTravelTo = "" +AirportAdapter.AirportItems.get(position).getKey();
 
              }
-                else if(check_bit_new == 2)
+                else if(mCheckBitNew == 2)
              {
-                 from_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 arrival_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
-                 to_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 departure_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
+                  mFromTravel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ", "\n"));
+                 mArrivalId = PortAndLocAdapter.PortandLocItems.get(position).getKey();
+                 mToTravel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
+                 mDepartureId = PortAndLocAdapter.PortandLocItems.get(position).getKey();
 
              }
-                else if(check_bit_new == 3)
+                else if(mCheckBitNew == 3)
              {
-                 to_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 departure_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
+                 mToTravel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
+                 mDepartureId = PortAndLocAdapter.PortandLocItems.get(position).getKey();
 
              }
-                else if(check_bit_new == 4)
+                else if(mCheckBitNew == 4)
              {
-                 to_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
-                 travelto = ""+AirportAdapter.AirportItems.get(position).getKey();
+                 mToHome.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
+                 mTravelTo = ""+AirportAdapter.AirportItems.get(position).getKey();
 
              }
-                else if(check_bit_new == 5){
+                else if(mCheckBitNew == 5){
 
                  RearrangePlaceModel m = new RearrangePlaceModel();
                  m.setPlace(PortAndLocAdapter.PortandLocItems.get(position).getValue());
                  m.setPlaceID(PortAndLocAdapter.PortandLocItems.get(position).getKey());
                  m.setNights("1");
-                 rearrangeList.add(m);
-                 adapter_rearrange.notifyDataSetChanged();
-                // LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rearrangeList.size()*70 );
-                // listView.setLayoutParams(lp);
-                 Utility.setListViewHeightBasedOnChildren(listView);
+                 mRearrangeList.add(m);
+                 mAdapterRearrange.notifyDataSetChanged();
+                 Utility.setListViewHeightBasedOnChildren(mListView);
              }
-                check_bit_new=0;
-                destination_page.setVisibility(View.VISIBLE);
-                fab.setVisibility(View.VISIBLE);
-                airportlist_page.setVisibility(View.GONE);
-                hotelBook.setVisibility(View.VISIBLE);
+                mCheckBitNew=0;
+                mDestinationPage.setVisibility(View.VISIBLE);
+                mFab.setVisibility(View.VISIBLE);
+                mAirportListPage.setVisibility(View.GONE);
+                mHotelBook.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -563,34 +509,24 @@ public class DragAndSort extends ActionBarActivity
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.i("TestResponse", "Testing" + response);
-                    Log.d("Boolean", "" + response.getBoolean("success"));
-                    Log.d("Error", "" + response.getJSONObject("error"));
-                    Log.d("PayloadValue", ""+ airport);
-                    airportList.clear();
-                    portandLocList.clear();
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
-                    // Parsing json
+                    Log.i(TAG, "Testing" + response);
+                    Log.d(TAG, "" + response.getBoolean("success"));
+                    Log.d(TAG, "" + response.getJSONObject("error"));
+                    Log.d(TAG, ""+ airport);
+                    mAirportList.clear();
+                    mPortandLocList.clear();
                     int response_JSON_arr_length=response.getJSONArray("payload").length();
                     for (int i = 0; i < response_JSON_arr_length; i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-                        if(airport == true) {
+                        if(airport) {
 
                             AirportModel airport_model = new AirportModel();
 
-                            Log.i("AirportValue",""+jsonarr.getString("value"));
+                            Log.i(TAG,""+jsonarr.getString("value"));
                             airport_model.setKey(jsonarr.getString("key"));
-                            //airport_model.setCode(jsonarr.getString("Code"));
                             airport_model.setValue(jsonarr.getString("value"));
-                            /*airport_model.setLat(jsonarr.getString("Lat"));
-                            airport_model.setLong(jsonarr.getString("Long"));
-                            airport_model.setTimezone(jsonarr.getString("Timezone"));
-                            airport_model.setCity(jsonarr.getString("City"));
-                            airport_model.setCountry(jsonarr.getString("Country"));
-                            airport_model.setCountry_Code(jsonarr.getString("Country_Code"));
-                            airport_model.setStatus(jsonarr.getInt("Status"));*/
-                            airportList.add(airport_model);
-                            listview.setAdapter(adapter_airport);
+                            mAirportList.add(airport_model);
+                            sListView.setAdapter(mAdapterAirport);
                         }
                         else
                         {
@@ -598,33 +534,10 @@ public class DragAndSort extends ActionBarActivity
 
                             portandloc_model.setValue(jsonarr.getString("value"));
                             portandloc_model.setKey(jsonarr.getInt("key"));
-                            /*portandloc_model.setDestination_Id(jsonarr.getInt("Destination_Id"));
-                            portandloc_model.setDestination_Name(jsonarr.getString("Destination_Name"));
-                            portandloc_model.setDistrict(jsonarr.getString("District"));
-                            portandloc_model.setState(jsonarr.getString("State"));
-                            portandloc_model.setPivot_Latitude(jsonarr.getInt("Pivot_Latitude"));
-                            portandloc_model.setPivot_Longitude(jsonarr.getInt("Pivot_Longitude"));
-                            portandloc_model.setEnable_Flag(jsonarr.getInt("Enable_Flag"));
-                            portandloc_model.setAlias(jsonarr.getString("Alias"));
-                            portandloc_model.setStory(jsonarr.getString("Story"));
-                            portandloc_model.setPage_Title(jsonarr.getString("Page_Title"));
-                            portandloc_model.setPage_Description(jsonarr.getString("Page_Description"));
-                            portandloc_model.setPage_Heading(jsonarr.getString("Page_Heading"));
-                            portandloc_model.setMin_Stay(jsonarr.getInt("Min_Stay"));
-                            portandloc_model.setPort(jsonarr.getInt("Port"));
-                            portandloc_model.setCode(jsonarr.getString("Code"));
-                            portandloc_model.setSight_Seeing(jsonarr.getInt("Sight_Seeing"));
-                            portandloc_model.setSealevel(jsonarr.getString("Sealevel"));
-                            portandloc_model.setType(jsonarr.getString("Type"));
-                            portandloc_model.setSummer_Temp(jsonarr.getString("Summer_Temp"));
-                            portandloc_model.setWinter_Temp(jsonarr.getString("Winter_Temp"));
-                            portandloc_model.setRegion(jsonarr.getInt("Region"));
-                            portandloc_model.setDate(jsonarr.getString("Date"));
-                            portandloc_model.setAdmin_Id(jsonarr.getString("admin_Id"));*/
 
-                            portandLocList.add(portandloc_model);
+                            mPortandLocList.add(portandloc_model);
 
-                            listview.setAdapter(adapter_portandLoc);
+                            sListView.setAdapter(mAdapterPortandLoc);
 
                         }
                     }
@@ -633,9 +546,9 @@ public class DragAndSort extends ActionBarActivity
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
-                adapter_airport.notifyDataSetChanged();
-                adapter_portandLoc.notifyDataSetChanged();
-                include_loading.setVisibility(View.GONE);
+                mAdapterAirport.notifyDataSetChanged();
+                mAdapterPortandLoc.notifyDataSetChanged();
+                mIncludeLoading.setVisibility(View.GONE);
 
             }
         },  new Response.ErrorListener() {
@@ -664,32 +577,31 @@ public class DragAndSort extends ActionBarActivity
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.i("Test", "Testing" + response);
-                    Log.d("Boolean", "" + response.getBoolean("success"));
-                    Log.d("Error", "" + response.getJSONObject("error"));
-                    Log.d("Payload", ""+response.getJSONArray("payload"));
-                    Log.d("KeyValueKey", "Arr"+arrival);
-                    // JSONObject jsonobj = response.getJSONObject("payload").get;
-                    // Parsing json
+                    Log.i(TAG, "Testing" + response);
+                    Log.d(TAG, "" + response.getBoolean("success"));
+                    Log.d(TAG, "" + response.getJSONObject("error"));
+                    Log.d(TAG, ""+response.getJSONArray("payload"));
+                    Log.d(TAG, "Arr"+arrival);
+
                     int response_JSON_arr_length=response.getJSONArray("payload").length();
                     for (int i = 0; i < response_JSON_arr_length; i++) {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
-                        Log.d("KeyValueKey", ""+jsonarr.getInt("key"));
+                        Log.d(TAG, ""+jsonarr.getInt("key"));
                          if(jsonarr.getInt("key") == arrival)
                          {
-                             arrival_id = arrival;
-                             departure_id = departure;
-                             from_travel.setText(jsonarr.getString("value").replace(" ","\n"));
-                             to_travel.setText(jsonarr.getString("value").replace(" ", "\n"));
+                             mArrivalId = arrival;
+                             mDepartureId = departure;
+                              mFromTravel.setText(jsonarr.getString("value").replace(" ", "\n"));
+                             mToTravel.setText(jsonarr.getString("value").replace(" ", "\n"));
                          }
                         else if(jsonarr.getInt("key") == departure)
                          {
-                             departure_id = departure;
-                             to_travel.setText(jsonarr.getString("value").replace(" ","\n"));
+                             mDepartureId = departure;
+                             mToTravel.setText(jsonarr.getString("value").replace(" ","\n"));
                          }
                      }
                     pDialog.dismiss();
-                    hotelBook.setEnabled(true);
+                    mHotelBook.setEnabled(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
@@ -699,7 +611,7 @@ public class DragAndSort extends ActionBarActivity
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                //System.err.println(error);
+
                 // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
                 // For AuthFailure, you can re login with user credentials.
                 // For ClientError, 400 & 401, Errors happening on client side when sending api request.
@@ -727,20 +639,20 @@ public class DragAndSort extends ActionBarActivity
     }
 
     public void onBackPressed() {
-        Log.i("CheckBitValue", "" + check_bit_new);
-        if(check_bit_new==0)
+        Log.i(TAG, "" + mCheckBitNew);
+        if(mCheckBitNew==0)
         {
             finish();
         }
         else
         {
-            include_loading.setVisibility(View.GONE);
-            listview.setAdapter(null);
-            destination_page.setVisibility(View.VISIBLE);
-            fab.setVisibility(View.VISIBLE);
-            airportlist_page.setVisibility(View.GONE);
-            hotelBook.setVisibility(View.VISIBLE);
-            check_bit_new = 0;
+            mIncludeLoading.setVisibility(View.GONE);
+            sListView.setAdapter(null);
+            mDestinationPage.setVisibility(View.VISIBLE);
+            mFab.setVisibility(View.VISIBLE);
+            mAirportListPage.setVisibility(View.GONE);
+            mHotelBook.setVisibility(View.VISIBLE);
+            mCheckBitNew = 0;
         }
     }
 
