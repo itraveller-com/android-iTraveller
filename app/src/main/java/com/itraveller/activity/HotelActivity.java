@@ -4,29 +4,19 @@ package com.itraveller.activity;
  * Created by VNK on 6/25/2015.
  */
 
-import android.app.ProgressDialog;
 
+//TODO: A high number of imports indicate a high degree of coupling.
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-import android.content.res.Configuration;
 import android.os.Bundle;
-
-import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.util.Log;
-
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -49,22 +39,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import com.android.volley.toolbox.NetworkImageView;
 import com.itraveller.R;
-
 import com.itraveller.adapter.HotelRoomAdapter;
 import com.itraveller.adapter.ListViewPagerAdapter;
-
 import com.itraveller.adapter.TransportationAdapter;
 import com.itraveller.constant.Constants;
-
 import com.itraveller.constant.Utility;
-import com.itraveller.dragsort.DragAndSort;
 import com.itraveller.model.ActivitiesModel;
 import com.itraveller.model.HotelModel;
 import com.itraveller.model.HotelRoomModel;
-
 import com.itraveller.model.MealPlanModel;
 import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
@@ -76,10 +60,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Arrays;
 import java.util.Calendar;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -87,23 +68,32 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
-public class  HotelActivity extends ActionBarActivity {
 
+//TODO: HotelActivity is too complex to analyze, A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity. Excessive class file lengths are usually indications that the class may be burdened with excessive responsibilities that could be provided by external classes or functions. In breaking these methods apart the code becomes more managable and ripe for reuse. Classes with large numbers of public methods and attributes require disproportionate testing efforts since combinational side effects grow rapidly and increase risk. Refactoring these classes into smaller ones not only increases testability and reliability but also allows new variations to be developed easily. Classes that have too many fields can become unwieldy and could be redesigned to have fewer fields, possibly through grouping related fields in new objects. Complexity directly affects maintenance costs.
+public class HotelActivity extends AppCompatActivity {
+
+
+    //TODO: Haven't used explicit scoping instead of accidental usage of default package private level for most of the variables, A variable naming conventions rule - final variables that should be fully capitalized and non-final variables that should not include underscores. Haven't followed the variable naming conventions rule at all.
     ProgressDialog ndDialog;
-    public static int count=0;
+
+    //TODO:  Java will initialize fields with known default values so any explicit initialization of those same defaults is redundant and results in a larger class file (approximately three additional bytecode instructions per field)
+    public static int count = 0;
     public static int transportation_cost;
-    ArrayList<DiscountModel> Discount_list=new ArrayList<DiscountModel>();
-    String discount_str="";
-    String supplier_str="";
-    String default_activity_cost_str="";
-    String default_activity_id_str="";
-    static String date_of_travel,date_of_return,source_str,arr_port,dept_port,dest_str;
-    static String itinerary_id,no_of_adults,no_below_5,no_above_5;
-    static String dest_id,no_of_nights,trans_id,activity_id;
-    static String no_of_dests,activity_date,no_of_activities;
+    ArrayList<DiscountModel> Discount_list = new ArrayList<DiscountModel>();
+    String discount_str = "";
+    String supplier_str = "";
+    String default_activity_cost_str = "";
+    String default_activity_id_str = "";
+
+    //TODO: Code containing duplicate String literals can usually be improved by declaring the String as a constant field for example: Hotels, Loading... etc.
+
+    //TODO: Lots of dead code and unused variables.
+    static String date_of_travel, date_of_return, source_str, arr_port, dept_port, dest_str;
+    static String itinerary_id, no_of_adults, no_below_5, no_above_5;
+    static String dest_id, no_of_nights, trans_id, activity_id;
+    static String no_of_dests, activity_date, no_of_activities;
 
 
     public static String region_id;
@@ -111,18 +101,22 @@ public class  HotelActivity extends ActionBarActivity {
     public static String destination_date_arr[];
     public static String Destination_Value;
     public static String Destination_Date;
+    //TODO: Fields whose scopes are limited to just single methods do not rely on the containing object to provide them to other methods. They may be better implemented as local variables within those methods.
     public static int sum;
     public static int activity_sum;
-    public static int flag=0;
+    public static int flag = 0;
     public int totalPersons = 0;
 
+    //TODO: variable unnecessarily defined at class level, can be converted to local varaible.
     private TransportationAdapter tra_adapter;
     public static List<TransportationModel> transportationList = new ArrayList<TransportationModel>();
 
 
-    String[] destination_id, hotel_id,hotel_room_id;
+    //TODO: Unused variable.
+    String[] destination_id, hotel_id, hotel_room_id;
 
-    SharedPreferences preferences,post_prefs;
+    //TODO: Fields whose scopes are limited to just single methods do not rely on the containing object to provide them to other methods. They may be better implemented as local variables within those methods.
+    SharedPreferences preferences, post_prefs;
     public SharedPreferences prefs;
     SharedPreferences prfs;
     SharedPreferences user_selected_data;
@@ -131,9 +125,9 @@ public class  HotelActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    TextView nameText,placesText,destinationText,arr_dateText,dep_dateText,daysText,adultsText,child_5_12_Text,child_below_5_Text;
-    TextView nameSellerText,addressSellerText,arrAtText,dateDisplayText,roomDisplayText,totalPriceText;
-    TextView discountPriceText,priceAdvanceText,remainingPriceText,departureText,transportationText;
+    TextView nameText, placesText, destinationText, arr_dateText, dep_dateText, daysText, adultsText, child_5_12_Text, child_below_5_Text;
+    TextView nameSellerText, addressSellerText, arrAtText, dateDisplayText, roomDisplayText, totalPriceText;
+    TextView discountPriceText, priceAdvanceText, remainingPriceText, departureText, transportationText;
     // Declare Variable
     public static ListViewPagerAdapter listViewPagerAdapter;
     int ListItemPostion;
@@ -141,6 +135,8 @@ public class  HotelActivity extends ActionBarActivity {
     Toolbar mToolbar;
     int error_bit = 0;
     private ArrayList<String> hotelList;
+
+    //TODO: list updated but never used.
     private ArrayList<String> mealPlanURL;
     private ArrayList<String> lowesthotelList;
     String[] hotel_destination, destination_date, pre_saved_hotel_destination_id;
@@ -149,18 +145,18 @@ public class  HotelActivity extends ActionBarActivity {
     ///HOTEL ROOM ACTIVITY
     int[] value = new int[10];
     private ListView listView;
-    private List<HotelRoomModel> roomList ;
+    private List<HotelRoomModel> roomList;
     private List<MealPlanModel> mealplanList;
     private HotelRoomAdapter adapter;
-    int check_bit=0;
+    int check_bit = 0;
     String[] HotelRoomData;
     int cposition, gposition;
     String lowest_hotel_url = Constants.API_HotelActivity_Lowest_Hotel; //"http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=";
     String Region_ID;
     Button activites;
     ProgressDialog pDialog;
-    CheckBox chk_breakfast,chk_lunch,chk_dinner;
-    boolean hotelcheckbit ;
+    CheckBox chk_breakfast, chk_lunch, chk_dinner;
+    boolean hotelcheckbit;
     private LinearLayout mealplanlayout;
     private TextView mealhead;
     int Checkgpostion;
@@ -168,6 +164,7 @@ public class  HotelActivity extends ActionBarActivity {
 
     SharedPreferences sharedpreferences;
 
+    //TODO: methods are excessively long this usually indicates that the method is doing more than its name/signature might suggest. They also become challenging for others to digest since excessive scrolling causes readers to lose focus.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +174,7 @@ public class  HotelActivity extends ActionBarActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        //TODO: Method invocation 'getSupportActionBar().setTitle("Hotels")' may produce 'java.lang.NullPointerException'
         getSupportActionBar().setTitle("Hotels");
 
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -195,17 +193,19 @@ public class  HotelActivity extends ActionBarActivity {
 
         setupDrawer();*/
 
-        tra_adapter=new TransportationAdapter(this,transportationList);
+        tra_adapter = new TransportationAdapter(this, transportationList);
 
         mealplanList = new ArrayList<MealPlanModel>();
         sharedpreferences = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
 
-        region_id=""+sharedpreferences.getString("RegionID",null);
+        region_id = "" + sharedpreferences.getString("RegionID", null);
 
         Bundle bundle = getIntent().getExtras();
 
         mealplanlayout = (LinearLayout) findViewById(R.id.meal_plan);
         mealhead = (TextView) findViewById(R.id.room);
+
+        //TODO: Code clean up has not done, Dead code.
         /*nameText=(TextView) findViewById(R.id.name_value);
         placesText=(TextView) findViewById(R.id.places_value);
         destinationText=(TextView) findViewById(R.id.destinations_value);
@@ -227,13 +227,14 @@ public class  HotelActivity extends ActionBarActivity {
         departureText=(TextView) findViewById(R.id.departure_from_text_value);
         transportationText=(TextView) findViewById(R.id.transportation_text_value);
 */
-        preferences=getSharedPreferences("Preferences",MODE_PRIVATE);
-        prefs=getSharedPreferences("Itinerary",MODE_PRIVATE);
-        post_prefs=getSharedPreferences("PostData",MODE_PRIVATE);
-        totalPersons = Integer.parseInt(prefs.getString("Adult", "2")) + Integer.parseInt( prefs.getString("Child", "0"));
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        prefs = getSharedPreferences("Itinerary", MODE_PRIVATE);
+        post_prefs = getSharedPreferences("PostData", MODE_PRIVATE);
+        totalPersons = Integer.parseInt(prefs.getString("Adult", "2")) + Integer.parseInt(prefs.getString("Child", "0"));
 
-        Log.d("No of nights count", "" + totalPersons+"  ,  "+Utility.noRooms(2,totalPersons) );
+        Log.d("No of nights count", "" + totalPersons + "  ,  " + Utility.noRooms(2, totalPersons));
 
+        //TODO: Code clean up has not done, Dead code.
         /*
         if(preferences.getInt("flag",0)==1)
         {
@@ -289,16 +290,19 @@ public class  HotelActivity extends ActionBarActivity {
                 /* if (!hotelcheckbit) {
                     Toast.makeText(HotelActivity.this, "Please select the room", Toast.LENGTH_LONG).show();
                 }*/
-                if(b) {
+                //TODO:  Two consecutive 'if' statements can be consolidated by separating their conditions with a boolean short-circuit operator
+
+                if (b) {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                    if (modelRow.size() != 0 && mealplanList.size() != 0) {
+
+                        //TODO: Used if statements without curly braces
                         if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
                             modelRow.get(cposition).setLunch(Integer.parseInt("" + mealplanList.get(0).getLunch()));
                     }
-                }
-                else{
+                } else {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                    if (modelRow.size() != 0 && mealplanList.size() != 0) {
                         if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
                             modelRow.get(cposition).setLunch(Integer.parseInt("0"));
                     }
@@ -314,16 +318,16 @@ public class  HotelActivity extends ActionBarActivity {
                 /* if (!hotelcheckbit) {
                     Toast.makeText(HotelActivity.this, "Please select the room", Toast.LENGTH_LONG).show();
                 }*/
-                Log.e("Lowest_Value1",""+gposition);
+                Log.e("Lowest_Value1", "" + gposition);
                 if (b) {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                    if (modelRow.size() != 0 && mealplanList.size() != 0) {
                         if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
                             modelRow.get(cposition).setDinner(Integer.parseInt("" + mealplanList.get(0).getDinner()));
                     }
                 } else {
                     final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
-                    if(modelRow.size()!=0 && mealplanList.size() != 0) {
+                    if (modelRow.size() != 0 && mealplanList.size() != 0) {
                         if (modelRow.get(cposition).getHotel_Id() == mealplanList.get(0).getHotel_Id())
                             modelRow.get(cposition).setDinner(Integer.parseInt("0"));
                     }
@@ -335,12 +339,14 @@ public class  HotelActivity extends ActionBarActivity {
         pDialog = new ProgressDialog(HotelActivity.this);
         pDialog.setMessage("Loading...");
 
-        ndDialog=new ProgressDialog(HotelActivity.this);
+        ndDialog = new ProgressDialog(HotelActivity.this);
 
         IDS_value = bundle.getString("DestinationsIDs");
         prfs = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+
+        //TODO: A local variable assigned only once can be declared final
         String Date_value = prfs.getString("DestinationDate", "");
-        Region_ID= prfs.getString("RegionID", "");
+        Region_ID = prfs.getString("RegionID", "");
 
         //Destination Count
         //    Log.d("Hotel cost test",""+prfs.getInt("Total_Hotel_Cost",0));
@@ -349,7 +355,6 @@ public class  HotelActivity extends ActionBarActivity {
         String preSavedHotelDestinationID = prfs1.getString("HotelDestinationID", "");
 
         pre_saved_hotel_destination_id = preSavedHotelDestinationID.trim().split(",");
-
 
 
         hotel_destination = IDS_value.trim().split(",");
@@ -361,15 +366,15 @@ public class  HotelActivity extends ActionBarActivity {
         // android.R.layout.simple_list_item_1,aList));
 
 
+        user_selected_data = getSharedPreferences("User Selected Data", MODE_PRIVATE);
 
+        SharedPreferences.Editor editor1 = user_selected_data.edit();
+        Log.d("Count first test", "" + user_selected_data.getInt("count", 0));
 
-        user_selected_data=getSharedPreferences("User Selected Data",MODE_PRIVATE);
-
-        SharedPreferences.Editor editor1=user_selected_data.edit();
-        Log.d("Count first test",""+user_selected_data.getInt("count",0));
-        if((String.valueOf(""+user_selected_data.getInt("count",0))).equals(null) || user_selected_data.getInt("count",0)==0 )
-        {
-            editor1.putInt("count",1);
+        //TODO: Tests for null should not use the equals() method. The '==' operator should be used instead
+        if ((String.valueOf("" + user_selected_data.getInt("count", 0))).equals(null) || user_selected_data.getInt("count", 0) == 0) {
+            editor1.putInt("count", 1);
+            //TODO: haven't used method 'apply()', 'commit' writes its data to persistent storage immediately, whereas 'apply' will handle it in the background
             editor1.commit();
         }
 
@@ -387,6 +392,8 @@ public class  HotelActivity extends ActionBarActivity {
         activites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //TODO: local variable is declared and/or assigned, but not used
                 Set<String> set = new HashSet<String>();
                 String hotel_string_main = "";
                 String itinerary_hotel = "";
@@ -395,25 +402,29 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
                     set.add("" + HotelRoomData[i]);
                 }*/
-                HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
+                //TODO: Lots of unused variables.
+                HashMap<String, ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
+                //TODO: Using hard-coded literals in conditional statements. By declaring them as static variables or private members with descriptive names maintainability is enhanced. More exceptions can be defined with the property "ignoreMagicNumbers".
 
-                for(int i =0; i< lowesthotelList.size();i++)
-                {
-                    Log.d("Destination day 3",""+i);
+                for (int i = 0; i < lowesthotelList.size(); i++) {
+
+                    //TODO: New objects created within loops should be checked to see if they can created outside them and reused
+                    Log.d("Destination day 3", "" + i);
                     String hotel_string = "";
-                    String datas = ""+ HotelRoomData[i];
+                    //TODO: Lots of unused variables.
+                    String datas = "" + HotelRoomData[i];
                     Log.i("lowestHotelData1 " + i, "" + lowesthotelList.get(i));
                     Log.i("HotelData1 " + i, "" + HotelRoomData[i]);
                     String[] hotel_room_Data = lowesthotelList.get(i).trim().split(",");
 
-                    for(int j = 0 ;j < lowesthotelList.size(); j++) {
+                    for (int j = 0; j < lowesthotelList.size(); j++) {
                         ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
-                        for(int k = 0;k< modelRow.size();k++) {
+                        for (int k = 0; k < modelRow.size(); k++) {
                             if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
                                 //if(k == 0)
-                                hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner();
+                                hotel_string = "" + modelRow.get(k).getHotel_Name() + "," + modelRow.get(k).getHotel_Description() + "," + modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner();
                                /* else
                                    hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                             }
@@ -422,16 +433,15 @@ public class  HotelActivity extends ActionBarActivity {
 
                     //if(datas.equalsIgnoreCase("null")) {
                     set.add("" + lowesthotelList.get(i));
-                    Log.d("Hotel test14",""+lowesthotelList.get(i));
-                    if(i == 0) {
+                    Log.d("Hotel test14", "" + lowesthotelList.get(i));
+                    if (i == 0) {
                         hotel_string_main = "" + hotel_string;
                         itinerary_hotel = "" + lowesthotelList.get(i);
-                        Log.d("Test test1",""+itinerary_hotel);
-                    }
-                    else{
+                        Log.d("Test test1", "" + itinerary_hotel);
+                    } else {
                         hotel_string_main = hotel_string_main + "-" + hotel_string;
                         itinerary_hotel = itinerary_hotel + "-" + lowesthotelList.get(i);
-                        Log.d("Test test2",""+itinerary_hotel);
+                        Log.d("Test test2", "" + itinerary_hotel);
                     }
 
                 }
@@ -449,14 +459,11 @@ public class  HotelActivity extends ActionBarActivity {
                 Log.d("Hotel test13", "" + itinerary_hotel);
                 editor.commit();
 
-                if(error_bit != 1)
-                {
+                if (error_bit != 1) {
                     Intent intent = new Intent(HotelActivity.this, ActivitiesActivity.class);
                     startActivity(intent);
-                }
-                else
-                {
-                    Toast.makeText(HotelActivity.this, "Please remove the destinations without hotels/rooms" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(HotelActivity.this, "Please remove the destinations without hotels/rooms", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -466,31 +473,31 @@ public class  HotelActivity extends ActionBarActivity {
         //hotelRoomsCheck(url_checkroom);
 
 
-
     }
 
-
-    public void CalculateDiscount()
-    {
+    //TODO: Method names should always begin with a lower case character
+    public void CalculateDiscount() {
         Log.d("URL test test21", "" + discount_str);
 
         Log.d("URL test test45", "" + sum);
         Log.d("URL test test24", "" + Discount_list.size());
-        for(int i=0;i<Discount_list.size();i++)
-            Log.d("URL test test23",""+Discount_list.get(i).getCompany_ID()+"  "+Discount_list.get(i).getCompany_Discount()+" "+Discount_list.get(i).getCompany_Name());
+
+        //TODO: Using 'for' statements without using curly braces. If the code formatting or indentation is lost then it becomes difficult to separate the code being controlled from the rest.
+        for (int i = 0; i < Discount_list.size(); i++)
+            Log.d("URL test test23", "" + Discount_list.get(i).getCompany_ID() + "  " + Discount_list.get(i).getCompany_Discount() + " " + Discount_list.get(i).getCompany_Name());
 
         discountPriceText.setText("" + Discount_list.get(0).getCompany_Discount() + " %");
 
-        SharedPreferences.Editor editor=post_prefs.edit();
+        SharedPreferences.Editor editor = post_prefs.edit();
         editor.putInt("DiscountValue", Discount_list.get(0).getCompany_Discount());
 
-        int remaining_price=sum-((Integer.parseInt(""+Discount_list.get(0).getCompany_Discount())*sum)/100);
+        int remaining_price = sum - ((Integer.parseInt("" + Discount_list.get(0).getCompany_Discount()) * sum) / 100);
 
-        remainingPriceText.setText("\u20B9 "+""+remaining_price);
+        remainingPriceText.setText("\u20B9 " + "" + remaining_price);
 
         int adv_price = (20 * remaining_price) / 100;
 
-        priceAdvanceText.setText("\u20B9 "+""+adv_price);
+        priceAdvanceText.setText("\u20B9 " + "" + adv_price);
 
         nameSellerText.setText("" + Discount_list.get(0).getCompany_Name());
         editor.putString("SellerName", "" + Discount_list.get(0).getCompany_Name());
@@ -504,21 +511,23 @@ public class  HotelActivity extends ActionBarActivity {
     }
 
     public void getDiscount(String supplier_details) {
-        Log.d("URL test test1",""+supplier_details);
+        Log.d("URL test test1", "" + supplier_details);
 
-        final String no_of_supplier[]=supplier_details.split(":-");
+        final String no_of_supplier[] = supplier_details.split(":-");
+        //TODO: Lots of unused variables.
         String supplier_data[] = new String[4];
 
-        Log.d("URL test test2",""+no_of_supplier.length);
+        Log.d("URL test test2", "" + no_of_supplier.length);
+        //TODO: Lots of unused variables.
         int temp;
-        final DiscountModel discount_model=new DiscountModel();
+        final DiscountModel discount_model = new DiscountModel();
 
 
-        supplier_data=no_of_supplier[0].split("::");
+        supplier_data = no_of_supplier[0].split("::");
 
-        String url = "http://m.itraveller.com/api/v1/supplier/discount?checkInDate="+supplier_data[3]+"&companyId=" + supplier_data[0];
+        String url = "http://m.itraveller.com/api/v1/supplier/discount?checkInDate=" + supplier_data[3] + "&companyId=" + supplier_data[0];
 
-        Log.d("URL test test",""+url);
+        Log.d("URL test test", "" + url);
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
@@ -538,17 +547,21 @@ public class  HotelActivity extends ActionBarActivity {
                     discount_model.setCompany_ID("" + jsonarr.getString("Company_Id"));
                     discount_model.setCompany_Name("" + jsonarr.getString("Company_Name"));
                     discount_model.setCompany_Discount(Integer.parseInt("" + jsonarr.getString("Discount")));
-                    discount_model.setCompany_Address(""+jsonarr.getString("Company_Address"));
+                    discount_model.setCompany_Address("" + jsonarr.getString("Company_Address"));
 
                     Discount_list.add(discount_model);
 
                     Collections.sort(Discount_list, new DiscountComparison());
 
-                    discount_str+=""+jsonarr.getString("Company_Id")+","+""+jsonarr.getString("Company_Name")+","+jsonarr.getString("Discount")+"::";
+
+                    //TODO: The use of the '+=' operator for appending strings causes the JVM to create and use an internal StringBuffer. If a non-trivial number of these concatenations are being used then the explicit use of a StringBuilder or threadsafe StringBuffer is recommended to avoid this.
+                    discount_str += "" + jsonarr.getString("Company_Id") + "," + "" + jsonarr.getString("Company_Name") + "," + jsonarr.getString("Discount") + "::";
 
                     CalculateDiscount();
 
                 } catch (JSONException e) {
+
+                    //TODO: Unhandled exceptions, avoid printStackTrace(); use a logger call instead
                     e.printStackTrace();
                     VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                 }
@@ -564,6 +577,9 @@ public class  HotelActivity extends ActionBarActivity {
                 // For ClientError, 400 & 401, Errors happening on client side when sending api request.
                 // In this case you can check how client is forming the api and debug accordingly.
                 // For ServerError 5xx, you can do retry or handle accordingly.
+
+
+                //TODO: Empty If Statement finds instances where a condition is checked but nothing is done about it
                 if (error instanceof NetworkError) {
 
                     // pDialog.hide();
@@ -576,7 +592,7 @@ public class  HotelActivity extends ActionBarActivity {
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if (error instanceof TimeoutError) {
                 }
-            }
+            } //TODO: Useless parentheses should be removed.
         }) {
         };
 
@@ -588,13 +604,12 @@ public class  HotelActivity extends ActionBarActivity {
 
     }
 
-    public void getSupplierDetails()
-    {
-        Log.d("URL test test10","hi");
-        String url="http://m.itraveller.com/api/v1/supplier?region="+region_id;
+    public void getSupplierDetails() {
+        Log.d("URL test test10", "hi");
+        String url = "http://m.itraveller.com/api/v1/supplier?region=" + region_id;
         int i;
         Log.d("URL test test11", "" + url + "hii " + destination_date_arr.length);
-        for(i=0;i<destination_date_arr.length;i++) {
+        for (i = 0; i < destination_date_arr.length; i++) {
 
             final int finalI = i;
             JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
@@ -609,25 +624,28 @@ public class  HotelActivity extends ActionBarActivity {
                         Log.d("Payload99", "" + response.getJSONArray("payload"));
                         // JSONObject jsonobj = response.getJSONObject("payload").get;
                         // Parsing json
-                        int temp=0;
+                        int temp = 0;
 
-                        Log.d("URL test test14",""+response.getJSONArray("payload").length());
-                        Log.d("URL test test15",""+destination_date_arr[finalI]);
+                        Log.d("URL test test14", "" + response.getJSONArray("payload").length());
+                        Log.d("URL test test15", "" + destination_date_arr[finalI]);
+
+
                         for (int j = 0; j < response.getJSONArray("payload").length(); j++) {
                             JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(j);
-                            Log.d("URL test test16",""+jsonarr.getString("Company_Id"));
-                            supplier_str +=""+ jsonarr.getString("Company_Id") + "::" + ""+jsonarr.getString("Name") + "::" + ""+jsonarr.getString("Address")+"::" +""+destination_date_arr[finalI] +":-";
-                            Log.d("URL test test6",""+supplier_str);
-                            temp=j;
+                            Log.d("URL test test16", "" + jsonarr.getString("Company_Id"));
+                            supplier_str += "" + jsonarr.getString("Company_Id") + "::" + "" + jsonarr.getString("Name") + "::" + "" + jsonarr.getString("Address") + "::" + "" + destination_date_arr[finalI] + ":-";
+                            Log.d("URL test test6", "" + supplier_str);
+                            temp = j;
                         }
 
-                        if(temp==(response.getJSONArray("payload").length()-1))
-                        {
-                            Log.d("URL test test5",""+supplier_str);
+                        if (temp == (response.getJSONArray("payload").length() - 1)) {
+                            Log.d("URL test test5", "" + supplier_str);
                             getDiscount(supplier_str);
                         }
 
                     } catch (JSONException e) {
+                        //TODO: Unhandled exceptions, avoid printStackTrace(); use a logger call instead
+
                         e.printStackTrace();
                         VolleyLog.d("Volley Error", "Error: " + e.getMessage());
                     }
@@ -668,34 +686,36 @@ public class  HotelActivity extends ActionBarActivity {
     }
 
 
-    public void getDefaultActivityData()
-    {
+    public void getDefaultActivityData() {
 
-        Log.d("Welcome","ActivityEntry");
+        Log.d("Welcome", "ActivityEntry");
         SharedPreferences pref = getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
 
-        String No_of_Nights_arr[]=(""+pref.getString("No_of_nights_dest",null)).split(",");
+        String No_of_Nights_arr[] = ("" + pref.getString("No_of_nights_dest", null)).split(",");
 
-        String Hotel_ID_arr[]=prefs.getString("HotelRooms",null).split("-");
+        //TODO: Method invocation 'prefs.getString("HotelRooms", null).split("-")' may produce 'java.lang.NullPointerException'
+        String Hotel_ID_arr[] = prefs.getString("HotelRooms", null).split("-");
 
-        String Hotel_Data_arr[]=new String[4];
+        //TODO: Lots of unused variables.
+        String Hotel_Data_arr[] = new String[4];
 
         Log.d("Welcome22", "" + destination_id_arr.length);
         Log.d("Welcome456", "" + prefs.getString("HotelRooms", null));
 
-        for(int i=0;i<Hotel_ID_arr.length;i++) {
+        for (int i = 0; i < Hotel_ID_arr.length; i++) {
 
-            Hotel_Data_arr=Hotel_ID_arr[i].split(",");
+            Hotel_Data_arr = Hotel_ID_arr[i].split(",");
 
-            sum+=Integer.parseInt(Hotel_Data_arr[2]);
-            Log.d("Cost test test91",""+sum);
+            sum += Integer.parseInt(Hotel_Data_arr[2]);
+            Log.d("Cost test test91", "" + sum);
 
-            String url ="" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + destination_id_arr[i] + "&toDestination=" + destination_id_arr[i] + "&regionIds=" + region_id + "&day=" + No_of_Nights_arr[i] + "&hotelId=" + Hotel_Data_arr[0];
+            String url = "" + "http://stage.itraveller.com/backend/api/v1/activities?fromDestination=" + destination_id_arr[i] + "&toDestination=" + destination_id_arr[i] + "&regionIds=" + region_id + "&day=" + No_of_Nights_arr[i] + "&hotelId=" + Hotel_Data_arr[0];
 
-            Log.d("Welcome11",""+url);
+            Log.d("Welcome11", "" + url);
             JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                     url, new Response.Listener<JSONObject>() {
 
+                //TODO: Method 'onResponse' is too complex to analyze
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -729,13 +749,13 @@ public class  HotelActivity extends ActionBarActivity {
                             activities_model.setFlag(jsonarr.getInt("Flag"));
                             Log.d("Cost test test222", "" + jsonarr.getInt("Flag"));
                             if (jsonarr.getInt("Flag") == 1) {
-                                sum+=jsonarr.getInt("Cost");
+                                sum += jsonarr.getInt("Cost");
                                 Log.d("Cost test test235", "" + sum);
-                                activity_sum+=jsonarr.getInt("Cost");
-                                Log.d("Cost test test234", "" +activity_sum);
+                                activity_sum += jsonarr.getInt("Cost");
+                                Log.d("Cost test test234", "" + activity_sum);
 
                                 default_activity_cost_str += "" + jsonarr.getInt("Cost") + ",";
-                                default_activity_id_str+= ""+jsonarr.getInt("Id")+",";
+                                default_activity_id_str += "" + jsonarr.getInt("Id") + ",";
                             }
                             activities_model.setDescription(jsonarr.getString("Description"));
                             activities_model.setNot_Available_Month(jsonarr.getString("Not_Available_Month"));
@@ -768,6 +788,12 @@ public class  HotelActivity extends ActionBarActivity {
                     // For ClientError, 400 & 401, Errors happening on client side when sending api request.
                     // In this case you can check how client is forming the api and debug accordingly.
                     // For ServerError 5xx, you can do retry or handle accordingly.
+
+
+
+                    //TODO : Using if..else statements without using surrounding braces. If the code formatting or indentation is lost then it becomes difficult to separate the code being controlled from the rest.
+                    //TODO: Unnecessary if-then-else statements when returning a boolean. The result of the conditional test can be returned instead.
+                    //TODO: 'if' statement has empty body
                     if (error instanceof NetworkError) {
 
                         // pDialog.hide();
@@ -788,16 +814,15 @@ public class  HotelActivity extends ActionBarActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
             AppController.getInstance().addToRequestQueue(strReq);
 
-            default_activity_cost_str+="-";
-            default_activity_id_str+="-";
+            default_activity_cost_str += "-";
+            default_activity_id_str += "-";
         }
-        SharedPreferences.Editor editor=preferences.edit();
+        SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("ActivityCost", activity_sum);
         editor.commit();
     }
 
-    public void getUserSelectedHotelData()
-    {
+    public void getUserSelectedHotelData() {
         Set<String> set = new HashSet<String>();
         String hotel_string_main = "";
         String itinerary_hotel = "";
@@ -806,25 +831,24 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.i("Hotel Room "+i,""+ HotelRoomData[i]);
                     set.add("" + HotelRoomData[i]);
                 }*/
-        HashMap<String,ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
+        //TODO: Lots of unused variables.
+        HashMap<String, ArrayList<ActivitiesModel>> mActivitiesModel = new HashMap<String, ArrayList<ActivitiesModel>>();
 
 
-
-        for(int i =0; i< lowesthotelList.size();i++)
-        {
-            Log.d("Destination day 3",""+i);
+        for (int i = 0; i < lowesthotelList.size(); i++) {
+            Log.d("Destination day 3", "" + i);
             String hotel_string = "";
-            String datas = ""+ HotelRoomData[i];
+            String datas = "" + HotelRoomData[i];
             Log.i("lowestHotelData1 " + i, "" + lowesthotelList.get(i));
             Log.i("HotelData1 " + i, "" + HotelRoomData[i]);
             String[] hotel_room_Data = lowesthotelList.get(i).trim().split(",");
 
-            for(int j = 0 ;j < lowesthotelList.size(); j++) {
+            for (int j = 0; j < lowesthotelList.size(); j++) {
                 ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
-                for(int k = 0;k< modelRow.size();k++) {
+                for (int k = 0; k < modelRow.size(); k++) {
                     if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
                         //if(k == 0)
-                        hotel_string = ""+ modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner() +","+Utility.noRooms(2, totalPersons)+",0,0";
+                        hotel_string = "" + modelRow.get(k).getHotel_Name() + "," + modelRow.get(k).getHotel_Description() + "," + modelRow.get(k).getHotel_Id() + "," + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner() + "," + Utility.noRooms(2, totalPersons) + ",0,0";
                                /* else
                               hotel_string = ""+hotel_string + "-" + modelRow.get(k).getHotel_Name() + "," +  modelRow.get(k).getHotel_Description() + "," +  modelRow.get(k).getHotel_Id();*/
                     }
@@ -833,12 +857,11 @@ public class  HotelActivity extends ActionBarActivity {
 
             //if(datas.equalsIgnoreCase("null")) {
             set.add("" + lowesthotelList.get(i));
-            Log.d("Hotel test14",""+lowesthotelList.get(i));
-            if(i == 0) {
+            Log.d("Hotel test14", "" + lowesthotelList.get(i));
+            if (i == 0) {
                 hotel_string_main = "" + hotel_string;
                 itinerary_hotel = "" + lowesthotelList.get(i);
-            }
-            else{
+            } else {
                 hotel_string_main = hotel_string_main + "-" + hotel_string;
                 itinerary_hotel = itinerary_hotel + "-" + lowesthotelList.get(i);
             }
@@ -858,22 +881,22 @@ public class  HotelActivity extends ActionBarActivity {
 
     }
 
-    public String getNextConvertedDate(String str)
-    {
-        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov", "Dec"};
-        String nights_count="" + prefs.getString("DestinationCount", null);
-        Log.d("URL test test46",""+nights_count);
-        String nights_count_arr[]=nights_count.split(",");
-        int no_of_nights=0;
+    public String getNextConvertedDate(String str) {
+        String month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String nights_count = "" + prefs.getString("DestinationCount", null);
+        Log.d("URL test test46", "" + nights_count);
+        String nights_count_arr[] = nights_count.split(",");
+        int no_of_nights = 0;
 
-        for(int i=0;i<nights_count_arr.length;i++)
-        {
-            no_of_nights+=Integer.parseInt(nights_count_arr[i]);
+        for (int i = 0; i < nights_count_arr.length; i++) {
+            no_of_nights += Integer.parseInt(nights_count_arr[i]);
         }
 
 
         //rohan
         String dateInString = str; // Start date
+
+        //TODO: Needs to be sure to specify a Locale when creating SimpleDateFormat instances to ensure that locale-appropriate formatting is used.
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         Calendar c = Calendar.getInstance();
@@ -881,47 +904,47 @@ public class  HotelActivity extends ActionBarActivity {
         try {
             c.setTime(sdf.parse(dateInString));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
+            //TODO: Unhandled exceptions, avoid printStackTrace(); use a logger call instead
             e.printStackTrace();
         }
 
-        c.add(Calendar.DATE, (no_of_nights+1));//insert the number of days you want to be added to the current date
+        c.add(Calendar.DATE, (no_of_nights + 1));//insert the number of days you want to be added to the current date
         sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date resultdate = new Date(c.getTimeInMillis());
         dateInString = sdf.format(resultdate);
 
         Log.d("Calendar test test455", "" + dateInString);
 
-        String temp[]=dateInString.split("-");
+        String temp[] = dateInString.split("-");
 
 
-        int day=Integer.parseInt(temp[0]);
-        Log.d("URL test test47",""+day);
+        int day = Integer.parseInt(temp[0]);
+        Log.d("URL test test47", "" + day);
         int temp_month = Integer.parseInt(temp[1]);
-        Log.d("URL test test48",""+temp_month);
+        Log.d("URL test test48", "" + temp_month);
         int year = Integer.parseInt(temp[2]);
-        Log.d("URL test test49",""+no_of_nights);
+        Log.d("URL test test49", "" + no_of_nights);
 
 
+        String day_str = getDay(temp[0] + "-" + temp[1] + "-" + temp[2]);
 
-        String day_str = getDay(temp[0] + "-" + temp[1]+"-"+temp[2]);
-
-        Log.d("URL test test50",temp[0] + "-" + temp[1]+"-"+temp[2]);
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("Date_end_str",temp[0] + "-" + temp[1]+"-"+temp[2]);
+        Log.d("URL test test50", temp[0] + "-" + temp[1] + "-" + temp[2]);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("Date_end_str", temp[0] + "-" + temp[1] + "-" + temp[2]);
         editor.commit();
 
-        day_str=day_str.substring(0, 3);
+        day_str = day_str.substring(0, 3);
 
-        str=day_str+", "+day+" "+month[temp_month-1]+" "+temp[2];
+        //TODO: Reassigning values to incoming parameters is not recommended.
+        str = day_str + ", " + day + " " + month[temp_month - 1] + " " + temp[2];
 
         return str;
     }
 
-    private String getDay(String dateStr){
+    private String getDay(String dateStr) {
         //dateStr must be in DD-MM-YYYY Formate
         Date date = null;
-        String day=null;
+        String day = null;
 
         try {
             date = new SimpleDateFormat("DD-MM-yyyy").parse(dateStr);
@@ -941,18 +964,20 @@ public class  HotelActivity extends ActionBarActivity {
     }
 
     public String getConvertedDate(String str) {
-        String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-        String temp[]=str.split("-");
-        int temp_month=Integer.parseInt(temp[2]);
+        String month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String temp[] = str.split("-");
+        int temp_month = Integer.parseInt(temp[2]);
 
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("Date_start_str",temp[1]+"-" + temp_month+"-"+temp[3]);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("Date_start_str", temp[1] + "-" + temp_month + "-" + temp[3]);
         editor.commit();
 
-        str=temp[0]+", "+temp[1]+" "+month[temp_month-1]+" "+temp[3];
+        str = temp[0] + ", " + temp[1] + " " + month[temp_month - 1] + " " + temp[3];
         return str;
     }
 
+
+    //TODO: Unused Private Method is declared but is unused.
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
@@ -960,22 +985,22 @@ public class  HotelActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
 
-                Destination_Value=prfs.getString("DestinationID",null);
-                Destination_Date=prfs.getString("DestinationDate",null);
+                Destination_Value = prfs.getString("DestinationID", null);
+                Destination_Date = prfs.getString("DestinationDate", null);
 
-                String temp_destination_id_arr[]=Destination_Value.split(",");
-                String temp_destination_date_arr[]=Destination_Date.split(",");
+                String temp_destination_id_arr[] = Destination_Value.split(",");
+                String temp_destination_date_arr[] = Destination_Date.split(",");
 
-                destination_id_arr=new String[temp_destination_id_arr.length];
-                destination_date_arr=new String[temp_destination_date_arr.length];
+                destination_id_arr = new String[temp_destination_id_arr.length];
+                destination_date_arr = new String[temp_destination_date_arr.length];
 
                 //Log.d("Destination date test111", "" + Destination_Date);
 
 
-                destination_id_arr=Destination_Value.split(",");
-                destination_date_arr=Destination_Date.split(",");
+                destination_id_arr = Destination_Value.split(",");
+                destination_date_arr = Destination_Date.split(",");
 
-                Log.d("Destination date te45",""+flag);
+                Log.d("Destination date te45", "" + flag);
 
                 ndDialog.setMessage("Loading...");
                 ndDialog.setCancelable(false);
@@ -993,8 +1018,8 @@ public class  HotelActivity extends ActionBarActivity {
                 transportationText.setText("Loading...");
 
 
-                SharedPreferences.Editor editor=post_prefs.edit();
-                editor.putInt("Nav_Drawer_Flag",1);
+                SharedPreferences.Editor editor = post_prefs.edit();
+                editor.putInt("Nav_Drawer_Flag", 1);
                 editor.commit();
 
 
@@ -1007,9 +1032,9 @@ public class  HotelActivity extends ActionBarActivity {
                 super.onDrawerClosed(view);
 
                 transportationList.clear();
-                sum=0;
-                count=0;
-                transportation_cost=0;
+                sum = 0;
+                count = 0;
+                transportation_cost = 0;
                 getSupportActionBar().setTitle("Hotels");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -1021,48 +1046,48 @@ public class  HotelActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
- /*   @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
+    /*   @Override
+       protected void onPostCreate(Bundle savedInstanceState) {
+           super.onPostCreate(savedInstanceState);
+           // Sync the toggle state after onRestoreInstanceState has occurred.
+           mDrawerToggle.syncState();
+       }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
+       @Override
+       public void onConfigurationChanged(Configuration newConfig) {
+           super.onConfigurationChanged(newConfig);
+           mDrawerToggle.onConfigurationChanged(newConfig);
+       }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+       @Override
+       public boolean onCreateOptionsMenu(Menu menu) {
 
-        int menuToUse = R.menu.right_side_menu;
+           int menuToUse = R.menu.right_side_menu;
 
-        MenuInflater inflater = getMenuInflater();
-
-
-        inflater.inflate(menuToUse, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+           MenuInflater inflater = getMenuInflater();
 
 
-        if (item != null && item.getItemId() == R.id.btnMyMenu) {
-            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                mDrawerLayout.closeDrawer(Gravity.RIGHT);
-            } else {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        }
-        return false;
-    }*/
+           inflater.inflate(menuToUse, menu);
+
+           return super.onCreateOptionsMenu(menu);
+       }
+
+       @Override
+       public boolean onOptionsItemSelected(MenuItem item) {
+           // Handle action bar item clicks here. The action bar will
+           // automatically handle clicks on the Home/Up button, so long
+           // as you specify a parent activity in AndroidManifest.xml.
+
+
+           if (item != null && item.getItemId() == R.id.btnMyMenu) {
+               if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                   mDrawerLayout.closeDrawer(Gravity.RIGHT);
+               } else {
+                   mDrawerLayout.openDrawer(Gravity.RIGHT);
+               }
+           }
+           return false;
+       }*/
     public interface RadiobuttonListener {
         public void RadioChangeListenerCustom(String position);
     }
@@ -1079,9 +1104,7 @@ public class  HotelActivity extends ActionBarActivity {
         mealPlanURL = new ArrayList<>();
         lowesthotelList = new ArrayList<String>();
         lowesthotelList = new ArrayList<>();
-        SharedPreferences.Editor editor1=user_selected_data.edit();
-
-
+        SharedPreferences.Editor editor1 = user_selected_data.edit();
 
 
         for (int index = 0; index < hotel_destination.length; index++) {
@@ -1093,21 +1116,20 @@ public class  HotelActivity extends ActionBarActivity {
             DefaultHotelRoomSet(lowest_hotel_url + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID, index, hotel_destination[index]);
             MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + hotel_destination[index] + "&region=" + Region_ID + "&checkInDate=" + destination_date[index], -1);
             Log.i("HotelURL", "" + "http://stage.itraveller.com/backend/api/v1/hotel/destintionId/" + hotel_destination[index]);
-            Log.i("MealPlanURL","http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + hotel_destination[index] + "&region=" + Region_ID + "&checkInDate=" + destination_date[index]);
+            Log.i("MealPlanURL", "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + hotel_destination[index] + "&region=" + Region_ID + "&checkInDate=" + destination_date[index]);
             Log.i("DefaultHotelURLCheck", "" + "http://stage.itraveller.com/backend/api/v1/hotel/destintionId=" + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID);
             Log.d("Index check", "" + index);
-            Log.d("Hotel URL test","http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId="+hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID);
+            Log.d("Hotel URL test", "http://stage.itraveller.com/backend/api/v1/lowesthotel?destinationId=" + hotel_destination[index] + "&checkInDate=" + destination_date[index] + "&regionId=" + Region_ID);
         }
 
     }
 
-    public void HiddenLayoutMealPlan(boolean value)
-    {
-        if(value){
+    public void HiddenLayoutMealPlan(boolean value) {
+        if (value) {
             mealplanlayout.setVisibility(View.VISIBLE);
             mealhead.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             mealplanlayout.setVisibility(View.INVISIBLE);
             mealhead.setVisibility(View.INVISIBLE);
         }
@@ -1141,7 +1163,7 @@ public class  HotelActivity extends ActionBarActivity {
                                 value[inc] = RoomObj.getJSONObject(inc).getInt("Hotel_Room_Id");
 
                                 //    String url_checkroom = "http://stage.itraveller.com/backend/api/v1/roomtariff?region="+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
-                                String url_checkroom=Constants.API_HotelActivity_Checkroom+ Region_ID +"&room=" + value[inc] + "&checkInDate=" + checkinDate;
+                                String url_checkroom = Constants.API_HotelActivity_Checkroom + Region_ID + "&room=" + value[inc] + "&checkInDate=" + checkinDate;
 
                                 hotelRoomsCheck(url_checkroom, RoomObj.length(), inc);
                                 second.setVisibility(View.VISIBLE);
@@ -1156,7 +1178,7 @@ public class  HotelActivity extends ActionBarActivity {
 
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
-                    Toast.makeText(HotelActivity.this, "No rooms available" ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelActivity.this, "No rooms available", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -1171,16 +1193,18 @@ public class  HotelActivity extends ActionBarActivity {
                 // For ClientError, 400 & 401, Errors happening on client side when sending api request.
                 // In this case you can check how client is forming the api and debug accordingly.
                 // For ServerError 5xx, you can do retry or handle accordingly.
-                if( error instanceof NetworkError) {
+
+                //TODO: Empty If Statement finds instances where a condition is checked but nothing is done about it
+                if (error instanceof NetworkError) {
 
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
-                } else if( error instanceof ServerError) {
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
+                } else if (error instanceof ServerError) {
+                } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof ParseError) {
+                } else if (error instanceof NoConnectionError) {
 
-                    Toast.makeText(HotelActivity.this, "No Internet Connection" ,Toast.LENGTH_LONG).show();
-                } else if( error instanceof TimeoutError) {
+                    Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof TimeoutError) {
                 }
             }
         }) {
@@ -1266,7 +1290,6 @@ public class  HotelActivity extends ActionBarActivity {
                     }
 
 
-
                 } catch (JSONException e) {
                     Log.d("Error Catched", "" + e.getMessage());
                 }
@@ -1290,9 +1313,9 @@ public class  HotelActivity extends ActionBarActivity {
     public void DefaultHotelRoomSet(String url, final int depth, final String hotel_dest) {
         Log.d("LowestHotelURL", "" + url);
 
-        if(depth==0){
-            pDialog.show();}
-        else{
+        if (depth == 0) {
+            pDialog.show();
+        } else {
             pDialog.hide();
         }
         final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
@@ -1301,31 +1324,31 @@ public class  HotelActivity extends ActionBarActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.d("Response in hotel page",""+response.toString());
+                    Log.d("Response in hotel page", "" + response.toString());
                     Log.d("Boolean", "" + response.getBoolean("success"));
                     Log.d("Error", "" + response.getJSONObject("error"));
                     Log.d("Payload_RoomRate", "" + response.getJSONObject("payload"));
 
                     //for (int i = 0; i < response.getJSONObject("payload").length(); i++) {
-                    if(response.getJSONObject("payload").length()==0){
-                        Log.i("DefaultData","No Lowest hotel :" + depth);
+                    if (response.getJSONObject("payload").length() == 0) {
+                        Log.i("DefaultData", "No Lowest hotel :" + depth);
                     }
 
-                    int new_value =0;
+                    int new_value = 0;
                     JSONObject jsonarr = response.getJSONObject("payload");
-                    Log.i("DefaultData",""+ jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(2, totalPersons)+",0,0");
+                    Log.i("DefaultData", "" + jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + "," + Utility.noRooms(2, totalPersons) + ",0,0");
                     SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
                     String saved_details = sharedpreferences.getString("HotelDetails", "NoData");
                     String[] hotel_room_Data = saved_details.trim().split("-");
 
                     //for(int i =0 ; i < hotel_destination.length; i++){
-                    for(int j =0 ;j < pre_saved_hotel_destination_id.length ; j++) {
-                        if(hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])){
+                    for (int j = 0; j < pre_saved_hotel_destination_id.length; j++) {
+                        if (hotel_dest.equalsIgnoreCase(pre_saved_hotel_destination_id[j])) {
                             lowesthotelList.add(hotel_room_Data[depth]);
 
-                            Log.d("Hotel test rohan1",""+hotel_room_Data[depth]);
+                            Log.d("Hotel test rohan1", "" + hotel_room_Data[depth]);
 
-                            new_value =1;
+                            new_value = 1;
                         }
                     }
                     //}
@@ -1343,9 +1366,8 @@ public class  HotelActivity extends ActionBarActivity {
                         //here no of rooms add defaul
                         lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + ",1");
                     }*/
-                    if(new_value == 0)
-                    {
-                        lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") +","+Utility.noRooms(2, totalPersons)+",0,0");
+                    if (new_value == 0) {
+                        lowesthotelList.add(jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + "," + Utility.noRooms(2, totalPersons) + ",0,0");
                         Log.i("DefaultData1", "" + jsonarr.getString("Hotel_Id") + "," + jsonarr.getString("Hotel_Room_Id") + "," + jsonarr.getString("Display_Tariff") + "," + Utility.noRooms(2, totalPersons) + ",0,0");
                     }
                     //roomList.add();
@@ -1373,40 +1395,36 @@ public class  HotelActivity extends ActionBarActivity {
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
 
                                 ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-                                NetworkImageView hotel_img=(NetworkImageView) findViewById(R.id.hotel_image);
+                                NetworkImageView hotel_img = (NetworkImageView) findViewById(R.id.hotel_image);
 
-                                Log.d("Image fetch URL",""+Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
+                                Log.d("Image fetch URL", "" + Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg");
 
-                                hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg",imageLoader);
+                                hotel_img.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg", imageLoader);
                                 //    hotel_img.setImageURI(Uri.parse(Constants.API_ViewPagerAdapter_ImageURL + modelRow.get(childpostion).getHotel_Id() + ".jpg"));
                                 //   hotel_img.setImageResource(R.drawable.fail);
-                                TextView hotel_name=(TextView) findViewById(R.id.hotel_name);
+                                TextView hotel_name = (TextView) findViewById(R.id.hotel_name);
 
                                 hotel_name.setText(modelRow.get(childpostion).getHotel_Name());
 
-                                if(!modelRow.get(childpostion).isChecked()) {
+                                if (!modelRow.get(childpostion).isChecked()) {
                                     chk_lunch.setChecked(false);
                                     chk_dinner.setChecked(false);
                                 }
 
-                                if(modelRow.get(childpostion).getLunch() !=  0)
-                                {
+                                if (modelRow.get(childpostion).getLunch() != 0) {
                                     chk_lunch.setChecked(true);
-                                }
-                                else {
+                                } else {
                                     chk_lunch.setChecked(false);
                                 }
-                                if(modelRow.get(childpostion).getDinner()!=0)
-                                {
+                                if (modelRow.get(childpostion).getDinner() != 0) {
                                     chk_dinner.setChecked(true);
-                                }else{
+                                } else {
                                     chk_dinner.setChecked(false);
 
                                 }
-                                if(modelRow.get(childpostion).isChecked()){
+                                if (modelRow.get(childpostion).isChecked()) {
                                     HiddenLayoutMealPlan(true);
-                                }
-                                else{
+                                } else {
                                     HiddenLayoutMealPlan(false);
                                 }
 
@@ -1453,8 +1471,7 @@ public class  HotelActivity extends ActionBarActivity {
                                                 modelRow.get(childpostion).setLunch(0);*//*
                                     }
                                 });*/
-                                }
-                                else {
+                                } else {
 
                                     MealPlan("http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition], groupPosition);
                                     Log.i("MealPlanURL", "" + "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=" + modelRow.get(childpostion).getHotel_Id() + "&region=" + Region_ID + "&checkInDate=" + destination_date[groupPosition]);
@@ -1495,7 +1512,7 @@ public class  HotelActivity extends ActionBarActivity {
                                     Log.i("URLForRooms", "" + groupPosition + " Url :" + url);
                                     hotelRooms(url, destination_date[groupPosition]);
                                 }
-                                check_bit=1;
+                                check_bit = 1;
                             }
                         });
 
@@ -1509,15 +1526,16 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.d("Error Catched", "" + e.getMessage());
                     Log.i("DefaultData", "No Lowest hotel :" + depth);
 
-                }
-                catch (Exception e){
+                } catch (Exception e) {
+
+                    //TODO: catching generic exceptions and unhandled.
                     Log.d("Error Catched", "" + e.getMessage());
                     Log.i("DefaultData", "No Lowest hotel :" + depth);
 
                 }
 
             }
-        },  new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -1537,16 +1555,14 @@ public class  HotelActivity extends ActionBarActivity {
                         gposition = groupPosition;
                         final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + groupPosition);
 
-                        if(modelRow.get(childpostion).getLunch()!=0)
-                        {
+                        if (modelRow.get(childpostion).getLunch() != 0) {
                             chk_lunch.setChecked(true);
-                        }else {
+                        } else {
                             chk_lunch.setChecked(false);
                         }
-                        if(modelRow.get(childpostion).getDinner()!=0)
-                        {
+                        if (modelRow.get(childpostion).getDinner() != 0) {
                             chk_dinner.setChecked(true);
-                        }else {
+                        } else {
                             chk_dinner.setChecked(false);
                         }
                         second.setVisibility(View.VISIBLE);
@@ -1584,26 +1600,23 @@ public class  HotelActivity extends ActionBarActivity {
                                             modelRow.get(childpostion).setDinner(0);
                                     }
                                 });*/
-                        adapter = new HotelRoomAdapter(HotelActivity.this, roomList, lowesthotelList,groupPosition, new RadiobuttonListener() {
+                        adapter = new HotelRoomAdapter(HotelActivity.this, roomList, lowesthotelList, groupPosition, new RadiobuttonListener() {
                             @Override
                             public void RadioChangeListenerCustom(String Value) {
 
 
-
-
-                                Log.i("TestPostion",""+ Value);
-                                Log.i("TestPostionGroup",""+groupPosition);
-                                lowesthotelList.set(groupPosition,""+Value);
+                                Log.i("TestPostion", "" + Value);
+                                Log.i("TestPostionGroup", "" + groupPosition);
+                                lowesthotelList.set(groupPosition, "" + Value);
                                 HotelRoomData[gposition] = Value;
                                 final ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + gposition);
 
 
-                                for(int index =0 ; index<modelRow.size();index++) {
-                                    if(index==cposition) {
+                                for (int index = 0; index < modelRow.size(); index++) {
+                                    if (index == cposition) {
                                         modelRow.get(cposition).setChecked(true);
-                                        Log.d("Test test1","hi");
-                                    }
-                                    else {
+                                        Log.d("Test test1", "hi");
+                                    } else {
                                         modelRow.get(index).setChecked(false);
                                     }
                                 }
@@ -1623,10 +1636,10 @@ public class  HotelActivity extends ActionBarActivity {
                         //modelRow.get(childpostion).
                         Log.i("PagerView Clicked", groupPosition + "Clicked" + childpostion + " Check " + modelRow.get(childpostion).getHotel_Name());
                         //String url = "http://stage.itraveller.com/backend/api/v1/hotelRoom?regionId="+Region_ID+"&hotelIds=["+ modelRow.get(childpostion).getHotel_Id() +"]&checkInDate=" + destination_date[groupPosition];
-                        String url=Constants.API_HotelActivity_HOTEL_ROOMS+Region_ID+"&hotelIds="+ modelRow.get(childpostion).getHotel_Id() +"&checkInDate=" + destination_date[groupPosition];
+                        String url = Constants.API_HotelActivity_HOTEL_ROOMS + Region_ID + "&hotelIds=" + modelRow.get(childpostion).getHotel_Id() + "&checkInDate=" + destination_date[groupPosition];
                         Log.i("URLForRooms", "" + groupPosition + " Url :" + url);
                         hotelRooms(url, destination_date[groupPosition]);
-                        check_bit=1;
+                        check_bit = 1;
                     }
                 });
 
@@ -1637,17 +1650,17 @@ public class  HotelActivity extends ActionBarActivity {
                 // For ClientError, 400 & 401, Errors happening on client side when sending api request.
                 // In this case you can check how client is forming the api and debug accordingly.
                 // For ServerError 5xx, you can do retry or handle accordingly.
-                if( error instanceof NetworkError) {
+                if (error instanceof NetworkError) {
                     pDialog.hide();
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
-                } else if( error instanceof ServerError) {
+                } else if (error instanceof ServerError) {
                     //Toast.makeText(HotelActivity.this, "Server Error", Toast.LENGTH_LONG).show();
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
+                } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof ParseError) {
+                } else if (error instanceof NoConnectionError) {
                     pDialog.hide();
-                    Toast.makeText(HotelActivity.this, "No Internet Connection" ,Toast.LENGTH_LONG).show();
-                } else if( error instanceof TimeoutError) {
+                    Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+                } else if (error instanceof TimeoutError) {
                 }
             }
         }) {
@@ -1663,8 +1676,8 @@ public class  HotelActivity extends ActionBarActivity {
     class PriceComparison implements Comparator<HotelRoomModel> {
 
         @Override
-        public int compare(HotelRoomModel o1,HotelRoomModel o2) {
-            if(o1.getCost() > o2.getCost()){
+        public int compare(HotelRoomModel o1, HotelRoomModel o2) {
+            if (o1.getCost() > o2.getCost()) {
                 return 1;
             } else {
                 return -1;
@@ -1673,29 +1686,25 @@ public class  HotelActivity extends ActionBarActivity {
 
     }
 
-    public void CalculateSum()
-    {
+    public void CalculateSum() {
         Log.d("Destination date te771", "" + sum);
         Log.d("Destination date te772", "" + transportationList.get(1).getCost());
         Log.d("Destination date te773", "" + transportationList.size());
 
-        SharedPreferences.Editor editor=prfs.edit();
+        SharedPreferences.Editor editor = prfs.edit();
 
-        if(count==0)
-        {
+        if (count == 0) {
 
             sum += transportationList.get(1).getCost();
 
-            if(chk_lunch.isChecked())
-            {
-                sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
+            if (chk_lunch.isChecked()) {
+                sum += (500 * (Integer.parseInt("" + prefs.getString("Adults", null))) + Integer.parseInt("" + prefs.getString("Children_12_5", null)) + Integer.parseInt("" + prefs.getString("Children_5_2", null)));
             }
-            if(chk_dinner.isChecked())
-            {
-                sum+=(500*(Integer.parseInt("" + prefs.getString("Adults", null)))+Integer.parseInt("" + prefs.getString("Children_12_5", null))+Integer.parseInt("" + prefs.getString("Children_5_2", null)));
+            if (chk_dinner.isChecked()) {
+                sum += (500 * (Integer.parseInt("" + prefs.getString("Adults", null))) + Integer.parseInt("" + prefs.getString("Children_12_5", null)) + Integer.parseInt("" + prefs.getString("Children_5_2", null)));
             }
 
-            transportation_cost+=transportationList.get(1).getCost();
+            transportation_cost += transportationList.get(1).getCost();
 
 
             Log.d("Destination date te77", "" + sum);
@@ -1708,7 +1717,7 @@ public class  HotelActivity extends ActionBarActivity {
 
             editor.putString("TransportaionTitle", "" + transportationList.get(1).getTitle());
             editor.putString("TransportationIDV", "" + transportationList.get(1).getId());
-            editor.putString("TransportationCostOld",""+transportation_cost);
+            editor.putString("TransportationCostOld", "" + transportation_cost);
             Log.d("Destination date tt89", "" + transportationList.get(1).getCost());
             Log.d("Destination date tt97", "" + transportation_cost);
 
@@ -1716,21 +1725,22 @@ public class  HotelActivity extends ActionBarActivity {
             editor.putInt("TotalCost", sum);
             editor.commit();
 
-            trans_id=""+transportationList.get(1).getId();
+            trans_id = "" + transportationList.get(1).getId();
             count++;
 
-            Log.d("TransporatationID test",""+transportationList.get(1).getId());
+            Log.d("TransporatationID test", "" + transportationList.get(1).getId());
 
             getSupplierDetails();
 
         }
 
     }
-    public void getDefaultTransportationCost(){
 
-        Log.d("Welcome44","EntranceTransportation");
+    public void getDefaultTransportationCost() {
 
-        String Transportation_URL=Constants.API_TransportationActivity_URL+region_id;
+        Log.d("Welcome44", "EntranceTransportation");
+
+        String Transportation_URL = Constants.API_TransportationActivity_URL + region_id;
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 Transportation_URL, new Response.Listener<JSONObject>() {
@@ -1738,7 +1748,7 @@ public class  HotelActivity extends ActionBarActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.d("Welcome454",""+response.toString());
+                    Log.d("Welcome454", "" + response.toString());
                     Log.d("Boolean44", "" + response.getBoolean("success"));
                     Log.d("Error44", "" + response.getJSONObject("error"));
                     Log.d("Payload44", "" + response.getJSONArray("payload"));
@@ -1751,10 +1761,10 @@ public class  HotelActivity extends ActionBarActivity {
                         JSONObject jsonarr = response.getJSONArray("payload").getJSONObject(i);
                         String Tra_url = Constants.API_TransportationActivity_Tra_URL;    //"http://stage.itraveller.com/backend/api/v1/b2ctransportation?transportationId=";
 
-                        Log.d("Welcome45",""+response_JSON_arr_length);
+                        Log.d("Welcome45", "" + response_JSON_arr_length);
                         //    transportation_flag=response.getJSONArray("payload").length();
 
-                        TransportationCost(Tra_url + jsonarr.getInt("Id"), jsonarr.getString("Title"), jsonarr.getInt("Max_Person"), jsonarr.getString("Image"), response.getJSONArray("payload").length(),i);
+                        TransportationCost(Tra_url + jsonarr.getInt("Id"), jsonarr.getString("Title"), jsonarr.getInt("Max_Person"), jsonarr.getString("Image"), response.getJSONArray("payload").length(), i);
                         //url_data.add(Tra_url + jsonarr.getInt("Id") + "," + jsonarr.getString("Title") + "," + jsonarr.getInt("Max_Person") + "," + jsonarr.getString("Image") + "," + i + "," + response.getJSONArray("payload").length());
                         Log.d("Synchronous Task11", "" + Tra_url + jsonarr.getInt("Id"));
                     }
@@ -1762,9 +1772,7 @@ public class  HotelActivity extends ActionBarActivity {
                     // worker.callback = new TransportationActivity();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-
-                catch (Exception e){
+                } catch (Exception e) {
                     Log.d("Error Catched", "" + e.getMessage());
 
                 }
@@ -1793,7 +1801,7 @@ public class  HotelActivity extends ActionBarActivity {
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if (error instanceof TimeoutError) {
                 }
-            }
+            } //TODO: Useless parentheses should be removed
         }) {
         };
         strReq.setRetryPolicy(new DefaultRetryPolicy(10000,
@@ -1804,11 +1812,11 @@ public class  HotelActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
     }
 
-
+    //TODO: Method names should always begin with a lower case character.
     public void TransportationCost(String TransURL, final String title, final int max_person, final String img, final int last_index, final int temp_index) {
 
-        Log.d("Welcome46","Welcome");
-        Log.d("Welcome47",""+TransURL);
+        Log.d("Welcome46", "Welcome");
+        Log.d("Welcome47", "" + TransURL);
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 TransURL, new Response.Listener<JSONObject>() {
@@ -1840,18 +1848,17 @@ public class  HotelActivity extends ActionBarActivity {
 
                     transportationList.add(transportation_model);
 
-                    Collections.sort(transportationList,new PriceComparison1());
+                    Collections.sort(transportationList, new PriceComparison1());
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                Log.d("Welcome122",""+(last_index-1));
-                Log.d("Welcome147",""+temp_index);
-                if((last_index-1)==temp_index)
-                {
-                    Log.d("Destination date te110","hi");
+                Log.d("Welcome122", "" + (last_index - 1));
+                Log.d("Welcome147", "" + temp_index);
+                if ((last_index - 1) == temp_index) {
+                    Log.d("Destination date te110", "hi");
                     CalculateSum();
                 }
 
@@ -1869,15 +1876,14 @@ public class  HotelActivity extends ActionBarActivity {
         AppController.getInstance().addToRequestQueue(strReq);
 
 
-
     }
 
 
     class PriceComparison1 implements Comparator<TransportationModel> {
 
         @Override
-        public int compare(TransportationModel o1,TransportationModel o2) {
-            if(o1.getCost() > o2.getCost()){
+        public int compare(TransportationModel o1, TransportationModel o2) {
+            if (o1.getCost() > o2.getCost()) {
                 return 1;
             } else {
                 return -1;
@@ -1889,29 +1895,26 @@ public class  HotelActivity extends ActionBarActivity {
 
     public void onBackPressed() {
 
-        if(check_bit==0)
-        {
+        if (check_bit == 0) {
             Log.d("Hotel testting", "hi");
             transportationList.clear();
-            sum=0;
-            count=0;
-            flag=0;
+            sum = 0;
+            count = 0;
+            flag = 0;
             finish();
             //SaveData();
-        }
-        else
-        {
+        } else {
             lv1.setVisibility(View.VISIBLE);
             activites.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
-            check_bit=0;
+            check_bit = 0;
             SaveData();
         }
     }
 
     public void MealPlan(String url, final int index) {
 
-        Log.d("IndexCount",""+index);
+        Log.d("IndexCount", "" + index);
         //String url = "http://stage.itraveller.com/backend/api/v1/hotelinclusion?hotel=7&region=7&checkInDate=2015-10-10";
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
@@ -1924,7 +1927,7 @@ public class  HotelActivity extends ActionBarActivity {
                     Log.d("Payload", "" + response.getJSONArray("payload"));
                     // JSONObject jsonobj = response.getJSONObject("payload").getJSONObject()
                     // Parsing json
-                    if(response.getJSONArray("payload").length() != 0) {
+                    if (response.getJSONArray("payload").length() != 0) {
                         for (int i = 0; i < response.getJSONArray("payload").length(); i++) {
                             JSONObject jsonObj = response.getJSONArray("payload").getJSONObject(i);
                             MealPlanModel mealplan = new MealPlanModel();
@@ -1951,20 +1954,17 @@ public class  HotelActivity extends ActionBarActivity {
                             mealplanList.add(mealplan);
                             if (jsonObj.getInt("Lunch") == 0) {
                                 chk_lunch.setEnabled(false);
-                            }
-                            else{
+                            } else {
                                 chk_lunch.setEnabled(true);
                             }
                             if (jsonObj.getInt("Dinner") == 0) {
                                 chk_dinner.setEnabled(false);
-                            }
-                            else{
+                            } else {
                                 chk_dinner.setEnabled(true);
                             }
                             //}
                         }
-                    }
-                    else{
+                    } else {
 
                         MealPlanModel mealplan = new MealPlanModel();
                         mealplan.setId(0);
@@ -2008,12 +2008,15 @@ public class  HotelActivity extends ActionBarActivity {
                 // For ClientError, 400 & 401, Errors happening on client side when sending api request.
                 // In this case you can check how client is forming the api and debug accordingly.
                 // For ServerError 5xx, you can do retry or handle accordingly.
-                if( error instanceof NetworkError) {
+
+
+                //TODO: Empty If Statement finds instances where a condition is checked but nothing is done about it
+                if (error instanceof NetworkError) {
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
-                } else if( error instanceof ServerError) {
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
+                } else if (error instanceof ServerError) {
+                } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof ParseError) {
+                } else if (error instanceof NoConnectionError) {
                     Toast.makeText(HotelActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 } else if (error instanceof TimeoutError) {
                 }
@@ -2026,109 +2029,107 @@ public class  HotelActivity extends ActionBarActivity {
     }
 
 
-    public void SaveData(){
+    public void SaveData() {
+        //TODO: Lots of unused variables.
         Set<String> set = new HashSet<String>();
         String hotel_string_main = "";
         String itinerary_hotel = "";
 
-        for(int i =0; i< lowesthotelList.size();i++)
-        {
+        for (int i = 0; i < lowesthotelList.size(); i++) {
             String hotel_string = "";
             String[] hotel_room_Data = lowesthotelList.get(i).trim().split(",");
 
-            for(int j = 0 ;j < lowesthotelList.size(); j++) {
+            for (int j = 0; j < lowesthotelList.size(); j++) {
                 ArrayList<HotelModel> modelRow = ListViewPagerAdapter.mHotelModels.get("" + j);
-                for(int k = 0;k< modelRow.size();k++) {
+                for (int k = 0; k < modelRow.size(); k++) {
                     if (modelRow.get(k).getHotel_Id() == Integer.parseInt(hotel_room_Data[0])) {
                         hotel_string = "" + modelRow.get(k).getLunch() + "," + modelRow.get(k).getDinner();
                     }
                 }
             }
 
-            Log.d("Lowest_Value1",""+ lowesthotelList.get(i));
+            Log.d("Lowest_Value1", "" + lowesthotelList.get(i));
             // Log.d("Lowest_Value",""+ lowesthotelList.get(i));
             //if(datas.equalsIgnoreCase("null")) {
             //set.add("" + lowesthotelList.get(i));
             String[] lowest_value = lowesthotelList.get(i).trim().split(",");
 
 
+            Log.d("Hotel test rohan", "" + lowest_value[0] + " " + lowest_value[1] + " " + lowest_value[2] + " " + lowest_value[3] + " " + hotel_string);
 
-            Log.d("Hotel test rohan",""+lowest_value[0]+" "+lowest_value[1]+" "+lowest_value[2]+" "+lowest_value[3]+" "+hotel_string);
-
-            if(i == 0) {
+            if (i == 0) {
                 itinerary_hotel = "" + lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," + hotel_string;
-            }
-            else{
+            } else {
                 hotel_string_main = hotel_string_main + "-" + hotel_string;
-                itinerary_hotel = itinerary_hotel + "-" +  lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," +hotel_string;
+                itinerary_hotel = itinerary_hotel + "-" + lowest_value[0] + "," + lowest_value[1] + "," + lowest_value[2] + "," + lowest_value[3] + "," + hotel_string;
             }
 
         }
-        Log.d("Lowest_Value1",""+ itinerary_hotel);
+        Log.d("Lowest_Value1", "" + itinerary_hotel);
         SharedPreferences sharedpreferences = getSharedPreferences("SavedData", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("HotelDetails", itinerary_hotel);
-        editor.putString("HotelDestinationID", ""+IDS_value);
+        editor.putString("HotelDestinationID", "" + IDS_value);
         editor.commit();
 
     }
 
 }
-class DiscountModel
-{
 
-    String company_ID,company_Name,company_Address;
+class DiscountModel {
+
+    String company_ID, company_Name, company_Address;
     int company_Discount;
 
-    DiscountModel()
-    {
+    DiscountModel() {
 
     }
-    DiscountModel(String company_ID,String company_Name,int company_Discount,String company_Address)
-    {
-        this.company_ID=company_ID;
-        this.company_Name=company_Name;
-        this.company_Discount=company_Discount;
-        this.company_Address=company_Address;
+
+    DiscountModel(String company_ID, String company_Name, int company_Discount, String company_Address) {
+        this.company_ID = company_ID;
+        this.company_Name = company_Name;
+        this.company_Discount = company_Discount;
+        this.company_Address = company_Address;
     }
-    public void setCompany_ID(String company_ID)
-    {
-        this.company_ID=company_ID;
+
+    public void setCompany_ID(String company_ID) {
+        this.company_ID = company_ID;
     }
-    public void setCompany_Name(String company_Name)
-    {
-        this.company_Name=company_Name;
+
+    public void setCompany_Name(String company_Name) {
+        this.company_Name = company_Name;
     }
-    public void setCompany_Discount(int company_Discount)
-    {
-        this.company_Discount=company_Discount;
+
+    public void setCompany_Discount(int company_Discount) {
+        this.company_Discount = company_Discount;
     }
-    public void setCompany_Address(String company_Address)
-    {
-        this.company_Address=company_Address;
+
+    public void setCompany_Address(String company_Address) {
+        this.company_Address = company_Address;
     }
-    public String getCompany_ID()
-    {
+
+    public String getCompany_ID() {
         return company_ID;
     }
-    public String getCompany_Name()
-    {
+
+    public String getCompany_Name() {
         return company_Name;
     }
-    public int getCompany_Discount()
-    {
+
+    public int getCompany_Discount() {
         return company_Discount;
     }
-    public String getCompany_Address()
-    {
+
+    public String getCompany_Address() {
         return company_Address;
     }
 }
+
 class DiscountComparison implements Comparator<DiscountModel> {
 
     @Override
-    public int compare(DiscountModel o1,DiscountModel o2) {
-        if(o1.getCompany_Discount() < o2.getCompany_Discount()){
+    public int compare(DiscountModel o1, DiscountModel o2) {
+        if (o1.getCompany_Discount() < o2.getCompany_Discount()) {
             return 1;
         } else {
             return -1;

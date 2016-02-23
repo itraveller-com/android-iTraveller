@@ -13,15 +13,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.itraveller.R;
+import com.itraveller.activity.HotelActivity;
+import com.itraveller.model.HotelRoomModel;
+import com.itraveller.volley.AppController;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.itraveller.R;
-import com.itraveller.activity.HotelActivity;
-import com.itraveller.constant.Utility;
-import com.itraveller.model.HotelRoomModel;
-import com.itraveller.volley.AppController;
 
 public class HotelRoomAdapter extends BaseAdapter {
 
@@ -34,14 +32,13 @@ public class HotelRoomAdapter extends BaseAdapter {
     private int mSelectedPosition = -1;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     HotelActivity.RadiobuttonListener RadioListener;
-    private int adults,children;
+    private int adults, children;
     private int groupPosition;
-    SharedPreferences preferences,post_data;
+    SharedPreferences preferences, post_data;
     SharedPreferences prefs;
 
 
-
-    public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom, ArrayList<String> lowesthotelList,int groupPosition, HotelActivity.RadiobuttonListener RadiobuttonListener) {
+    public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom, ArrayList<String> lowesthotelList, int groupPosition, HotelActivity.RadiobuttonListener RadiobuttonListener) {
         this.activity = activity;
         this.HotelRooms = Hotelroom;
         this.RadioListener = RadiobuttonListener;
@@ -66,11 +63,11 @@ public class HotelRoomAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
- 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-       ViewHolder holder = null;
+        ViewHolder holder = null;
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
@@ -81,22 +78,20 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.title = (TextView) convertView.findViewById(R.id.room_name);
             holder.rate = (TextView) convertView.findViewById(R.id.rate);
             holder.radioButton = (RadioButton) convertView.findViewById(R.id.radioButton);
-            holder.btn_plus =(Button) convertView.findViewById(R.id.plus);
-            holder.btn_minus =(Button) convertView.findViewById(R.id.minus);
-            holder.btn_count =(Button) convertView.findViewById(R.id.count);
+            holder.btn_plus = (Button) convertView.findViewById(R.id.plus);
+            holder.btn_minus = (Button) convertView.findViewById(R.id.minus);
+            holder.btn_count = (Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
 
-            ViewPagerAdapter.count=0;
+            ViewPagerAdapter.count = 0;
 
             prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
-            post_data=activity.getSharedPreferences("PostData",activity.MODE_PRIVATE);
+            post_data = activity.getSharedPreferences("PostData", activity.MODE_PRIVATE);
 
             adults = Integer.parseInt(prefs.getString("Adult", "0"));
-            children=Integer.parseInt(prefs.getString("Child","0"));
-        }
-        else
-        {
-            holder = (ViewHolder)convertView.getTag();
+            children = Integer.parseInt(prefs.getString("Child", "0"));
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
@@ -114,17 +109,17 @@ public class HotelRoomAdapter extends BaseAdapter {
         try {
             String[] hotel_room_Data = lowesthotelList.get(groupPosition).trim().split(",");
 
-            int min_capacity=m.getDefault_Number();
-            int max_capacity=m.getMaximum_Number();
+            int min_capacity = m.getDefault_Number();
+            int max_capacity = m.getMaximum_Number();
             int no_of_rooms;
 
 
-            Log.d("No of rooms adul",""+adults);
+            Log.d("No of rooms adul", "" + adults);
 
-            Log.d("No of rooms min",""+min_capacity);
+            Log.d("No of rooms min", "" + min_capacity);
 
 
-            Log.d("No of rooms max",""+max_capacity);
+            Log.d("No of rooms max", "" + max_capacity);
 
         /*    if(adults%max_capacity==0)
             {
@@ -139,28 +134,24 @@ public class HotelRoomAdapter extends BaseAdapter {
             }
         */
 
-            if((adults+children)%min_capacity==0)
-                no_of_rooms=(adults/min_capacity);
+            if ((adults + children) % min_capacity == 0)
+                no_of_rooms = (adults / min_capacity);
             else
-                no_of_rooms=(adults/min_capacity)+1;
+                no_of_rooms = (adults / min_capacity) + 1;
 
-            Log.d("No of rooms or",""+no_of_rooms);
+            Log.d("No of rooms or", "" + no_of_rooms);
 
-            holder.btn_count.setText("" +no_of_rooms);
+            holder.btn_count.setText("" + no_of_rooms);
             //holder.rate.setText(""+m.getDisplay_Tariff());
-           if (Integer.parseInt(hotel_room_Data[2]) == m.getDisplay_Tariff()){
+            if (Integer.parseInt(hotel_room_Data[2]) == m.getDisplay_Tariff()) {
                 //holder.rate.setText("\u20B9"+"" + m.getDisplay_Tariff());
                 holder.rate.setText("Same price");
-            }
-            else if(Integer.parseInt(hotel_room_Data[2]) > m.getDisplay_Tariff()){
+            } else if (Integer.parseInt(hotel_room_Data[2]) > m.getDisplay_Tariff()) {
                 holder.rate.setText((Integer.parseInt(hotel_room_Data[2]) - m.getDisplay_Tariff()) + " less");
-            }
-            else {
+            } else {
                 holder.rate.setText((m.getDisplay_Tariff() - Integer.parseInt(hotel_room_Data[2])) + " more");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -170,10 +161,10 @@ public class HotelRoomAdapter extends BaseAdapter {
         holder.btn_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(finalHolder.radioButton.isChecked()) {
+                if (finalHolder.radioButton.isChecked()) {
                     int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) + 1;
                     finalHolder.btn_count.setText("" + x);
-                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString()  +",0,0" );
+                    RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + ",0,0");
                     //m.set("" + x);
                 }
             }
@@ -182,11 +173,11 @@ public class HotelRoomAdapter extends BaseAdapter {
         holder.btn_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) - 1;
-                if(finalHolder.radioButton.isChecked()) {
+                int x = Integer.parseInt(finalHolder.btn_count.getText().toString()) - 1;
+                if (finalHolder.radioButton.isChecked()) {
                     if (x > 0) {
                         finalHolder.btn_count.setText("" + x);
-                        RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString()  +",0,0");
+                        RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + ",0,0");
                     }
                 }
                 //m.setNights("" + x);
@@ -197,40 +188,40 @@ public class HotelRoomAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                if(position != mSelectedPosition && mSelectedRB != null){
+                if (position != mSelectedPosition && mSelectedRB != null) {
                     mSelectedRB.setChecked(false);
                 }
                 mSelectedPosition = position;
-                mSelectedRB = (RadioButton)v;
-                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff()+ "," +finalHolder.btn_count.getText().toString() +",0,0" );
-                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() +"," + m.getDisplay_Tariff());
+                mSelectedRB = (RadioButton) v;
+                RadioListener.RadioChangeListenerCustom(m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff() + "," + finalHolder.btn_count.getText().toString() + ",0,0");
+                Log.i("Room Data", m.getHotel_Id() + "," + m.getHotel_Room_Id() + "," + m.getDisplay_Tariff());
 
             }
         });
 
-        if(mSelectedPosition != position){
+        if (mSelectedPosition != position) {
             holder.radioButton.setChecked(false);
-        }else{
-                holder.radioButton.setChecked(true);
+        } else {
+            holder.radioButton.setChecked(true);
             Log.d("Checked box", "hi");
-            if(mSelectedRB != null && holder.radioButton != mSelectedRB){
+            if (mSelectedRB != null && holder.radioButton != mSelectedRB) {
                 mSelectedRB = holder.radioButton;
             }
         }
         holder.radioButton.setChecked(m.getCheck());
-        if(m.getCheck())
-        {  mSelectedRB = holder.radioButton;
+        if (m.getCheck()) {
+            mSelectedRB = holder.radioButton;
             mSelectedPosition = position;
         }
 
         return convertView;
     }
 
-    public List<HotelRoomModel> getList(){
+    public List<HotelRoomModel> getList() {
         return HotelRooms;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         TextView title;
         TextView rate;
         RadioButton radioButton;
