@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_timer_stamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="12min ago"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/darker_gray_36"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/tv_timer_stamp" />
+
+    <LinearLayout
+        android:id="@+id/layout_pin_container"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/separator"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/chat_avatar_margin"
+        android:background="@drawable/row_chat_to_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_pin_title"
+                style="@style/MoxDarkerGrayTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/Pinned_a_message"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_all_pinned_items"
+                style="@style/MoxSmallLightBlueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/All_Pinned_Items"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_pin_subtitle"
+            android:textColor="@color/color_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/chat_avatar_margin"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/chat_pin_indicator"
+            android:drawablePadding="7dp"
+            android:text="@string/Pinned_a_message"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_pin_content"
+            android:textColor="@color/color_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/chat_avatar_margin"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/Pinned_a_message"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:id="@+id/layout_audio_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/chat_avatar_margin"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:layout_marginBottom="5dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_play_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/chat_play" />
+
+            <ProgressBar
+                android:id="@+id/pb_audio_progressing"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progress_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:minWidth="100dp"
+                android:max="100"
+                android:progress="0" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_timer_conter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="10.0"
+                    android:minEms="3"
+                    android:textAppearance="?android:attr/textAppearanceSmall" >
+                </TextView>
+
+                <ProgressBar
+                    android:id="@+id/pb_audio_loading"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/pic_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_margin="5dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_pic_src"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="126dp"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center" />
+
+                <ImageView
+                    android:id="@+id/page_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp" />
+            </FrameLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.moxtra.binder.widget.MXAvatarImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/chat_avatar_size"
+        android:layout_height="@dimen/chat_avatar_size"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/separator" />
+
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_pin_to.xml -->

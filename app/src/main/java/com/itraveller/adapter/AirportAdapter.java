@@ -21,30 +21,30 @@ import com.itraveller.model.AirportModel;
 import com.itraveller.volley.AppController;
 
 public class AirportAdapter extends BaseAdapter implements Filterable{
-    private Activity activity;
-    private LayoutInflater inflater;
-    public static List<AirportModel> AirportItems;
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    public static List<AirportModel> sAirportItems;
     public  List<AirportModel> FilterAirportItems;
     public List<AirportModel> airportList;
 
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-    public AirportAdapter(Activity activity, List<AirportModel> AirportItems) {
-        this.activity = activity;
-        this.AirportItems = AirportItems;
-        FilterAirportItems = AirportItems;
+    public AirportAdapter(Activity mActivity, List<AirportModel> sAirportItems) {
+        this.mActivity = mActivity;
+        this.sAirportItems = sAirportItems;
+        FilterAirportItems = sAirportItems;
     }
 
     //getting count of total numnbet of AirportItems
     @Override
     public int getCount() {
-        return AirportItems.size();
+        return sAirportItems.size();
     }
 
     //getting item from given location
     @Override
     public Object getItem(int location) {
-        return AirportItems.get(location);
+        return sAirportItems.get(location);
     }
 
     //getting itemID
@@ -56,11 +56,11 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
  
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
+        if (mLayoutInflater == null)
+            mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.airport_row, null);
+            convertView = mLayoutInflater.inflate(R.layout.airport_row, null);
  
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
@@ -68,10 +68,10 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
         TextView title = (TextView) convertView.findViewById(R.id.title);
 
         // getting data for the row
-        AirportModel m = AirportItems.get(position);
+        AirportModel airportModel = sAirportItems.get(position);
 
         // title
-        title.setText(m.getValue());
+        title.setText(airportModel.getValue());
  
         return convertView;
     }
@@ -111,7 +111,7 @@ public class AirportAdapter extends BaseAdapter implements Filterable{
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults results) {
-                AirportItems = (ArrayList<AirportModel>) results.values;
+                sAirportItems = (ArrayList<AirportModel>) results.values;
                 notifyDataSetChanged();
             }
         };

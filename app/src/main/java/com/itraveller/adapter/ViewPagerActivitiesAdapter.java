@@ -28,30 +28,18 @@ import com.itraveller.volley.AppController;
  * Created by VNK on 6/25/2015.
  */
 public class ViewPagerActivitiesAdapter extends PagerAdapter {
-ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
-    int check_bit=0;
-
-    static int temp;
-
-    public static int count=0;
-
-    public static int temp_id;
-    ArrayList<ActivitiesModel> arrayModelClasses = new ArrayList<ActivitiesModel>();
+    private ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
+    private int mCheckBit=0;
+    public static int sTempId;
+    private ArrayList<ActivitiesModel> mArrayModelClasses = new ArrayList<ActivitiesModel>();
 
     @SuppressLint("NewApi")
-
-
-    public ViewPagerActivitiesAdapter() {
-
-        super();
-
-    }
 
     public ViewPagerActivitiesAdapter(ArrayList<ActivitiesModel> arrayModelClasses, ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner) {
 
         super();
-        this.arrayModelClasses = arrayModelClasses;
+        this.mArrayModelClasses = arrayModelClasses;
         this.mPagerCheckBoxChangedListner=mPagerCheckBoxChangedListner;
 
     }
@@ -59,7 +47,7 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
     @Override
     public int getCount() {
 
-        return arrayModelClasses.size();
+        return mArrayModelClasses.size();
 
     }
 
@@ -96,23 +84,23 @@ ListViewPagerActivitiesAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChanged
         try {
 
 
-            temp_id=arrayModelClasses.get(position).getId();
+            sTempId=mArrayModelClasses.get(position).getId();
 
             Log.d("Activity No Test",""+position);
 
-            image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+arrayModelClasses.get(position).getId()+".jpg", imageLoader);
+            image.setImageUrl(Constants.API_ViewPagerActivityAdapter_ImageURL+mArrayModelClasses.get(position).getId()+".jpg", imageLoader);
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/activity/" + arrayModelClasses.get(position).getId() + ".jpg", imageLoader);
 
-            itemText.setText(arrayModelClasses.get(position).getTitle());
-            if(arrayModelClasses.get(position).getCost() == 0)
+            itemText.setText(mArrayModelClasses.get(position).getTitle());
+            if(mArrayModelClasses.get(position).getCost() == 0)
                 cost.setText("Free");
             else
-                cost.setText(""+"\u20B9"+" " + arrayModelClasses.get(position).getDisplay());
+                cost.setText(""+"\u20B9"+" " + mArrayModelClasses.get(position).getDisplay());
 
-            time.setText("" + arrayModelClasses.get(position).getDuration() + " HRS");
+            time.setText("" + mArrayModelClasses.get(position).getDuration() + " HRS");
 
-            if(arrayModelClasses.get(position).isChecked()){
-                if(check_bit == 0) {
+            if(mArrayModelClasses.get(position).isChecked()){
+                if(mCheckBit == 0) {
                     checkBox.setChecked(true);
                     selectBackground.setVisibility(View.VISIBLE);
                     Log.i("CheckedORNot", "checked" + position);

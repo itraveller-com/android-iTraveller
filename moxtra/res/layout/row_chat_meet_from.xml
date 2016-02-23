@@ -2,55 +2,125 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:layout_height="wrap_content"
     android:padding="5dp">
 
     <TextView
         android:id="@+id/tv_timer_stamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:text="12min ago"
-        android:textColor="@color/darker_gray_36"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/darker_gray_36"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_actor_name"
+        style="@style/MXChatFromTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_timer_stamp">
+        android:layout_below="@id/tv_timer_stamp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_info_container"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/avatar"
+        android:layout_alignTop="@+id/avatar"
+        android:padding="5dp"
+        android:layout_marginTop="@dimen/chat_avatar_margin"
+        android:layout_marginLeft="@dimen/chat_avatar_margin"
+        android:background="@drawable/squarebubble_green">
+
+        <TextView
+            android:id="@+id/tv_text_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:singleLine="false"
+            android:maxLines="2"
+            android:gravity="center_vertical"
+            android:textColor="@color/moxtra_darkgray"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Space
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_below="@id/tv_text_info"/>
+
+        <TextView
+            android:id="@+id/tv_sub_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/separator"
+            android:gravity="center_vertical"
+            android:textColor="@color/orange2"
+            android:drawablePadding="6dp"
+            android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:drawableLeft="@drawable/meet_active_small_indicator"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:minWidth="100dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/tv_sub_info"
+	        android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_scheduled_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/tv_sub_info"
+            android:layout_marginLeft="@dimen/chat_avatar_margin"
+            android:paddingLeft="30dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+    <com.moxtra.binder.widget.MXAvatarImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/chat_avatar_size"
+        android:layout_height="@dimen/chat_avatar_size"
+        android:layout_below="@id/tv_timer_stamp"
+        android:layout_alignParentLeft="true" />
+
+    <LinearLayout
+        android:id="@+id/pin_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/layout_info_container"
+        android:layout_toRightOf="@id/layout_info_container"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/chat_bubble_from">
+            android:src="@drawable/pin_indicator" />
 
-            <ImageView
-                android:layout_height="40dp"
-                android:layout_width="40dp"
-                android:padding="8dp"
-                android:layout_gravity="top|left"
-                android:src="@drawable/page_start_meet" />
-
-            <TextView
-                android:id="@+id/tv_text_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/orange2" />
-        </LinearLayout>
-
-        <com.moxtra.binder.widget.MXAvatarImageView
-            android:id="@+id/avatar"
-            android:layout_width="@dimen/chat_avatar_size"
-            android:layout_height="@dimen/chat_avatar_size" />
-    </FrameLayout>
-
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_meet_from.xml -->
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_favorite_button" />
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_meet_from.xml -->

@@ -73,4 +73,4 @@
         android:layout_centerVertical="true"
         android:paddingRight="8dp" />
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/table_cell_date_time.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/table_cell_date_time.xml -->

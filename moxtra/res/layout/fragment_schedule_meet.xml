@@ -20,25 +20,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
         <LinearLayout
             android:id="@+id/top2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:fillViewport="true">
 
             <EditText
@@ -52,23 +46,16 @@
                 android:hint="@string/Agenda" />
         </ScrollView>
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
         <com.moxtra.binder.widget.FlowLayout
             android:id="@+id/attendees_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:minHeight="80dp"
             flow:verticalSpacing="10dp"
             android:background="@drawable/member_group_bg" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
 
         <ViewStub
             android:id="@+id/stub_record"
@@ -76,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical" />
 
         <LinearLayout
@@ -88,4 +76,4 @@
 
     </LinearLayout>
 </ScrollView>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_schedule_meet.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_schedule_meet.xml -->

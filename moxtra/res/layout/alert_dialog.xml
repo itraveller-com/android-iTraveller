@@ -109,7 +109,7 @@
         <!-- positive -->
         <Button
             android:id="@+id/btn_positive"
-            style="@style/MoxRedButtonStyle"
+            style="@style/MoxBlueButtonStyle"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -131,10 +131,11 @@
             android:maxLines="2"
             android:maxWidth="120dp"
             android:visibility="gone" />
+
         <!-- negative -->
         <Button
             android:id="@+id/btn_negative"
-            style="@style/MoxBlueButtonStyle"
+            style="@style/MoxRedButtonStyle"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -146,4 +147,4 @@
 
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/alert_dialog.xml -->
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/alert_dialog.xml -->

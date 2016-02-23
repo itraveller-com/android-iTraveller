@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:id="@+id/layout_todo_container"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="true"
@@ -132,4 +132,4 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/separator" />
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_todo_to.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_todo_to.xml -->

@@ -30,7 +30,7 @@
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="20dp" />
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="20dp" />
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/btn_signup"
@@ -104,27 +104,37 @@
             android:gravity="center"
             android:text="@string/Sign_Up" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <include layout="@layout/international_third_party_login_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
+
+    <include layout="@layout/login_with_third_party"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/tv_policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:maxLines="2"
         android:minLines="2"
         android:text="@string/By_clicking_Sign_Up_I_agree_to_the_Terms_of_Service_and_Privacy_Policy"
         android:textColorLink="@color/darker_blue" />
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/layout_signup.xml -->
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/start_logo_gray" />
+
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/layout_signup.xml -->

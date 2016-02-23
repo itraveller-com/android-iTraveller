@@ -68,6 +68,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
+            <ProgressBar
+                android:id="@+id/pb_sending"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_timer_conter"
                 android:layout_width="wrap_content"
@@ -78,14 +86,6 @@
                 android:layout_gravity="center"
                 android:textSize="12sp" >
             </TextView>
-
-            <ProgressBar
-                android:id="@+id/pb_sending"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:visibility="visible" />
         </FrameLayout>
     </LinearLayout>
 
@@ -96,95 +96,26 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/separator" />
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/separator"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp" >
+        android:layout_toLeftOf="@id/layout_audio_content"
+        android:layout_alignTop="@id/layout_audio_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layout_audio_content"
+        <ImageView
+            android:id="@+id/iv_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/chat_bubble_to"
-            android:gravity="center_vertical">
+            android:visibility="gone"
+            android:src="@drawable/pin_indicator" />
 
-            <ImageView
-                android:id="@+id/iv_play_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/chat_play" />
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/chat_favorite_button" />
+    </LinearLayout>
 
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ProgressBar
-                    android:id="@+id/pb_audio_progressing"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/progress_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:max="100"
-                    android:progress="0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/Slide_up_to_cancel"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/tv_slide_up_to_cancel" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp" >
-
-                <TextView
-                    android:id="@+id/tv_timer_conter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="10.0"
-                    android:textSize="12sp" >
-                </TextView>
-
-                <ProgressBar
-                    android:id="@+id/pb_audio_loading"
-                    style="?android:attr/progressBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <com.moxtra.binder.widget.MXAvatarImageView
-            android:id="@+id/avatar"
-            android:layout_width="@dimen/chat_avatar_size"
-            android:layout_height="@dimen/chat_avatar_size" />
-    </LinearLayout>-->
-
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_audio_to.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_audio_to.xml -->

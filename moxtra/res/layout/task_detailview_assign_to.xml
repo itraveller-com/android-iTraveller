@@ -30,7 +30,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/user_default_avatar2"
         moxtra:border_color="@android:color/darker_gray"
         moxtra:border_width="1dp"
         moxtra:corner_radius="20dp"
@@ -38,4 +37,4 @@
 
 
 </RelativeLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/task_detailview_assign_to.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/task_detailview_assign_to.xml -->

@@ -1,82 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:moxtra="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:minHeight="?android:attr/listPreferredItemHeightLarge"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingTop="@dimen/timeline_item_padding"
     android:paddingBottom="@dimen/timeline_item_padding">
 
-    <com.moxtra.binder.widget.MXAvatarImageView
-        android:id="@+id/iv_avatar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <com.moxtra.binder.widget.BinderCoverContainer
+        android:id="@+id/layout_cover"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
-        android:scaleType="centerCrop"
-        moxtra:border_color="@color/white"
-        moxtra:border_width="2dip"
-        moxtra:corner_radius="40dp"
-        moxtra:round_background="true"
-        android:layout_centerVertical="true"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 
     <TextView
         style="@style/MXRedBadge"
         android:id="@+id/tv_badge"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_alignTop="@+id/iv_avatar"
-        android:layout_alignRight="@+id/iv_avatar"
-        android:layout_marginRight="-5dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/layout_cover"
+        android:layout_alignRight="@+id/layout_cover"
+        android:layout_marginRight="-6dp"
+        android:layout_marginTop="-6dp"
         android:maxLength="3"
         android:singleLine="true"
         android:ellipsize="end"
-        android:visibility="gone"
-        android:layout_gravity="top|right" />
-
-    <include
-        android:id="@+id/layout_top_info"
-        layout="@layout/timeline_item_top_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_top_info"
-        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_alignTop="@+id/layout_cover"
+        android:layout_toRightOf="@+id/layout_cover"
+        android:layout_toLeftOf="@+id/right_icon"
+        android:layout_marginTop="-5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:layout_marginRight="@dimen/timeline_item_padding"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Unknown"
         android:textColor="@android:color/black"
-        android:textSize="21sp" />
+        android:lineSpacingMultiplier="1"
+        android:textSize="20sp"/>
 
-    <!--<FrameLayout
-        android:id="@+id/layout_badge"
-        android:layout_width="100dp"
+    <ImageView
+        android:id="@+id/right_icon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="80dp"
-        android:layout_alignParentLeft="true"
-        android:paddingBottom="@dimen/timeline_separator_padding_phone"
-        android:layout_centerVertical="true">
-
-
-    </FrameLayout>-->
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/layout_cover"
+        android:src="@drawable/topiclist_favorite"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_toRightOf="@+id/layout_cover"
         android:layout_below="@+id/text2"
-        android:baselineAligned="false"
-        android:orientation="vertical">
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/line2"
@@ -97,15 +87,16 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
 
-            <com.moxtra.binder.widget.EllipsizedMultilineTextView
+            <com.moxtra.binder.widget.EmojiocnEllipsizedMultilineTextView
                 android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:layout_marginTop="5dp"
                 android:text="@string/has_invited_to_join_this_chat"
                 android:textColor="@color/darker_gray_36"
+                android:minHeight="32dp"
+                android:lineSpacingMultiplier="1"
                 android:textSize="@dimen/text_size_14" />
 
         </LinearLayout>
@@ -120,16 +111,10 @@
             android:minWidth="50dp">
 
             <Button
+                style="@style/MXTopicListApproveButton"
                 android:id="@+id/btn_accept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/topiclist_approve_background"
                 android:minWidth="67dp"
-                android:text="@string/Accept"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:layout_marginRight="5dp"
-                android:visibility="visible" />
+                android:text="@string/Accept" />
 
             <ImageButton
                 android:id="@+id/btn_reject"
@@ -153,8 +138,9 @@
     <include layout="@layout/timeline_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/layout_cover"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/iv_avatar"
-        android:layout_below="@+id/iv_avatar" />
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/content" />
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/timeline_item_chat.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/timeline_item_chat.xml -->

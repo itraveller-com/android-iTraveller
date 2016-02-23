@@ -155,7 +155,7 @@ public class LoginScreenActivity extends Fragment {
         item = (LinearLayout) viewItem.findViewById(R.id.flipper_view);
         final ImageView itraveller = (ImageView) viewItem.findViewById(R.id.itraveller_logo_ic);
 
-        final View loginView = getActivity().getLayoutInflater().inflate(R.layout.login_md, null);
+        loginView = getActivity().getLayoutInflater().inflate(R.layout.login_md, null);
         signUpView = getActivity().getLayoutInflater().inflate(R.layout.signup_md, null);
         forgotPasswordView = getActivity().getLayoutInflater().inflate(R.layout.forgetpassword_md, null);
 
@@ -405,6 +405,46 @@ public class LoginScreenActivity extends Fragment {
                                 editor.putString("id", "" + userDetails.getString("user_id"));
                                 editor.putString("name", "" + userDetails.getString("name"));
                                 editor.putString("phone", "" + userDetails.getString("phone"));
+
+                                Log.d("Binder1",""+(userDetails.getString("binder_id_single").equals("null")));
+                                Log.d("Binder2",""+(userDetails.getString("binder_id_group")==null));
+                                Log.d("Binder3",""+(userDetails.getString("binder_id_travel")==null));
+                                if(userDetails.getString("binder_id_single").equals("null"))
+                                {
+                                    PreferenceUtil.setSingleBinderId(AppController.context, "");
+                                }
+                                else
+                                {
+                                    PreferenceUtil.setSingleBinderId(AppController.context, "" + userDetails.getString("binder_id_single"));
+                                }
+
+                                if(userDetails.getString("binder_id_group").equals("null"))
+                                {
+                                    PreferenceUtil.setGroupBinderId(AppController.context, "");
+                                }
+                                else
+                                {
+                                    PreferenceUtil.setGroupBinderId(AppController.context, "" + userDetails.getString("binder_id_group"));
+                                }
+
+                                if(userDetails.getString("binder_id_travel").equals("null"))
+                                {
+                                    PreferenceUtil.setTravelBinderId(AppController.context, "");
+                                }
+                                else
+                                {
+                                    PreferenceUtil.setTravelBinderId(AppController.context, "" + userDetails.getString("binder_id_travel"));
+                                }
+
+                                if(userDetails.getString("gcm_reg_id").equals("null"))
+                                {
+                                    PreferenceUtil.setGcmRegId(AppController.context, "" );
+                                }
+                                else
+                                {
+                                    PreferenceUtil.setGcmRegId(AppController.context, "" + userDetails.getString("gcm_reg_id"));
+                                }
+
                                 editor.putString("email", "" + emailId.getText().toString().trim());
 
                                 editor.putString("serverCheck", "server");
@@ -534,6 +574,7 @@ public class LoginScreenActivity extends Fragment {
                                 //store user_id and access_token received from our server
                                 //payload_object.getString("user_id");
 
+                                BackButtonAnimation(loginView, signUpView);
 
                                 CustomField("Successfully created");
                             } else{

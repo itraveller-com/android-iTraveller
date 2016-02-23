@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="right|center_vertical"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:background="#FF404040"/><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/mentioned_me_section_view.xml -->

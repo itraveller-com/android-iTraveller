@@ -28,10 +28,11 @@
             android:layout_width="5dp"
             android:layout_height="wrap_content" />
 
-        <com.moxtra.binder.widget.ClearableEditText
+        <com.moxtra.binder.widget.EmojiconAutoMentionedTextView
             android:id="@+id/edt_send_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:completionThreshold="1"
             android:maxLines="4"
             android:inputType="text|textMultiLine|textCapSentences"
             android:layout_margin="5dp"
@@ -53,4 +54,4 @@
 
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_task_comments.xml -->
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_task_comments.xml -->

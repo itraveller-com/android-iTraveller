@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/clip_big_view"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_gravity="bottom"
+    android:background="@color/page_detail_bar_background"
+    android:clickable="true"
+    android:minHeight="80dp">
+
+    <ImageButton
+        android:id="@+id/page_rec_thumbnails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:minWidth="60dp"
+        android:scaleType="center"
+        android:src="@drawable/thumbnail_open" />
+
+    <TextView
+        android:id="@+id/tv_clip_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/frame0"
+        android:layout_centerVertical="true"
+        android:background="@drawable/timer_holder"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
 
     <FrameLayout
+        android:id="@+id/frame0"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <ImageButton
             android:id="@+id/btn_stop_clip"
@@ -15,25 +43,52 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@null"
-            android:src="@drawable/stop_recording" />
+            android:src="@drawable/pause_recording" />
 
         <ProgressBar
             style="@android:style/Widget.ProgressBar.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="1dp"
-            android:indeterminateDrawable="@drawable/recording_progress"
-            android:layout_gravity="center" />
+            android:indeterminateDrawable="@drawable/recording_progress" />
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/tv_clip_duration"
+    <Button
+        android:id="@+id/page_rec_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/timer_holder"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white" />
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/clip_big_view.xml -->
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/page_rec_annotation"
+        android:layout_marginRight="@dimen/page_detail_main_button_margin"
+        android:background="@drawable/page_annotation_done_dark"
+        android:text="@string/Done"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/page_rec_annotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/page_detail_main_button_margin"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/page_detail_laser_point"
+        android:background="@null"
+        android:src="@drawable/page_annotation" />
+
+    <CheckBox
+        android:id="@+id/page_detail_laser_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/page_detail_main_button_margin"
+        android:layout_marginRight="@dimen/page_detail_main_button_margin"
+        android:background="@null"
+        android:button="@null"
+        android:drawableLeft="@drawable/selector_annotation_laserpoint" />
+
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/clip_big_view.xml -->

@@ -18,7 +18,7 @@
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@android:color/white"
             android:cacheColorHint="#00000000"
             android:divider="@color/divider_gray"
             android:dividerHeight="1px"
@@ -124,4 +124,4 @@
 
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_board_task_list.xml -->
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_board_task_list.xml -->

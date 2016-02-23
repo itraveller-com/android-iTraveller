@@ -896,10 +896,10 @@ public class ItinerarySummaryActivity extends ActionBarActivity {
             if((""+prefs.getString("FlightBit",null)).equals("1"))
             {
 
-                FlightDomesticOnwardAdapter.base_flight_price=0;
-                FlightDomesticReturnAdapter.base_flight_price=0;
-                FlightDomesticOnwardAdapter.count=0;
-                FlightDomesticReturnAdapter.count=0;
+                FlightDomesticOnwardAdapter.sBaseFlightPrice=0;
+                FlightDomesticReturnAdapter.sBaseFlightPrice=0;
+                FlightDomesticOnwardAdapter.sCount=0;
+                FlightDomesticReturnAdapter.sCount=0;
 
                 FlightDomesticActivity.fda.finish();
             }

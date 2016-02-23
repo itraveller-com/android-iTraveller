@@ -11,7 +11,7 @@
         android:minHeight="20dp"
         android:padding="@dimen/header_bar_margin"
         android:gravity="center_vertical"
-        android:background="@color/moxtra_gray"
+        android:background="@color/bar_tint_color"
         android:textColor="#454545"
         android:layout_weight="1.0"
         android:textStyle="bold"
@@ -95,4 +95,4 @@
 
     </RelativeLayout>
 </LinearLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/people_list_item.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/people_list_item.xml -->

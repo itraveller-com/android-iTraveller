@@ -34,69 +34,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SEND US A MESSAGE"
-            android:textColor="#808080"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
-
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_edittext_login"
-            android:id="@+id/name"
-            android:hint="Name"
-            android:inputType="text"
-            android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/round_edittext_login"
-            android:hint="Mobile Number"
-            android:inputType="number"
-            android:singleLine="true"
-            android:maxLength="15"
-            android:id="@+id/confirm_password"
-            android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:textSize="16sp" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/round_edittext_login"
-            android:id="@+id/email_id"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:textSize="16sp"/>
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/round_edittext_login"
-            android:id="@+id/message"
-            android:hint="Message"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="8dp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:textSize="16sp"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="OFFICE ADDRESS"
             android:textColor="#808080"
             android:layout_marginTop="25dp"
@@ -113,20 +50,39 @@
             android:textSize="20dp"
              />
 
-
-        <Button
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:text="PHONE NUMBER"
+            android:textColor="#808080"
             android:layout_marginTop="25dp"
-            android:background="@color/orange"
-            android:id="@+id/send_details"
-            android:text="Send"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number"
+            android:textColor="@color/orange"
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email ID"
+            android:textColor="#808080"
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email_id"
+            android:textColor="@color/orange"
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            />
 
     </LinearLayout>
 

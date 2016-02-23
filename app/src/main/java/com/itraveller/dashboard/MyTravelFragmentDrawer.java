@@ -5,7 +5,6 @@ package com.itraveller.dashboard;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -15,73 +14,48 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.itraveller.R;
-import com.itraveller.activity.FragmentDrawer;
 import com.itraveller.adapter.MyTravelNavigationDrawerAdapter;
-import com.itraveller.adapter.NavigationDrawerAdapter;
 import com.itraveller.model.NavDrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MyTravelFragmentDrawer extends Fragment {
 
-    SharedPreferences preferences;
-    Fragment fragment;
-    String att;
-    private static String TAG = FragmentDrawer.class.getSimpleName();
-    private RecyclerView recyclerView;
-    public static ActionBarDrawerToggle mDrawerToggle;
-    public static DrawerLayout mDrawerLayout;
-    private MyTravelNavigationDrawerAdapter adapter;
-    private View containerView;
-    public static String[] titles = null;
-    private FragmentDrawerListener drawerListener;
-    private TypedArray navMenuIcons;
-    String str1;
-    Button chatBtn;
+    private RecyclerView mRecyclerView;
+    public static ActionBarDrawerToggle sDrawerToggle;
+    public static DrawerLayout sDrawerLayout;
+    private MyTravelNavigationDrawerAdapter myTravelNavigationDrawerAdapter;
+    private View mContainer;
+    public static String[] sTitles = null;
+    private FragmentDrawerListener mDrawerListener;
+    private TypedArray mMenuIcons;
 
     public MyTravelFragmentDrawer() {
     }
 
-    public void setDrawerListener(FragmentDrawerListener listener) {
-        this.drawerListener = listener;
+    public void setDrawerListener(FragmentDrawerListener mDrawerListener) {
+        this.mDrawerListener = mDrawerListener;
     }
 
-    public FragmentDrawerListener getDrawerListener(){
-        return drawerListener;
-    }
     public List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
-
-        SharedPreferences prefs=this.getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        //if user is already logged in then changing "Login" to "Logout"
-        Log.d("FragmentDrawer", "Entering in it " + prefs.getString("skipbit", "0"));
-        /*if(prefs.getString("skipbit","0").equalsIgnoreCase("0")) {
-            titles[4]=titles[4].replace(""+titles[4],"Login");
-        }
-        else{
-            titles[4]=titles[4].replace(""+titles[4],"Logout");
-        }*/
         // preparing navigation drawer items
-        for (int i = 0; i < titles.length; i++) {
+        for (int i = 0; i < sTitles.length; i++) {
             NavDrawerItem navItem = new NavDrawerItem();
-            navItem.setTitle(titles[i]);
-            navItem.setIcon(navMenuIcons.getResourceId(i,-1));
+            navItem.setTitle(sTitles[i]);
+            navItem.setIcon(mMenuIcons.getResourceId(i,-1));
             data.add(navItem);
         }
 
-        navMenuIcons.recycle();
+        mMenuIcons.recycle();
         return data;
     }
 
@@ -90,12 +64,12 @@ public class MyTravelFragmentDrawer extends Fragment {
         super.onCreate(savedInstanceState);
 
         // drawer labels
-        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels_);
-        navMenuIcons=getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons_);
+        sTitles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels_);
+        mMenuIcons=getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons_);
     }
 
     public void updateDrawer() {
-        adapter.notifyDataSetChanged();
+        myTravelNavigationDrawerAdapter.notifyDataSetChanged();
     }
 
 
@@ -103,30 +77,25 @@ public class MyTravelFragmentDrawer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View mLayout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         //mDrawerLayout.isDrawerOpen(Gravity.RIGHT);
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        adapter = new MyTravelNavigationDrawerAdapter(getActivity(), getData());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView = (RecyclerView) mLayout.findViewById(R.id.drawerList);
+        myTravelNavigationDrawerAdapter = new MyTravelNavigationDrawerAdapter(getActivity(), getData());
+        mRecyclerView.setAdapter(myTravelNavigationDrawerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return layout;
-    }
-
-    public SharedPreferences SharedPreferenceRetrive() {
-        SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        return preferences;
+        return mLayout;
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
-        containerView = getActivity().findViewById(fragmentId);
-        mDrawerLayout = drawerLayout;
-        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar , R.string.drawer_open, R.string.drawer_close) {
+        mContainer = getActivity().findViewById(fragmentId);
+        sDrawerLayout = drawerLayout;
+        sDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar , R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
-                mDrawerLayout.setClickable(true);
+                sDrawerLayout.setClickable(true);
                 updateDrawer();
             }
 
@@ -134,7 +103,7 @@ public class MyTravelFragmentDrawer extends Fragment {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                mDrawerLayout.setClickable(false);
+                sDrawerLayout.setClickable(false);
                 updateDrawer();
             }
 
@@ -147,11 +116,11 @@ public class MyTravelFragmentDrawer extends Fragment {
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
+        sDrawerLayout.setDrawerListener(sDrawerToggle);
+        sDrawerLayout.post(new Runnable() {
             @Override
             public void run() {
-                mDrawerToggle.syncState();
+                sDrawerToggle.syncState();
             }
         });
 

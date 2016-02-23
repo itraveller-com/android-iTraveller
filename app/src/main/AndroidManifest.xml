@@ -167,21 +167,20 @@
         <activity android:name="com.moxtra.binder.livemeet.MeetRingActivity" />
 
         <activity
-            android:name=".moxtraChat.AgentLoginActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".moxtraChat.CustomerLoginActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".moxtraChat.MoxtraMainActivity"
+            android:name=".moxtraChat.SingleChatActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".moxtraChat.ChatListActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".moxtraChat.MoxtraActivity"
+            android:name=".moxtraChat.GroupChatActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".moxtraChat.TravelDocsActivity"
+            android:screenOrientation="portrait"></activity>
+
 
         <receiver
             android:name=".moxtraChat.GcmBroadcastReceiver"

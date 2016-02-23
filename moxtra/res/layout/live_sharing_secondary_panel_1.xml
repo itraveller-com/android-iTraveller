@@ -4,21 +4,19 @@
     android:id="@+id/MX_PageDetail_Secondary1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
+    android:layout_alignParentBottom="true"
     android:padding="@dimen/page_detail_button_margin">
 
-    <Button
-        android:id="@+id/page_annotation_done"
+    <com.moxtra.binder.widget.PageDetailColorButton
+        android:id="@+id/page_detail_selected_color"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/page_annotation_done"
-        android:minWidth="60dp"
-        android:text="@string/Done"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"
-        android:visibility="gone" />
+        android:background="@drawable/color_button_bg"
+        android:button="@null"
+        android:minHeight="@dimen/page_detail_button_size"
+        android:minWidth="@dimen/page_detail_button_size" />
 
     <ViewStub
         android:id="@+id/stub_close_button"
@@ -32,8 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/undo_redo_holder"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/page_detail_undo"
@@ -62,7 +59,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@null"
-        android:src="@drawable/annotation_draw_selected"
-        android:visibility="gone" />
+        android:src="@drawable/annotation_draw_selected" />
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/live_sharing_secondary_panel_1.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/live_sharing_secondary_panel_1.xml -->

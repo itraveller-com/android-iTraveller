@@ -2,17 +2,17 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:padding="5dp" >
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/tv_timer_stamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:text="12min ago"
-        android:textColor="@color/darker_gray_36"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/darker_gray_36"
         android:visibility="gone" />
 
     <View
@@ -22,23 +22,40 @@
         android:layout_below="@id/tv_timer_stamp" />
 
     <TextView
-        style="@style/MoxDarkerGrayTextView"
-        android:id="@+id/tv_book_mark"
+        android:id="@+id/tv_actor_name"
+        style="@style/MXChatFromTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_timer_stamp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tv_book_mark"
+        style="@style/MoxDarkerGrayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="260dp"
+        android:layout_below="@id/separator"
+        android:layout_alignLeft="@+id/avatar"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_marginTop="@dimen/chat_avatar_margin"
+        android:layout_marginLeft="@dimen/chat_avatar_margin"
+        android:paddingLeft="@dimen/chat_avatar_margin"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
         android:autoLink="web"
-        android:linksClickable="false"
+        android:background="@drawable/row_chat_from_bg"
         android:drawableLeft="@drawable/bookmark_indicator"
         android:drawablePadding="10dp"
-        android:layout_gravity="top|left"
-        android:layout_marginLeft="@dimen/chat_avatar_margin"
-        android:background="@drawable/row_chat_from_bg"
         android:gravity="center_vertical"
-        android:layout_below="@id/separator"
-        android:paddingBottom="12dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="18dp"
-        android:paddingTop="12dp"
+        android:linksClickable="false"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <com.moxtra.binder.widget.MXAvatarImageView
@@ -48,39 +65,25 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/separator" />
 
-    <!--<FrameLayout
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/pin_favorite"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_timer_stamp" >
+        android:layout_alignTop="@id/tv_book_mark"
+        android:layout_toRightOf="@id/tv_book_mark"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/MoxDarkerGrayTextView"
-            android:id="@+id/tv_book_mark"
+        <ImageView
+            android:id="@+id/iv_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:linksClickable="false"
-            android:drawableLeft="@drawable/bookmark_indicator"
-            android:drawablePadding="10dp"
-            android:layout_gravity="top|left"
-            android:layout_marginLeft="@dimen/chat_avatar_margin"
-            android:background="@drawable/squarebubble_green"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="18dp"
-            android:paddingTop="12dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:src="@drawable/pin_indicator" />
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/iv_favorite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_favorite_button" />
+    </LinearLayout>
 
-            <com.moxtra.binder.widget.MXAvatarImageView
-                android:id="@+id/avatar"
-                android:layout_width="@dimen/chat_avatar_size"
-                android:layout_height="@dimen/chat_avatar_size" />
-        </FrameLayout>
-    </FrameLayout>-->
-
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_book_mark_from.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_book_mark_from.xml -->

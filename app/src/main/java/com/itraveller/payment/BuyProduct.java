@@ -21,11 +21,11 @@ import com.itraveller.R;
 
 public class BuyProduct extends Activity implements OnClickListener {
 
-	Button btn_buy;
-	Double amount;
-	EditText ed_quantity, ed_totalamount;
+	private Button mBtnBuy;
+	private EditText mEdQuantity;
+	private EditText mEdTotalamount;
 
-	private static String HOST_NAME = "";
+	private static String sHostName = "";
 
 	/*For Live*/
 //	private static final int ACC_ID = 5128; // Provided by EBS
@@ -52,27 +52,27 @@ public class BuyProduct extends Activity implements OnClickListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.payment_buy_product);
 
-		HOST_NAME = getResources().getString(R.string.hostname);
+		sHostName = getResources().getString(R.string.hostname);
 		
 		initview();
 		setOnClickListener();
 	}
 
 	protected void initview() {
-		btn_buy = (Button) findViewById(R.id.btn_buy);
-		ed_quantity = (EditText) findViewById(R.id.ed_quantity);
-		ed_totalamount = (EditText) findViewById(R.id.ed_totalamount);
+		mBtnBuy = (Button) findViewById(R.id.btn_buy);
+		mEdQuantity = (EditText) findViewById(R.id.ed_quantity);
+		mEdTotalamount = (EditText) findViewById(R.id.ed_totalamount);
 	}
 
 	protected void setOnClickListener() {
-		btn_buy.setOnClickListener(this);
+		mBtnBuy.setOnClickListener(this);
 
-		ed_quantity.addTextChangedListener(new TextWatcher() {
+		mEdQuantity.addTextChangedListener(new TextWatcher() {
 
 			public void afterTextChanged(Editable s) {
 
 				calculateTotalAmount();
-				ed_totalamount.setText(String.valueOf(totalamount));
+				mEdTotalamount.setText(String.valueOf(totalamount));
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -88,8 +88,8 @@ public class BuyProduct extends Activity implements OnClickListener {
 
 	private void calculateTotalAmount() {
 
-		if (ed_quantity.getText().toString().trim().length() > 0) {
-			int quantity = Integer.parseInt(ed_quantity.getText().toString());
+		if (mEdQuantity.getText().toString().trim().length() > 0) {
+			int quantity = Integer.parseInt(mEdQuantity.getText().toString());
 			totalamount = quantity * PER_UNIT_PRICE;
 		} else {
 			totalamount = 0.0;
@@ -99,9 +99,9 @@ public class BuyProduct extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.btn_buy) {
-			if (ed_quantity.getText().toString().trim().length() <= 0
+			if (mEdQuantity.getText().toString().trim().length() <= 0
 					|| Integer
-							.parseInt(ed_quantity.getText().toString().trim()) == 0) {
+							.parseInt(mEdQuantity.getText().toString().trim()) == 0) {
 				Toast.makeText(getApplicationContext(),
 						"Please Enter Quantity", Toast.LENGTH_LONG).show();
 			} else {
@@ -124,7 +124,7 @@ public class BuyProduct extends Activity implements OnClickListener {
 		//PaymentRequest.getInstance().
 		
 		/** Initializing the EBS Gateway */
-		EBSPayment.getInstance().init(BuyProduct.this, ACC_ID, SECRET_KEY, Mode.ENV_LIVE, Encryption.ALGORITHM_MD5, HOST_NAME);
+		EBSPayment.getInstance().init(BuyProduct.this, ACC_ID, SECRET_KEY, Mode.ENV_LIVE, Encryption.ALGORITHM_MD5, sHostName);
 	}
 
 }

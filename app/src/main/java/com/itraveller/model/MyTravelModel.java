@@ -8,44 +8,15 @@ public class MyTravelModel {
 
     String Travel_Date,Booking_Date,Booking_Mode,Region_Name,Itinerary_Main_Id,
     Hotel_Name,Destination_Id,Hotel_Star_Rating,Hotel_CheckIn_Date,Hotel_CheckOut_Date,
-    Transportation_Start_Date,Transportation_End_Date,Customer_Name,Customer_Email;
+    Transportation_Start_Date,Transportation_End_Date,Customer_Name,Customer_Email,Discount_value,
+    Adv_amt,Inter_amt,Final_amt,Flight_price,Destination_name,Hotel_Room_Type,Transportation_Name,Activity_Name,Activity_Date, Customer_Phone_Number;
 
-    int Transportation_Travel_Id,No_of_Room_Days,Hotel_Id,No_of_Rooms,Itinerary_id,No_of_days,Package_value,Region_Id,Transportation_No_of_Days,Customer_Id,
+    int Transportation_Travel_Id,No_of_Room_Days,Hotel_Id,No_of_Rooms,Itinerary_id,No_of_days,Package_value,Region_Id,Customer_Id,
             No_of_Adults,No_of_Child,No_of_Infant;
 
     public MyTravelModel() {
     }
 
-    public MyTravelModel(int Itinerary_id,int Package_value,String Travel_Date,int No_of_Days,String Booking_Date,String Booking_Mode,int Region_Id,String Region_Name,String Destination_Id,int Hotel_Id, String Hotel_Name,int No_of_Rooms , String Hotel_CheckIn_Date, String Hotel_CheckOut_Date,int No_of_Room_Days,  String Hotel_Star_Rating,int  Transportation_Travel_Id,String Transportation_Start_Date,
-                         String Transportation_End_Date,int Transportation_No_of_Days, int Customer_Id,String Customer_Name,String Customer_Email,String Itinerary_Main_Id, int No_of_Adults,int No_of_Child,int No_of_Infant) {
-        this.Itinerary_id=Itinerary_id;
-        this.Package_value=Package_value;
-        this.Travel_Date=Travel_Date;
-        this.No_of_days=No_of_Days;
-        this.No_of_Rooms=No_of_Rooms;
-        this.Booking_Date=Booking_Date;
-        this.Booking_Mode=Booking_Mode;
-        this.Region_Id=Region_Id;
-        this.Region_Name=Region_Name;
-        this.Destination_Id=Destination_Id;
-        this.Hotel_Id=Hotel_Id;
-        this.Hotel_Name=Hotel_Name;
-        this.Hotel_CheckIn_Date=Hotel_CheckIn_Date;
-        this.Hotel_CheckOut_Date=Hotel_CheckOut_Date;
-        this.No_of_Room_Days=No_of_Room_Days;
-        this.Hotel_Star_Rating=Hotel_Star_Rating;
-        this.Transportation_Travel_Id=Transportation_Travel_Id;
-        this.Transportation_Start_Date=Transportation_Start_Date;
-        this.Transportation_End_Date=Transportation_End_Date;
-        this.Transportation_No_of_Days=Transportation_No_of_Days;
-        this.Customer_Id=Customer_Id;
-        this.Customer_Name=Customer_Name;
-        this.Customer_Email=Customer_Email;
-        this.Itinerary_Main_Id=Itinerary_Main_Id;
-        this.No_of_Adults=No_of_Adults;
-        this.No_of_Child=No_of_Child;
-        this.No_of_Infant=No_of_Infant;
-    }
     public int getItineraty_Id() {
         return this.Itinerary_id;
     }
@@ -227,14 +198,6 @@ public class MyTravelModel {
         this.Transportation_End_Date=Transportation_End_Date;
     }
 
-    public int getTransportation_No_of_Days(){
-        return this.Transportation_No_of_Days;
-    }
-
-    public void setTransportation_No_of_Days(int Transportation_No_of_Days) {
-        this.Transportation_Travel_Id=Transportation_Travel_Id;
-    }
-
 
     public int getCustomer_Id(){
         return this.Customer_Id;
@@ -257,4 +220,105 @@ public class MyTravelModel {
     public void setCustomer_Email(String Customer_Email) {
         this.Customer_Email=Customer_Email;
     }
+
+    public String getAdv_amt(){
+        return this.Adv_amt;
+    }
+
+    public void setAdv_amt(String Adv_amt) {
+        this.Adv_amt=Adv_amt;
+    }
+
+    public String getInter_amt(){
+        return this.Inter_amt;
+    }
+
+    public void setInter_amt(String Inter_amt) {
+        this.Inter_amt=Inter_amt;
+    }
+
+    public String getFinal_amt(){
+        return this.Final_amt;
+    }
+
+    public void setFinal_amt(String Final_amt) {
+        this.Final_amt=Final_amt;
+    }
+
+    public String getFlight_price(){
+        return this.Flight_price;
+    }
+
+    public void setFlight_price(String Flight_price) {
+        this.Flight_price=Flight_price;
+    }
+
+
+    public String getDestination_name(){
+        return this.Destination_name;
+    }
+
+    public void setDestination_name(String Destination_name) {
+        this.Destination_name=Destination_name;
+    }
+
+    public String getTransportation_Name(){
+        return this.Transportation_Name;
+    }
+
+    public void setTransportation_Name(String Transportation_Name) {
+        this.Transportation_Name=Transportation_Name;
+    }
+
+    public String getActivity_Name(){
+        return this.Activity_Name;
+    }
+
+    public void setActivity_Name(String Activity_Name) {
+        this.Activity_Name=Activity_Name;
+    }
+    public String getActivity_Date(){
+        return this.Activity_Date;
+    }
+
+    public void setActivity_Date(String Activity_Date) {
+        this.Activity_Date=Activity_Date;
+    }
+
+
+    public String getHotel_Room_Type(){
+        return this.Hotel_Room_Type;
+    }
+
+    public void setHotel_Room_Type(String Hotel_Room_Type) {
+        this.Hotel_Room_Type=Hotel_Room_Type;
+    }
+
+
+    public String getCustomer_Phone_Number(){
+        return this.Customer_Phone_Number;
+    }
+
+    public void setCustomer_Phone_Number(String Customer_Phone_Number) {
+        this.Customer_Phone_Number=Customer_Phone_Number;
+    }
+
+
+    public int getNo_of_Rooms() {
+        return No_of_Rooms;
+    }
+
+    public void setNo_of_Rooms(int No_of_Rooms) {
+        this.No_of_Rooms = No_of_Rooms;
+    }
+
+
+    public String getDiscount_value(){
+        return this.Discount_value;
+    }
+
+    public void setDiscount_value(String Discount_value) {
+        this.Discount_value=Discount_value;
+    }
+
 }

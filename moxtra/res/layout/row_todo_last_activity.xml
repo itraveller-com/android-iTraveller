@@ -25,26 +25,26 @@
         android:id="@+id/tv_sender_name"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:layout_alignTop="@+id/iv_sender_avatar"
-        android:layout_toRightOf="@+id/iv_sender_avatar"/>
+        android:layout_alignTop="@id/iv_sender_avatar"
+        android:layout_toRightOf="@id/iv_sender_avatar"/>
 
-    <TextView
+    <com.rockerhieu.emojicon.EmojiconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_activity_description"
         android:textColor="@android:color/black"
         android:gravity="center_vertical"
         android:minLines="2"
-        android:layout_below="@+id/tv_sender_name"
-        android:layout_toRightOf="@+id/iv_sender_avatar"/>
+        android:layout_below="@id/tv_sender_name"
+        android:layout_toRightOf="@id/iv_sender_avatar"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_create_date"
         android:textColor="@android:color/black"
-        android:layout_below="@+id/tv_activity_description"
-        android:layout_toRightOf="@+id/iv_sender_avatar"/>
+        android:layout_below="@id/tv_activity_description"
+        android:layout_toRightOf="@id/iv_sender_avatar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,6 +52,6 @@
         android:id="@+id/tv_activities_number"
         android:textColor="@color/moxtra_blue"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_create_date"/>
+        android:layout_alignTop="@id/tv_create_date"/>
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_todo_last_activity.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_todo_last_activity.xml -->

@@ -34,7 +34,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:hint="@string/Name_Your_Binder"
+            android:hint="@string/Name_Your_Conversation"
             android:inputType="textCapSentences"
             android:textAppearance="?android:attr/textAppearanceLarge">
 
@@ -53,4 +53,4 @@
             android:layout_height="60dp" />
 
     </LinearLayout>
-</ScrollView><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_create_binder.xml -->
+</ScrollView><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_create_binder.xml -->

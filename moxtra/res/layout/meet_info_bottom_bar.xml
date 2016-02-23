@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/general_toolbar_bg"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/action_bar_height">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_start_meet"
+        fontPath="fonts/ProximaNova-Bold.otf"
+        tools:ignore="MissingPrefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/header_bar_margin"
+        android:background="@null"
+        android:text="@string/Start_Meet"
+        android:textColor="@color/moxtra_orange"
+        android:textSize="@dimen/header_bar_action_button_text_size"
+        android:textStyle="bold" />
+
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/meet_info_bottom_bar.xml -->

@@ -8,29 +8,48 @@
     style="@style/Widget.Holo.TabWidget"
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_conversation">
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
 
     <at.bookworm.widget.TabControlButton
         android:id="@+id/btn_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Chat" />
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
     <at.bookworm.widget.TabControlButton
         android:id="@+id/btn_files"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Pages" />
-
+    <View
+        android:id="@+id/view_b4_todo"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
     <at.bookworm.widget.TabControlButton
         android:id="@+id/btn_todo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/To_Do_" />
-
+    <View
+        android:id="@+id/view_b4_meet"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
     <at.bookworm.widget.TabControlButton
         android:id="@+id/btn_meet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:text="@string/Meet" />
-</RadioGroup><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/conversation_tabs.xml -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"></View>
+</RadioGroup><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/conversation_tabs.xml -->

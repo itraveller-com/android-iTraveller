@@ -71,7 +71,7 @@
         android:layout_toLeftOf="@+id/iv_indicator"
         android:src="@drawable/slow_network_indicator"
         android:layout_alignWithParentIfMissing="true"
-        android:paddingRight="8dp" />
+        android:layout_marginRight="10dp" />
 
     <ImageView
         android:id="@+id/iv_indicator"
@@ -81,7 +81,7 @@
         android:layout_toLeftOf="@+id/accessory"
         android:layout_alignWithParentIfMissing="true"
         android:src="@drawable/audio_state_none"
-        android:paddingRight="8dp" />
+        android:layout_marginRight="10dp" />
 
     <ImageView
         android:id="@+id/accessory"
@@ -89,8 +89,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingRight="8dp"
-        android:visibility="visible" />
+        android:layout_marginRight="10dp"
+        android:visibility="gone" />
 
 </RelativeLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_participant_list.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_participant_list.xml -->

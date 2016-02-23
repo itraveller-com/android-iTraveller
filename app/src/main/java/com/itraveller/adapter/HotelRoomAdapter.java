@@ -25,40 +25,37 @@ import com.itraveller.volley.AppController;
 
 public class HotelRoomAdapter extends BaseAdapter {
 
-    public static String Hotel_Data;
-    private Activity activity;
-    private LayoutInflater inflater;
-    private List<HotelRoomModel> HotelRooms;
-    private ArrayList<String> lowesthotelList;
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<HotelRoomModel> mHotelRooms;
+    private ArrayList<String> mLowestHotelList;
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
-    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-    HotelActivity.RadiobuttonListener RadioListener;
-    private int adults,children;
-    private int groupPosition;
-    SharedPreferences preferences,post_data;
-    SharedPreferences prefs;
+    private ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    private HotelActivity.RadiobuttonListener RadioListener;
+    private int mAdults;
+    private int mChildren;
+    private int mGroupPosition;
+    private SharedPreferences mPrefs;
 
-
-
-    public HotelRoomAdapter(Activity activity, List<HotelRoomModel> Hotelroom, ArrayList<String> lowesthotelList,int groupPosition, HotelActivity.RadiobuttonListener RadiobuttonListener) {
-        this.activity = activity;
-        this.HotelRooms = Hotelroom;
+    public HotelRoomAdapter(Activity mActivity, List<HotelRoomModel> mHotelRooms, ArrayList<String> mLowestHotelList,int mGroupPosition, HotelActivity.RadiobuttonListener RadiobuttonListener) {
+        this.mActivity = mActivity;
+        this.mHotelRooms = mHotelRooms;
         this.RadioListener = RadiobuttonListener;
-        this.lowesthotelList = lowesthotelList;
-        this.groupPosition = groupPosition;
+        this.mLowestHotelList = mLowestHotelList;
+        this.mGroupPosition = mGroupPosition;
     }
 
     //getting count of total number of hotel rooms
     @Override
     public int getCount() {
-        return HotelRooms.size();
+        return mHotelRooms.size();
     }
 
     //getting item from given location
     @Override
     public Object getItem(int location) {
-        return HotelRooms.get(location);
+        return mHotelRooms.get(location);
     }
 
     //getting itemID
@@ -72,12 +69,12 @@ public class HotelRoomAdapter extends BaseAdapter {
 
        ViewHolder holder = null;
 
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
+        if (mLayoutInflater == null)
+            mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.hotel_single, null);
+            convertView = mLayoutInflater.inflate(R.layout.hotel_single, null);
             holder.title = (TextView) convertView.findViewById(R.id.room_name);
             holder.rate = (TextView) convertView.findViewById(R.id.rate);
             holder.radioButton = (RadioButton) convertView.findViewById(R.id.radioButton);
@@ -86,13 +83,12 @@ public class HotelRoomAdapter extends BaseAdapter {
             holder.btn_count =(Button) convertView.findViewById(R.id.count);
             convertView.setTag(holder);
 
-            ViewPagerAdapter.count=0;
+            ViewPagerAdapter.sCount=0;
 
-            prefs = activity.getSharedPreferences("Itinerary", activity.MODE_PRIVATE);
-            post_data=activity.getSharedPreferences("PostData",activity.MODE_PRIVATE);
+            mPrefs = mActivity.getSharedPreferences("Itinerary", mActivity.MODE_PRIVATE);
 
-            adults = Integer.parseInt(prefs.getString("Adult", "0"));
-            children=Integer.parseInt(prefs.getString("Child","0"));
+            mAdults = Integer.parseInt(mPrefs.getString("Adult", "0"));
+            mChildren=Integer.parseInt(mPrefs.getString("Child","0"));
         }
         else
         {
@@ -101,25 +97,21 @@ public class HotelRoomAdapter extends BaseAdapter {
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
-        //holder.radioButton.setChecked(false);
         // getting data for the row
-        final HotelRoomModel m = HotelRooms.get(position);
+        final HotelRoomModel m = mHotelRooms.get(position);
 
-        //setListViewHeightBasedOnChildren(DragAndSort.listview);
         // title
         holder.title.setText(m.getRoom_Type());
 
-        //holder.btn_count.setText("" + Utility.noRooms(m.getDefault_Number(), adults));
-
         try {
-            String[] hotel_room_Data = lowesthotelList.get(groupPosition).trim().split(",");
+            String[] hotel_room_Data = mLowestHotelList.get(mGroupPosition).trim().split(",");
 
             int min_capacity=m.getDefault_Number();
             int max_capacity=m.getMaximum_Number();
             int no_of_rooms;
 
 
-            Log.d("No of rooms adul",""+adults);
+            Log.d("No of rooms adul",""+mAdults);
 
             Log.d("No of rooms min",""+min_capacity);
 
@@ -139,10 +131,10 @@ public class HotelRoomAdapter extends BaseAdapter {
             }
         */
 
-            if((adults+children)%min_capacity==0)
-                no_of_rooms=(adults/min_capacity);
+            if((mAdults+mChildren)%min_capacity==0)
+                no_of_rooms=(mAdults/min_capacity);
             else
-                no_of_rooms=(adults/min_capacity)+1;
+                no_of_rooms=(mAdults/min_capacity)+1;
 
             Log.d("No of rooms or",""+no_of_rooms);
 
@@ -227,7 +219,7 @@ public class HotelRoomAdapter extends BaseAdapter {
     }
 
     public List<HotelRoomModel> getList(){
-        return HotelRooms;
+        return mHotelRooms;
     }
 
     private class ViewHolder{

@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/meet_chat_bg"
+            android:background="@color/translucent_black_85"
             android:orientation="horizontal" />
     </LinearLayout>
 
-</FrameLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/activity_live_meet.xml -->
+</FrameLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/activity_live_meet.xml -->

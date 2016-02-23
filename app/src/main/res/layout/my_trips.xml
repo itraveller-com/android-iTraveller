@@ -3,40 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto">
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/eifel_dark">
 
     <LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:layout_margin="15dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:gravity="center">
-        <Button
-            android:id="@+id/group_chat_btn"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:text="Ground Support"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:textSize="12dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/style_filterbutton"
-            android:textColor="@color/white"/>
-
             <Button
-                android:id="@+id/single_chat_btn"
-                android:layout_width="120dp"
+                android:id="@+id/group_chat_btn"
+                android:layout_width="100dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
-                android:text="Documents"
+                android:text="Ground Support"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:textSize="12dp"
-                android:background="@drawable/style_filterbutton"
+                android:background="#8053a93f"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/travel_docs_btn"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:text="Travel Documents"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:background="#8053a93f"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/single_chat_btn"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:text="Snaps"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:background="#8053a93f"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -44,18 +59,19 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
 
             <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upcoming Trips"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="25dp"
-        android:padding="15dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upcoming Trips"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:padding="15dp"
+                android:background="#80ffffff"
+                android:textColor="@color/colorPrimaryDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,24 +81,28 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp">
+                android:background="@color/secondary_text_transparent_70"
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Travel ID"
                     android:textSize="12dp"
+                    android:textColor="@color/white"
                     android:layout_marginLeft="50dp"
                     android:id="@+id/id_text"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="50dp" />
+                    android:layout_marginStart="50dp"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Travel Date"
                     android:textSize="12dp"
+                    android:textColor="@color/white"
                     android:id="@+id/date_text"
                     android:layout_marginRight="5dp"
                     android:layout_alignParentBottom="true"
@@ -94,9 +114,11 @@
         </LinearLayout>
 
         <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/upcoming_trips_list"></ListView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upcoming_trips_list"
+            android:textColor="@color/white"
+            android:background="@color/secondary_text_transparent_70"></ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,18 +127,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
             <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Past Trips"
-            android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Past Trips"
+                android:textSize="25dp"
+
                 android:layout_gravity="center"
                 android:gravity="center"
-            android:padding="15dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"/>
+                android:padding="15dp"
+                android:background="#80ffffff"
+                android:textColor="@color/colorPrimaryDark"/>
 
 
             <LinearLayout
@@ -128,13 +152,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp">
+                android:background="@color/secondary_text_transparent_70"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Travel ID"
                     android:textSize="12dp"
+                    android:textColor="@color/white"
                     android:layout_marginLeft="50dp"
                     android:id="@+id/id_text_"
                     android:layout_alignParentTop="true"
@@ -146,6 +172,7 @@
                     android:layout_height="wrap_content"
                     android:text="Travel Date"
                     android:textSize="12dp"
+                    android:textColor="@color/white"
                     android:id="@+id/date_text_"
                     android:layout_marginRight="5dp"
                     android:layout_alignParentTop="true"
@@ -157,9 +184,12 @@
         </LinearLayout>
 
         <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/past_trips_list"></ListView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/past_trips_list"
+            android:background="@color/secondary_text_transparent_70"
+            android:textColor="@color/white"
+            ></ListView>
 
     </LinearLayout>
 

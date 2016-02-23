@@ -1,2 +1,2 @@
-include ":moxtra", ':app', ':dragsortlistview', ':EBS'
+include ':app', ':dragsortlistview', ':EBS', ':moxtra'
 include ':TimeSquareLibrary'

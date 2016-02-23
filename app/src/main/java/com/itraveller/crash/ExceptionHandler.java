@@ -10,6 +10,7 @@ import android.os.Build;
 import com.itraveller.activity.MainActivity;
 
 public class ExceptionHandler implements
+
         java.lang.Thread.UncaughtExceptionHandler {
     private final Activity myContext;
     private final String LINE_SEPARATOR = "\n";

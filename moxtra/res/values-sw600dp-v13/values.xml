@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/booleans.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/booleans.xml -->
     <eat-comment/>
     <bool name="is_tablet">true</bool>
     <bool name="is_two_panes">false</bool>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/references.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/references.xml -->
     <eat-comment/>
     <item name="popover_title_color" type="color">@color/popover_title_color_tablet</item>
     <item name="popover_title_shadow_color" type="color">@color/popover_title_shadow_color_tablet</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/dimens.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/dimens.xml -->
     <eat-comment/>
     <dimen name="action_bar_height">64dp</dimen>
     <dimen name="action_bar_margin_left">15dp</dimen>
     <dimen name="activity_search_margin">50dp</dimen>
     <dimen name="alter_dialog_width">360dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values-sw600dp/dimen.xml -->
-    <eat-comment/>
-    <dimen name="ambilwarna_button_margin">4dp</dimen>
-    <dimen name="ambilwarna_hsvHeight">360dp</dimen>
-    <dimen name="ambilwarna_hsvWidth">360dp</dimen>
-    <dimen name="ambilwarna_hueWidth">45dp</dimen>
-    <dimen name="ambilwarna_spacer">12dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/dimens.xml -->
-    <eat-comment/>
     <dimen name="binder_list_grid_padding">10dp</dimen>
     <dimen name="chat_input_min_height">44dp</dimen>
     <dimen name="coach_mark_down_textview_min_width">668px</dimen>
@@ -38,7 +29,6 @@
     <dimen name="landing_page_button_width">400dp</dimen>
     <dimen name="login_binder_height">472dp</dimen>
     <dimen name="login_binder_width">448dp</dimen>
-    <dimen name="login_signup_min_width">280dp</dimen>
     <dimen name="login_signup_padding">15dp</dimen>
     <dimen name="member_avatar_cell_height">110.0dp</dimen>
     <dimen name="member_avatar_cell_width">98.0dp</dimen>
@@ -64,12 +54,12 @@
     <dimen name="slidingmenu_width">360dp</dimen>
     <dimen name="story3_bigpen_margin">-56px</dimen>
     <dimen name="story4_iphone_small1_width">43px</dimen>
-    <dimen name="story_page_height">640dp</dimen>
+    <dimen name="story_page_height">580dp</dimen>
     <dimen name="story_page_width">612dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/references.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/references.xml -->
     <eat-comment/>
     <item name="popview_navi_bar_bg" type="drawable">@drawable/popview_navi_bar_bg_tablet</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/integers.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/integers.xml -->
     <eat-comment/>
     <integer name="grid_pick_photo_count">4</integer>
     <integer name="meet_option_column_num">4</integer>
@@ -83,10 +73,10 @@
     <integer name="row_feeds_count">2</integer>
     <integer name="row_grid_count">3</integer>
     <integer name="row_pages_count">2</integer>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/references.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/references.xml -->
     <eat-comment/>
-    <item name="activity_signed_out" type="layout">@layout/activity_signed_out_tablet</item>
     <item name="dialog_ringing" type="layout">@layout/dialog_ringing_tablet</item>
+    <item name="fragment_landing_page" type="layout">@layout/fragment_landing_page_tablet</item>
     <item name="fragment_meet_list" type="layout">@layout/fragment_meet_list_tablet</item>
     <item name="fragment_tab_binders" type="layout">@layout/fragment_tab_binders_tablet</item>
     <item name="fragment_tab_contacts" type="layout">@layout/fragment_tab_contacts_tablet</item>
@@ -97,7 +87,7 @@
     <item name="layout_story_page2" type="layout">@layout/layout_story_page2_tablet</item>
     <item name="layout_story_page3" type="layout">@layout/layout_story_page3_tablet</item>
     <item name="toolbar_page_edit" type="layout">@layout/toolbar_page_edit_tablet</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-sw600dp/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-sw600dp/styles.xml -->
     <eat-comment/>
     <style name="JHKLeftSlidingSpace">
         <item name="android:visibility">visible</item>
@@ -115,6 +105,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">20dp</item>
     </style>
+    <style name="MXLoginFragment">
+        <item name="android:layout_marginTop">@dimen/action_bar_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
     <style name="MXStoryPageSubtitle">
         <item name="android:gravity">center</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
@@ -125,5 +120,18 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="MXThirdPartyLoginButtonStyle" parent="MoxButtonBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@null</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+    </style>
+    <style name="MXThirdPartyLoginTitle" parent="MoxTextViewBase">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-xlarge/booleans.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-xlarge/booleans.xml -->
     <eat-comment/>
     <bool name="is_tablet">true</bool>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-xlarge/dimens.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-xlarge/dimens.xml -->
     <eat-comment/>
     <dimen name="action_bar_text_button_height">40dp</dimen>
     <dimen name="action_bar_text_button_textsize">14sp</dimen>
@@ -13,7 +13,7 @@
     <dimen name="profile_avatar_height">200dp</dimen>
     <dimen name="sliding_avatar_height">120dp</dimen>
     <dimen name="story_height">700dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values-xlarge/integers.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values-xlarge/integers.xml -->
     <eat-comment/>
     <item format="float" name="circle_height" type="integer">600</item>
     <item format="float" name="circle_left_offset" type="integer">100</item>

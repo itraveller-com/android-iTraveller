@@ -23,22 +23,21 @@ import com.itraveller.model.ReturnDomesticFlightModel;
 import com.itraveller.volley.AppController;
 
 public class FlightDomesticReturnAdapter extends BaseAdapter {
-    private Activity activity;
-    private LayoutInflater inflater;
-    private List<ReturnDomesticFlightModel> Flightitems;
-    private  int _screen_height;
-    int index=0;
-    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<ReturnDomesticFlightModel> mFlightItems;
+    private int mIndex=0;
+    private ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
-    final SharedPreferences.Editor editor;
-    public static int count=0;
-    public static int base_flight_price;
+    private final SharedPreferences.Editor editor;
+    public static int sCount=0;
+    public static int sBaseFlightPrice;
 
-    public FlightDomesticReturnAdapter(Activity activity, List<ReturnDomesticFlightModel> flightitems) {
-        this.activity = activity;
-        this.Flightitems = flightitems;
-        SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
+    public FlightDomesticReturnAdapter(Activity mActivity, List<ReturnDomesticFlightModel> mFlightItems) {
+        this.mActivity = mActivity;
+        this.mFlightItems = mFlightItems;
+        SharedPreferences sharedpreferences = mActivity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
     }
 
@@ -102,12 +101,12 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Flightitems.size();
+        return mFlightItems.size();
     }
 
     @Override
     public Object getItem(int location) {
-        return Flightitems.get(location);
+        return mFlightItems.get(location);
     }
 
     @Override
@@ -116,20 +115,20 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
     }
 
     public List<ReturnDomesticFlightModel> getList(){
-        return Flightitems;
+        return mFlightItems;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
+        if (mLayoutInflater == null)
+            mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             holder = new ViewHolder();
-            index=0;
-            convertView = inflater.inflate(R.layout.flight_domestic_row, null);
+            mIndex=0;
+            convertView = mLayoutInflater.inflate(R.layout.flight_domestic_row, null);
             holder.radioButton = (RadioButton) convertView.findViewById(R.id.radiobtn);
             holder.fl_name = (TextView) convertView.findViewById(R.id.name);
             holder.fl_dep = (TextView) convertView.findViewById(R.id.dep);
@@ -146,7 +145,7 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
-        final ReturnDomesticFlightModel m = Flightitems.get(position);
+        final ReturnDomesticFlightModel m = mFlightItems.get(position);
 
         int Total_flight_fare = Integer.parseInt(m.getActualBaseFare()) + Integer.parseInt(m.getTax()) +
                 Integer.parseInt(m.getSTax()) + Integer.parseInt(m.getSCharge()) +
@@ -166,20 +165,20 @@ public class FlightDomesticReturnAdapter extends BaseAdapter {
         arr_date[1]=getConvertedTime(arr_date[1]);
 
         holder.fl_name.setText(spanIt(""+m.getOperatingAirlineName() + "\n" + m.getFlightNumber(),""+m.getOperatingAirlineName()));
-        holder.fl_arr.setTextAppearance(activity, R.style.font_size_1);
+        holder.fl_arr.setTextAppearance(mActivity, R.style.font_size_1);
         holder.fl_arr.setText(arr_date[0] + "\n" + arr_date[1]);
-        holder.fl_dep.setTextAppearance(activity, R.style.font_size_1);
+        holder.fl_dep.setTextAppearance(mActivity, R.style.font_size_1);
         holder.fl_dep.setText(dep_date[0]+"\n"+dep_date[1]);
 
 
-        ++count;
-        if(count==1)
+        ++sCount;
+        if(sCount==1)
         {
-            base_flight_price=Total_flight_fare;
+            sBaseFlightPrice=Total_flight_fare;
 
         }
 
-        int diff=(Total_flight_fare-base_flight_price);
+        int diff=(Total_flight_fare-sBaseFlightPrice);
 
         if(diff==0)
         {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#70555555"
+        android:centerColor="#70cccccc"
+        android:endColor="#70f5f5f5"
+        android:angle="180" />
+</shape><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/drawable/mx_calendar_cell_right_shadow.xml -->

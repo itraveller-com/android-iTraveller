@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:layout_marginLeft="@dimen/row_cell_padding"
     android:layout_marginRight="@dimen/row_cell_padding" >
 
@@ -13,15 +14,13 @@
         android:background="@drawable/input_middle"
         android:minHeight="48dp" >
 
-        <com.moxtra.binder.widget.MoxIconView
+        <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/row_cell_icon_height"
+            android:layout_height="@dimen/row_cell_icon_height"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/image_frame"
-            android:scaleType="fitXY"
-            android:src="@drawable/options_email" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_disclosure_row_simple_text"
@@ -43,7 +42,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_row_label"
@@ -60,7 +60,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <!-- mostly only one of textview and imageview is displayed -->
 
@@ -78,7 +78,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/list_tappable" />
+                        android:background="@drawable/list_tappable"
+                        android:visibility="gone" />
+
+                    <Switch
+                        android:id="@+id/btn_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -100,4 +108,4 @@
         android:layout_gravity="right|center_vertical"
         android:visibility="gone" />
 
-</FrameLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_cell_menu.xml -->
+</FrameLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_cell_menu.xml -->

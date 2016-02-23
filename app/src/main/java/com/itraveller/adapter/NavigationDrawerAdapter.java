@@ -39,39 +39,50 @@ import java.util.List;
  * Created by Ravi Tamada on 12-03-2015.
  */
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> implements MXAccountManager.MXAccountUnlinkListener{
-    List<NavDrawerItem> data = Collections.emptyList();
-    List<MyViewHolder> holders = new ArrayList<MyViewHolder>();
-    private LayoutInflater inflater;
-    private Context context;
+
+    private List<NavDrawerItem> mData = Collections.emptyList();
+    private List<MyViewHolder> mHolders = new ArrayList<MyViewHolder>();
+    private LayoutInflater mLayoutInflater;
+    private Context mContext;
     private static final String TAG = "NavigationDrawerAdapter";
+    private int selectedItem=0;
 
-
-    public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-        this.data = data;
+    public NavigationDrawerAdapter(Context mContext, List<NavDrawerItem> mData) {
+        this.mContext = mContext;
+        mLayoutInflater = LayoutInflater.from(mContext);
+        this.mData = mData;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.nav_drawer_row, parent, false);
+        View view = mLayoutInflater.inflate(R.layout.nav_drawer_row, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
-        holders.add(holder);
+        mHolders.add(holder);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final NavDrawerItem current = data.get(position);
+        final NavDrawerItem current = mData.get(position);
 
         holder.imgIcon.setImageResource(current.getIcon());
-        if(position==4){
-            if(SharedPreferenceRetrive().getString("skipbit","0").equalsIgnoreCase("0")){
+        if(position==4)
+        {
+            if(SharedPreferenceRetrive().getString("skipbit","0").equalsIgnoreCase("0"))
+            {
                 holder.title.setText("Login");
-            } else {
+            }
+            else
+            {
                 holder.title.setText("Logout");
             }
-        } else {
+
+            selectedItem=0;
+            holder.imgIcon.setSelected(position == selectedItem);
+            holder.title.setSelected(position == selectedItem);
+        }
+        else
+        {
             holder.title.setText(current.getTitle());
         }
 
@@ -79,6 +90,10 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         holder.nav_row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                notifyItemChanged(selectedItem);
+                selectedItem = position;
+                notifyItemChanged(selectedItem);
 
                 Fragment fragment;
                 String title;
@@ -103,9 +118,9 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
                     case 2:
 
-                        Intent i = new Intent(context, MyTravelActivity.class);
-                        context.startActivity(i);
-                        ((Activity) context).finish();
+                        Intent i = new Intent(mContext, MyTravelActivity.class);
+                        mContext.startActivity(i);
+                        ((Activity) mContext).finish();
                         //      fragment = new MyTravelFragment();
                         title = "About Us";
                         break;
@@ -134,7 +149,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                 }
 
                 if (fragment != null) {
-                    FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.container_body, fragment);
                     fragmentTransaction.commit();
@@ -144,22 +159,25 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
             }
         });
+
+        holder.imgIcon.setSelected(position == selectedItem);
+        holder.title.setSelected(position == selectedItem);
     }
 
 
     protected void logout() {
-        PreferenceUtil.removeUser(context);
+        PreferenceUtil.removeUser(mContext);
 
         boolean ret = MXAccountManager.getInstance().unlinkAccount(this);
         if (!ret) {
 
             Log.e(TAG, "Can't logout: the unlinkAccount return false.");
-            Toast.makeText(context, "unlink failed.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "unlink failed.", Toast.LENGTH_LONG).show();
         }
         else
         {
-            PreferenceUtil.removeUser(context);
-            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+            PreferenceUtil.removeUser(mContext);
+            SharedPreferences prefs = mContext.getSharedPreferences("Preferences", mContext.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
             editor.commit();
@@ -171,26 +189,24 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         Log.i(TAG, "Unlinked moxtra account: " + mxUserInfo);
         if (mxUserInfo == null) {
             Log.e(TAG, "Can't logout: the mxUserInfo is null.");
-            Toast.makeText(context, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
         }
     }
 
     public void delete(int position) {
-        data.remove(position);
+        mData.remove(position);
         notifyItemRemoved(position);
     }
 
     public SharedPreferences SharedPreferenceRetrive() {
-        SharedPreferences preferences = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+        SharedPreferences preferences = mContext.getSharedPreferences("Preferences", mContext.MODE_PRIVATE);
         return preferences;
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mData.size();
     }
-
-
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;

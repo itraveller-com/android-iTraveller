@@ -18,25 +18,24 @@ import com.itraveller.model.RearrangePlaceModel;
 import com.itraveller.volley.AppController;
 
 public class RearrangePlaceAdapter extends BaseAdapter {
-    private Activity activity;
-    private LayoutInflater inflater;
-    private List<RearrangePlaceModel> RearrangeItems;
-    private  int _screen_height;
-    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<RearrangePlaceModel> mRearrangeItems;
+    private ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-    public RearrangePlaceAdapter(Activity activity, List<RearrangePlaceModel> rearrangeItems) {
-        this.activity = activity;
-        this.RearrangeItems = rearrangeItems;
+    public RearrangePlaceAdapter(Activity mActivity, List<RearrangePlaceModel> mRearrangeItems) {
+        this.mActivity = mActivity;
+        this.mRearrangeItems = mRearrangeItems;
     }
 
     @Override
     public int getCount() {
-        return RearrangeItems.size();
+        return mRearrangeItems.size();
     }
  
     @Override
     public Object getItem(int location) {
-        return RearrangeItems.get(location);
+        return mRearrangeItems.get(location);
     }
  
     @Override
@@ -47,11 +46,11 @@ public class RearrangePlaceAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
  
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
+        if (mLayoutInflater == null)
+            mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.list_item_handle_left, null);
+            convertView = mLayoutInflater.inflate(R.layout.list_item_handle_left, null);
  
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
@@ -62,7 +61,7 @@ public class RearrangePlaceAdapter extends BaseAdapter {
         Button btn_minus =(Button) convertView.findViewById(R.id.minus_btn);
 
         // getting data for the row
-        final RearrangePlaceModel m = RearrangeItems.get(position);
+        final RearrangePlaceModel m = mRearrangeItems.get(position);
 
         title.setText(m.getPlace());
         days.setText(m.getNights());
@@ -92,17 +91,17 @@ public class RearrangePlaceAdapter extends BaseAdapter {
     }
 
     public void remove(RearrangePlaceModel item) {
-        RearrangeItems.remove(item);
+        mRearrangeItems.remove(item);
         notifyDataSetChanged();
     }
 
     public void insert(RearrangePlaceModel item, int position) {
-        RearrangeItems.add(position, item);
+        mRearrangeItems.add(position, item);
         notifyDataSetChanged();
     }
 
     public List<RearrangePlaceModel> getList(){
-        return RearrangeItems;
+        return mRearrangeItems;
     }
 
 }

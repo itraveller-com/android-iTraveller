@@ -6,13 +6,12 @@
     android:background="@android:color/white"
     android:clickable="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/topiclist_empty_arrow"
@@ -24,10 +23,9 @@
         android:textSize="36sp"
         android:minHeight="60dp"
         android:layout_marginTop="-30dp"
-        android:layout_marginRight="10dp"
-        android:singleLine="true"
+        android:maxLines="2"
         android:gravity="left|center_vertical"
-        android:text="@string/Create_a_Binder"
+        android:text="@string/Start_a_New_Conversation"
         android:id="@+id/textView"
         android:layout_below="@+id/iv_arrow"
         android:layout_toLeftOf="@+id/iv_arrow" />
@@ -47,9 +45,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/Binder_is_a_new_type_of_collaboration_workspace_for_team_chat_content_sharing_meetings_and_tasks_management"
+        android:text="@string/A_Binder_will_be_created_keeping_together_the_messages_content_annotations_tasks_and_alerts_for_this_conversation"
         android:id="@+id/textView2"
         android:minLines="4"
         android:layout_below="@+id/imageView2"
@@ -62,4 +59,4 @@
         android:id="@+id/iv_empty_mask"
         android:scaleType="fitEnd"
         android:layout_alignParentBottom="true" />
-</com.moxtra.binder.widget.TopicListEmptyContainer><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/timeline_empty_view.xml -->
+</com.moxtra.binder.widget.TopicListEmptyContainer><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/timeline_empty_view.xml -->

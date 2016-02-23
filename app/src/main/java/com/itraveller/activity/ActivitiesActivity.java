@@ -89,7 +89,6 @@ public class ActivitiesActivity extends ActionBarActivity {
     String[] hotel_destination;
 
     public int count;
-    public int transportation_cost;
     public ProgressBar loadingBar;
 
 
@@ -97,11 +96,6 @@ public class ActivitiesActivity extends ActionBarActivity {
 
     SharedPreferences preferences;
     SharedPreferences prefs;
-    TextView nameText, placesText, destinationText, arr_dateText, dep_dateText, daysText, adultsText, child_5_12_Text, child_below_5_Text;
-    TextView nameSellerText, addressSellerText, arrAtText, dateDisplayText, roomDisplayText, totalPriceText;
-    TextView discountPriceText, priceAdvanceText, remainingPriceText, departureText, transportationText;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
     // Declare Variable
     public ListViewPagerActivitiesAdapter listViewPagerAdapter;
     private ArrayList<String> activitiesList;
@@ -167,27 +161,6 @@ public class ActivitiesActivity extends ActionBarActivity {
         hotel_destination = Destination_Value.trim().split(",");
         HotelRoomData = new String[hotel_destination.length];
         lowesthotelList = new ArrayList<>();
-
-        nameText = (TextView) findViewById(R.id.name_value);
-        placesText = (TextView) findViewById(R.id.places_value);
-        destinationText = (TextView) findViewById(R.id.destinations_value);
-        arr_dateText = (TextView) findViewById(R.id.date_of_arrival_value);
-        dep_dateText = (TextView) findViewById(R.id.date_of_departure_value);
-        daysText = (TextView) findViewById(R.id.no_of_days_value);
-        adultsText = (TextView) findViewById(R.id.no_of_adults_value);
-        child_5_12_Text = (TextView) findViewById(R.id.no_of_children_5_12_value);
-        child_below_5_Text = (TextView) findViewById(R.id.no_of_children_below_5_value);
-        totalPriceText = (TextView) findViewById(R.id.total_price_value);
-        discountPriceText = (TextView) findViewById(R.id.disount_value);
-        remainingPriceText = (TextView) findViewById(R.id.price_after_discount_value);
-        priceAdvanceText = (TextView) findViewById(R.id.booking_advance_value);
-        nameSellerText = (TextView) findViewById(R.id.name_of_seller_value);
-        addressSellerText = (TextView) findViewById(R.id.address_of_seller_value);
-        arrAtText = (TextView) findViewById(R.id.arrival_at_value);
-        dateDisplayText = (TextView) findViewById(R.id.date_of_arrival_display);
-        roomDisplayText = (TextView) findViewById(R.id.room_type_display);
-        departureText = (TextView) findViewById(R.id.departure_from_text_value);
-        transportationText = (TextView) findViewById(R.id.transportation_text_value);
 
         //"Proceed" button to go to payment page
         proceed_activity = (Button) findViewById(R.id.to_activities);

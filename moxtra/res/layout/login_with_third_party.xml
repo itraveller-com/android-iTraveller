@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/MXThirdPartyLoginTitle"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/Or_log_in_with" />
+
+    <LinearLayout
+        android:layout_below="@id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_facebook_login"
+            style="@style/MXThirdPartyLoginButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_facebook"
+            android:text="@string/Facebook" />
+
+        <Button
+            android:id="@+id/btn_google_account_login"
+            style="@style/MXThirdPartyLoginButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_google"
+            android:text="@string/Google"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn_other_login"
+            style="@style/MXThirdPartyLoginButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_sso"
+            android:text="@string/Other"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/login_with_third_party.xml -->

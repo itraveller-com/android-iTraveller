@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/tv_badge"
-        android:minHeight="@dimen/action_bar_height"
+        android:minHeight="@dimen/left_slide_list_item_height"
         android:orientation="horizontal">
 
 
@@ -24,12 +24,12 @@
             android:checked="false"
             android:clickable="false"
             android:focusable="false"
-            android:minHeight="60dp"
-            android:minWidth="60dp" />
+            android:minHeight="@dimen/left_slide_icon_size"
+            android:minWidth="@dimen/left_slide_icon_size" />
 
 
         <Space
-            android:layout_width="10dp"
+            android:layout_width="@dimen/left_slide_normal_icon_spacing"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:background="@null"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Unknown"
-            android:textColor="@color/moxtra_darkgray" />
+            android:textColor="@color/selector_slide_text" />
 
     </LinearLayout>
 
@@ -58,4 +58,4 @@
         android:visibility="visible" />
 
 </com.moxtra.binder.widget.CheckableRelativeLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_left_sliding.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_left_sliding.xml -->

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,12 +11,28 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_binder_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearance"
+            android:layout_toLeftOf="@+id/iv_edit"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textStyle="bold"
+            fontPath="fonts/ProximaNova-Bold.otf"
+            tools:ignore="MissingPrefix"
+            android:text="@string/Binder_Topic_" />
+
+        <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/tv_binder_topic"
             android:layout_toLeftOf="@+id/iv_edit"
+            android:gravity="center_vertical"
             android:minLines="3"
-            android:text="@string/This_is_the_beginning_of_the_binder" />
+            android:text="@string/This_conversation_was_initiated_by" />
 
         <View
             android:id="@+id/separator"
@@ -82,4 +99,4 @@
     </RelativeLayout>
 
 </FrameLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_beginning.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_beginning.xml -->

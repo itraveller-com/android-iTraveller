@@ -34,27 +34,17 @@ import com.itraveller.volley.AppController;
  * Created by VNK on 6/25/2015.
  */
 public class ViewPagerAdapter extends PagerAdapter {
-ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
-    public static int temp_hotel_id;
-
-    public static int count=0;
-    int check_bit=0;
-    ArrayList<HotelModel> arrayModelClasses = new ArrayList<HotelModel>();
+    private ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
+    public static int sCount=0;
+    private int mCheckBit=0;
+    private ArrayList<HotelModel> mArrayModelClasses = new ArrayList<HotelModel>();
 
     @SuppressLint("NewApi")
-
-
-    public ViewPagerAdapter() {
+    public ViewPagerAdapter(ArrayList<HotelModel> mArrayModelClasses,ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner) {
 
         super();
-
-    }
-
-    public ViewPagerAdapter(ArrayList<HotelModel> arrayModelClasses,ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner) {
-
-        super();
-        this.arrayModelClasses = arrayModelClasses;
+        this.mArrayModelClasses = mArrayModelClasses;
         this.mPagerCheckBoxChangedListner=mPagerCheckBoxChangedListner;
 
     }
@@ -62,7 +52,7 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
     @Override
     public int getCount() {
 
-        return arrayModelClasses.size();
+        return mArrayModelClasses.size();
 
     }
 
@@ -117,19 +107,19 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
 
         //    image.setImageUrl("http://stage.itraveller.com/backend/images/hotels/"+arrayModelClasses.get(position).getHotel_Id()+".jpg", imageLoader);
 
-            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + arrayModelClasses.get(position).getHotel_Id() + ".jpg", imageLoader);
-            itemText.setText(arrayModelClasses.get(position).getHotel_Name());
+            image.setImageUrl(Constants.API_ViewPagerAdapter_ImageURL + mArrayModelClasses.get(position).getHotel_Id() + ".jpg", imageLoader);
+            itemText.setText(mArrayModelClasses.get(position).getHotel_Name());
 
-            String rate_arr[]=(""+arrayModelClasses.get(position).getHotel_Star_Rating()).split(" ");
+            String rate_arr[]=(""+mArrayModelClasses.get(position).getHotel_Star_Rating()).split(" ");
 
             ratingBar.setRating(Float.parseFloat(rate_arr[0]));
 
             //if(arrayModelClasses.get(position).get)
             checkBox.setChecked(false);
-            Log.d("checkbox test",""+arrayModelClasses.get(position).isChecked());
-            if(arrayModelClasses.get(position).isChecked())
+            Log.d("checkbox test",""+mArrayModelClasses.get(position).isChecked());
+            if(mArrayModelClasses.get(position).isChecked())
             {
-                if(check_bit == 0)
+                if(mCheckBit == 0)
                 {
                     checkBox.setChecked(true);
 
@@ -160,11 +150,11 @@ ListViewPagerAdapter.pagerCheckBoxChangedListner mPagerCheckBoxChangedListner;
                 @Override
                 public void onClick(View view) {
 
-                    if(count==0)
+                    if(sCount==0)
                     mPagerCheckBoxChangedListner.OnImageClickListenerCustomPager(position);
                     //mPagerCheckBoxChangedListner1.OnImageClickListenerCustomPager(position);
 
-                    count++;
+                    sCount++;
                 }
             });
 

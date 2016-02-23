@@ -1,0 +1,93 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MX_RootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/middlegray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/action_bar_height"
+            android:background="@color/search_action_bar_bg">
+
+            <com.moxtra.binder.widget.ClearableEditText
+                android:id="@+id/msb_keyword"
+                style="@style/MXSearchBox"
+                android:layout_width="750dp"
+                android:layout_height="wrap_content"
+		        android:layout_centerInParent="true"
+                android:hint="@string/Search"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/msb_keyword"
+                android:text="@string/Cancel"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <ViewSwitcher
+            android:id="@+id/search_result_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/main_search_result_listview"
+                android:layout_width="750dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+            <android.support.v4.app.FragmentTabHost
+                android:id="@+id/main_search_result_tabhost"
+                android:layout_width="750dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:orientation="horizontal" />
+
+                    <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0" />
+
+                    <FrameLayout
+                        android:id="@+id/realtabcontent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </android.support.v4.app.FragmentTabHost>
+
+        </ViewSwitcher>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/stack_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</FrameLayout>
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/activity_global_search_tablet_land.xml -->

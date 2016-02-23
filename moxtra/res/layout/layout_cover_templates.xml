@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tl_cover_templates"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_group1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_projects1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1"
+            android:tag="binder_cover_projects2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1"
+            android:tag="binder_cover_projects3" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_educations1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_educations2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_educations3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_educations4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <ImageView
+            android:tag="binder_cover_educations5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_educations6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_sales1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_sales2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_sales3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_marketing1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_marketing2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_marketing3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_marketing4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <ImageView
+            android:tag="binder_cover_marketing5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_marketing6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_constructions1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_constructions2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_constructions3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <TableRow android:layout_weight="1">
+        <ImageView
+            android:tag="binder_cover_geo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_geo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:tag="binder_cover_geo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_weight="1" />
+    </TableRow>
+</TableLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/layout_cover_templates.xml -->

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MX_PageDetail_Secondary3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_margin="@dimen/page_detail_secondary1_button_margin">
+
+    <com.moxtra.binder.widget.PageDetailColorButton
+        android:id="@+id/page_detail_selected_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/color_button_bg"
+        android:button="@null"
+        android:minHeight="@dimen/page_detail_button_size"
+        android:minWidth="@dimen/page_detail_button_size" />
+
+    <LinearLayout
+        android:id="@+id/undo_redo_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/undo_redo_holder"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/page_detail_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/selector_undo" />
+
+        <ImageButton
+            android:id="@+id/page_detail_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/selector_redo" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/page_detail_selected_tool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:src="@drawable/annotation_draw_selected" />
+
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/page_detail_secondary_panel_3.xml -->

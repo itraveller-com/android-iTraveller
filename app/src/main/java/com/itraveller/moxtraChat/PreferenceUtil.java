@@ -14,12 +14,23 @@ public class PreferenceUtil {
 
     private final static String PREF = "PREF";
     private final static String PHONE = "PHONE";
-    private final static String TOKEN = "TOKEN";
-    private final static String BINDERID = "BINDERID";
+
+    private final static String SINGLE_TOKEN = "SINGLE_TOKEN";
+    private final static String GROUP_TOKEN = "GROUP_TOKEN";
+    private final static String TRAVEL_TOKEN = "TRAVEL_TOKEN";
+
+    private final static String SINGLE_BINDERID = "SINGLE_BINDERID";
+    private final static String TRAVEL_BINDERID = "TRAVEL_BINDERID";
+    private final static String GROUP_BINDERID = "GROUP_BINDERID";
+
     private final static String AGENTBINDER = "AGENTBINDER";
     private final static String BINDER_OWNER = "BINDER_OWNER";
     private final static String GCM_REG_ID = "GCM_REG_ID";
-    private final static String USER_GCM_REG_ID = "USER_GCM_REG_ID";
+
+    private final static String SINGLE_USER_GCM_REG_ID = "SINGLE_USER_GCM_REG_ID";
+    private final static String GROUP_USER_GCM_REG_ID = "GROUP_USER_GCM_REG_ID";
+    private final static String TRAVEL_USER_GCM_REG_ID = "TRAVEL_USER_GCM_REG_ID";
+
     private final static String APP_VERSION = "APP_VERSION";
     private static final String TAG = "PreferenceUtil";
 
@@ -41,8 +52,13 @@ public class PreferenceUtil {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
         ed.remove(PHONE).commit();
-        ed.remove(BINDERID).commit();
-        ed.remove(TOKEN).commit();
+        ed.remove(SINGLE_BINDERID).commit();
+        ed.remove(TRAVEL_BINDERID).commit();
+        ed.remove(GROUP_BINDERID).commit();
+        ed.remove(SINGLE_TOKEN).commit();
+        ed.remove(TRAVEL_TOKEN).commit();
+        ed.remove(GROUP_TOKEN).commit();
+
     }
 
     public static void saveUser(Context context, String phone) {
@@ -63,17 +79,39 @@ public class PreferenceUtil {
     }
 
 
-    public static void setBinderId(Context context, String unqid) {
+    public static void setSingleBinderId(Context context, String unqid) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
-        ed.putString(BINDERID, unqid).commit();
+        ed.putString(SINGLE_BINDERID, unqid).commit();
     }
 
-    public static String getBinderId(Context context) {
+    public static String getSingleBinderId(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        return sp.getString(BINDERID, "");
+        return sp.getString(SINGLE_BINDERID, "");
     }
 
+
+    public static void setTravelBinderId(Context context, String unqid) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(TRAVEL_BINDERID, unqid).commit();
+    }
+
+    public static String getTravelBinderId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(TRAVEL_BINDERID, "");
+    }
+
+    public static void setGroupBinderId(Context context, String unqid) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(GROUP_BINDERID, unqid).commit();
+    }
+
+    public static String getGroupBinderId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(GROUP_BINDERID, "");
+    }
 
 
     public static void setAgentBinderId(Context context, String unqid) {
@@ -87,16 +125,41 @@ public class PreferenceUtil {
         return sp.getString(AGENTBINDER, null);
     }
 
-    public static String getTokenId(Context context) {
+    public static String getSingleTokenId(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        return sp.getString(TOKEN, "");
+        return sp.getString(SINGLE_TOKEN, "");
     }
 
-    public static void setTokenId(Context context, String token) {
+    public static void setSingleTokenId(Context context, String token) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
-        ed.putString(TOKEN, token).commit();
+        ed.putString(SINGLE_TOKEN, token).commit();
     }
+
+
+    public static String getGroupTokenId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(GROUP_TOKEN, "");
+    }
+
+    public static void setGroupTokenId(Context context, String token) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(GROUP_TOKEN, token).commit();
+    }
+
+
+    public static String getTravelTokenId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(TRAVEL_TOKEN, "");
+    }
+
+    public static void setTravelTokenId(Context context, String token) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(TRAVEL_TOKEN, token).commit();
+    }
+
     public static boolean isUserInit(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
         String clientId = getClientId(context);
@@ -122,16 +185,39 @@ public class PreferenceUtil {
     }
 
 
-    public static String getUserGcmRegId(Context context) {
+    public static String getSingleUserGcmRegId(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        return sp.getString(USER_GCM_REG_ID, null);
+        return sp.getString(SINGLE_USER_GCM_REG_ID, null);
     }
 
-    public static void setUserGcmRegId(Context context, String gcmRegId) {
+    public static void setSingleUserGcmRegId(Context context, String gcmRegId) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
-        ed.putString(USER_GCM_REG_ID, gcmRegId).commit();
+        ed.putString(SINGLE_USER_GCM_REG_ID, gcmRegId).commit();
     }
+
+    public static String getGroupUserGcmRegId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(GROUP_USER_GCM_REG_ID, null);
+    }
+
+    public static void setGroupUserGcmRegId(Context context, String gcmRegId) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(GROUP_USER_GCM_REG_ID, gcmRegId).commit();
+    }
+
+    public static String getTravelUserGcmRegId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        return sp.getString(TRAVEL_USER_GCM_REG_ID, null);
+    }
+
+    public static void setTravelUserGcmRegId(Context context, String gcmRegId) {
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putString(TRAVEL_USER_GCM_REG_ID, gcmRegId).commit();
+    }
+
 
     public static int getAppVersion(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);

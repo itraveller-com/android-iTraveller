@@ -36,8 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/page_detail_arrow_toolbar" />
-
         <include layout="@layout/page_detail_edit_toolbar" />
 
         <include layout="@layout/page_detail_color_picker" />
@@ -50,11 +48,14 @@
     <!--Secondary Panel 2-->
     <include layout="@layout/page_detail_secondary_panel_2" />
 
+    <!--Secondary Panel 3-->
+    <include layout="@layout/page_detail_secondary_panel_3" />
+
     <!-- Clip docker -->
-    <include layout="@layout/clip_small_view"
+    <!--<include layout="@layout/clip_small_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
-</com.moxtra.binder.widget.PageDetailActionPanel><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/page_detail_action_panel.xml -->
+</com.moxtra.binder.widget.PageDetailActionPanel><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/page_detail_action_panel.xml -->

@@ -6,7 +6,8 @@
     android:layout_marginTop="3dp"
     android:clickable="true"
     android:id="@+id/nav_drawer_row"
-    android:background="@drawable/drawer_list_selector">
+    android:background="@drawable/drawer_item_selector">
+
 
 
     <ImageView
@@ -16,7 +17,9 @@
         android:layout_marginLeft="16dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        />
+        android:tint="@drawable/drawer_font_selector"/>
+    <!--android:background="@drawable/drawer_font_selector"-->
+
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
@@ -25,8 +28,9 @@
         android:layout_marginLeft="56dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
+        android:textColor="@drawable/drawer_font_selector"
         />
 
 </RelativeLayout>

@@ -22,7 +22,7 @@
             android:drawableLeft="@drawable/pages_meet_logo"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
-            android:text="@string/Start_an_online_meeting_with_below_team_members" />
+            android:text="@string/Start_an_online_meeting_with_the_team_members_below" />
 
         <View
             android:layout_width="match_parent"
@@ -68,6 +68,16 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_double_tap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:textColor="@color/color_gray"
+        android:text="@string/Double_tap_to_unselect_all" />
 
     <GridView
         android:id="@android:id/list"
@@ -126,4 +136,4 @@
 
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_meet_option.xml -->
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_meet_option.xml -->

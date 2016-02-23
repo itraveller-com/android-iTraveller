@@ -499,37 +499,37 @@ public class DragAndSort extends ActionBarActivity
                 //view.getId();
                 Log.i("Hellon","Test "+check_bit_new);
              if(check_bit_new == 1) {
-                 from_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
-                 travelfrom = "" +AirportAdapter.AirportItems.get(position).getKey();
-                 to_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ", "\n"));
-                 travelto = "" +AirportAdapter.AirportItems.get(position).getKey();
+                 from_home.setText(AirportAdapter.sAirportItems.get(position).getValue().replace(" ","\n"));
+                 travelfrom = "" +AirportAdapter.sAirportItems.get(position).getKey();
+                 to_home.setText(AirportAdapter.sAirportItems.get(position).getValue().replace(" ", "\n"));
+                 travelto = "" +AirportAdapter.sAirportItems.get(position).getKey();
 
              }
                 else if(check_bit_new == 2)
              {
-                 from_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 arrival_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
-                 to_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 departure_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
+                 from_travel.setText(PortAndLocAdapter.sPortandLocItems.get(position).getValue().replace(" ","\n"));
+                 arrival_id = PortAndLocAdapter.sPortandLocItems.get(position).getKey();
+                 to_travel.setText(PortAndLocAdapter.sPortandLocItems.get(position).getValue().replace(" ","\n"));
+                 departure_id = PortAndLocAdapter.sPortandLocItems.get(position).getKey();
 
              }
                 else if(check_bit_new == 3)
              {
-                 to_travel.setText(PortAndLocAdapter.PortandLocItems.get(position).getValue().replace(" ","\n"));
-                 departure_id = PortAndLocAdapter.PortandLocItems.get(position).getKey();
+                 to_travel.setText(PortAndLocAdapter.sPortandLocItems.get(position).getValue().replace(" ","\n"));
+                 departure_id = PortAndLocAdapter.sPortandLocItems.get(position).getKey();
 
              }
                 else if(check_bit_new == 4)
              {
-                 to_home.setText(AirportAdapter.AirportItems.get(position).getValue().replace(" ","\n"));
-                 travelto = ""+AirportAdapter.AirportItems.get(position).getKey();
+                 to_home.setText(AirportAdapter.sAirportItems.get(position).getValue().replace(" ","\n"));
+                 travelto = ""+AirportAdapter.sAirportItems.get(position).getKey();
 
              }
                 else if(check_bit_new == 5){
 
                  RearrangePlaceModel m = new RearrangePlaceModel();
-                 m.setPlace(PortAndLocAdapter.PortandLocItems.get(position).getValue());
-                 m.setPlaceID(PortAndLocAdapter.PortandLocItems.get(position).getKey());
+                 m.setPlace(PortAndLocAdapter.sPortandLocItems.get(position).getValue());
+                 m.setPlaceID(PortAndLocAdapter.sPortandLocItems.get(position).getKey());
                  m.setNights("1");
                  rearrangeList.add(m);
                  adapter_rearrange.notifyDataSetChanged();

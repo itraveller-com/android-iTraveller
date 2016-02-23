@@ -37,10 +37,10 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
 
     public static TextView sGreeting;
     public static ImageView sProfilePic;
-    Toolbar mToolbar;
+    private Toolbar mToolbar;
     private MyTravelFragmentDrawer mDrawerFragment;
-    Fragment mFragment;
-    String mTitle;
+    private Fragment mFragment;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,31 +61,63 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
         mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         mDrawerFragment.setDrawerListener(this);
 
+        updateNav();
+
         displayView(1);
 
     }
 
 
-    //this method is used to convert image into circular form
-    public Bitmap getCroppedBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
-                bitmap.getWidth() / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return output;
+    public void updateNav()
+    {
+        if (sharedPreferenceRetrive().getString("serverCheck","User").equalsIgnoreCase("facebook")) {
+            //profilepic.setImageResource(R.drawable.ic_profile_pic);
+            facebookImage();
+        } else {
+            //profilepic.setImageResource(R.drawable.ic_profile);
+            serverImage();
+        }
     }
 
-    public SharedPreferences SharedPreferenceRetrive() {
+    public void facebookImage() {
+        try {
+            Log.d("FacebookImg", "" + "https://graph.facebook.com/" + sharedPreferenceRetrive().getString("id", "") + "/picture");
+            URL imgUrl = new URL("https://graph.facebook.com/" + sharedPreferenceRetrive().getString("id", "") + "/picture");
+            InputStream in = (InputStream) imgUrl.getContent();
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            sProfilePic.setImageBitmap(getCroppedBitmap(bitmap));
+            sGreeting.setText("Hello " + sharedPreferenceRetrive().getString("name", "User").toString());
+        } catch (Exception e){
+
+        }
+    }
+    public void serverImage(){
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile);
+        sProfilePic.setImageBitmap(getCroppedBitmap(icon));
+        sGreeting.setText("Hello " + sharedPreferenceRetrive().getString("name", "User"));
+
+    }
+
+    //this method is used to convert image into circular form
+    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+        Bitmap mOutput = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas mCanvas = new Canvas(mOutput);
+        final int COLOR = 0xff424242;
+        final Paint PAINT = new Paint();
+        final Rect RECT = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        PAINT.setAntiAlias(true);
+        mCanvas.drawARGB(0, 0, 0, 0);
+        PAINT.setColor(COLOR);
+        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        mCanvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
+                bitmap.getWidth() / 2, PAINT);
+        PAINT.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        mCanvas.drawBitmap(bitmap, RECT, RECT, PAINT);
+        return mOutput;
+    }
+
+    public SharedPreferences sharedPreferenceRetrive() {
         SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         return preferences;
     }
@@ -105,8 +137,8 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
         switch (position) {
             case 0:
 
-                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent mIntent= new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(mIntent);
                 finish();
                 break;
 
@@ -122,8 +154,8 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
         }
 
         if (mFragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentManager mFragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_body, mFragment);
             fragmentTransaction.commit();
 
@@ -135,13 +167,11 @@ public class MyTravelActivity extends AppCompatActivity implements MyTravelFragm
     @Override
     public void onStart() {
         super.onStart();
-//        isActive=true;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//        isActive=false;
     }
 
     @Override

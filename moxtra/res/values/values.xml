@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/meet_duration_hours.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/meet_duration_hours.xml -->
     <eat-comment/>
     <string-array name="hours">
         <item>0 hr</item>
@@ -28,7 +28,7 @@
         <item>22 hrs</item>
         <item>23 hrs</item>
     </string-array>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/meet_duration_minutes.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/meet_duration_minutes.xml -->
     <eat-comment/>
     <string-array name="minutes">
         <item>0 min</item>
@@ -36,69 +36,82 @@
         <item>30 mins</item>
         <item>45 mins</item>
     </string-array>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__attrs.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__attrs.xml -->
     <eat-comment/>
     <attr format="boolean" name="centered"/>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/hlv_attrs.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/hlv_attrs.xml -->
     <eat-comment/>
     <attr format="reference" name="hlv_absHListViewStyle"/>
     <attr format="reference" name="hlv_expandableListViewStyle"/>
     <attr format="dimension" name="hlv_listPreferredItemWidth"/>
     <attr format="reference" name="hlv_listViewStyle"/>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/attrs.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/attrs.xml -->
     <eat-comment/>
     <attr format="dimension" name="radius"/>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__attrs.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__attrs.xml -->
     <eat-comment/>
     <attr format="color" name="selectedColor"/>
     <attr format="dimension" name="strokeWidth"/>
     <attr format="color" name="unselectedColor"/>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__defaults.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <bool name="default_circle_indicator_centered">true</bool>
     <bool name="default_circle_indicator_snap">false</bool>
     <bool name="default_line_indicator_centered">true</bool>
     <bool name="default_title_indicator_selected_bold">true</bool>
     <bool name="default_underline_indicator_fades">true</bool>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/booleans.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/booleans.xml -->
     <eat-comment/>
     <bool name="is_landscape">false</bool>
     <bool name="is_portrait">true</bool>
     <bool name="is_tablet">false</bool>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="action_bar_title_shadow">#ff233a4d</color>
     <color name="action_bar_title_text">#ff000000</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="background">#272727</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="bar_tint_color">#fff4f4f4</color>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview_colors.xml -->
     <eat-comment/>
     <color name="base_end_color_default">#FFFFFF</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview2_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview2_colors.xml -->
     <eat-comment/>
     <color name="base_end_color_line_default">#FFFFFFFF</color>
     <color name="base_end_color_line_pressed">#FF2570BA</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview_colors.xml -->
     <eat-comment/>
     <color name="base_end_color_pressed">#ff2570ba</color>
     <color name="base_start_color_default">#FFFFFF</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview2_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview2_colors.xml -->
     <eat-comment/>
     <color name="base_start_color_line_default">#FFFFFFFF</color>
     <color name="base_start_color_line_pressed">#FF3590C4</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview_colors.xml -->
     <eat-comment/>
     <color name="base_start_color_pressed">#ff3590c4</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="blue">#ff1463e2</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview2_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview2_colors.xml -->
     <eat-comment/>
     <color name="cell_border">#FFD3D3D3</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
+    <color name="chat_bg">#F2F2F2</color>
     <color name="chat_tab_bar_bg">#5a000000</color>
+    <color name="clr_active_meet_text">@color/orange2</color>
+    <color name="clr_bg_slide_bar">@android:color/white</color>
+    <color name="clr_deactive_meet_text">@color/moxtra_darkgray</color>
+    <color name="clr_nav_bar_text">@android:color/black</color>
+    <color name="clr_normal_day_text">#030303</color>
+    <color name="clr_outbound_day_text">#aaaaaa</color>
+    <color name="clr_select_day_text">@color/moxtra_orange</color>
+    <color name="clr_slide_text">@color/moxtra_darkgray</color>
+    <color name="clr_slide_text_selected">@color/moxtra_blue</color>
     <color name="color_black">#000000</color>
     <color name="color_black_light">#99000000</color>
     <color name="color_blue_sky">#5e7d87</color>
@@ -108,10 +121,10 @@
     <color name="dark">#000000</color>
     <color name="darker_blue">#ff00393c</color>
     <color name="darker_gray_36">#ff363738</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="deepcolor">#faaa5f</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__defaults.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -122,13 +135,13 @@
     <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
     <color name="default_title_indicator_text_color">#BBFFFFFF</color>
     <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="divider_gray">#BFBFBF</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="gray">#A6A6A0</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="gray_bg">#ffd8dcdf</color>
     <color name="gray_dark">#ff222222</color>
@@ -147,6 +160,12 @@
     <color name="holo_purple">#ffaa66cc</color>
     <color name="holo_red_dark">#ffcc0000</color>
     <color name="holo_red_light">#ffff4444</color>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-emoji/values/colors.xml -->
+    <eat-comment/>
+    <color name="horizontal_divider">#8f8f8f</color>
+    <color name="horizontal_vertical">#8f8f8f</color>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
+    <eat-comment/>
     <color name="left_sliding_bg">#cfff</color>
     <color name="light">#ffffff</color>
     <color name="light_blue">#ff0082d5</color>
@@ -156,6 +175,7 @@
     <color name="list_cell_bg">#64168080</color>
     <color name="list_cell_selected">#ffe5f4ff</color>
     <color name="list_item_bottom_bar_bg">#333333</color>
+    <color name="meet_feed_separator_color">#7F7F7F</color>
     <color name="meetlist_item_bg">#99d8d8d8</color>
     <color name="middlegray">#888888</color>
     <color name="moxtra_blue">#ff0082d5</color>
@@ -164,55 +184,50 @@
     <color name="moxtra_gray">#ffeeeeee</color>
     <color name="moxtra_orange">#ffff8400</color>
     <color name="moxtra_red">#ffff0000</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="naming">#ABABAB</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="new_binder_text_bg_color">#fff7fcff</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/colors.xml -->
-    <eat-comment/>
-    <color name="new_color">#AAAAFF</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
-    <eat-comment/>
     <color name="normal">#b0b0b0</color>
     <color name="orange">#FFA500</color>
     <color name="orange2">@color/moxtra_orange</color>
     <color name="orange_darker">#ff402200</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="orange_yellow">#9b9ba0</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="page_detail_bar_background">#dd000000</color>
     <color name="popover_title_color">#ff000000</color>
     <color name="popover_title_color_tablet">#ffffffff</color>
     <color name="popover_title_shadow_color">#ffdddddd</color>
     <color name="popover_title_shadow_color_tablet">#00222222</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/colors.xml -->
-    <eat-comment/>
-    <color name="prev_color">#FFAAAA</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="red">#FF0000</color>
     <color name="remote_connect_text">#FFe78018</color>
     <color name="remote_disconnect_text">#FF901821</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview_colors.xml -->
     <eat-comment/>
     <color name="rounded_container_border">#ffb7babb</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="search_action_bar_bg">#99666666</color>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="shadowcolor">#333333</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="slide_select_item_bg">#ff55a5f5</color>
     <color name="task_note_background">#fffff3</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview2_colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview2_colors.xml -->
     <eat-comment/>
     <color name="text_color_default">@color/moxtra_blue</color>
     <color name="text_color_header">#4C566C</color>
     <color name="text_color_pressed">@android:color/black</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="text_dialog_message">#ff333333</color>
     <color name="text_dialog_message_shadow">#fff6f6f6</color>
@@ -228,7 +243,7 @@
     <color name="translucent_black_85">#d8000000</color>
     <color name="transparent_color">#00ffffff</color>
     <color name="transparent_grid_bg">#00e1e1e1</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__colors.xml -->
     <eat-comment/>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
@@ -238,10 +253,10 @@
     <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
     <color name="vpi__bright_foreground_inverse_holo_dark">@color/vpi__bright_foreground_holo_light</color>
     <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <color name="white">#ffffffff</color>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <color name="yellow">#FFF000</color>
     <declare-styleable name="AbsHListView"><attr name="android:listSelector"/><attr name="android:smoothScrollbar"/><attr name="android:drawSelectorOnTop"/><attr name="android:cacheColorHint"/><attr name="android:scrollingCache"/><attr name="android:choiceMode"/><attr format="boolean" name="hlv_stackFromRight"/><attr name="hlv_transcriptMode"><enum name="disabled" value="0"/><enum name="normal" value="1"/><enum name="alwaysScroll" value="2"/></attr></declare-styleable>
@@ -251,13 +266,14 @@
     <declare-styleable name="CheckableImageButton"><attr format="boolean" name="is_checked"/><attr name="personality"><enum name="radio" value="0"/><enum name="check" value="1"/></attr></declare-styleable>
     <declare-styleable name="CirclePageIndicator"><attr name="centered"/><attr format="color" name="fillColor"/><attr format="color" name="pageColor"/><attr name="android:orientation"/><attr name="radius"/><attr format="boolean" name="snap"/><attr format="color" name="strokeColor"/><attr name="strokeWidth"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="DragSortListView"><attr format="dimension" name="collapsed_height"/><attr format="float" name="drag_scroll_start"/><attr format="float" name="max_drag_scroll_speed"/><attr format="color" name="float_background_color"/><attr name="remove_mode"><enum name="clickRemove" value="0"/><enum name="flingRemove" value="1"/></attr><attr format="boolean" name="track_drag_sort"/><attr format="float" name="float_alpha"/><attr format="float" name="slide_shuffle_speed"/><attr format="integer" name="remove_animation_duration"/><attr format="integer" name="drop_animation_duration"/><attr format="boolean" name="drag_enabled"/><attr format="boolean" name="sort_enabled"/><attr format="boolean" name="remove_enabled"/><attr name="drag_start_mode"><enum name="onDown" value="0"/><enum name="onMove" value="1"/><enum name="onLongPress" value="2"/></attr><attr format="integer" name="drag_handle_id"/><attr format="integer" name="fling_handle_id"/><attr format="integer" name="click_remove_id"/><attr format="boolean" name="use_default_controller"/></declare-styleable>
+    <declare-styleable name="Emojicon"><attr format="dimension" name="emojiconSize"/><attr format="enum" name="emojiconAlignment"><enum name="bottom" value="0"/><enum name="baseline" value="1"/></attr><attr format="integer" name="emojiconTextStart"/><attr format="integer" name="emojiconTextLength"/><attr format="boolean" name="emojiconUseSystemDefault"/></declare-styleable>
     <declare-styleable name="ExpandableHListView"><attr name="hlv_indicatorGravity"><flag name="top" value="0x30"/><flag name="bottom" value="0x50"/><flag name="left" value="0x03"/><flag name="right" value="0x05"/><flag name="center_vertical" value="0x10"/><flag name="fill_vertical" value="0x70"/><flag name="center_horizontal" value="0x01"/><flag name="fill_horizontal" value="0x07"/><flag name="center" value="0x11"/><flag name="fill" value="0x77"/><flag name="clip_vertical" value="0x80"/><flag name="clip_horizontal" value="0x08"/><flag name="start" value="0x00800003"/><flag name="end" value="0x00800005"/></attr><attr name="hlv_childIndicatorGravity"><flag name="top" value="0x30"/><flag name="bottom" value="0x50"/><flag name="left" value="0x03"/><flag name="right" value="0x05"/><flag name="center_vertical" value="0x10"/><flag name="fill_vertical" value="0x70"/><flag name="center_horizontal" value="0x01"/><flag name="fill_horizontal" value="0x07"/><flag name="center" value="0x11"/><flag name="fill" value="0x77"/><flag name="clip_vertical" value="0x80"/><flag name="clip_horizontal" value="0x08"/><flag name="start" value="0x00800003"/><flag name="end" value="0x00800005"/></attr><attr format="reference|color" name="hlv_childDivider"/><attr format="reference" name="hlv_groupIndicator"/><attr format="reference" name="hlv_childIndicator"/><attr format="dimension" name="hlv_indicatorPaddingLeft"/><attr format="dimension" name="hlv_indicatorPaddingTop"/><attr format="dimension" name="hlv_childIndicatorPaddingLeft"/><attr format="dimension" name="hlv_childIndicatorPaddingTop"/></declare-styleable>
     <declare-styleable name="FlowLayout"><attr format="dimension" name="horizontalSpacing"/><attr format="dimension" name="verticalSpacing"/><attr format="integer" name="cols"/></declare-styleable>
     <declare-styleable name="FlowLayout_LayoutParams"><attr format="boolean" name="layout_breakLine"/><attr format="dimension" name="layout_horizontalSpacing"/></declare-styleable>
     <declare-styleable name="Gallery"><attr name="android:galleryItemBackground"/></declare-styleable>
     <declare-styleable name="HListView"><attr name="android:entries"/><attr name="android:divider"/><attr format="dimension" name="hlv_dividerWidth"/><attr format="boolean" name="hlv_headerDividersEnabled"/><attr format="boolean" name="hlv_footerDividersEnabled"/><attr format="reference|color" name="hlv_overScrollHeader"/><attr format="reference|color" name="hlv_overScrollFooter"/><attr format="integer" name="hlv_measureWithChild"/></declare-styleable>
     <declare-styleable name="LinearListView"><attr name="android:entries"/><attr format="dimension" name="dividerThickness"/></declare-styleable>
-    <declare-styleable name="MoxtraSwitch"><attr format="reference" name="left"/><attr format="reference" name="right"/><attr format="string" name="defaultChecked"/></declare-styleable>
+    <declare-styleable name="MXTwoWayView"><attr name="android:id"/><attr name="android:tag"/><attr name="android:scrollX"/><attr name="android:scrollY"/><attr name="android:background"/><attr name="android:padding"/><attr name="android:paddingLeft"/><attr name="android:paddingTop"/><attr name="android:paddingRight"/><attr name="android:paddingBottom"/><attr name="android:paddingStart"/><attr name="android:paddingEnd"/><attr name="android:focusable"/><attr name="android:focusableInTouchMode"/><attr name="android:visibility"/><attr name="android:fitsSystemWindows"/><attr name="android:scrollbars"/><attr name="android:scrollbarStyle"/><attr name="android:isScrollContainer"/><attr name="android:fadeScrollbars"/><attr name="android:scrollbarFadeDuration"/><attr name="android:scrollbarDefaultDelayBeforeFade"/><attr name="android:scrollbarSize"/><attr name="android:scrollbarThumbHorizontal"/><attr name="android:scrollbarThumbVertical"/><attr name="android:scrollbarTrackHorizontal"/><attr name="android:scrollbarTrackVertical"/><attr name="android:scrollbarAlwaysDrawHorizontalTrack"/><attr name="android:scrollbarAlwaysDrawVerticalTrack"/><attr name="android:fadingEdge"/><attr name="android:requiresFadingEdge"/><attr name="android:fadingEdgeLength"/><attr name="android:nextFocusLeft"/><attr name="android:nextFocusRight"/><attr name="android:nextFocusUp"/><attr name="android:nextFocusDown"/><attr name="android:nextFocusForward"/><attr name="android:clickable"/><attr name="android:longClickable"/><attr name="android:saveEnabled"/><attr name="android:filterTouchesWhenObscured"/><attr name="android:drawingCacheQuality"/><attr name="android:keepScreenOn"/><attr name="android:duplicateParentState"/><attr name="android:minHeight"/><attr name="android:minWidth"/><attr name="android:soundEffectsEnabled"/><attr name="android:hapticFeedbackEnabled"/><attr name="android:contentDescription"/><attr name="android:onClick"/><attr name="android:overScrollMode"/><attr name="android:alpha"/><attr name="android:translationX"/><attr name="android:translationY"/><attr name="android:transformPivotX"/><attr name="android:transformPivotY"/><attr name="android:rotation"/><attr name="android:rotationX"/><attr name="android:rotationY"/><attr name="android:scaleX"/><attr name="android:scaleY"/><attr name="android:verticalScrollbarPosition"/><attr name="android:layerType"/><attr name="android:layoutDirection"/><attr name="android:textDirection"/><attr name="android:textAlignment"/><attr name="android:orientation"/><attr name="android:choiceMode"/><attr name="android:drawSelectorOnTop"/><attr name="android:listSelector"/></declare-styleable>
     <declare-styleable name="MultipleOrientationSlidingDrawer"><attr name="orientation"><enum name="top" value="0"/><enum name="left" value="1"/><enum name="bottom" value="2"/><enum name="right" value="3"/></attr><attr format="reference" name="handle"/><attr format="reference" name="content"/><attr format="dimension" name="bottomOffset"/><attr format="dimension" name="topOffset"/><attr format="boolean" name="allowSingleTap"/><attr format="boolean|color" name="animateOnClick"/></declare-styleable>
     <declare-styleable name="RoundedImageView"><attr format="dimension" name="corner_radius"/><attr format="dimension" name="border_width"/><attr format="color" name="border_color"/><attr format="boolean" name="round_background"/><attr format="boolean" name="is_oval"/><attr name="android:scaleType"/></declare-styleable>
     <declare-styleable name="SearchBoxView"><attr format="color|reference" name="textColor"/><attr format="string" name="searchHint"/><attr format="reference" name="search_icon"/><attr format="reference" name="clear_icon"/><attr format="boolean" name="my_index"/></declare-styleable>
@@ -265,7 +281,7 @@
     <declare-styleable name="SlidingMenu"><attr name="mode"><enum name="left" value="0"/><enum name="right" value="1"/></attr><attr format="reference" name="viewAbove"/><attr format="reference" name="viewBehind"/><attr format="dimension" name="behindOffset"/><attr format="dimension" name="behindWidth"/><attr format="float" name="behindScrollScale"/><attr name="touchModeAbove"><enum name="margin" value="0"/><enum name="fullscreen" value="1"/></attr><attr name="touchModeBehind"><enum name="margin" value="0"/><enum name="fullscreen" value="1"/></attr><attr format="reference" name="shadowDrawable"/><attr format="dimension" name="shadowWidth"/><attr format="boolean" name="fadeEnabled"/><attr format="float" name="fadeDegree"/><attr format="boolean" name="selectorEnabled"/><attr format="reference" name="selectorDrawable"/></declare-styleable>
     <declare-styleable name="TabControlButton"><attr format="string" name="tabControlButtonStyle"/></declare-styleable>
     <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/dimens.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="action_bar_height">48dp</dimen>
     <dimen name="action_bar_margin_left">5dp</dimen>
@@ -281,17 +297,6 @@
     <dimen name="alert_dialog_message_size">@dimen/text_size_14</dimen>
     <dimen name="alert_dialog_title_text_size">@dimen/text_size_18</dimen>
     <dimen name="alter_dialog_width">290dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/dimen.xml -->
-    <eat-comment/>
-    <dimen name="ambilwarna_button_margin">2dp</dimen>
-    <dimen name="ambilwarna_color_height">30dp</dimen>
-    <dimen name="ambilwarna_color_width">60dp</dimen>
-    <dimen name="ambilwarna_hsvHeight">240dp</dimen>
-    <dimen name="ambilwarna_hsvWidth">240dp</dimen>
-    <dimen name="ambilwarna_hueWidth">30dp</dimen>
-    <dimen name="ambilwarna_spacer">8dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="banner_layout_height">120dp</dimen>
     <dimen name="binder_list_grid_padding">0dp</dimen>
     <dimen name="calendar_height">260dp</dimen>
@@ -300,10 +305,11 @@
     <dimen name="chat_avatar_margin">20dp</dimen>
     <dimen name="chat_avatar_size">40dp</dimen>
     <dimen name="chat_input_min_height">36dp</dimen>
+    <dimen name="chat_message_max_width">280dp</dimen>
     <dimen name="coach_mark_down_textview_min_width">334px</dimen>
     <dimen name="coach_mark_up_textview_min_width">282px</dimen>
     <dimen name="comment_layout_height">250dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__defaults.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
@@ -318,7 +324,7 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/dimens.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="dialog_min_width">350dp</dimen>
     <dimen name="edittext_padding_left">70dp</dimen>
@@ -339,10 +345,15 @@
     <dimen name="height_loading_indicator">60dp</dimen>
     <dimen name="landing_page_button_width">300dp</dimen>
     <dimen name="landing_page_login_width">260dp</dimen>
+    <dimen name="left_slide_avatar_icon_spacing">10dp</dimen>
+    <dimen name="left_slide_avatar_size">60dp</dimen>
+    <dimen name="left_slide_icon_size">60dp</dimen>
+    <dimen name="left_slide_list_item_height">48dp</dimen>
+    <dimen name="left_slide_normal_icon_spacing">10dp</dimen>
     <dimen name="left_sliding_or_pane_min_width">300dp</dimen>
     <dimen name="list_item_margin">15dp</dimen>
     <dimen name="login_page_width">320dp</dimen>
-    <dimen name="login_signup_min_width">300dp</dimen>
+    <dimen name="login_signup_min_width">600dp</dimen>
     <dimen name="login_signup_padding">25dp</dimen>
     <dimen name="margin_textbox">13dp</dimen>
     <dimen name="max_page_height">138dp</dimen>
@@ -353,7 +364,7 @@
     <dimen name="min_textbox_width">100dp</dimen>
     <dimen name="min_toolbar_size">30dp</dimen>
     <dimen name="page_detail_button_margin">10dp</dimen>
-    <dimen name="page_detail_button_size">44dp</dimen>
+    <dimen name="page_detail_button_size">40dp</dimen>
     <dimen name="page_detail_main_button_margin">10dp</dimen>
     <dimen name="page_detail_secondary1_button_margin">10dp</dimen>
     <dimen name="page_detail_stroke_slider_height">42dp</dimen>
@@ -408,7 +419,7 @@
     <dimen name="story_page_title_margin">10dp</dimen>
     <dimen name="story_page_width">290dp</dimen>
     <dimen name="story_top_margin">60dp</dimen>
-    <dimen name="tab_bar_default_height">48dip</dimen>
+    <dimen name="tab_bar_default_height">38dp</dimen>
     <dimen name="table_cell_item_height">50dp</dimen>
     <dimen name="task_details_panel_width">300dp</dimen>
     <dimen name="text_size_10">10sp</dimen>
@@ -419,7 +430,7 @@
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_21">21sp</dimen>
     <dimen name="text_size_9sp">9sp</dimen>
-    <dimen name="timeline_item_padding">5dp</dimen>
+    <dimen name="timeline_item_padding">0dp</dimen>
     <dimen name="timeline_margin_right">5dp</dimen>
     <dimen name="timeline_separator_padding_phone">8dp</dimen>
     <dimen name="timeline_separator_padding_tablet">20dp</dimen>
@@ -427,41 +438,44 @@
     <dimen name="user_avatar_size">48dp</dimen>
     <dimen name="webclip_nav_bar_height">40dp</dimen>
     <dimen name="width_downloading_progress">260dp</dimen>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <drawable name="dialog_bg">#8000ffff</drawable>
     <drawable name="full_trans_activity_bg">#10000000</drawable>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/ids.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/ids.xml -->
     <eat-comment/>
+    <item name="home_navigatorbar_bg" type="drawable">@drawable/general_navigatorbar_bg</item>
     <item name="mx_notification_small_icon" type="drawable">@drawable/ic_notification</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/color.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/color.xml -->
     <eat-comment/>
     <drawable name="semi_black">#80000000</drawable>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/colors.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/colors.xml -->
     <eat-comment/>
     <drawable name="translucent_activity_bg">#a0000000</drawable>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/ids.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/ids.xml -->
     <eat-comment/>
     <item name="BG_VIEW_ID" type="id">10</item>
     <item name="CANCEL_BUTTON_ID" type="id">100</item>
+    <item name="btn_login" type="id"/>
     <item name="grid_pull" type="id"/>
     <item name="gridview" type="id"/>
     <item name="selected_view" type="id"/>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/integers.xml -->
+    <item name="signup_fragment" type="id"/>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/integers.xml -->
     <eat-comment/>
     <item format="float" name="circle_height" type="integer">700</item>
     <item format="float" name="circle_left_offset" type="integer">0</item>
     <item format="float" name="circle_max_radius" type="integer">600</item>
     <item format="float" name="circle_top_offset" type="integer">250</item>
     <item format="float" name="circle_width" type="integer">700</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__defaults.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <integer name="default_circle_indicator_orientation">0</integer>
     <integer name="default_title_indicator_footer_indicator_style">2</integer>
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/integers.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/integers.xml -->
     <eat-comment/>
     <integer name="grid_pick_photo_count">3</integer>
     <integer name="meet_option_column_num">3</integer>
@@ -473,7 +487,7 @@
     <integer name="row_feeds_count">1</integer>
     <integer name="row_grid_count">2</integer>
     <integer name="row_pages_count">2</integer>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/plurals.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/plurals.xml -->
     <eat-comment/>
     <plurals name="activities">
         <item quantity="other">"%d activities"</item>
@@ -495,7 +509,16 @@
         <item quantity="other">"%d new messages"</item>
         <item quantity="one">"1 new message"</item>
     </plurals>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <plurals name="team_members">
+        <item quantity="other">"%d Team Members"</item>
+        <item quantity="one">"1 Team Member"</item>
+    </plurals>
+    <plurals name="typing_members">
+        <item quantity="one">%s is typing...</item>
+        <item quantity="two">%s are typing...</item>
+        <item quantity="other">%s and others are typing...</item>
+    </plurals>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="AGIPC_Albums">"Albums"</string>
     <string name="AGIPC_DeselectAll">"Deselect All"</string>
@@ -503,6 +526,7 @@
     <string name="AGIPC_SelectAll">"Select All"</string>
     <string name="A_Binder_is_a_team_workspace_for_communication_and_collaboration">"A Binder is a team workspace for communication and collaboration."</string>
     <string name="A_Binder_is_a_workspace_for_team_collaboration_and_communication">"A Binder is a workspace for team collaboration and communication."</string>
+    <string name="A_Binder_will_be_created_keeping_together_the_messages_content_annotations_tasks_and_alerts_for_this_conversation">"A Binder will be created keeping together the messages, content, annotations, tasks and alerts for this conversation."</string>
     <string name="A_confirmation_email_was_sent_to_Click_on_the_link_in_the_email_to_activate_your_account">"A confirmation email was sent to %1$s. Click on the link in the email to activate your account."</string>
     <string name="A_title_is_required_to_publish_to_YouTube">"A title is required to publish to YouTube."</string>
     <string name="Accept">"Accept"</string>
@@ -532,6 +556,7 @@
     <string name="Add_a_comment">"Add a comment…"</string>
     <string name="Add_a_contact_via_email">"Add a contact via email"</string>
     <string name="Add_a_file">"Add a file"</string>
+    <string name="Add_contacts_or_teams">"Add contacts/teams"</string>
     <string name="Add_content_here">"Add content here."</string>
     <string name="Add_description">"Add description"</string>
     <string name="Add_description_">"Add description…"</string>
@@ -548,17 +573,20 @@
     <string name="AirDrop">"AirDrop"</string>
     <string name="All_Binders">"All Binders"</string>
     <string name="All_Fonts">"All Fonts"</string>
+    <string name="All_Pinned_Items">"All Pinned Items"</string>
     <string name="All_comments_on_these_pages_will_be_lost">"All comments on these pages will be lost?"</string>
     <string name="All_rights_reserved">"All rights reserved."</string>
     <string name="Annotate_Together">"Annotate Together"</string>
     <string name="Annotate_sign_voice_over_comment_on_your_files">"Annotate, sign, voice over and comment on your files"</string>
     <string name="Annotation">"Annotation"</string>
+    <string name="Annotation_Tools">"Annotation Tools"</string>
     <string name="Anyone_can_search_for_and_view">"Anyone can search for and view"</string>
     <string name="Anyone_with_a_link_can_view">"Anyone with a link can view"</string>
     <string name="Application_Need_Upgrade">"Application Need Upgrade"</string>
     <string name="Are_you_sure_to_Logout">"Are you sure to Logout?"</string>
     <string name="Are_you_sure_you_want_to_Logout">"Are you sure you want to Logout?"</string>
     <string name="Are_you_sure_you_want_to_logout">"Are you sure you want to logout?"</string>
+    <string name="Arrow">"Arrow"</string>
     <string name="Assign_roles_to_members">"Assign roles to members"</string>
     <string name="Assign_to">"Assign to"</string>
     <string name="Assigned_to_">Assigned to %1$s</string>
@@ -572,6 +600,7 @@
     <string name="Auth_Exception">"Auth Exception"</string>
     <string name="Authentication_Failed">"Authentication Failed"</string>
     <string name="Auto">"Auto"</string>
+    <string name="Auto_Record_Meet">"Auto Record Meet"</string>
     <string name="BAA">"View"</string>
     <string name="BAM">"%1$s has posted a Voice Message in \"%2$s\""</string>
     <string name="BCA">"View"</string>
@@ -609,6 +638,7 @@
     <string name="Binder_Settings">"Binder Settings"</string>
     <string name="Binder_Shelf">"Binder Shelf"</string>
     <string name="Binder_Topic">"Binder Topic"</string>
+    <string name="Binder_Topic_">"Binder Topic: %1$s"</string>
     <string name="Binder_description">"Binder description"</string>
     <string name="Binder_is_a_new_type_of_collaboration_workspace_for_team_chat_content_sharing_meetings_and_tasks_management">"Binder is a new type of collaboration workspace for team chat, content sharing, meetings and tasks management."</string>
     <string name="Binder_is_deleted">"Binder \"%1$s\" is deleted"</string>
@@ -645,12 +675,10 @@
     <string name="Call_using_Internet_Audio">"Call using Internet Audio"</string>
     <string name="Calling_">"Calling…"</string>
     <string name="Camera">"Camera"</string>
-    <string name="Can_not_connect_to_Moxtra_Server_Try_again_later">"Can not connect to Moxtra Server. Try again later!"</string>
     <string name="Can_t_create_a_new_binder_when_you_are_offline">"Can't create a new binder when you are offline."</string>
     <string name="Can_t_create_new_binder_when_you_are_offline">"Can't create new binder when you offline."</string>
     <string name="Can_t_open_this_file">"Can't open this file"</string>
     <string name="Cancel">"Cancel"</string>
-    <string name="Cancel_Meet">"Cancel Meet"</string>
     <string name="Cancelled">"Cancelled"</string>
     <string name="Categories">"Categories"</string>
     <string name="Category">"Category"</string>
@@ -666,6 +694,7 @@
     <string name="Chat_is_deleted">"Chat is deleted"</string>
     <string name="Chat_to_Stay_Connected">"Chat to Stay Connected"</string>
     <string name="Chat_with_any_one_even_with_people_who_has_no_Moxtra_account">"Chat with any one, even with people who has no Moxtra account."</string>
+    <string name="Check_Your_Email">"Check Your Email"</string>
     <string name="Choose_Cover">"Choose Cover"</string>
     <string name="Choose_Photo">"Choose Photo"</string>
     <string name="Choose_Picture">"Choose Picture"</string>
@@ -691,6 +720,7 @@
     <string name="Contacts">"Contacts"</string>
     <string name="Contacts_">"Contacts (%1$d)"</string>
     <string name="Conversation">"Conversation"</string>
+    <string name="Copied_Successfully">"Copied Successfully."</string>
     <string name="Coping">"Copying…"</string>
     <string name="Copy">"Copy"</string>
     <string name="Copy_Done">"Copy Done"</string>
@@ -704,7 +734,6 @@
     <string name="Copy_To_">"Copy To:"</string>
     <string name="Copy_here">"Copy here"</string>
     <string name="Copy_or_Move">"Copy/Move"</string>
-    <string name="Copy_successfully">"Copy successfully."</string>
     <string name="Copy_to">"Copy to"</string>
     <string name="Copy_to_Clipboard">"Copy to Clipboard"</string>
     <string name="Copying">"Copying…"</string>
@@ -745,11 +774,13 @@
     <string name="Delete_Conversation">"Delete Conversation"</string>
     <string name="Delete_File">"Delete File"</string>
     <string name="Delete_Folder">"Delete Folder"</string>
+    <string name="Delete_Meet">"Delete Meet"</string>
     <string name="Delete_Photo">"Delete Photo"</string>
     <string name="Delete_category">"Delete category:\"%1$s\"?"</string>
     <string name="Delete_the_comment">"Delete the comment?"</string>
     <string name="Delete_this_audio">"Delete this audio?"</string>
     <string name="Delete_this_binder">"Delete this binder"</string>
+    <string name="Delete_this_conversation">"Delete this conversation"</string>
     <string name="Delete_this_file">"Delete this file"</string>
     <string name="Delete_this_file_">"Delete this file?"</string>
     <string name="Delete_this_team">"Delete This Team"</string>
@@ -798,6 +829,7 @@
     <string name="Dropbox">"Dropbox"</string>
     <string name="Due_on_">Due on %1$s</string>
     <string name="Duplicate_Binder">"Duplicate Binder"</string>
+    <string name="Duplicate_this_conversation">"Duplicate this conversation"</string>
     <string name="Duration">"Duration: %1$s"</string>
     <string name="Edit">"Edit"</string>
     <string name="Edit_Category">"Edit Category"</string>
@@ -825,6 +857,7 @@
     <string name="Enable_Voice_failed_please_try_again">"Enable Voice failed, please try again."</string>
     <string name="End">"End"</string>
     <string name="End_and_Save">"End &amp; Save"</string>
+    <string name="Ended_Meet">"%s ended Meet"</string>
     <string name="Ending_Meet">"Ending Meet…"</string>
     <string name="Ends">"Ends"</string>
     <string name="Enter_Email">"Enter Email:"</string>
@@ -841,6 +874,7 @@
     <string name="Enter_title_here">"Enter title here…"</string>
     <string name="Enter_your_Google_account">"Enter your Google account:"</string>
     <string name="Erase">"Erase"</string>
+    <string name="Eraser">"Eraser"</string>
     <string name="Error">"Error"</string>
     <string name="Evernote">"Evernote"</string>
     <string name="Export">"Export"</string>
@@ -869,6 +903,9 @@
     <string name="Failed_to_start_Meet">"Failed to start Meet"</string>
     <string name="Failed_to_start_Meet_">"Failed to start Meet."</string>
     <string name="Failure">"Failure"</string>
+    <string name="Favorite">"Favorite"</string>
+    <string name="Favorited_Items">"Favorited Items"</string>
+    <string name="Favorited_Itemsx">"Favorited Items(%1$d)"</string>
     <string name="Favorites">"Favorites"</string>
     <string name="Feedback">"Feedback"</string>
     <string name="File_is_too_big_to_upload_Files_need_to_be_under_MB_">"File is too big to upload. Files need to be under %1$d MB."</string>
@@ -901,6 +938,7 @@
     <string name="Group">"Group"</string>
     <string name="Group_Chat">"Group Chat"</string>
     <string name="Hi_I_am_using_Moxtra_A_fun_way_to_interact_Download_it_at_and_add_me">"Hi! I am using Moxtra (A fun way to interact). Download it at %1$s and add me: %2$s"</string>
+    <string name="Highlight_Pen">"Highlight Pen"</string>
     <string name="Hold_to_Talk">"Hold to Talk"</string>
     <string name="Home">"Home"</string>
     <string name="Host">"Host"</string>
@@ -923,6 +961,7 @@
     <string name="I_would_like_to_share_a_Moxtra_Clip_with_you">"I would like to share a Moxtra Clip with you: %1$s"</string>
     <string name="I_would_like_to_share_a_Moxtra_Clip_with_you_with_link">"I would like to share a Moxtra Clip with you: &lt;a href=\"%1$s\">%2$s&lt;/a>"</string>
     <string name="I_would_like_to_share_a_Moxtra_Clip_with_you_with_link_">"I would like to share a Moxtra Clip with you: &lt;a href=\"%1$s\">%2$s&lt;/a>\r\n\r\n&lt;br>&lt;br> &lt;font size=1>Made with &lt;a href=https://www.moxtra.com>Moxtra&lt;/a>&lt;/font>"</string>
+    <string name="Image">"Image"</string>
     <string name="Image_File">"Image"</string>
     <string name="Image_with_Annotation">"Image with Annotation"</string>
     <string name="Image_without_Annotation">"Image without Annotation"</string>
@@ -974,19 +1013,22 @@
     <string name="Join_Failed">"Join Failed"</string>
     <string name="Join_Meet">"Join Meet"</string>
     <string name="Join_Meet_failed_Please_check_Meet_ID_and_try_again">"Join Meet failed. Please check Meet ID and try again."</string>
+    <string name="Join_Now">"Join Now"</string>
     <string name="Join_Video">"Join Video"</string>
     <string name="Join_as">"Join as: %1$s"</string>
     <string name="Join_my_Meet">"Join my Meet"</string>
     <string name="Joining">"Joining…"</string>
+    <string name="Jump">Jump</string>
     <string name="Keep_Both">"Keep Both"</string>
     <string name="Keep_everyone_engaged">"Keep everyone engaged"</string>
     <string name="Keep_your_conversations_and_content_together">"Keep your conversations and content together."</string>
     <string name="Keep_your_group_conversations_and_content_together">"Keep your group conversations and content together."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings_no_i10n.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings_no_i10n.xml -->
     <eat-comment/>
     <string name="Kingsoft_KuaiPan">"金山快盘"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="LSM">\"%s\" shared you a location</string>
     <string name="Last_Name">"Last Name"</string>
     <string name="Latest_message">"Latest message"</string>
     <string name="Leave">"Leave"</string>
@@ -995,10 +1037,12 @@
     <string name="Leave_Conversation">"Leave Conversation"</string>
     <string name="Leave_Video">"Leave Video"</string>
     <string name="Leave_this_binder">"Leave this binder"</string>
+    <string name="Leave_this_conversation">"Leave this conversation"</string>
     <string name="Leave_this_team">"Leave This Team"</string>
     <string name="Leaving_Meet">"Leaving Meet…"</string>
     <string name="Let_the_conversation_flow_Get_instant_feedback_on_your_content_and_engage_both_individuals_and_groups">"Let the conversation flow. Get instant feedback on your content and engage both individuals and groups."</string>
     <string name="Library_Binder">"Library Binder"</string>
+    <string name="Line">"Line"</string>
     <string name="Linking_will_allow_this_app_to_access_and_modify_files_in_your_WebDAV">"Linking will allow this app to access and modify files in your WebDAV"</string>
     <string name="List_Notebooks_failed">"List Notebooks failed."</string>
     <string name="List_Notes_failed">"List Notes failed."</string>
@@ -1058,6 +1102,8 @@
     <string name="Meet_id">"Meet ID: "</string>
     <string name="Meet_in_Real_Time">"Meet in Real-Time"</string>
     <string name="Meet_in_real_time_Get_on_the_same_page_Share_your_content_with_anyone_regardless_of_location_or_device_Anytime_anywhere_anyhow">"Meet in real-time. Get on the same page. Share your content with anyone, regardless of location or device. Anytime, anywhere, anyhow."</string>
+    <string name="Meet_recording_is_ready">"Meet recording is ready."</string>
+    <string name="Meet_recording_is_ready_for_the_Meet">"Meet recording is ready for the Meet: %1$s."</string>
     <string name="Meet_request_sent">"Meet request sent"</string>
     <string name="Meet_when_necessary">"Meet when necessary"</string>
     <string name="Meeting_will_be_expire_in_5_minutes">"Meeting will be expire in 5 minutes"</string>
@@ -1065,8 +1111,10 @@
     <string name="Member_Login">"Member Login"</string>
     <string name="Member_Role">"Member Role"</string>
     <string name="Members">"Members"</string>
+    <string name="Mentions">"Mentions"</string>
     <string name="Message">"Message"</string>
     <string name="Message_Instantly">"Message Instantly"</string>
+    <string name="Messages">"Messages"</string>
     <string name="Mobile_Collaboration_for_Teams_and_Projects">"Mobile Collaboration for Teams &amp; Projects"</string>
     <string name="Mobile_Contacts">"Mobile Contacts"</string>
     <string name="Mobile_and_web_messaging_keeps_your_team_in_sync">"Mobile and web messaging keeps your team in sync."</string>
@@ -1099,6 +1147,7 @@
     <string name="Moxtra_OAuth">"Moxtra OAuth"</string>
     <string name="Mute">"Mute"</string>
     <string name="Mute_All">"Mute All"</string>
+    <string name="Mute_Notification">"Mute Notification"</string>
     <string name="My_Account">"My Account"</string>
     <string name="My_Categories">"My Categories"</string>
     <string name="My_Category">"Default Category"</string>
@@ -1112,6 +1161,7 @@
     <string name="NO">"NO"</string>
     <string name="Name">"Name"</string>
     <string name="Name_Your_Binder">"Name Your Binder"</string>
+    <string name="Name_Your_Conversation">"Name Your Conversation"</string>
     <string name="Name_Your_Team">"Name Your Team"</string>
     <string name="Network_connectivity_is_required_to_complete_the_task">"Network connectivity is required to complete the task"</string>
     <string name="New">"New"</string>
@@ -1120,14 +1170,18 @@
     <string name="New_Chat">"New Chat"</string>
     <string name="New_Folder">"New Folder"</string>
     <string name="New_Group_Chat">"New Group Chat"</string>
+    <string name="New_Messages">"New Messages"</string>
     <string name="New_Page">"New Page"</string>
     <string name="New_To_Do_added">"New To-Do added."</string>
     <string name="New_binder">"New binder"</string>
     <string name="Next">"Next"</string>
+    <string name="No_Any_Mentions_Yet">"No Any Mentions Yet."</string>
     <string name="No_Meets_scheduled_for_today">"No Meets scheduled for today."</string>
     <string name="No_Moxtra_Clip_found">"No Moxtra Clip found"</string>
     <string name="No_Name">"No Name"</string>
+    <string name="No_Pinned_Items_Yet">"No Pinned Items Yet."</string>
     <string name="No_Response">"No Response"</string>
+    <string name="No_Starred_Items_Yet">"No Starred Items Yet."</string>
     <string name="No_action_type_found">"No action type found"</string>
     <string name="No_application_was_found_to_handle_the_url">"No application was found to handle the url:"</string>
     <string name="No_clipboard_found_for_name">"No clipboard found for name:"</string>
@@ -1148,6 +1202,7 @@
     <string name="Notebook">"Notebook"</string>
     <string name="Notes">"Notes"</string>
     <string name="Notice">"Notice"</string>
+    <string name="Notifications">"Notifications"</string>
     <string name="Now">"Now"</string>
     <string name="Null">"Null"</string>
     <string name="OK">"OK"</string>
@@ -1168,6 +1223,8 @@
     <string name="Other">"Other"</string>
     <string name="Other_Binders">"Other Binders:"</string>
     <string name="Other_login_options">"Other login options"</string>
+    <string name="Others">Others</string>
+    <string name="Oval">"Oval"</string>
     <string name="Owned">"Owned"</string>
     <string name="Owner">"Owner"</string>
     <string name="Owner_">"Owner: %1$s"</string>
@@ -1194,6 +1251,7 @@
     <string name="Password">"Password"</string>
     <string name="Paste">"Paste"</string>
     <string name="Paused">"Paused"</string>
+    <string name="Pen">"Pen"</string>
     <string name="Pen_Size">"Pen Size (%1$dpt)"</string>
     <string name="Pen_Weight">"Pen Weight (%1$dpt)"</string>
     <string name="Pen_size">"Pen size (%1$dpt)"</string>
@@ -1207,7 +1265,14 @@
     <string name="Phone">"Phone"</string>
     <string name="Phone_Number">"Phone Number"</string>
     <string name="Picture">"Picture"</string>
+    <string name="Pin_to_This_Binder">"Pin to This Binder"</string>
+    <string name="Pinned_Items">"Pinned Items"</string>
+    <string name="Pinned_a_file">"Pinned a file"</string>
+    <string name="Pinned_a_link">"Pinned a link"</string>
+    <string name="Pinned_a_message">"Pinned a message"</string>
     <string name="Play">"Play"</string>
+    <string name="Play_Now">"Play Now"</string>
+    <string name="Please_check_your_email_to_get_started">"Please check your email to get started."</string>
     <string name="Please_click_BACK_again_to_exit">"Please click BACK again to exit"</string>
     <string name="Please_download_the_latest_version_of_the_app">"Please download the latest version of the app"</string>
     <string name="Please_enter_a_name_for_the_Note">"Please enter a name for the Note"</string>
@@ -1251,7 +1316,6 @@
     <string name="Publish_video">"Publish video."</string>
     <string name="Pull_to_get_more">"Pull to get more…"</string>
     <string name="Pull_to_refresh">"Pull to refresh …"</string>
-    <string name="Push_Notification">"Push Notification"</string>
     <string name="Real_time_voice_call_with_screen_sharing_and_presentation">"Real time voice call with screen sharing and presentation"</string>
     <string name="Reason_unknown">"Reason unknown."</string>
     <string name="Reconnecting">"Reconnecting…"</string>
@@ -1262,6 +1326,7 @@
     <string name="Recording_Moxtra_Clip_failed">"Recording Moxtra Clip failed."</string>
     <string name="Recording_in_progress">"Recording in progress"</string>
     <string name="Recording_in_progress_Please_stop_the_recording_before_you_continue">"Recording in progress. Please stop the recording before you continue"</string>
+    <string name="Rectangle">"Rectangle"</string>
     <string name="Regular">"Regular"</string>
     <string name="Reinvite">"Reinvite"</string>
     <string name="Release_now">"Release now!"</string>
@@ -1270,18 +1335,21 @@
     <string name="Remove">"Remove"</string>
     <string name="Remove_from_Contacts">"Remove from Contacts"</string>
     <string name="Remove_from_Library">"Remove from Library"</string>
+    <string name="Removed_Meet">"%s removed Meet"</string>
     <string name="Removed_the_assignee">"Removed the assignee."</string>
     <string name="Rename">"Rename"</string>
     <string name="Rename_Category">"Rename Category"</string>
     <string name="Rename_File">"Rename File"</string>
     <string name="Rename_Folder">"Rename Folder"</string>
     <string name="Rename_Group">"Rename Group"</string>
+    <string name="Renamed_Meet">"%s renamed Meet"</string>
     <string name="Reopened">"Reopened"</string>
     <string name="Replace">"Replace"</string>
     <string name="Reply">"Reply"</string>
     <string name="Repositories">"Repositories"</string>
     <string name="Request_Failed">"Request Failed"</string>
     <string name="Required">"Required"</string>
+    <string name="Rescheduled_Meet">"%s rescheduled a Meet"</string>
     <string name="Resend">"Resend"</string>
     <string name="Resend_confirmation_email">"Resend confirmation email"</string>
     <string name="Reset">"Reset"</string>
@@ -1317,10 +1385,12 @@
     <string name="Schedule_Meet_successfully">"Scheduled a Meet successfully."</string>
     <string name="Schedule_a_Meet">"Schedule a Meet"</string>
     <string name="Schedule_your_Meet">"Schedule your Meet"</string>
+    <string name="Scheduled_a_Meet">"%s scheduled a Meet"</string>
     <string name="Screen_sharing_is_in_progress_">"Screen sharing is in progress."</string>
     <string name="Screen_sharing_paused">"Screen sharing paused."</string>
     <string name="Screen_sharing_resumed">"Screen sharing resumed."</string>
     <string name="Search">"Search"</string>
+    <string name="Search_Tags">"Search Tags"</string>
     <string name="Search_or_enter_email_to_invite">"Search or enter email to invite"</string>
     <string name="Search_or_type_email_to_invite">"Search or type email to invite…"</string>
     <string name="Select">"Select"</string>
@@ -1333,6 +1403,7 @@
     <string name="Select_Notebook">"Select Notebook"</string>
     <string name="Select_Page">"Select Page"</string>
     <string name="Select_Pages">"Select Pages"</string>
+    <string name="Select_Tool">"Select Tool"</string>
     <string name="Select_an_Album">"Select an Album"</string>
     <string name="Select_binder">"Select binder"</string>
     <string name="Select_binder_to_start">"Select binder to start:"</string>
@@ -1397,6 +1468,8 @@
     <string name="Sort_by_Due_Date">"Sort by Due Date"</string>
     <string name="Sort_by_Priority">"Sort by Priority"</string>
     <string name="Speech_Bubble">"Speech Bubble"</string>
+    <string name="Speech_Bubbles">"Speech Bubbles"</string>
+    <string name="Starring_makes_things_easier_to_find">"Starring makes things easier to find. They'll show up right here in this list. It's for your personal only. You can star message, files, comments..."</string>
     <string name="Start">"Start"</string>
     <string name="Start_Chat">"Start Chat"</string>
     <string name="Start_Meet">"Start Meet"</string>
@@ -1404,9 +1477,12 @@
     <string name="Start_New_conversation">"Start New conversation"</string>
     <string name="Start_Now">"Start Now"</string>
     <string name="Start_Record">"Start Record"</string>
+    <string name="Start_a_New_Conversation">"Start a New Conversation"</string>
+    <string name="Start_a_new_conversation">"Start a new conversation"</string>
     <string name="Start_a_voice_call">"Start a voice call"</string>
-    <string name="Start_an_online_meeting_with_below_team_members">"Start an online meeting with below team members."</string>
+    <string name="Start_an_online_meeting_with_the_team_members_below">"Start an online meeting with the team members below."</string>
     <string name="Start_with_a_conversation_">"Start with a conversation."</string>
+    <string name="Started_a_Meet">"%s started a Meet"</string>
     <string name="Starting">"Starting…"</string>
     <string name="Starting_to_record_">"Starting to record... "</string>
     <string name="Starts">"Starts"</string>
@@ -1483,6 +1559,7 @@
     <string name="This_binder_is_not_in_your_binder_list">"This binder is not in your binder list"</string>
     <string name="This_chat_will_be_ended_and_the_history_will_be_permanently_deleted_for_all_members_Do_you_want_to_continue">"This chat will be ended, and the history will be permanently deleted for all members. Do you want to continue?"</string>
     <string name="This_computer_is_offline">"This computer is offline"</string>
+    <string name="This_conversation_was_initiated_by">"Started by %1$s on %2$s."</string>
     <string name="This_file_format_is_not_currently_supported">"This file format is not currently supported."</string>
     <string name="This_file_has_the_same_file_name_with_the_file_in_this_binder_Do_you_want_to_replace_the_old_file_and_pages_with_this_new_file">"This file %1$s has the same file name with the file in this binder. Do you want to replace the old file (%2$d comments, %3$d annotations) and pages with this new file?"</string>
     <string name="This_file_has_the_same_file_name_with_the_file_in_this_binder_Do_you_want_to_replace_the_old_file_and_pages_with_this_new_file_">"This file %1$s has the same file name with the file in this binder. Do you want to replace the old file (%2$d pages, %3$d comments, %4$d annotations) and pages with this new file?"</string>
@@ -1514,6 +1591,7 @@
     <string name="Unable_to_establish_audio_connection_Please_contact_your_network_administrator_">"Unable to establish audio connection. Please contact your network administrator."</string>
     <string name="Unable_to_send_your_invitation_Please_try_again">"Unable to send your invitation. Please try again."</string>
     <string name="Unable_to_upload_the_file_Please_try_again">"Unable to upload the file %1$s. Please try again."</string>
+    <string name="Unfavorite">"Unfavorite"</string>
     <string name="Ungroup">"Ungroup"</string>
     <string name="Unknown">"Unknown"</string>
     <string name="Unlimited_used_day_left_in_cycle">"Unlimited - %1$s used | %2$d day(s) left in cycle"</string>
@@ -1522,6 +1600,7 @@
     <string name="Unmute">"Unmute"</string>
     <string name="Unmute_to_talk_">"Unmute to talk?"</string>
     <string name="Unnamed">"Unnamed"</string>
+    <string name="Unpin_to_This_Binder">"Unpin to This Binder"</string>
     <string name="Unread">"Unread"</string>
     <string name="Update_Account">"Update Account"</string>
     <string name="Update_team_failed">"Update team failed"</string>
@@ -1563,10 +1642,12 @@
     <string name="Voice_calls_with_screen_sharing_and_presentation">"Voice calls with screen sharing and presentation."</string>
     <string name="Waiting_to_join">"Waiting to join…"</string>
     <string name="Warning">"Warning"</string>
+    <string name="We_sent_an_email_to_you_at">"We sent an email to you at:&lt;br />&lt;b>%1$s&lt;/b>"</string>
     <string name="Web_Clip">"Web Clip"</string>
     <string name="Web_Page">"Web Page"</string>
     <string name="Welcome_To_Join_My_Meet">"Welcome To Join My Meet"</string>
     <string name="When">"When"</string>
+    <string name="When_someone_mentions_you_by_name">"When someone mentions you by name. That message/comments will appear here."</string>
     <string name="Whiteboard">"Whiteboard"</string>
     <string name="Whole_File">"Whole File"</string>
     <string name="With_document_sharing_and_screen_share">"With document sharing and screen share"</string>
@@ -1582,12 +1663,11 @@
     <string name="You_are_sharing_your_screen_now">"You are sharing your screen now."</string>
     <string name="You_are_the_presenter_now">"You are the presenter now."</string>
     <string name="You_are_unmuted">"You are unmuted"</string>
-    <string name="You_call_in_via_telephone">"You call in via telephone"</string>
     <string name="You_can_email_notes_photos_and_files_from_your_computer_or_phone_right_into_this_binder">"You can email notes, photos, and files from your computer or phone right into this binder."</string>
     <string name="You_can_now_schedule_a_Meet_and_view_all_your_upcoming_Meets_right_within_Moxtra_Also_instantly_start_a_pre_scheduled_Meet_or_join_a_Meet_right_from_the_timeline_">"You can now schedule a Meet, and view all your upcoming Meets right within Moxtra. Instantly start a pre-scheduled Meet, or join a Meet right from the timeline."</string>
+    <string name="You_can_pin_any_important_message_or_file">"You can pin any important message or file. Then these pinned message or files can get more attentions to all members in this binder."</string>
     <string name="You_cannot_accept_this_invitation_sent_to_Ask_the_sender_to_resend_the_invitation_to">"You can't accept this invitation sent to %1$s. Ask the sender to resend the invitation to %2$s."</string>
     <string name="You_do_not_have_required_privileges_to_change_copy_or_share_the_binder">"You don't have required privileges to change, copy or share the binder '%1$s'"</string>
-    <string name="You_hangup_telephone">"You hangup telephone"</string>
     <string name="You_have_denied_Moxtra_access_to_your_Contacts_To_enable_by_going_to_device_Settings_Privacy_Contacts_and_turning_Moxtra_ON">"You have denied Moxtra access to your Contacts. To enable by going to device [Settings] > [Privacy] > [Contacts] and turning Moxtra ON."</string>
     <string name="You_have_denied_Moxtra_access_to_your_microphone_This_can_be_changed_in_your_device_Privacy_Setting_">"You have denied Moxtra access to your microphone. This can be changed in your device's Privacy Setting."</string>
     <string name="You_have_exceeded_the_limit_on_file_size">"You have exceeded the limit on file size"</string>
@@ -1609,12 +1689,14 @@
     <string name="Your_invitation_has_been_sent_out">"Your invitation has been sent out."</string>
     <string name="Your_mobile_device_is_not_setup_for_Email">"Your mobile device is not setup for Email"</string>
     <string name="Your_mobile_device_is_not_setup_for_SMS">"Your mobile device is not setup for SMS."</string>
+    <string name="_005bLocation_005d">[Location]</string>
     <string name="_Binders">"%1$d Binders"</string>
     <string name="_Comment">"%1$d Comment"</string>
     <string name="_Comments">"%1$d Comments"</string>
     <string name="_Meet">"%s's Meet"</string>
     <string name="_Member">"%1$d Member(s)"</string>
     <string name="_More">"More"</string>
+    <string name="_New_Messages">"%1$d New Messages"</string>
     <string name="_Page">"%1$d Page(s)"</string>
     <string name="_Page_Group">"%1$d Page(s), %2$d Group(s)"</string>
     <string name="_Pages">"%1$d Pages"</string>
@@ -1626,11 +1708,9 @@
     <string name="_added_new_pages">"%1$d added new pages "</string>
     <string name="_are_speaking">" are speaking"</string>
     <string name="_binder">"%1$d binder(s)"</string>
-    <string name="_call_in_via_telephone">"%1$s call in via telephone"</string>
     <string name="_commented_">%1$s commented:</string>
     <string name="_contact_selected">"%1$d contact(s) selected"</string>
     <string name="_delete_this_to_do_entry_">%1$s delete this To-Do Entry.</string>
-    <string name="_hangup_telephone">"%1$s hangup telephone"</string>
     <string name="_has_invited_to_join_this_chat">"%1$s has invited %2$s to join this chat."</string>
     <string name="_has_invited_to_join_this_group_chat">"%1$s has invited %2$s to join this group chat."</string>
     <string name="_has_invited_you_for_a_Meet_">"%1$s has invited you for a Meet: %2$s @ %3$s"</string>
@@ -1659,6 +1739,7 @@
     <string name="_s_Screen">"%1$s's Screen"</string>
     <string name="_sec">"%1$d sec"</string>
     <string name="_updated_">%1$s updated:</string>
+    <string name="a_binder_will_be_created_to_keep_together_the_messages_content_annotations_tasks_and_alerts_for_this">A Binder will be created to keep together the messages, content, annotations, tasks and alerts for this conversation.</string>
     <string name="added_a_file">"added a file."</string>
     <string name="added_a_file_">"added a file \"%1$s\""</string>
     <string name="added_a_link">"added a link: %1$s."</string>
@@ -1672,46 +1753,45 @@
     <string name="added_a_to_do_item">added a to-do item.</string>
     <string name="added_a_video">"added a video."</string>
     <string name="added_a_video_">"added a video \"%1$s\"."</string>
-    <string name="added_a_voice_comment">"added a voice comment"</string>
+    <string name="added_a_voice_comment">added a voice comment.</string>
     <string name="added_a_web_link">"added a web link"</string>
     <string name="added_a_whiteboard">"added a whiteboard."</string>
     <string name="added_a_whiteboard_">"added a whiteboard \"%1$s\"."</string>
     <string name="added_an_attachment_for_a_to_do_item">added an attachment for a to-do item.</string>
     <string name="added_an_audio">"added an audio."</string>
     <string name="added_an_audio_">"added an audio \"%1$s\"."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="added_favorite">Added to Favorites</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="added_new_pages">"added %1$d new pages."</string>
     <string name="added_pages">"added %1$d pages"</string>
+    <string name="added_to">added %1$s to \"%2$s\".</string>
     <string name="added_to_this_binder">"added %1$s to this binder."</string>
     <string name="added_to_this_chat">"added %1$s to this chat."</string>
+    <string name="added_to_this_conversation">added %s to this conversation.</string>
+    <string name="and_others_are_typing">%s and others are typing...</string>
     <string name="annotated_a_page">"annotated a page"</string>
     <string name="annotated_a_page_">"annotated a page."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings_no_i10n.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings_no_i10n.xml -->
     <eat-comment/>
     <string name="app_id">"400731083336840"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
-    <string name="app_name">File Explorer</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/strings.xml -->
-    <eat-comment/>
-    <string name="arrow_content_desc">Arrow image</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
-    <eat-comment/>
+    <string name="are_typing">%s are typing...</string>
     <string name="assigned_a_to_do_item_to_">assigned a to-do item to %1$s.</string>
     <string name="assigned_to">"assigned to %1$s."</string>
     <string name="binder_renamed">"binder renamed."</string>
     <string name="bookmark">"Bookmark"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="cancel">Cancel</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="canceled_the_Meet">"canceled the Meet: %1$s."</string>
     <string name="cancelled_the_invitation_to">"cancelled the invitation to %s."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="category_all">All</string>
     <string name="category_apk">APKs</string>
@@ -1723,7 +1803,7 @@
     <string name="category_theme">Themes</string>
     <string name="category_video">Videos</string>
     <string name="category_zip">Zips</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="changed_role_to_editor">"changed %s's role to editor"</string>
     <string name="changed_role_to_viewer">"changed %s's role to viewer"</string>
@@ -1731,22 +1811,25 @@
     <string name="click_to_join_meet">"click_to_join_meet"</string>
     <string name="click_to_start_meet">"click_to_start_meet"</string>
     <string name="clip_screen">"Clip Screen"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/strings.xml -->
-    <eat-comment/>
-    <string name="color_picker_content_desc">Color picker image</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
-    <eat-comment/>
     <string name="commented_a_to_do_item">commented a to-do item.</string>
-    <string name="commented_on_a_page">"commented on a page"</string>
+    <string name="commented_on_a_page">commented on a page: %s</string>
     <string name="commented_on_a_page_">"commented on a page."</string>
+    <string name="commented_on_a_to_do_item">commented on a to-do item: %s</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings_no_i10n.xml -->
+    <eat-comment/>
+    <string name="company_name">"Moxtra, Inc."</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
+    <eat-comment/>
     <string name="completed_a_to_do_item">completed a to-do item.</string>
     <string name="completed_this_to_do">"completed this to-do."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="confirm">OK</string>
     <string name="confirm_know">OK</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="copy_address">Copy address</string>
+    <string name="cover_images">Cover Images</string>
     <string name="created_a_Moxtra_Clip">"created a Moxtra Clip"</string>
     <string name="created_a_clip">"created a clip."</string>
     <string name="created_a_clip_">"created a clip \"%1$s\"."</string>
@@ -1755,53 +1838,68 @@
     <string name="created_binder">"created binder"</string>
     <string name="created_this_binder">"created this binder."</string>
     <string name="created_this_to_do">"created this to-do."</string>
+    <string name="created_this_topic">created this topic.</string>
+    <string name="current_location">"Current Location"</string>
+    <string name="declined_to_join">declined to join.</string>
     <string name="declined_to_join_this_binder">"declined to join this binder."</string>
     <string name="declined_to_join_this_chat">"declined to join this chat."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="default_primary_folder">/mnt/sdcard</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="delete_binder">Delete Binder</string>
     <string name="deleted_a_comment">"deleted a comment"</string>
+    <string name="deleted_a_comment_b41284a6020807dd924dbffb916e551a">deleted a comment.</string>
     <string name="deleted_a_file">"deleted a file."</string>
     <string name="deleted_a_file_">"deleted a file \"%1$s\"."</string>
     <string name="deleted_a_folder">"deleted a folder."</string>
     <string name="deleted_a_folder_">"deleted a folder \"%1$s\"."</string>
     <string name="deleted_a_to_do_item">deleted a to-do item.</string>
+    <string name="deleted_files">"deleted %1$d files."</string>
     <string name="deleted_this_to_do">"deleted this to-do."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="dialog_select_type">Select file type</string>
     <string name="dialog_type_audio">Audio</string>
     <string name="dialog_type_image">Image</string>
     <string name="dialog_type_text">Text</string>
     <string name="dialog_type_video">Video</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="direct_message">Direct Message</string>
+    <string name="direct_message_is_private_1_on_1_message">Direct message is private 1-on-1 message</string>
     <string name="discard_changes_confirm">"Do you want to discard the changes?"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <string name="do_you_want_to_jump_to_the_destination_binder">Do you want to jump to the destination binder?</string>
+    <string name="duplicate_binder">Duplicate Binder</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="enable_sd_card">SD card is not available, please connect one</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ended_the_Meet">"ended the Meet: %1$s."</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
+    <eat-comment/>
     <string name="error_info_cant_send_folder">Unable to send the folder</string>
     <string name="fail_to_create_folder">Failed to create the folder, the folder already exists</string>
     <string name="fail_to_rename">Failed to rename the file or folder as it already exists</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="failed_to_generate_preview_page_for_this_file">"failed to generate preview page for this file."</string>
     <string name="failed_to_generate_preview_pages">"failed to generate preview pages for %1$s."</string>
     <string name="failed_to_upload">"failed to upload %1$s."</string>
     <string name="failed_to_upload_a_file">"failed to upload a file."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="favorite_photo">Photo</string>
     <string name="favorite_ringtone">Ringtone</string>
     <string name="favorite_screen_cap">MIUI Screen Shot</string>
     <string name="favorite_sdcard">SD Card</string>
     <string name="favourite_root">Root</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings_no_i10n.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings_no_i10n.xml -->
     <eat-comment/>
     <string name="feedback_mailto">"support@moxtra.com"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="file_info_canread">Readable:</string>
     <string name="file_info_canwrite">Writable:</string>
@@ -1810,40 +1908,45 @@
     <string name="file_info_modified">Modified:</string>
     <string name="file_info_size">Size:</string>
     <string name="file_size">%d Bytes</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="for_options">"for options"</string>
+    <string name="group_conversation">Group Conversation</string>
+    <string name="group_conversation_is_a_space_for_collaboration_among_members">Group conversation is a space for collaboration among members</string>
     <string name="has_invited_to_join_this_chat">"has invited %1$s to join this chat."</string>
+    <string name="has_started_a_chat">has started a chat.</string>
     <string name="has_started_a_chat_">"has started a chat."</string>
     <string name="has_started_a_new_group_chat">"has started a new group chat."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-ambilwarna/values/strings.xml -->
-    <eat-comment/>
-    <string name="hue_cursor_content_desc">Hue image cursor</string>
-    <string name="hue_view_content_desc">Hue image</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
-    <eat-comment/>
     <string name="incorrect_url">"incorrect url"</string>
     <string name="insert_link">"Insert Link</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="install_failed">Installation failed</string>
     <string name="install_successful">Installation successful</string>
     <string name="instruction">Enter the following address into your FTP Client:</string>
     <string name="instruction_pre">Start service to enable FTP server</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="invited_to_join">invited %1$s to join \"%2$s\".</string>
     <string name="invited_to_join_this_binder">"invited %s to join this binder."</string>
     <string name="invited_to_join_this_chat">"invited %s to join this chat."</string>
+    <string name="invited_to_join_this_conversation">invited %s to join this conversation.</string>
     <string name="is_due">"is due."</string>
+    <string name="is_typing">%s is typing...</string>
+    <string name="join_audio_automatically">Join audio automatically</string>
+    <string name="joined">joined \"%s\".</string>
     <string name="joined_this_binder">"joined this binder."</string>
     <string name="joined_this_chat">"joined this chat."</string>
+    <string name="joined_this_conversation">joined this conversation.</string>
     <string name="joined_this_group">"joined this group"</string>
     <string name="joined_this_group_">"joined this group."</string>
+    <string name="left">left \"%s\".</string>
     <string name="left_this_binder">"left this binder."</string>
     <string name="left_this_chat">"left this chat."</string>
+    <string name="left_this_conversation">left this conversation.</string>
     <string name="meet_reclaim_host_failed">"Unable to reclaim host. Please try again."</string>
     <string name="meet_reclaim_host_success">"Host reclaimed."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="menu_exit">Exit</string>
     <string name="menu_item_search">Search</string>
@@ -1853,7 +1956,7 @@
     <string name="menu_item_sort_size">Size</string>
     <string name="menu_item_sort_type">Type</string>
     <string name="menu_setting">Preferences</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="min">"min"</string>
     <string name="mins">"mins"</string>
@@ -1861,24 +1964,35 @@
     <string name="moved_a_file_">"moved a file \"%1$s\"."</string>
     <string name="moved_a_file_to">"moved a file \"%1$s\" to \"%2$s\"."</string>
     <string name="moxtra_app_name">"Moxtra"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="multi_select_title">Selected <ns1:g id="number">%1$s</ns1:g> item(s)</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/ids.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/ids.xml -->
     <eat-comment/>
     <item name="mx_notification_title" type="string">@string/moxtra_app_name</item>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="n_pages_saved_pages_failed">"%1$d page(s) saved, %2$d page(s) failed"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="new_folder_name">New folder</string>
     <string name="no">No</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="no_content_yet">No Content Yet.</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
+    <eat-comment/>
     <string name="no_file">No files</string>
     <string name="no_wifi">No Wi-Fi network</string>
     <string name="no_wifi_hint">No Wi-Fi network, press to check WiFi settings</string>
     <string name="notif_server_starting">FTP Server started</string>
     <string name="notif_title">FTP Server</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="notification_off">"Mute"</string>
+    <string name="notification_on">"Unmute"</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
+    <eat-comment/>
     <string name="operation_cancel">Cancel</string>
     <string name="operation_cancel_selectall">Deselect All</string>
     <string name="operation_copy">Copy</string>
@@ -1902,11 +2016,11 @@
     <string name="operation_send">Send</string>
     <string name="operation_show_sys">Show hidden files</string>
     <string name="operation_unfavorite">Remove from Favorites</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="please_add_ics_to_calendar">"please_add_ics_to_calendar"</string>
     <string name="please_remove_ics_from_calendar">"please_remove_ics_from_calendar"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="pref_primary_folder">Home folder</string>
     <string name="pref_primary_folder_summary">The folder that appears when the app starts, and current value is <ns1:g id="string">%1$s</ns1:g></string>
@@ -1914,7 +2028,7 @@
     <string name="pref_show_real_path">Display real path</string>
     <string name="pref_show_real_path_summary">Show real path in navigation bar</string>
     <string name="preference_title">General Settings</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="reclaim_host">"Reclaim Host"</string>
     <string name="recorded_a_video">"recorded a video"</string>
@@ -1927,13 +2041,15 @@
     <string name="recycled_a_folder_">"recycled a folder \"%1$s\"."</string>
     <string name="removed_a_page">"removed a page"</string>
     <string name="removed_a_page_">"removed a page."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="removed_favorite">Removed from Favorites</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="removed_from">removed %1$s from \"%2$s\".</string>
     <string name="removed_from_this_binder">"removed %s from this binder."</string>
     <string name="removed_from_this_chat">"removed %s from this chat."</string>
+    <string name="removed_from_this_conversation">removed %s from this conversation.</string>
     <string name="removed_pages">"removed %1$d pages"</string>
     <string name="removed_pages_">"removed %1$d pages."</string>
     <string name="removed_the_assignee">"removed the assignee."</string>
@@ -1946,14 +2062,15 @@
     <string name="reopened_a_to_do_item">reopened a to-do item.</string>
     <string name="reopened_this_to_do">"reopened this to-do."</string>
     <string name="s_Moxtra_Clip">"%1$s's Moxtra Clip"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <string name="scheduled_a_Meet_on">"scheduled a Meet on %1$s."</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="sd_card_available">Space available:<ns1:g id="available_size">%1$s</ns1:g></string>
     <string name="sd_card_size">SD card:<ns1:g id="total_size">%1$s</ns1:g></string>
     <string name="sd_folder">SD card</string>
     <string name="search_hint">Search Files</string>
     <string name="search_title">Search Files</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="second">"second"</string>
     <string name="seconds">"seconds"</string>
@@ -1962,43 +2079,54 @@
     <string name="set_a_due_date_for_a_to_do_item">set a due date for a to-do item.</string>
     <string name="set_due_date">"set due date: %1$s."</string>
     <string name="set_due_date_to_a_to_do_item">"set due date to a to-do item"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <string name="shared_you_a_location">shared you a location \"%s\".</string>
+    <string name="shared_you_a_location_f7c6ff528d9270f157fef2e3b4b4d90e">shared you a location.</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="start_server">Start Service</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="started_the_Meet">"started the Meet: %1$s."</string>
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
+    <eat-comment/>
     <string name="stop_server">Stop Service</string>
     <string name="storage_warning">External storage is not available or cannot be read</string>
     <string name="tab_category">Browse</string>
     <string name="tab_remote">FTP</string>
     <string name="tab_sd">File</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
+    <string name="this_location">"This Location"</string>
+    <string name="updated_Meet_name">"updated Meet name: %1$s."</string>
+    <string name="updated_Meet_time">"updated Meet time: %1$s."</string>
     <string name="updated_a_Note">"updated a Note."</string>
+    <string name="updated_a_note">updated a Note \"%s\".</string>
     <string name="updated_a_to_do_item">updated a to-do item.</string>
     <string name="updated_the_attachment">"updated the attachment."</string>
     <string name="updated_the_attachment_to_a_to_do_item">"updated the attachment to a to-do item."</string>
     <string name="updated_this_to_do">"updated this to-do."</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings_no_i10n.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings_no_i10n.xml -->
     <eat-comment/>
     <string name="upgrade_url">""http://www.moxtra.com/upgrade""</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/strings.xml -->
     <eat-comment/>
     <string name="viewed_a_page">"viewed a page"</string>
     <string name="viewed_page">"viewed page"</string>
     <string name="viewed_pages">"viewed %1$d pages"</string>
     <string name="viewed_pages_">"viewed %1$d pages."</string>
     <string name="web">"Web"</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/strings.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/strings.xml -->
     <eat-comment/>
     <string name="wifi_state">WLAN Status</string>
     <string name="yes">Yes</string>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/styles.xml -->
     <eat-comment/>
     <style name="ActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.ActionButton</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/as_theme.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/as_theme.xml -->
     <eat-comment/>
     <style name="ActionSheetStyleIOS7">
         <item name="actionSheetBackground">@android:color/transparent</item>
@@ -2014,7 +2142,7 @@
         <item name="cancelButtonMarginTop">10dp</item>
         <item name="actionSheetTextSize">16sp</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="Animations"/>
     <style name="Animations.PopDownMenu"/>
@@ -2055,7 +2183,7 @@
 		<item name="@android:windowEnterAnimation">@anim/grow_from_bottomright_to_topleft</item>
 		<item name="@android:windowExitAnimation">@anim/shrink_from_topleft_to_bottomright</item>
 	</style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/styles.xml -->
     <eat-comment/>
     <style name="BottomButton">
         <item name="android:focusable">true</item>
@@ -2135,13 +2263,13 @@
         <item name="android:shadowDy">-0.5</item>
         <item name="android:shadowRadius">0.5</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/abc_slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/abc_slide_out_bottom</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/styles.xml -->
     <eat-comment/>
     <style name="Dialog_Fullscreen">
         <item name="android:windowNoTitle">true</item>
@@ -2216,7 +2344,7 @@
         <item name="android:textSize">12dip</item>
         <item name="android:drawablePadding">5dip</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="JHKLeftSlidingSpace">
         <item name="android:visibility">gone</item>
@@ -2260,7 +2388,7 @@
     <style name="MXAnimationDialog" parent="MXDialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
-    <style name="MXAppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="MXAppBaseTheme" parent="Base.Theme.AppCompat.Light">
         <item name="android:windowBackground">@android:color/white</item>
     </style>
     <style name="MXBlueMenuText">
@@ -2270,6 +2398,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">20dp</item>
+    </style>
+    <style name="MXChatFromTextView" parent="MoxTextViewBase">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">13sp</item>
     </style>
     <style name="MXCheckBox">
         <item name="android:background">@null</item>
@@ -2293,6 +2425,11 @@
         <item name="android:activatedBackgroundIndicator">@null</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
+    <style name="MXLoginFragment">
+        <!--<item name="android:layout_marginTop">@dimen/action_bar_height</item>-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
     <style name="MXNotificationCounter">
         <item name="android:textSize">11.0sp</item>
         <item name="android:textStyle">bold</item>
@@ -2313,7 +2450,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">right</item>
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:orientation">vertical</item>
     </style>
     <style name="MXPageDetailArrowToolbar">
@@ -2326,21 +2463,24 @@
     <style name="MXPageDetailColorToolbar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_gravity">right</item>
+        <item name="android:layout_gravity">left</item>
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingBottom">40dp</item>
     </style>
     <style name="MXRedBadge">
-        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/badge_bg</item>
     </style>
     <style name="MXSearchBox">
-        <item name="android:background">@drawable/search_bar_bg</item>
+        <item name="android:background">@drawable/search_bar_white_bg</item>
         <item name="android:drawableLeft">@drawable/search_icon</item>
         <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_marginLeft">@dimen/list_item_margin</item>
+        <item name="android:layout_marginRight">@dimen/list_item_margin</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
     <style name="MXSegmentIndicatorSelected">
         <item name="android:textStyle">bold</item>
@@ -2373,11 +2513,44 @@
     <style name="MXThemeDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="MXThirdPartyLoginButtonStyle" parent="MoxButtonBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textColor">@color/moxtra_darkgray</item>
+        <item name="android:background">@null</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+    </style>
+    <style name="MXThirdPartyLoginTitle" parent="MoxTextViewBase">
+        <item name="android:textColor">@color/moxtra_darkgray</item>
+    </style>
+    <style name="MXTopicListApproveButton">
+        <item name="android:background">@drawable/topiclist_approve_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
     <style name="MXTranslucentActivity" parent="android:style/Theme.Translucent">
         <item name="android:windowBackground">@drawable/translucent_activity_bg</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorForeground">#fff</item>
         <item name="android:windowAnimationStyle">@null</item>
+    </style>
+    <style name="MXTwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="MeetListMeetJoinStyle">
+        <item name="android:drawableTop">@drawable/meetlist_join</item>
+    </style>
+    <style name="MeetListMeetNowStyle">
+        <item name="android:drawableTop">@drawable/meetlist_start</item>
+    </style>
+    <style name="MeetListMeetScheduleStyle">
+        <item name="android:drawableTop">@drawable/meetlist_schedule</item>
     </style>
     <style name="MoxActivityAnimation">
         <item name="android:activityOpenEnterAnimation">@anim/slidein_from_right</item>
@@ -2445,7 +2618,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
     <style name="MoxDarkerGrayTextView" parent="MoxTextViewBase">
-		<item name="android:textColor">@android:color/tertiary_text_dark</item>
+		<item name="android:textColor">@color/moxtra_darkgray</item>
 		<item name="android:textSize">13sp</item>
 	</style>
     <style name="MoxDialogText">
@@ -2455,13 +2628,6 @@
         <item name="android:shadowDx">0.0</item>
         <item name="android:shadowDy">1.0</item>
         <item name="android:shadowRadius">0.1</item>
-    </style>
-    <style name="MoxFacebookButtonStyle" parent="MoxButtonBase">
-        <item name="android:drawableTop">@drawable/login_facebook</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:background">@null</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
     <style name="MoxFadeWindowStyle" parent="android:Animation">
 	    <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
@@ -2479,13 +2645,6 @@
         <item name="android:windowBackground">@drawable/full_trans_activity_bg</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorForeground">#fff</item>
-    </style>
-    <style name="MoxGoogleButtonStyle" parent="MoxButtonBase">
-        <item name="android:drawableTop">@drawable/login_google</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:background">@null</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
     <style name="MoxGrayButtonStyle" parent="MoxButtonBase">
         <item name="android:background">@drawable/button_gray_bg</item>
@@ -2511,13 +2670,6 @@
         <item name="android:background">@drawable/button_oval_orange_bg</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@android:color/white</item>
-    </style>
-    <style name="MoxOtherButtonStyle" parent="MoxButtonBase">
-        <item name="android:drawableTop">@drawable/login_sso</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:background">@null</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
     <style name="MoxPushWindowStyle" parent="android:Animation">
 	    <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
@@ -2584,6 +2736,7 @@
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
         <item name="actionSheetStyle">@style/ActionSheetStyleIOS7</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="MxSegmentedButtonBase">
         <item name="android:ellipsize">none</item>
@@ -2597,7 +2750,7 @@
         <item name="android:lines">2</item>
         <item name="android:layout_weight">1.0</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/styles.xml -->
     <eat-comment/>
     <style name="OrangeStyle">
         <item name="android:shadowColor">#742061</item>
@@ -2605,7 +2758,7 @@
         <item name="android:shadowDy">-0.5</item>
         <item name="android:shadowRadius">0.5</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="ProgressHUD" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -2616,7 +2769,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res-file-explorer/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res-file-explorer/values/styles.xml -->
     <eat-comment/>
     <style name="ShadowStyle">
         <item name="android:shadowColor">#6e6e6e</item>
@@ -2629,13 +2782,13 @@
     <style name="TextAppearance.ActionButton">
         <item name="android:textStyle">italic</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__styles.xml -->
     <eat-comment/>
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/vpi__light_theme</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="Theme.Floating" parent="android:Theme">
         <item name="android:windowIsTranslucent">true</item>
@@ -2645,13 +2798,13 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowIsFloating">false</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__styles.xml -->
     <eat-comment/>
     <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview2_styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview2_styles.xml -->
     <eat-comment/>
     <style name="UITableView">
         <item name="android:layout_width">match_parent</item>
@@ -2660,7 +2813,7 @@
         <item name="android:divider">@android:color/transparent</item>
         <item name="android:listSelector">@android:color/transparent</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/styles.xml -->
     <eat-comment/>
     <style name="Widget"/>
     <style name="Widget.Holo"/>
@@ -2687,8 +2840,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
         <item name="android:minHeight">@dimen/tab_bar_default_height</item>
 
         <item name="android:background">@android:color/transparent</item>
@@ -2698,15 +2851,17 @@
 
         <item name="segLineColor">@android:color/white</item>
         <item name="segLineHeightUnselected">0dp</item>
-        <item name="segLineHeightSelected">4dp</item>
+        <item name="segLineHeightSelected">3dp</item>
     </style>
     <style name="Widget.Holo.TabWidget">
         <!-- <item name="android:divider">?android:attr/dividerVertical</item>
         <item name="android:showDividers">middle</item> -->
         <item name="android:dividerPadding">8dip</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
         <item name="android:measureWithLargestChild">true</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/vpi__styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/vpi__styles.xml -->
     <eat-comment/>
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
@@ -2723,7 +2878,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:maxLines">1</item>
     </style>
-    <!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/values/uitableview_styles.xml -->
+    <!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/values/uitableview_styles.xml -->
     <eat-comment/>
     <style name="content_page_large_count_text">
         <item name="android:textSize">16sp</item>

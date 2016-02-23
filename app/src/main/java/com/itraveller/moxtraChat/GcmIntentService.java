@@ -29,6 +29,8 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.itraveller.R;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXChatManager;
 import com.moxtra.sdk.MXNotificationManager;
 
 /**
@@ -56,6 +58,7 @@ public class GcmIntentService extends IntentService {
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
+
 
         if (!extras.isEmpty()) {  // has effect of unparcelling Bundle
             if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
@@ -90,6 +93,7 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendMoxtraNotification(String msg, Intent intent) {
+
         sendMoxtraNotification(msg, null, intent);
     }
 

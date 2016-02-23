@@ -9,7 +9,7 @@
     android:clickable="true"
     android:padding="10dp">
 
-    <ImageView
+    <com.moxtra.binder.widget.BinderCoverContainer
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:scaleType="centerCrop"
@@ -37,8 +37,9 @@
         android:layout_marginLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:background="@drawable/blue_button_background"
+        android:stateListAnimator="@null"
         android:textColor="@color/moxtra_blue"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/item_similar_binder.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/item_similar_binder.xml -->

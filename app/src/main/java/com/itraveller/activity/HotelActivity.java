@@ -1415,7 +1415,7 @@ public class  HotelActivity extends ActionBarActivity {
                                         modelRow.get(index).setChecked(false);
                                     }
                                     modelRow.get(childpostion).setChecked(true);
-                                    ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                    ListViewPagerAdapter.sViewPagerAdapter.notifyDataSetChanged();
                                     listViewPagerAdapter.notifyDataSetChanged();
                                     lowesthotelList.set(groupPosition, "0,0,0," + Utility.noRooms(2, totalPersons) + ",0,0");
                                     SaveData();
@@ -1477,7 +1477,7 @@ public class  HotelActivity extends ActionBarActivity {
                                                 }
                                             }
                                             SaveData();
-                                            ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                            ListViewPagerAdapter.sViewPagerAdapter.notifyDataSetChanged();
                                             listViewPagerAdapter.notifyDataSetChanged();
                                             //notifyAll();
                                         }
@@ -1609,7 +1609,7 @@ public class  HotelActivity extends ActionBarActivity {
                                 }
 
 
-                                ListViewPagerAdapter.mViewPagerAdapter.notifyDataSetChanged();
+                                ListViewPagerAdapter.sViewPagerAdapter.notifyDataSetChanged();
                                 listViewPagerAdapter.notifyDataSetChanged();
                                 //notifyAll();
                             }

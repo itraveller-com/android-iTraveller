@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/action_bar_height"
-        android:background="@drawable/general_navigatorbar_bg">
+        android:background="@drawable/home_navigatorbar_bg">
 
         <ImageButton
             android:id="@+id/nav_slide_button"
@@ -22,6 +22,7 @@
             android:layout_centerVertical="true" />
 
         <TextView
+            android:id="@+id/tv_day"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
@@ -30,8 +31,8 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:maxEms="10"
-            android:textColor="@color/action_bar_title_text"
-            android:textSize="@dimen/header_bar_title_size" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/clr_nav_bar_text" />
 
     </RelativeLayout>
 
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:minHeight="100dp"
             android:layout_gravity="top"
+            android:visibility="gone"
             android:gravity="center_vertical">
 
             <ImageButton
@@ -60,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/tv_day"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="48sp"
@@ -83,7 +84,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@android:color/white" />
 
             <LinearLayout
@@ -92,56 +93,90 @@
                 android:layout_height="wrap_content"
                 android:minHeight="80dp">
 
-                <Button
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableTop="@drawable/meetlist_start"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/Meet_Now"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_start"
-                    android:textColor="@android:color/white" />
+                    android:minHeight="80dp"
+                    android:layout_weight="1">
 
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        style="@style/MeetListMeetNowStyle"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/Meet_Now"
+                        android:id="@+id/btn_start"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/white" />
+
+                </RelativeLayout>
                 <!-- separator -->
                 <View
                     android:id="@+id/divider1"
-                    android:layout_width="1dp"
+                    android:layout_width="1px"
                     android:layout_height="match_parent"
                     android:background="@android:color/white" />
 
-                <Button
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:drawableTop="@drawable/meetlist_join"
-                    android:text="@string/Join_Meet"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_join"
-                    android:textColor="@android:color/white" />
+                    android:minHeight="80dp"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        style="@style/MeetListMeetJoinStyle"
+                        android:text="@string/Join_Meet"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_join"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/white" />
+
+                </RelativeLayout>
 
                 <!-- separator -->
                 <View
                     android:id="@+id/divider2"
-                    android:layout_width="1dp"
+                    android:layout_width="1px"
                     android:layout_height="match_parent"
                     android:background="@android:color/white" />
 
-                <Button
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:drawableTop="@drawable/meetlist_schedule"
-                    android:text="@string/Schedule"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_schedule"
-                    android:textColor="@android:color/white" />
+                    android:minHeight="80dp"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        style="@style/MeetListMeetScheduleStyle"
+                        android:text="@string/Schedule"
+                        android:layout_weight="1"
+                        android:id="@+id/btn_schedule"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/white" />
+
+                </RelativeLayout>
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
+    <com.moxtra.binder.widget.MXTwoWayView
+        android:id="@+id/calendar_list"
+        style="@style/MXTwoWayView"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="vertical" />
 
     <include layout="@layout/meet_list_view"
         android:layout_width="match_parent"
@@ -149,4 +184,4 @@
         android:layout_weight="1"
         android:background="@drawable/general_tiled_background" />
 
-</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_meet_list.xml -->
+</LinearLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_meet_list.xml -->

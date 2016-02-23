@@ -20,6 +20,7 @@ import com.itraveller.R;
 import com.moxtra.binder.sdk.InviteToChatCallback;
 import com.moxtra.sdk.MXChatManager;
 import com.moxtra.sdk.MXException;
+import com.moxtra.sdk.MXGroupChatMember;
 import com.moxtra.sdk.MXGroupChatSession;
 import com.moxtra.sdk.MXGroupChatSessionCallback;
 import com.moxtra.sdk.MXSDKException;
@@ -42,16 +43,11 @@ public class ChatListActivity extends Activity implements View.OnClickListener, 
     private ChatListAdapter adapter=null;
     private RecyclerView.LayoutManager layoutManager=null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         setContentView(R.layout.activity_chat_list);
-
 
         chatListRecyclerView = (RecyclerView) findViewById(R.id.rv_chat_list);
         chatListRecyclerView.setHasFixedSize(true);
@@ -91,11 +87,8 @@ public class ChatListActivity extends Activity implements View.OnClickListener, 
             }
         });
 
-
         adapter = new ChatListAdapter();
         chatListRecyclerView.setAdapter(adapter);
-
-
     }
 
 
@@ -143,7 +136,7 @@ public class ChatListActivity extends Activity implements View.OnClickListener, 
 
         List<MXGroupChatSession> sessions=null;
 
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView ivCover;
             TextView tvTopic, tvLastMessage, tvBadge;
@@ -169,94 +162,12 @@ public class ChatListActivity extends Activity implements View.OnClickListener, 
                             } catch (MXException.AccountManagerIsNotValid accountManagerIsNotValid) {
                                 Log.e(TAG, "Error when open chat", accountManagerIsNotValid);
                             }
-                        } else if (session.isAMeet()) {
-                            joinMeet();
                         }
                     }
                 });
-                btnDelete.setOnClickListener(this);
-                btnMeet.setOnClickListener(this);
-            }
 
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.btn_meet) {
-                    if (session.isAMeet()) {
-                        joinMeet();
-                    } else {
-                        MXChatManager.getInstance().getChatMembers(session.getSessionID(), new MXChatManager.OnGetChatMembersListener() {
-                            @Override
-                            public void onGetChatMembersDone(ArrayList<String> arrayList) {
-                                try {
-                                    MXChatManager.getInstance().startMeet("demo" + "'s meet", null,
-                                            arrayList, new MXChatManager.OnStartMeetListener() {
-                                                @Override
-                                                public void onStartMeetDone(String meetId, String meetUrl) {
-                                                    Log.d(TAG, "Meet started: " + meetId);
-                                                }
-
-                                                @Override
-                                                public void onStartMeetFailed(int i, String s) {
-                                                    Log.e(TAG, "onStartMeetFailed: " + s);
-                                                }
-                                            });
-                                } catch (MXSDKException.Unauthorized unauthorized) {
-                                    Log.e(TAG, "Error when start meet", unauthorized);
-                                } catch (MXSDKException.MeetIsInProgress meetIsInProgress) {
-                                    Log.e(TAG, "Error when start meet", meetIsInProgress);
-                                }
-                            }
-
-                            @Override
-                            public void onGetChatMembersFailed(int i, String s) {
-                                Log.e(TAG, "onGetMembersFailed: " + s);
-                            }
-                        });
-                    }
-                } else if (v.getId() == R.id.btn_delete) {
-                    new MaterialDialog.Builder(ChatListActivity.this)
-                            .title(R.string.delete_confirm_title)
-                            .content(R.string.delete_confirm)
-                            .positiveText(android.R.string.yes)
-                            .positiveColorRes(R.color.red)
-                            .negativeColorRes(R.color.black)
-                            .negativeText(android.R.string.no)
-                            .callback(new MaterialDialog.ButtonCallback() {
-                                @Override
-                                public void onPositive(MaterialDialog dialog) {
-                                    super.onPositive(dialog);
-                                    MXChatManager.getInstance().deleteChat(session.getSessionID());
-                                    refreshData();
-                                }
-
-                                @Override
-                                public void onNegative(MaterialDialog dialog) {
-                                    super.onNegative(dialog);
-                                }
-                            })
-                            .show();
-                }
-            }
-
-            private void joinMeet() {
-                if (!MXChatManager.getInstance().isAMeetingInProgress()) {
-                    try {
-                        MXChatManager.getInstance().joinMeet(session.getMeetID(), "dummy",
-                                new MXChatManager.OnJoinMeetListener() {
-                                    @Override
-                                    public void onJoinMeetDone(String meetId, String meetUrl) {
-                                        Log.d(TAG, "Joined meet: " + meetId);
-                                    }
-
-                                    @Override
-                                    public void onJoinMeetFailed() {
-                                        Log.e(TAG, "Unable to join meet.");
-                                    }
-                                });
-                    } catch (MXSDKException.MeetIsInProgress meetIsInProgress) {
-                        Log.e(TAG, "Error when join meet", meetIsInProgress);
-                    }
-                }
+                btnDelete.setVisibility(View.GONE);
+                btnMeet.setVisibility(View.GONE);
             }
 
         }
@@ -298,30 +209,12 @@ public class ChatListActivity extends Activity implements View.OnClickListener, 
             if (session.getCoverImagePath() != null) {
                 theHolder.ivCover.setImageURI(Uri.fromFile(new File(session.getCoverImagePath())));
             }
-            theHolder.tvTopic.setText(session.getTopic());
+
+            theHolder.tvTopic.setText(""+session.getTopic());
+
             theHolder.tvLastMessage.setText(session.getLastFeedContent());
             theHolder.session = session;
-            if (session.isOwner()) {
-                theHolder.btnDelete.setText(R.string.Delete);
-            } else {
-                theHolder.btnDelete.setText(R.string.Leave);
-            }
-            if (session.isAMeet()) {
-                theHolder.tvTopic.setText(session.getMeetID());
-                ((CardView) theHolder.itemView).setCardBackgroundColor(getResources().getColor(R.color.yellow_100));
-                theHolder.btnDelete.setVisibility(View.GONE);
-                if (MXChatManager.getInstance().isAMeetingInProgress()) {
-                    theHolder.btnMeet.setVisibility(View.GONE);
-                } else {
-                    theHolder.btnMeet.setVisibility(View.VISIBLE);
-                    theHolder.btnMeet.setText(R.string.Join);
-                }
-            } else {
-                theHolder.btnDelete.setVisibility(View.VISIBLE);
-                theHolder.btnMeet.setVisibility(View.VISIBLE);
-                theHolder.btnMeet.setText(R.string.Meet);
-                ((CardView) theHolder.itemView).setCardBackgroundColor(getResources().getColor(R.color.white));
-            }
+
             if (session.getUnreadFeedCount() > 0) {
                 theHolder.tvBadge.setText(String.valueOf(session.getUnreadFeedCount()));
                 theHolder.tvBadge.setVisibility(View.VISIBLE);

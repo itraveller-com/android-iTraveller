@@ -20,7 +20,7 @@
         mx:border_width="1dip"
         mx:corner_radius="3dip" />
 
-    <TextView
+    <com.rockerhieu.emojicon.EmojiconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_comment_content"
@@ -38,4 +38,4 @@
         android:layout_toRightOf="@+id/iv_sender_avatar"
         android:layout_below="@+id/tv_comment_content" />
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_todo_comment.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_todo_comment.xml -->

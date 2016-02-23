@@ -8,6 +8,7 @@
     <string name="delete_confirm">Are you sure to delete the chat?</string>
     <string name="delete_confirm_title">Delete Chat</string>
     <string name="Meet">Meet</string>
+    <string name="orgId">PTR5Nz9tpb6H8qDFYY2mN75</string>
     <!-- -->
 
 
@@ -146,18 +147,16 @@ We are not a travel agent and we don\'t charge any commissions from you. The ide
         technology and marketing. Connect with us on Facebook or write to us, for anything interesting
         at founders@itraveller.com</string>
 
-    <string name="contact_us_message">Our sales and support teams are available via phone, live chat, Twitter and email.</string>
+    <string name="contact_us_message">Our sales and support teams are available via phone, live chat and email.</string>
 
     <string name="office_address">2984, 12th Main Rd, HAL 2nd Stage,
     Indiranagar,
     Bengaluru,
     Karnataka. 560038.
-    <br/>
-    Mail Us to : inquiry@itraveller.com
-    <br/>
-        Phone : 080 9514 1515
     </string>
 
+    <string name="phone_number">080 9514 1515</string>
+    <string name="email_id">inquiry@itraveller.com</string>
 
     <string name="how_it_works_text">&#8226; iTraveller has done the best possible use of technology in automating
         the supply chain of holiday packages. Our technology backbone is powering hundreds of travel agents
@@ -169,4 +168,6 @@ We are not a travel agent and we don\'t charge any commissions from you. The ide
 
     <string name="gcm_deleted">GCM: server deleted %1$d pending messages!</string>
 
+    <string name="booked_fragment_title_string">Your booked trips</string>
+    <string name="group_btn_text">Start Chatting</string>
 </resources>

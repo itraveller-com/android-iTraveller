@@ -4,20 +4,20 @@
     android:id="@+id/MX_PageDetail_Secondary2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginBottom="50dp"
-    android:layout_marginLeft="@dimen/page_detail_button_margin"
-    android:layout_marginRight="@dimen/page_detail_button_margin">
+    android:layout_alignParentTop="true">
 
-    <com.moxtra.binder.widget.PageDetailColorButton
-        android:id="@+id/page_detail_selected_color"
+    <Button
+        android:id="@+id/page_annotation_done"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/color_button_bg"
-        android:button="@null"
-        android:minHeight="@dimen/page_detail_button_size"
-        android:minWidth="@dimen/page_detail_button_size" />
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/page_detail_secondary1_button_margin"
+        android:background="@drawable/page_annotation_done"
+        android:minWidth="60dp"
+        android:text="@string/Done"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
 </RelativeLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/page_detail_secondary_panel_2.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/page_detail_secondary_panel_2.xml -->

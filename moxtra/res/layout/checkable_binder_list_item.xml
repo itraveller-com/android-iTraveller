@@ -1,69 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.moxtra.binder.widget.CheckableBinderListItem xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mx="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cellContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:minHeight="?android:attr/listPreferredItemHeight">
 
-    <RelativeLayout
-        android:id="@+id/content"
+    <com.moxtra.binder.widget.BinderCoverContainer
+        android:id="@+id/layout_cover"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/layout_cover"
+        android:layout_toLeftOf="@+id/checkbox"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/header_bar_margin"
-        android:orientation="vertical">
+        android:layout_marginRight="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Title"
+        android:textColor="@color/uitableview_text_color_selector" />
 
-        <com.moxtra.binder.widget.RoundedImageView
-            android:id="@+id/image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:scaleType="fitXY"
-            mx:border_color="@android:color/darker_gray"
-            mx:border_width="1dip"
-            mx:corner_radius="3dip" />
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/stateful_member_check"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:clickable="false"
+        android:focusable="false" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toLeftOf="@+id/right"
-            android:layout_toRightOf="@id/image"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="Title"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/uitableview_text_color_selector" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/stateful_member_check"
-                android:clickable="false"
-                android:focusable="false" />
-        </FrameLayout>
-    </RelativeLayout>
-
-</com.moxtra.binder.widget.CheckableBinderListItem>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/checkable_binder_list_item.xml -->
+</com.moxtra.binder.widget.CheckableBinderListItem><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/checkable_binder_list_item.xml -->

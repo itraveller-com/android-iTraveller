@@ -27,27 +27,24 @@ import com.itraveller.model.TransportationModel;
 import com.itraveller.volley.AppController;
 
 public class TransportationAdapter extends RecyclerView.Adapter<TransportationAdapter.ViewHolder> {
-    private Activity activity;
-    private LayoutInflater inflater;
-    private List<TransportationModel> TransportationItems;
-    public static final String MY_PREFS = "ScreenHeight";
-    private  int _screen_height;
-    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    private Activity mActivity;
+    private List<TransportationModel> mTransportationItems;
+    private ImageLoader mImageLoader = AppController.getInstance().getImageLoader();
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
-    int flag_bit =0;
+    private int mFlagBit =0;
 
-    public TransportationAdapter(Activity activity, List<TransportationModel> TransportationItems) {
-        this.activity = activity;
-        this.TransportationItems = TransportationItems;
+    public TransportationAdapter(Activity mActivity, List<TransportationModel> mTransportationItems) {
+        this.mActivity = mActivity;
+        this.mTransportationItems = mTransportationItems;
     }
 
     public int getCount() {
-        return TransportationItems.size();
+        return mTransportationItems.size();
     }
 
     public Object getItem(int location) {
-        return TransportationItems.get(location);
+        return mTransportationItems.get(location);
     }
 
     @Override
@@ -58,32 +55,19 @@ public class TransportationAdapter extends RecyclerView.Adapter<TransportationAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder,  final int position) {
-        /*if (imageLoader == null) {
-            imageLoader = AppController.getInstance().getImageLoader();
-        }*/
 
+        SharedPreferences sharedpreferences = mActivity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
 
-        /*SharedPreferences prefs = activity.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-        _screen_height = prefs.getInt("Screen_Height", 0)-
-                (prefs.getInt("Status_Height", 0) + prefs.getInt("ActionBar_Height", 0));
-        Log.i("iTraveller", "Screen Height: " + _screen_height);
-        int width = prefs.getInt("Screen_Width", 0); //0 is the default value.
-
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,_screen_height/2);
-        holder.frame_lay.setLayoutParams(lp); */
-
-        SharedPreferences sharedpreferences = activity.getSharedPreferences("Itinerary", Context.MODE_PRIVATE);
-
-        final SharedPreferences prefsData = activity.getSharedPreferences("SavedData", activity.MODE_PRIVATE);
+        final SharedPreferences prefsData = mActivity.getSharedPreferences("SavedData", mActivity.MODE_PRIVATE);
 
 
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         // getting data for the row
-        final TransportationModel m = TransportationItems.get(position);
+        final TransportationModel m = mTransportationItems.get(position);
 
         //thumbnail image
         //thumbNail.setImageUrl("http://stage.itraveller.com/backend/images/transfers/" + m.getImage() , imageLoader);
-        holder.thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , imageLoader);
+        holder.thumbNail.setImageUrl(Constants.API_TransportationAdapter_ImageURL+ m.getImage() , mImageLoader);
         holder.thumbNail.setErrorImageResId(R.drawable.no_transportation);
         //Log.i("ImageURL", "http://stage.itraveller.com/backend/images/destinations/" + m.getRegion_Name() + ".jpg");
         //title
@@ -92,7 +76,7 @@ public class TransportationAdapter extends RecyclerView.Adapter<TransportationAd
         holder.textView_Km.setText("\u20B9"+"" + m.getCost());
 
 
-        if(flag_bit==0) {
+        if(mFlagBit==0) {
             if (m.getIsCheck()) {
 
                 editor.putString("MasterID", "" + m.getId());
@@ -104,7 +88,7 @@ public class TransportationAdapter extends RecyclerView.Adapter<TransportationAd
                 holder.radioButton.setChecked(true);
                 mSelectedPosition = position;
                 mSelectedRB = holder.radioButton;
-                flag_bit = 1;
+                mFlagBit = 1;
             }
         }
 
@@ -155,7 +139,7 @@ public class TransportationAdapter extends RecyclerView.Adapter<TransportationAd
 
     @Override
     public int getItemCount() {
-        return TransportationItems.size();
+        return mTransportationItems.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

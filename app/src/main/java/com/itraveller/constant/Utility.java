@@ -44,6 +44,8 @@ public class Utility {
         }
 
 
+
+
     public static void measureScrapChild(RecyclerView.Recycler recycler, int position, int widthSpec,
                                    int heightSpec, int[] measuredDimension) {
         View view = recycler.getViewForPosition(position);

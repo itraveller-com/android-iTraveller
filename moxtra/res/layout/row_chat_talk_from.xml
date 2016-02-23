@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="5dp" >
 
     <TextView
@@ -15,52 +15,69 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/tv_actor_name"
+        style="@style/MXChatFromTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_timer_stamp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:id="@+id/layout_talk_content"
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_marginTop="@dimen/chat_avatar_margin"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <com.rockerhieu.emojicon.EmojiconTextView
+            android:id="@+id/tv_talk_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/chat_message_max_width"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
+            android:background="@drawable/chat_bubble_from"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <com.moxtra.binder.widget.MXAvatarImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/chat_avatar_size"
+        android:layout_height="@dimen/chat_avatar_size"
+        android:layout_below="@id/tv_timer_stamp"
+        android:layout_alignParentLeft="true" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tv_timer_stamp"
-        android:orientation="horizontal" >
+        android:layout_toRightOf="@id/layout_talk_content"
+        android:layout_alignTop="@id/layout_talk_content"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <com.moxtra.binder.widget.MXAvatarImageView
-                android:id="@+id/avatar"
-                android:layout_width="@dimen/chat_avatar_size"
-                android:layout_height="@dimen/chat_avatar_size"
-                android:layout_gravity="top|right" />
-        </FrameLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="15dp"
-            android:paddingTop="10dp"
-            android:background="@drawable/chat_bubble_from">
+            android:visibility="gone"
+            android:src="@drawable/pin_indicator" />
 
-            <TextView
-                android:id="@+id/tv_message_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_black"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/tv_talk_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:gravity="left|center_vertical"
-                android:maxWidth="260dp"
-                android:minWidth="120dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/chat_favorite_button" />
     </LinearLayout>
 
-</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/row_chat_talk_from.xml -->
+</RelativeLayout><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/row_chat_talk_from.xml -->

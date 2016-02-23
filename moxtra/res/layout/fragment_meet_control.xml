@@ -65,9 +65,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/toggle_speaker"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="@dimen/participants_grid_view_paddingTop"
+        android:layout_marginBottom="@dimen/participants_grid_view_paddingTop"
+        android:layout_gravity="left|bottom"
         android:textOff=""
         android:textOn=""/>
 
 </FrameLayout>
-<!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_meet_control.xml -->
+<!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_meet_control.xml -->

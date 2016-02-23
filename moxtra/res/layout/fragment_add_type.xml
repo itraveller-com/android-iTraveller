@@ -16,7 +16,7 @@
             android:background="@null"
             android:drawablePadding="10dp"
             android:drawableTop="@drawable/addnew_binder"
-            android:text="@string/Add_New_Binder"
+            android:text="@string/Start_a_new_conversation"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -28,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/A_Binder_is_a_workspace_for_team_collaboration_and_communication"
+            android:text="@string/A_Binder_will_be_created_keeping_together_the_messages_content_annotations_tasks_and_alerts_for_this_conversation"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
@@ -41,7 +41,8 @@
             android:background="@null"
             android:drawablePadding="10dp"
             android:drawableTop="@drawable/addnew_invite"
-            android:text="@string/Add_Contacts_or_Teams"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Add_contacts_or_teams"
             android:textAllCaps="false" />
 
         <TextView
@@ -57,4 +58,4 @@
 
     </RelativeLayout>
 
-</ScrollView><!-- From: file:/var/lib/jenkins/jobs/Build_2.9.2_Based_Chat_SDK/workspace/android/branches/2.9.2/resources/res/layout/fragment_add_type.xml -->
+</ScrollView><!-- From: file:/var/lib/jenkins/jobs/Build_2.11_ep1_Based_Chat_SDK/workspace/android/branches/2.11_ep1/resources/res/layout/fragment_add_type.xml -->

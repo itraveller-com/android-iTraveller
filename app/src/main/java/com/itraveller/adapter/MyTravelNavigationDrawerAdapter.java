@@ -37,30 +37,30 @@ import java.util.List;
 
 
 public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTravelNavigationDrawerAdapter.MyViewHolder> implements MXAccountManager.MXAccountUnlinkListener{
-    List<NavDrawerItem> data = Collections.emptyList();
-    List<MyViewHolder> holders = new ArrayList<MyViewHolder>();
-    private LayoutInflater inflater;
-    private Context context;
+
+    private List<NavDrawerItem> mData = Collections.emptyList();
+    private List<MyViewHolder> mHolders = new ArrayList<MyViewHolder>();
+    private LayoutInflater mInflater;
+    private Context mContext;
     private static final String TAG = "MyTravelNavigationDrawerAdapter";
 
-
-    public MyTravelNavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-        this.data = data;
+    public MyTravelNavigationDrawerAdapter(Context mContext, List<NavDrawerItem> mData) {
+        this.mContext = mContext;
+        mInflater = LayoutInflater.from(mContext);
+        this.mData = mData;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.nav_drawer_row, parent, false);
+        View view = mInflater.inflate(R.layout.nav_drawer_row, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
-        holders.add(holder);
+        mHolders.add(holder);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final NavDrawerItem current = data.get(position);
+        final NavDrawerItem current = mData.get(position);
 
         holder.imgIcon.setImageResource(current.getIcon());
         if(position==2){
@@ -84,9 +84,9 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
                 title = "iTraveller";
                 switch (position) {
                     case 0:
-                        Intent intent= new Intent(context, MainActivity.class);
-                        context.startActivity(intent);
-                        ((Activity)context).finish();
+                        Intent intent= new Intent(mContext, MainActivity.class);
+                        mContext.startActivity(intent);
+                        ((Activity)mContext).finish();
 
                         break;
 
@@ -95,26 +95,15 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
 
                         fragment = new BookedTripsFragment();
                         title = "How it works";
-                        MyTravelFragmentDrawer.mDrawerLayout.closeDrawers();
+                        MyTravelFragmentDrawer.sDrawerLayout.closeDrawers();
                         break;
+
 
                     case 2:
-
-                    //    Intent i2=new Intent(context,CameraDownloadActivity.class);
-                    //    context.startActivity(i2);
-                        //    fragment = new ProfileFragment();
-                        title = "Contact Us";
-                        MyTravelFragmentDrawer.mDrawerLayout.closeDrawers();
-
-                        break;
-
-
-                    case 3:
 
 
                         title = "Login";
                         if(holder.title.getText().toString().equalsIgnoreCase("Logout")){
-
                             logout();
                         }
                         break;
@@ -124,32 +113,28 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
                 }
 
                 if (fragment != null) {
-                    FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.container_body, fragment);
                     fragmentTransaction.commit();
-                    // set the toolbar title
-                    // getSupportActionBar().setTitle(title);
                 }
-
             }
         });
     }
 
-
     public void delete(int position) {
-        data.remove(position);
+        mData.remove(position);
         notifyItemRemoved(position);
     }
 
     public SharedPreferences SharedPreferenceRetrive() {
-        SharedPreferences preferences = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+        SharedPreferences preferences = mContext.getSharedPreferences("Preferences", mContext.MODE_PRIVATE);
         return preferences;
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mData.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -166,24 +151,25 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
     }
 
     protected void logout() {
-        PreferenceUtil.removeUser(context);
+        PreferenceUtil.removeUser(mContext);
 
         boolean ret = MXAccountManager.getInstance().unlinkAccount(this);
         if (!ret) {
 
             Log.e(TAG, "Can't logout: the unlinkAccount return false.");
-            Toast.makeText(context, "unlink failed.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "unlink failed.", Toast.LENGTH_LONG).show();
         }
         else
         {
-            SharedPreferences prefs = context.getSharedPreferences("Preferences", context.MODE_PRIVATE);
+            PreferenceUtil.removeUser(mContext);
+            SharedPreferences prefs = mContext.getSharedPreferences("Preferences", mContext.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
             editor.commit();
 
-            Intent i=new Intent(context,MainActivity.class);
-            context.startActivity(i);
-            ((Activity)context).finish();
+            Intent i=new Intent(mContext,MainActivity.class);
+            mContext.startActivity(i);
+            ((Activity)mContext).finish();
         }
     }
     @Override
@@ -192,7 +178,7 @@ public class MyTravelNavigationDrawerAdapter extends RecyclerView.Adapter<MyTrav
         Log.i(TAG, "Unlinked moxtra account: " + mxUserInfo);
         if (mxUserInfo == null) {
             Log.e(TAG, "Can't logout: the mxUserInfo is null.");
-            Toast.makeText(context, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "unlink failed as mxUserInfo is null.", Toast.LENGTH_LONG).show();
         }
     }
 
